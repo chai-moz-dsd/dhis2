@@ -27,7 +27,7 @@
       'rules': rules
     });
 
-    checkValueIsExist("openId", "validateUser.action", { id: $userCredentials.id });
+    //checkValueIsExist("openId", "validateUser.action", { id: $userCredentials.id });
 
     ouwtSelected = selection.getSelected();
     selection.clearSelected(); // Sync ouwt from server
@@ -94,7 +94,7 @@
 
     <tr>
       <td><label for="username">$i18n.getString( "username" )</label></td>
-      <td colspan="3"><input type="text" id="username" name="username" value="$encoder.htmlEncode( $userCredentials.username )" disabled="disabled" autocomplete="off"/></td>
+      <td colspan="3"><input type="email" id="username" name="username" value="$encoder.htmlEncode( $userCredentials.username )" disabled="disabled" autocomplete="off"/></td>
     </tr>
 
     <tr class="account">
@@ -122,25 +122,26 @@
       <td colspan="3"><input type="text" id="firstName" name="firstName" value="$encoder.htmlEncode( $userCredentials.userInfo.firstName )"></td>
     </tr>
 
-    <tr>
-      <td><label for="email">$i18n.getString( "email" )</label></td>
-      <td colspan="3"><input type="text" id="email" name="email" value="$!encoder.htmlEncode( $userCredentials.userInfo.email )"></td>
-    </tr>
+<!--	<tr class="account">
+		<td><label for="email">$i18n.getString( "email" )</label></td>
+		<td colspan="3"><input type="text" id="email" name="email"></td>
+	</tr>-->
 
-    <tr>
+<!--    <tr>
       <td><label for="openId">$i18n.getString( "openid" )</label></td>
       <td colspan="3"><input type="text" id="openId" name="openId" value="$!encoder.htmlEncode( $userCredentials.openId )"></td>
-    </tr>
+    </tr>-->
 
-    <tr>
+<!--    <tr>
       <td><label for="ldapId">$i18n.getString( "ldap_id" )</label></td>
       <td colspan="3"><input type="text" id="ldapId" name="ldapId" value="$!encoder.htmlEncode( $userCredentials.ldapId )"></td>
-    </tr>
+    </tr>-->
 
     <tr>
-      <td><label for="phoneNumber">$i18n.getString( "phone_number" )</label></td>
+      <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
       <td colspan="3"><input type="text" id="phoneNumber" name="phoneNumber" value="$!encoder.htmlEncode( $userCredentials.userInfo.phoneNumber )"></td>
     </tr>
+
 
     <tr>
       <td><label>$i18n.getString( "language" )</label></td>
@@ -167,10 +168,6 @@
 
   </table>
 
-  #tblDynamicAttributes( {
-    "attributes": $attributes,
-    "attributeValues": $attributeValues
-  })
 
   #jqSelected({
     "prefix": "ur",

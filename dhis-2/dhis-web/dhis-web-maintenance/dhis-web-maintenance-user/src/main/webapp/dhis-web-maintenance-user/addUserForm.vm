@@ -26,9 +26,29 @@
       'rules': getValidationRules("user")
     });
 
+
+$.ajax({
+url: "../api/24/userRoles",
+type: "GET",
+dataType:'json',
+success:function(data){
+        $.each(data.userRoles, function(){
+                if (this.displayName.toString() == "data_viewer")
+                {
+                  document.getElementById("option_id").value = this.id.toString();
+                }
+        });
+
+},
+error:function(er){
+console.log(er);}
+});
+
+
+
     checkValueIsExist("username", "validateUser.action");
-    checkValueIsExist("openId", "validateUser.action");
-    checkValueIsExist("ldapId", "validateUser.action");
+//    checkValueIsExist("openId", "validateUser.action");
+//    checkValueIsExist("ldapId", "validateUser.action");
     checkValueIsExist("inviteUsername", "validateUser.action");
 
     ouwtSelected = selection.getSelected();
@@ -61,6 +81,7 @@
       search: $('#dcAvailableSearch'),
       iterator: 'dimensions'
     });
+
   });
 </script>
 
@@ -107,13 +128,20 @@ div#orgUnitTree
 
     <tr class="account">
 		<td><label for="username">$i18n.getString( "username" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-		<td colspan="3"><input type="text" id="username" name="username" autocomplete="off"></td>
+		<td colspan="3"><input type="email" id="username" name="username" autocomplete="off"></td>
 	</tr>
 
-    <tr class="account">
+<!--	<tr class="account">
+		<td><label for="email">$i18n.getString( "email" )</label></td>
+		<td colspan="3"><input type="text" id="email" name="email"></td>
+	</tr>-->
+
+
+<!--
+<tr class="account">
 		<td><label for="externalAuth">$i18n.getString( "external_authentication_only" ) (OpenID or LDAP)</label></td>
 		<td colspan="3"><input type="checkbox" id="externalAuth" name="externalAuth" value="true" onchange="javascript:externalAuthChanged()"></td>
-	</tr>
+	</tr>-->
 
     <tr class="account">
 		<td><label for="rawPassword">$i18n.getString( "password" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
@@ -135,26 +163,35 @@ div#orgUnitTree
 		<td colspan="3"><input type="text" id="firstName" name="firstName"></td>		
 	</tr>
 
-	<tr class="account">
+<!--	<tr class="account">
 		<td><label for="email">$i18n.getString( "email" )</label></td>
 		<td colspan="3"><input type="text" id="email" name="email"></td>
-	</tr>
+	</tr>-->
 
-	<tr class="account">
+<!--	<tr class="account">
 		<td><label for="email">$i18n.getString( "openid" )</label></td>
 		<td colspan="3"><input type="text" id="openId" name="openId"></td>
-	</tr>
+	</tr>-->
 
-	<tr class="account">
+<!--	<tr class="account">
 		<td><label for="email">$i18n.getString( "ldap_id" )</label></td>
 		<td colspan="3"><input type="text" id="ldapId" name="ldapId"></td>
-	</tr>
+	</tr>-->
 
     <tr class="account">
-        <td><label for="phoneNumber">$i18n.getString( "phone_number" )</label></td>
+        <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
         <td colspan="3"><input type="text" id="phoneNumber" name="phoneNumber"></td>
     </tr>
-    
+
+    #foreach( $attribute in $attributes )
+    <tr class="account">
+        <td><label for="attribute_$attribute.id">$i18n.getString("$attribute.displayName")</label></td>
+        <td colspan="3"><input type="$attribute.valueType" id="$attribute.id" name="attribute_$attribute.id"></td>
+    </tr>
+    #end
+
+    </tr>
+
     <tr>
         <td><label>$i18n.getString( "language" )</label></td>
         <td>
@@ -180,37 +217,33 @@ div#orgUnitTree
     
 </table>
 
-#tblDynamicAttributes({
-    "attributes": $attributes
-})
 
-#jqSelected({
-    "prefix": "ur",
-    "required": true,
-    "i18n_available": "available_roles",
-    "i18n_selected": "selected_roles"
-})
 
-<div style="padding: 5px 0" class="tipText">$i18n.getString( "selecting_org_unit_provides_access_to_sub_hierarchy" )</div>
+
+<select id="urSelected" style="display:none" name="urSelected" multiple="multiple" class="valid">
+  <option id="option_id" >data_viewer</option>
+</select>
+
+<div style="padding: 5px 0" class="tipText">$i18n.getString( "selecting_location_provides_access_to_sub_hierarchy" )</div>
 
 <table style="margin-bottom: 20px;">
 	<tr>
-		<th>$i18n.getString( "data_capture_maintenance_org_units" )</th>
-		<th></th>
-		<th>$i18n.getString( "data_output_analysis_org_units" )</th>
+		<th>$i18n.getString( "data_capture_maintenance_locations" )</th>
+<!--		<th></th>
+		<th>$i18n.getString( "data_output_analysis_org_units" )</th>-->
 	</tr>
 	<tr>
 		<td>			
             #parse( "/dhis-web-commons/ouwt/orgunittree.vm" )
 		</td>
-		<td style="width: 26px"></td>
+		<!--<td style="width: 26px"></td>
 		<td>
             #parse( "/dhis-web-commons/oust/selectionTree.vm" )
-		</td>
+		</td>-->
 	</tr>
 </table>
 
-<div id="showMoreOptions" style="margin-bottom: 20px;"><a href="javascript:showUserOptions()">$i18n.getString( "show_more_options" )</a></div>
+<!-- <div id="showMoreOptions" style="margin-bottom: 20px;"><a href="javascript:showUserOptions()">$i18n.getString( "show_more_options" )</a></div>
 
 <div id="moreOptions" style="display:none">
 
@@ -228,7 +261,7 @@ div#orgUnitTree
 
 <div id="showFewerOptions" style="margin-bottom: 20px;"><a href="javascript:showUserOptions()">$i18n.getString( "show_fewer_options" )</a></div>
 
-</div>
+</div>-->
 
 <p>
 	<input type="submit" value="$i18n.getString( 'add' )" style="width:10em" />

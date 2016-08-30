@@ -108,12 +108,12 @@
 				</div>
 				<p><label>$i18n.getString( "username" ):</label><br><span id="usernameField"></span></p>
 				<p><label>$i18n.getString( "fullname" ):</label><br><span id="fullNameField"></span></p>
-				<p><label>$i18n.getString( "email" ):</label><br><span id="emailField"></span></p>
-                <p><label>$i18n.getString( "phone_number" ):</label><br><span id="phoneNumberField"></span></p>
+<!--				<p><label>$i18n.getString( "email" ):</label><br><span id="emailField"></span></p>-->
+                <p><label>$i18n.getString( "Telephone" ):</label><br><span id="phoneNumberField"></span></p>
 				<p><label>$i18n.getString( "last_login"):</label><br><span id="lastLoginField"></span></p>
 				<p><label>$i18n.getString( "created" ):</label><br><span id="createdField"></span></p>
                 <p><label>$i18n.getString( "disabled" ):</label><br><span id="disabledField"></span></p>
-				<p><label>$i18n.getString( "organisation_units" ):</label><br/><span id="assignedOrgunitField"></span></p>
+				<p><label>$i18n.getString( "locations" ):</label><br/><span id="assignedOrgunitField"></span></p>
 				<p><label>$i18n.getString( "roles" ):</label><br/><span id="roleField"></span></p>
 				<p><label>$i18n.getString( "id" ):</label><br/><span id="idField"></span></p>
 			</div>
