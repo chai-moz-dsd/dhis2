@@ -1,4 +1,4 @@
-<script type="text/javascript">
+addUser<script type="text/javascript">
   var ouwtSelected = [];
   var i18n_data_capture_org_unit_required = '$encoder.jsEscape( $i18n.getString( "data_capture_organisation_unit_required_for_user" ) , "'" )';
 
@@ -224,11 +224,11 @@ div#orgUnitTree
   <option id="option_id" >data_viewer</option>
 </select>
 
-<div style="padding: 5px 0" class="tipText">$i18n.getString( "selecting_location_provides_access_to_sub_hierarchy" )</div>
+<!--<div style="padding: 5px 0" class="tipText">$i18n.getString( "selecting_location_provides_access_to_sub_hierarchy" )</div>-->
 
 <table style="margin-bottom: 20px;">
 	<tr>
-		<th>$i18n.getString( "data_capture_maintenance_locations" )</th>
+		<th>$i18n.getString( "Locations" )</th>
 <!--		<th></th>
 		<th>$i18n.getString( "data_output_analysis_org_units" )</th>-->
 	</tr>
