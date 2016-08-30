@@ -131,18 +131,6 @@ div#orgUnitTree
 		<td colspan="3"><input type="email" id="username" name="username" autocomplete="off"></td>
 	</tr>
 
-<!--	<tr class="account">
-		<td><label for="email">$i18n.getString( "email" )</label></td>
-		<td colspan="3"><input type="text" id="email" name="email"></td>
-	</tr>-->
-
-
-<!--
-<tr class="account">
-		<td><label for="externalAuth">$i18n.getString( "external_authentication_only" ) (OpenID or LDAP)</label></td>
-		<td colspan="3"><input type="checkbox" id="externalAuth" name="externalAuth" value="true" onchange="javascript:externalAuthChanged()"></td>
-	</tr>-->
-
     <tr class="account">
 		<td><label for="rawPassword">$i18n.getString( "password" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
 		<td colspan="3"><input type="password" id="rawPassword" name="rawPassword" autocomplete="off"></td>			
@@ -166,16 +154,6 @@ div#orgUnitTree
 <!--	<tr class="account">
 		<td><label for="email">$i18n.getString( "email" )</label></td>
 		<td colspan="3"><input type="text" id="email" name="email"></td>
-	</tr>-->
-
-<!--	<tr class="account">
-		<td><label for="email">$i18n.getString( "openid" )</label></td>
-		<td colspan="3"><input type="text" id="openId" name="openId"></td>
-	</tr>-->
-
-<!--	<tr class="account">
-		<td><label for="email">$i18n.getString( "ldap_id" )</label></td>
-		<td colspan="3"><input type="text" id="ldapId" name="ldapId"></td>
 	</tr>-->
 
     <tr class="account">
@@ -203,17 +181,6 @@ div#orgUnitTree
         </td>
     </tr>
     
-<!--    <tr>
-        <td><label>$i18n.getString( "db_language" )</label></td>
-        <td>
-            <select id="localeDb" name="localeDb">
-            <option value="">[$i18n.getString( "use_db_locale_no_translation" )]</option>
-            #foreach( $locale in $availableLocalesDb )
-                <option value="$locale.toString()">$locale.getDisplayName()</option>
-            #end
-            </select>
-        </td>
-    </tr>-->
     
 </table>
 
@@ -224,44 +191,17 @@ div#orgUnitTree
   <option id="option_id" >data_viewer</option>
 </select>
 
-<!--<div style="padding: 5px 0" class="tipText">$i18n.getString( "selecting_location_provides_access_to_sub_hierarchy" )</div>-->
 
 <table style="margin-bottom: 20px;">
 	<tr>
 		<th>$i18n.getString( "Locations" )</th>
-<!--		<th></th>
-		<th>$i18n.getString( "data_output_analysis_org_units" )</th>-->
 	</tr>
 	<tr>
 		<td>			
             #parse( "/dhis-web-commons/ouwt/orgunittree.vm" )
 		</td>
-		<!--<td style="width: 26px"></td>
-		<td>
-            #parse( "/dhis-web-commons/oust/selectionTree.vm" )
-		</td>-->
 	</tr>
 </table>
-
-<!-- <div id="showMoreOptions" style="margin-bottom: 20px;"><a href="javascript:showUserOptions()">$i18n.getString( "show_more_options" )</a></div>
-
-<div id="moreOptions" style="display:none">
-
-#jqSelected({
-    "prefix": "ug",
-    "i18n_available": "available_user_groups",
-    "i18n_selected": "selected_user_groups"
-})
-
-#jqSelected({
-    "prefix": "dc",
-    "i18n_available": "available_dimension_restrictions_for_data_analytics",
-    "i18n_selected": "selected_dimension_restrictions_for_data_analytics"
-})
-
-<div id="showFewerOptions" style="margin-bottom: 20px;"><a href="javascript:showUserOptions()">$i18n.getString( "show_fewer_options" )</a></div>
-
-</div>-->
 
 <p>
 	<input type="submit" value="$i18n.getString( 'add' )" style="width:10em" />
