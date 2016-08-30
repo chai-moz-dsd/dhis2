@@ -1,4 +1,4 @@
-addUser<script type="text/javascript">
+<script type="text/javascript">
   var ouwtSelected = [];
   var i18n_data_capture_org_unit_required = '$encoder.jsEscape( $i18n.getString( "data_capture_organisation_unit_required_for_user" ) , "'" )';
 
