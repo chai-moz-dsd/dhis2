@@ -203,7 +203,7 @@ div#orgUnitTree
         </td>
     </tr>
     
-    <tr>
+<!--    <tr>
         <td><label>$i18n.getString( "db_language" )</label></td>
         <td>
             <select id="localeDb" name="localeDb">
@@ -213,7 +213,7 @@ div#orgUnitTree
             #end
             </select>
         </td>
-    </tr>
+    </tr>-->
     
 </table>
 
