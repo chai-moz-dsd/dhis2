@@ -151,10 +151,17 @@ div#orgUnitTree
 		<td colspan="3"><input type="text" id="firstName" name="firstName"></td>		
 	</tr>
 
-<!--	<tr class="account">
-		<td><label for="email">$i18n.getString( "email" )</label></td>
-		<td colspan="3"><input type="text" id="email" name="email"></td>
-	</tr>-->
+	<tr class="account">
+		<td colspan="3"><input style="display:none" type="text" id="email" name="email"></td>
+	</tr>
+
+  <script type="text/javascript">
+     $("#username").change(function(){
+         var username = $("#username").val();
+         $("#email").val(username);
+     });
+  </script>
+
 
     #foreach( $attribute in $attributes )
         #if ($attribute.displayName == "Work Phone")
