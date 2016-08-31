@@ -156,19 +156,47 @@ div#orgUnitTree
 		<td colspan="3"><input type="text" id="email" name="email"></td>
 	</tr>-->
 
+    #foreach( $attribute in $attributes )
+        #if ($attribute.displayName == "Work Phone")
+            #set($workPhone = $attribute)
+        #elseif ($attribute.displayName == "Organization Type")
+            #set($orgType = $attribute)
+        #elseif ($attribute.displayName == "Organization Name")
+            #set($orgName = $attribute)
+        #elseif ($attribute.displayName == "Notes")
+            #set($notes = $attribute)
+        #else
+        #end
+    #end
+
+    <tr class="account">
+        <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
+        <td colspan="3"><input type="$workPhone.valueType" id="$workPhone.id" name="attribute_$workPhone.id"></td>
+    </tr>
+
+
     <tr class="account">
         <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
         <td colspan="3"><input type="text" id="phoneNumber" name="phoneNumber"></td>
     </tr>
 
-    #foreach( $attribute in $attributes )
-    <tr class="account">
-        <td><label for="attribute_$attribute.id">$i18n.getString("$attribute.displayName")</label></td>
-        <td colspan="3"><input type="$attribute.valueType" id="$attribute.id" name="attribute_$attribute.id"></td>
+    <tr>
+        <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
+        <td>
+            <select id="$orgType.id" name="attribute_$orgType.id"">
+                <option value="Governmental Organization" selected="selected">Governmental Organization</option>
+                <option value="Non-Governmental Organization" selected="selected">Non-Governmental Organization</option>
+            </select>
+        </td>
     </tr>
-    #end
 
+
+    <tr class="account">
+        <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
+        <td colspan="3"><input type="$orgName.valueType" id="$orgName.id" name="attribute_$orgName.id"></td>
     </tr>
+
+
 
     <tr>
         <td><label>$i18n.getString( "language" )</label></td>
@@ -185,8 +213,6 @@ div#orgUnitTree
 </table>
 
 
-
-
 <select id="urSelected" style="display:none" name="urSelected" multiple="multiple" class="valid">
   <option id="option_id" >data_viewer</option>
 </select>
@@ -201,7 +227,15 @@ div#orgUnitTree
             #parse( "/dhis-web-commons/ouwt/orgunittree.vm" )
 		</td>
 	</tr>
+
+    <tr class="account">
+        <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
+        <td colspan="3"><input type="$notes.valueType" id="$notes.id" name="attribute_$notes.id"></td>
+    </tr>
+
 </table>
+
+
 
 <p>
 	<input type="submit" value="$i18n.getString( 'add' )" style="width:10em" />
