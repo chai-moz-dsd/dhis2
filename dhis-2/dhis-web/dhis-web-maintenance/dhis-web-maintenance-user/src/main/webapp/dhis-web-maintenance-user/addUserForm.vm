@@ -196,7 +196,10 @@ div#orgUnitTree
         <td colspan="3"><input type="$orgName.valueType" id="$orgName.id" name="attribute_$orgName.id"></td>
     </tr>
 
-
+    <tr class="account">
+        <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
+        <td colspan="3"><input type="$notes.valueType" id="$notes.id" name="attribute_$notes.id"></td>
+    </tr>
 
     <tr>
         <td><label>$i18n.getString( "language" )</label></td>
@@ -228,10 +231,6 @@ div#orgUnitTree
 		</td>
 	</tr>
 
-    <tr class="account">
-        <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
-        <td colspan="3"><input type="$notes.valueType" id="$notes.id" name="attribute_$notes.id"></td>
-    </tr>
 
 </table>
 
