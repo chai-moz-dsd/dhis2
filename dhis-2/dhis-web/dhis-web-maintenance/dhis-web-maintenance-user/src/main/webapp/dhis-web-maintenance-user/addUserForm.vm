@@ -4,7 +4,7 @@
 
   jQuery(function() {
     validation2('addUserForm', function( form ) {
-      jQuery("#urSelected").children().attr("selected", "selected");
+//      jQuery("#urSelected").children().attr("selected", "selected");
       jQuery("#ugSelected").children().attr("selected", "selected");
       jQuery("#dcSelected").children().attr("selected", "selected");
 
@@ -33,10 +33,17 @@ type: "GET",
 dataType:'json',
 success:function(data){
         $.each(data.userRoles, function(){
+                var id = "";
                 if (this.displayName.toString() == "data_viewer")
                 {
-                  document.getElementById("option_id").value = this.id.toString();
+                  id = "data_viewer_id";
                 }
+                else
+                {
+                  id = "superuser_id";
+                }
+                document.getElementById(id).value = this.id.toString();
+
         });
 
 },
@@ -83,6 +90,9 @@ console.log(er);}
     });
 
   });
+
+
+
 </script>
 
 <style type="text/css">
@@ -218,15 +228,19 @@ div#orgUnitTree
             </select>
         </td>
     </tr>
-    
+
+    <tr>
+        <td><label for="urSelected">$i18n.getString("User Role")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
+        <td>
+            <select id="urSelected" name="urSelected" class="valid">
+                <option id="data_viewer_id" selected="selected">data_viewer</option>
+                <option id="superuser_id">supseruser</option>
+            </select>
+        </td>
+    </tr>
+
     
 </table>
-
-
-<select id="urSelected" style="display:none" name="urSelected" multiple="multiple" class="valid">
-  <option id="option_id" >data_viewer</option>
-</select>
-
 
 <table style="margin-bottom: 20px;">
 	<tr>
