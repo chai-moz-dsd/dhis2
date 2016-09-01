@@ -4,7 +4,6 @@
 
   jQuery(function() {
     validation2('addUserForm', function( form ) {
-//      jQuery("#urSelected").children().attr("selected", "selected");
       jQuery("#ugSelected").children().attr("selected", "selected");
       jQuery("#dcSelected").children().attr("selected", "selected");
 
@@ -20,11 +19,12 @@
       }
     }, {
       'beforeValidateHandler': function() {
-        listValidator('urValidator', 'urSelected');
-        #tblDynamicAttributesJavascript()
+//        listValidator('urValidator', 'urSelected');
+//        #tblDynamicAttributesJavascript()
       },
       'rules': getValidationRules("user")
     });
+
 
 
 $.ajax({
