@@ -19,8 +19,8 @@
       }
     }, {
       'beforeValidateHandler': function() {
-//        listValidator('urValidator', 'urSelected');
-//        #tblDynamicAttributesJavascript()
+        //listValidator('urValidator', 'urSelected');
+        #tblDynamicAttributesJavascript()
       },
       'rules': getValidationRules("user")
     });
@@ -188,7 +188,7 @@ div#orgUnitTree
 
     <tr class="account">
         <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
-        <td colspan="3"><input type="$workPhone.valueType" id="$workPhone.id" name="attribute_$workPhone.id"></td>
+        <td colspan="3"><input type="$workPhone.valueType" id="attribute_$workPhone.id" name="attribute_$workPhone.id"></td>
     </tr>
 
 
@@ -200,7 +200,7 @@ div#orgUnitTree
     <tr>
         <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
         <td>
-            <select id="$orgType.id" name="attribute_$orgType.id"">
+            <select id="attribute_$orgType.id" name="attribute_$orgType.id"">
                 <option value="Governmental Organization" selected="selected">Governmental Organization</option>
                 <option value="Non-Governmental Organization" selected="selected">Non-Governmental Organization</option>
             </select>
@@ -210,12 +210,12 @@ div#orgUnitTree
 
     <tr class="account">
         <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-        <td colspan="3"><input type="$orgName.valueType" id="$orgName.id" name="attribute_$orgName.id"></td>
+        <td colspan="3"><input type="$orgName.valueType" id="attribute_$orgName.id" name="attribute_$orgName.id"></td>
     </tr>
 
     <tr class="account">
         <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
-        <td colspan="3"><input type="$notes.valueType" id="$notes.id" name="attribute_$notes.id"></td>
+        <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id"></td>
     </tr>
 
     <tr>
@@ -254,6 +254,9 @@ div#orgUnitTree
 
 
 </table>
+
+<select id="jsonAttributeValues" name="jsonAttributeValues" multiple="multiple" style="display:none">
+</select>
 
 
 
