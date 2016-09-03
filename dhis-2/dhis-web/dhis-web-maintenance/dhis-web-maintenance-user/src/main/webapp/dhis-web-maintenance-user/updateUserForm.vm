@@ -124,11 +124,6 @@ console.log(er);}
       <td colspan="3"><input type="email" id="username" name="username" value="$encoder.htmlEncode( $userCredentials.username )" disabled="disabled" autocomplete="off"/></td>
     </tr>
 
-    <tr class="account">
-		<td><label for="externalAuth">$i18n.getString( "external_authentication_only" ) (OpenID or LDAP)</label></td>
-		<td colspan="3"><input type="checkbox" id="externalAuth" name="externalAuth" value="true" onchange="javascript:externalAuthChanged()"#if( $!userCredentials.externalAuth ) checked="checked"#end></td>
-	</tr>
-
     <tr>
       <td><label for="rawPassword">$i18n.getString( "password" )</label></td>
       <td colspan="3"><input type="password" id="rawPassword" name="rawPassword" autocomplete="off"></td>
@@ -165,10 +160,10 @@ console.log(er);}
         #if ($attribute.displayName == "Work Phone")
             #set($workPhone = $attribute)
             #set($workPhoneValue = $attributeValues.get($attribute.id))
-        #elseif ($attribute.displayName == "Organization Type")
+        #elseif ($attribute.displayName == "Organisation Type")
             #set($orgType = $attribute)
             #set($orgTypeValue = $attributeValues.get($attribute.id))
-        #elseif ($attribute.displayName == "Organization Name")
+        #elseif ($attribute.displayName == "Organisation Name")
             #set($orgName = $attribute)
             #set($orgNameValue = $attributeValues.get($attribute.id))
         #elseif ($attribute.displayName == "Notes")
@@ -194,8 +189,8 @@ console.log(er);}
         <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
         <td>
             <select id="attribute_$orgType.id" name="attribute_$orgType.id"">
-                <option value="Governmental Organization" selected="selected">Governmental Organization</option>
-                <option value="Non-Governmental Organization" selected="selected">Non-Governmental Organization</option>
+                <option value="Governmental Organisation" selected="selected">Governmental Organisation</option>
+                <option value="Non-Governmental Organisation" selected="selected">Non-Governmental Organisation</option>
             </select>
         </td>
     </tr>
