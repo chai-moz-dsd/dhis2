@@ -150,7 +150,7 @@ console.log(er);}
     </tr>
 
 	<tr class="account">
-		<td colspan="3"><input style="display:none" type="text" id="email" name="email"></td>
+		<td colspan="3"><input style="display:none" type="text" id="email" name="email" value="$encoder.htmlEncode( $userCredentials.username )"></td>
 	</tr>
 
   <script type="text/javascript">
