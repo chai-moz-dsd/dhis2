@@ -176,9 +176,9 @@ div#orgUnitTree
     #foreach( $attribute in $attributes )
         #if ($attribute.displayName == "Work Phone")
             #set($workPhone = $attribute)
-        #elseif ($attribute.displayName == "Organization Type")
+        #elseif ($attribute.displayName == "Organisation Type")
             #set($orgType = $attribute)
-        #elseif ($attribute.displayName == "Organization Name")
+        #elseif ($attribute.displayName == "Organisation Name")
             #set($orgName = $attribute)
         #elseif ($attribute.displayName == "Notes")
             #set($notes = $attribute)
@@ -201,8 +201,8 @@ div#orgUnitTree
         <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
         <td>
             <select id="attribute_$orgType.id" name="attribute_$orgType.id"">
-                <option value="Governmental Organization" selected="selected">Governmental Organization</option>
-                <option value="Non-Governmental Organization" selected="selected">Non-Governmental Organization</option>
+                <option value="Governmental Organisation" selected="selected">Governmental Organisation</option>
+                <option value="Non-Governmental Organisation" selected="selected">Non-Governmental Organisation</option>
             </select>
         </td>
     </tr>
