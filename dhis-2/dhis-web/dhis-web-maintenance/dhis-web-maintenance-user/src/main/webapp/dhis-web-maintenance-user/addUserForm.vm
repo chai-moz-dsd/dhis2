@@ -111,7 +111,7 @@ div#orgUnitTree
     <col style="width: 120px"/>
 
     #if ( $allowInvite )
-    <tr>
+<!--    <tr>
         <td style="width:140px"><label>$i18n.getString( "action" )</label></td>
         <td>
             <select id="accountAction" name="accountAction" onchange="changeAccountAction()">
@@ -119,14 +119,14 @@ div#orgUnitTree
                 <option value="invite">$i18n.getString( "email_invitation_to_create_account" )</option>
             </select>
         </td>
-    </tr>
+    </tr>-->
     #end
 
 	<tr>
 		<th colspan="4">$i18n.getString( "details" )</th>
 	</tr>
 
-    <tr class="invite" style="display:none">
+<!--    <tr class="invite" style="display:none">
         <td style="width:140px"><label for="inviteEmail">$i18n.getString( "email" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
         <td colspan="3"><input type="text" id="inviteEmail" name="inviteEmail" value="validEmail@domain.com" autocomplete="off"></td>
     </tr>
@@ -134,7 +134,7 @@ div#orgUnitTree
     <tr class="invite" style="display:none">
         <td><label for="inviteUsername">$i18n.getString( "username" )</label></td>
         <td colspan="3"><input type="text" id="inviteUsername" name="inviteUsername" autocomplete="off"></td>
-    </tr>
+    </tr>-->
 
     <tr class="account">
 		<td><label for="username">$i18n.getString( "username" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
