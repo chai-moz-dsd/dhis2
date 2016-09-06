@@ -56,7 +56,7 @@ console.log(er);}
     checkValueIsExist("username", "validateUser.action");
 //    checkValueIsExist("openId", "validateUser.action");
 //    checkValueIsExist("ldapId", "validateUser.action");
-    checkValueIsExist("inviteUsername", "validateUser.action");
+//    checkValueIsExist("inviteUsername", "validateUser.action");
 
     ouwtSelected = selection.getSelected();
     selection.setOfflineLevel( 1 );
@@ -165,14 +165,6 @@ div#orgUnitTree
 		<td colspan="3"><input style="display:none" type="text" id="email" name="email"></td>
 	</tr>
 
-  <script type="text/javascript">
-     $("#username").change(function(){
-         var username = $("#username").val();
-         $("#email").val(username);
-     });
-  </script>
-
-
     #foreach( $attribute in $attributes )
         #if ($attribute.displayName == "Work Phone")
             #set($workPhone = $attribute)
@@ -186,15 +178,21 @@ div#orgUnitTree
         #end
     #end
 
+
+
+
+
     <tr class="account">
         <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
-        <td colspan="3"><input type="$workPhone.valueType" id="attribute_$workPhone.id" name="attribute_$workPhone.id"></td>
+        <td colspan="3"><input class="workPhone" type="$workPhone.valueType" id="attribute_$workPhone.id" name="attribute_$workPhone.id"></td>
+        <span for="attribute_$workPhone.id" class="workPhoneVar error"></span>
     </tr>
 
 
     <tr class="account">
         <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
         <td colspan="3"><input type="text" id="phoneNumber" name="phoneNumber"></td>
+        <span for="phoneNumber" id="phoneNumberVar" class="error"></span>
     </tr>
 
     <tr>
@@ -266,3 +264,31 @@ div#orgUnitTree
 </p>
 
 </form>
+
+  <script type="text/javascript">
+     $("#username").change(function(){
+         var username = $("#username").val();
+         $("#email").val(username);
+     });
+
+      var validate_phone_number = function (elelment_type) {
+        $(elelment_type).keyup(function(){
+          var tele = $(elelment_type).val();
+
+          var is_match = tele.match(/^([+|\d])+([\s|\d])+([\d])$/);
+          if (!is_match)
+          {
+
+            $("span"+ elelment_type +"Var").text("Please enter a valid telephone number.");
+          }
+          else
+          {
+            $("span"+ elelment_type +"Var").text("");
+          }
+        });
+
+     };
+     validate_phone_number("#phoneNumber");
+     validate_phone_number(".workPhone");
+      
+  </script>
