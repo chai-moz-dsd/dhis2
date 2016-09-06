@@ -185,14 +185,12 @@ div#orgUnitTree
     <tr class="account">
         <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
         <td colspan="3"><input class="workPhone" type="$workPhone.valueType" id="attribute_$workPhone.id" name="attribute_$workPhone.id"></td>
-        <span for="attribute_$workPhone.id" class="workPhoneVar error"></span>
     </tr>
 
 
     <tr class="account">
         <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
         <td colspan="3"><input type="text" id="phoneNumber" name="phoneNumber"></td>
-        <span for="phoneNumber" id="phoneNumberVar" class="error"></span>
     </tr>
 
     <tr>
