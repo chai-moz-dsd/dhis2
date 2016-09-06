@@ -140,7 +140,12 @@ public class DefaultUserService
     {
         AuditLogUtil.infoWrapper( log, currentUserService.getCurrentUsername(), user, AuditLogUtil.ACTION_DELETE );
 
-        userCredentialsStore.delete( user.getUserCredentials() );
+        try {
+            userCredentialsStore.delete( user.getUserCredentials() );
+        } catch (java.lang.Exception exception) {
+//            do nothing, cut down its priority, which is the dhis2 issue
+            exception.printStackTrace();
+        }
 
         userStore.delete( user );
     }
