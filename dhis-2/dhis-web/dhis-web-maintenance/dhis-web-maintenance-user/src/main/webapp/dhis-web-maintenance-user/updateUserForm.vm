@@ -255,13 +255,17 @@ console.log(er);}
      });
 
       var validate_phone_number = function (elelment_type) {
-        $(elelment_type).one('keyup', function(){
+        $(elelment_type).change(function(){
           var tele = $(elelment_type).val();
 
           var is_match = tele.match(/^([+|\d])+([\s|\d])+([\d])$/);
           if (!is_match)
           {
             $(elelment_type).after('<br /><span for="' + elelment_type + '" generated="true" class="error">Please enter a valid telephone number.</span>' );
+          }
+          else
+          {
+            $('span.error').remove();
           }
         });
 
