@@ -101,6 +101,20 @@ div#orgUnitTree
   width: 495px;
   border: 1px solid #ccc;
 }
+span.displayNone
+{
+  display: none;
+}
+
+input[type=tel] {
+  width: 26em;
+  border: 1px solid #aaa;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  border-radius: 3px;
+  padding: 6px 5px;
+  margin: 2px 0;
+  color: #222;
+}
 </style>
 
 <h3>$i18n.getString( "create_new_user" )</h3>
@@ -184,13 +198,23 @@ div#orgUnitTree
 
     <tr class="account">
         <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
-        <td colspan="3"><input class="workPhone" type="$workPhone.valueType" id="attribute_$workPhone.id" name="attribute_$workPhone.id"></td>
+        <td colspan="3"><input type="tel" id="workPhone" name="attribute_$workPhone.id"></td>
     </tr>
-
+    <tr>
+    <td></td>
+    <td>
+        <span for="workPhone" class="errorworkPhone displayNone error">Please enter a valid telephone number.</span></td>
+    </tr>
 
     <tr class="account">
         <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
-        <td colspan="3"><input type="text" id="phoneNumber" name="phoneNumber"></td>
+        <td colspan="3"><input type="tel" id="phoneNumber" name="phoneNumber"></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>
+        <span for="phoneNumber" class="errorphoneNumber displayNone error">Please enter a valid telephone number.</span>
+      </td>
     </tr>
 
     <tr>
@@ -269,23 +293,39 @@ div#orgUnitTree
          $("#email").val(username);
      });
 
-      var validate_phone_number = function (elelment_type) {
-        $(elelment_type).change(function(){
-          var tele = $(elelment_type).val();
+    var validate_phone_number = function (elelment_id) {
 
-          var is_match = tele.match(/^([+|\d])+([\s|\d])+([\d])$/);
-          if (!is_match)
-          {
-            $(elelment_type).after('<br /><span for="' + elelment_type + '" generated="true" class="error">Please enter a valid telephone number.</span>' );
+        var elelment_type = '#' + elelment_id;
+
+        $(elelment_type).intlTelInput({
+          utilsScript: "../dhis-web-commons/javascripts/intl-tel-input/js/utils.js",
+          allowDropdown: false,
+          initialCountry: "mz",
+          });
+
+
+        $(elelment_type).change(function(){
+
+
+          if ($.trim($(elelment_type).val())) {
+
+            if (!$(elelment_type).intlTelInput("isValidNumber"))
+            {
+                $('.error' + elelment_id).removeClass('displayNone');
+            }
+            else
+            {
+
+                $('.error' + elelment_id).addClass('displayNone');
+            }
           }
-          else
-          {
-            $('span.error').remove();
-          }
+
         });
 
-     };
-     validate_phone_number("#phoneNumber");
-     validate_phone_number(".workPhone");
+      };
+
+
+     validate_phone_number('workPhone');
+     validate_phone_number('phoneNumber');
       
   </script>

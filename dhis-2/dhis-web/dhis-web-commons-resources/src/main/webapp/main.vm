@@ -23,6 +23,8 @@
     <!-- Material UI fonts -->
     <link href="../dhis-web-commons/fonts/roboto.css" rel="stylesheet" type="text/css">
     <link href="../dhis-web-commons/material-design-icons/material-icons.css" rel="stylesheet" type="text/css">
+
+
     <style>
         html {
             font-size: 14px;
@@ -106,6 +108,9 @@
     <script type="text/javascript" src="../dhis-web-commons/i18nJavaScript.action?_rev=$!{buildRevision}"></script>
     <script type="text/javascript" src="../main.js?_rev=$!{buildRevision}"></script>
     <script type="text/javascript" src="../request.js?_rev=$!{buildRevision}"></script>
+
+    <script type="text/javascript" src="../dhis-web-commons/javascripts/intl-tel-input/js/intlTelInput.js?_rev=$!{buildRevision}"></script>
+    <link type="text/css" rel="stylesheet" href="../dhis-web-commons/javascripts/intl-tel-input/css/intlTelInput.css" />
 
     #foreach( $javascript in $javascripts )
     <script type="text/javascript" src="${javascript}?_rev=$!{buildRevision}"></script>
