@@ -151,16 +151,16 @@ console.log(er);}
     #foreach( $attribute in $attributes )
         #if ($attribute.displayName == "Work Phone")
             #set($workPhone = $attribute)
-            #set($workPhoneValue = $attributeValues.get($attribute.id))
+            #set($workPhoneValue = $attributeValues.getOrDefault($attribute.id, ""))
         #elseif ($attribute.displayName == "Organisation Type")
             #set($orgType = $attribute)
             #set($orgTypeValue = $attributeValues.get($attribute.id))
         #elseif ($attribute.displayName == "Organisation Name")
             #set($orgName = $attribute)
-            #set($orgNameValue = $attributeValues.get($attribute.id))
+            #set($orgNameValue = $attributeValues.getOrDefault($attribute.id, ""))
         #elseif ($attribute.displayName == "Notes")
             #set($notes = $attribute)
-            #set($notesValue = $attributeValues.get($attribute.id))
+            #set($notesValue = $attributeValues.getOrDefault($attribute.id, ""))
         #else
         #end
     #end
