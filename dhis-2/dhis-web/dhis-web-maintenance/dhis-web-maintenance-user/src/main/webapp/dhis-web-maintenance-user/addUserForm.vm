@@ -232,7 +232,7 @@
         <tr class="account">
             <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em
                     title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-            <td colspan="3"><input type="$orgName.valueType" id="attribute_$orgName.id" name="attribute_$orgName.id">
+            <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id">
             </td>
         </tr>
 
