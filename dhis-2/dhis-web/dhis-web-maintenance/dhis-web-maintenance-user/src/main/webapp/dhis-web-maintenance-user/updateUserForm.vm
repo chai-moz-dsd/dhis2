@@ -309,6 +309,9 @@ input[type=tel] {
 
                 $('.error' + elementId).addClass('displayNone');
             }
+          } else {
+              $('.error' + elementId).removeClass('displayNone');
+              $('.error' + elementId).addClass('displayNone');
           }
 
         });
