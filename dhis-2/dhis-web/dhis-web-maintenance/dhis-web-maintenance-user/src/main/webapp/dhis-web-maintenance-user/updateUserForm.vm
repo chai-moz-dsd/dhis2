@@ -182,12 +182,12 @@ input[type=tel] {
 
     <tr class="account">
         <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
-        <td colspan="3"><input type="tel" id="workPhone" name="attribute_$workPhone.id" value="$workPhoneValue"></td>
+        <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id" name="attribute_$workPhone.id" value="$workPhoneValue"></td>
     </tr>
     <tr>
     <td></td>
     <td>
-        <span for="workPhone" class="errorworkPhone displayNone error">Please enter a valid telephone number.</span></td>
+        <span for="attribute_$workPhone.id" class="errorworkPhone displayNone error">Please enter a valid telephone number.</span></td>
     </tr>
 
     <tr>
@@ -279,30 +279,35 @@ input[type=tel] {
          $("#email").val(username);
      });
 
-    var validate_phone_number = function (elelment_id) {
+    var validate_phone_number = function (elementId) {
 
-        var elelment_type = '#' + elelment_id;
+        var elementType = '';
+        if (elementId === 'phoneNumber') {
+            elementType = '#' + elementId;
+        } else {
+            elementType = '.' + elementId;
+        }
 
-        $(elelment_type).intlTelInput({
+        $(elementType).intlTelInput({
           utilsScript: "../dhis-web-commons/javascripts/intl-tel-input/js/utils.js",
           allowDropdown: false,
           initialCountry: "mz",
           });
 
 
-        $(elelment_type).change(function(){
+        $(elementType).change(function(){
 
 
-          if ($.trim($(elelment_type).val())) {
+          if ($.trim($(elementType).val())) {
 
-            if (!$(elelment_type).intlTelInput("isValidNumber"))
+            if (!$(elementType).intlTelInput("isValidNumber"))
             {
-                $('.error' + elelment_id).removeClass('displayNone');
+                $('.error' + elementId).removeClass('displayNone');
             }
             else
             {
 
-                $('.error' + elelment_id).addClass('displayNone');
+                $('.error' + elementId).addClass('displayNone');
             }
           }
 
