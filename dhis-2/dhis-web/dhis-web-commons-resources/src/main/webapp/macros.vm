@@ -315,6 +315,10 @@ jQuery.each(attributes, function(i, item) {
 	{
 		json.value = jqItem.find(":selected").val();
 	}
+	else if( jqItem.is("input[type='tel']"))
+	{
+	    json.value = jqItem.val();
+	}
 
 	json = JSON.stringify(json);
 
