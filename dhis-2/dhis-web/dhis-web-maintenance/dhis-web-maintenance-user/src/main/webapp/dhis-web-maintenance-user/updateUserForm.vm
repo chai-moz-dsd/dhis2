@@ -279,46 +279,6 @@ input[type=tel] {
          $("#email").val(username);
      });
 
-    var validate_phone_number = function (elementId) {
-
-        var elementType = '';
-        if (elementId === 'phoneNumber') {
-            elementType = '#' + elementId;
-        } else {
-            elementType = '.' + elementId;
-        }
-
-        $(elementType).intlTelInput({
-          utilsScript: "../dhis-web-commons/javascripts/intl-tel-input/js/utils.js",
-          allowDropdown: false,
-          initialCountry: "mz",
-          });
-
-
-        $(elementType).change(function(){
-
-
-          if ($.trim($(elementType).val())) {
-
-            if (!$(elementType).intlTelInput("isValidNumber"))
-            {
-                $('.error' + elementId).removeClass('displayNone');
-            }
-            else
-            {
-
-                $('.error' + elementId).addClass('displayNone');
-            }
-          } else {
-              $('.error' + elementId).removeClass('displayNone');
-              $('.error' + elementId).addClass('displayNone');
-          }
-
-        });
-
-      };
-
-
      validate_phone_number('workPhone');
      validate_phone_number('phoneNumber');
       

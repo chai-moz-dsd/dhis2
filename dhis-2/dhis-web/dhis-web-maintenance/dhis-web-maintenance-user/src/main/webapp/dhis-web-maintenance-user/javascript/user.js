@@ -154,7 +154,40 @@ function externalAuthChanged() {
 	else {
 		$('#rawPassword, #retypePassword').prop('disabled', false);
 	}
-}		
+}
+
+function initTelInputForMz(elementType) {
+	$(elementType).intlTelInput({
+		utilsScript: "../dhis-web-commons/javascripts/intl-tel-input/js/utils.js",
+		allowDropdown: false,
+		initialCountry: "mz",
+	});
+}
+
+function validate_phone_number(elementId) {
+
+	var elementType = (elementId === 'phoneNumber') ? '#' : '.';
+	elementType += elementId;
+
+	initTelInputForMz(elementType);
+
+	$(elementType).change(function () {
+
+		if ($.trim($(elementType).val())) {
+
+			if (!$(elementType).intlTelInput("isValidNumber")) {
+				$('.error' + elementId).removeClass('displayNone');
+			} else {
+				$('.error' + elementId).addClass('displayNone');
+			}
+		}
+		else {
+			$('.error' + elementId).removeClass('displayNone');
+			$('.error' + elementId).addClass('displayNone');
+		}
+
+	});
+};
 
 // -----------------------------------------------------------------------------
 // Remove user
