@@ -1,3 +1,16 @@
+#foreach( $attribute in $attributes )
+    #if ($attribute.displayName == "Work Phone")
+        #set($workPhone = $attribute)
+    #elseif ($attribute.displayName == "Organisation Type")
+        #set($orgType = $attribute)
+    #elseif ($attribute.displayName == "Organisation Name")
+        #set($orgName = $attribute)
+    #elseif ($attribute.displayName == "Notes")
+        #set($notes = $attribute)
+    #else
+    #end
+#end
+
 <script type="text/javascript">
   var ouwtSelected = [];
 
@@ -25,6 +38,12 @@
       },
       'rules': rules
     });
+
+      jQuery('input[name^="attribute_${orgName.id}"').each(
+              function(){
+                  jQuery(this).rules('add', {'required': true})
+              }
+      );
 
 $.ajax({
 url: "../api/24/userRoles",
@@ -162,23 +181,6 @@ input[type=tel] {
 		<td colspan="3"><input style="display:none" type="text" id="email" name="email" value="$encoder.htmlEncode( $userCredentials.username )"></td>
 	</tr>
 
-    #foreach( $attribute in $attributes )
-        #if ($attribute.displayName == "Work Phone")
-            #set($workPhone = $attribute)
-            #set($workPhoneValue = $attributeValues.getOrDefault($attribute.id, ""))
-        #elseif ($attribute.displayName == "Organisation Type")
-            #set($orgType = $attribute)
-            #set($orgTypeValue = $attributeValues.get($attribute.id))
-        #elseif ($attribute.displayName == "Organisation Name")
-            #set($orgName = $attribute)
-            #set($orgNameValue = $attributeValues.getOrDefault($attribute.id, ""))
-        #elseif ($attribute.displayName == "Notes")
-            #set($notes = $attribute)
-            #set($notesValue = $attributeValues.getOrDefault($attribute.id, ""))
-        #else
-        #end
-    #end
-
 
     <tr class="account">
         <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
@@ -215,7 +217,7 @@ input[type=tel] {
 
     <tr class="account">
         <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-        <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id" value="$orgNameValue"></td>
+        <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id" value="$orgNameValue" class="error"></td>
     </tr>
 
     <tr class="account">
