@@ -1,3 +1,16 @@
+#foreach( $attribute in $attributes )
+    #if ($attribute.displayName == "Work Phone")
+        #set($workPhone = $attribute)
+    #elseif ($attribute.displayName == "Organisation Type")
+        #set($orgType = $attribute)
+    #elseif ($attribute.displayName == "Organisation Name")
+        #set($orgName = $attribute)
+    #elseif ($attribute.displayName == "Notes")
+        #set($notes = $attribute)
+    #else
+    #end
+#end
+
 <script type="text/javascript">
     var ouwtSelected = [];
     var i18n_data_capture_org_unit_required = '$encoder.jsEscape( $i18n.getString(
@@ -26,6 +39,11 @@
             'rules': getValidationRules("user")
         });
 
+        jQuery('input[name^="attribute_${orgName.id}"').each(
+                function(){
+                    jQuery(this).rules('add', {'required': true})
+                }
+        );
 
         $.ajax({
             url: "../api/24/userRoles",
@@ -181,19 +199,6 @@
             <td colspan="3"><input style="display:none" type="text" id="email" name="email"></td>
         </tr>
 
-        #foreach( $attribute in $attributes )
-            #if ($attribute.displayName == "Work Phone")
-                #set($workPhone = $attribute)
-            #elseif ($attribute.displayName == "Organisation Type")
-                #set($orgType = $attribute)
-            #elseif ($attribute.displayName == "Organisation Name")
-                #set($orgName = $attribute)
-            #elseif ($attribute.displayName == "Notes")
-                #set($notes = $attribute)
-            #else
-            #end
-        #end
-
 
         <tr class="account">
             <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
@@ -221,7 +226,7 @@
             <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em
                     title="$i18n.getString( 'required' )" class="required">*</em></label></td>
             <td>
-                <select id="attribute_$orgType.id" name="attribute_$orgType.id"">
+                <select id="attribute_$orgType.id" name="attribute_$orgType.id">
                 <option value="Governmental Organisation" selected="selected">Governmental Organisation</option>
                 <option value="Non-Governmental Organisation" selected="selected">Non-Governmental Organisation</option>
                 </select>
@@ -232,7 +237,7 @@
         <tr class="account">
             <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em
                     title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-            <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id" required="required">
+            <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id" class="error">
             </td>
         </tr>
 
