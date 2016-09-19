@@ -28,12 +28,12 @@
         <td><textarea name="instruction">$!encoder.htmlEncode( $validationRule.instruction )</textarea></td>
     </tr>
 	<tr>
-		<td><label for="importance">$i18n.getString( "importance" )<em title="$i18n.getString( "required" )" class="required">*</em></label></td>
+		<!--<td><label for="importance">$i18n.getString( "importance" )<em title="$i18n.getString( "required" )" class="required">*</em></label></td>-->
 		<td>
-			<select type="text" id="importance" name="importance">
-				<option value="LOW" #if( $validationRule.importance == 'LOW' ) selected #end>$encoder.htmlEncode( $i18n.getString( "low" ) )</option>
-				<option value="MEDIUM" #if( $validationRule.importance == 'MEDIUM' ) selected #end>$encoder.htmlEncode( $i18n.getString( "medium" ) )</option>
-				<option value="HIGH" #if( $validationRule.importance == 'HIGH' ) selected #end>$encoder.htmlEncode( $i18n.getString( "high" ) )</option>
+			<select type="text" id="importance" name="importance" style="display: none">
+				<!--<option value="LOW" #if( $validationRule.importance == 'LOW' ) selected #end>$encoder.htmlEncode( $i18n.getString( "low" ) )</option>
+				<option value="MEDIUM" #if( $validationRule.importance == 'MEDIUM' ) selected #end>$encoder.htmlEncode( $i18n.getString( "medium" ) )</option>-->
+				<option value="HIGH" selected="selected">$encoder.htmlEncode( $i18n.getString( "high" ) )</option>
 			</select>
 		</td>
 	</tr>
@@ -67,7 +67,7 @@
 			<img title="$i18n.getString( 'clear_expression' )" onclick="clearRuleExpression()" src="../images/edit-clear.png" style="width: 20px; cursor:pointer;" />
 		</td>
 	</tr>
-	<tr id="sequentialSampleCountTR">
+	<!--<tr id="sequentialSampleCountTR">
 		<td><label for="sequentialSampleCount">$i18n.getString( "sequential_sample_count" )</label></td>
 		<td><input type="text" id="sequentialSampleCount" name="sequentialSampleCount" value="$!validationRule.sequentialSampleCount"></td>
 	</tr>
@@ -78,7 +78,7 @@
 	<tr id="sequentialSkipCountTR">
 		<td><label for="sequentialSkipCount">$i18n.getString( "sequential_skip_count" )</label></td>
 		<td><input type="text" id="sequentialSkipCount" name="sequentialSkipCount" value="$!validationRule.sequentialSkipCount"></td>
-	</tr>
+	</tr>-->
 	<tr>
 		<td><label for="operatorId">$i18n.getString( "operator" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
 		<td>
