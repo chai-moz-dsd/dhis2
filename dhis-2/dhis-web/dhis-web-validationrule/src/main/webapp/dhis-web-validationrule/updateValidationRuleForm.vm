@@ -63,8 +63,10 @@
     </tr>
     <tr id="additionalRule" #if ( !$validationRule.additionalRule ) style="display: none" #end>
         <td><label for="additionalRule">$i18n.getString( "additional rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
-        <td><textarea name="additionalRule">$!encoder.htmlEncode( $validationRule.additionalRule )</textarea></td>
-        <a href="javascript:getHelpContent('additionalRules')" title="Help"><i class="fa fa-question-circle"></i></a>
+        <td>
+			<textarea name="additionalRule">$!encoder.htmlEncode( $validationRule.additionalRule )</textarea>
+            <a href="javascript:getHelpContent('additionalRules')" title="Help"><i class="fa fa-question-circle"></i></a>
+		</td>
     </tr>
 
 	<tr id="organisationUnitLevelTR" #if( $!validationRule.ruleType != 'SURVEILLANCE' ) style="display:none;" #end>
