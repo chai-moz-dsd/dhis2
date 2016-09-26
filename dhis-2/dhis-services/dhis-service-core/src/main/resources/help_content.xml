@@ -5200,6 +5200,15 @@ No upload if the chosen file is not spreadsheet file.</para>
 <title>Validation Rule Group</title>
 <para>A validation rule group provides a mechanism for classifying related data elements. Another advantate of using validation rule grops is that it can later be run separately, contrary to running all validation rules.</para>
 </section>
+        <section id="additionalRules">
+            <title>disease case in a month</title>
+            <para>month: 1</para>
+            <title>disease increased in several weeks</title>
+            <para>week number: 3</para>
+            <title>disease case in five years</title>
+            <para>year start: 2010</para>
+            <para>year end: 2014</para>
+        </section>
 </chapter>
 <chapter>
 <title>Data elements</title>

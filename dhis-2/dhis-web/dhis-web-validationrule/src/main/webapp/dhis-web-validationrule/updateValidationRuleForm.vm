@@ -41,6 +41,32 @@
 			</select>
 		</td>
 	</tr>
+    <tr>
+        <td><select type="text" id="periodTypeName" name="periodTypeName" disabled="disabled" style="display: none">
+            <option value="Weekly" selected="selected">Weekly</option>
+        </select>
+        </td>
+    </tr>
+
+
+    <tr>
+        <td style="width:120px"><label for="additionalRuleType">$i18n.getString( "rule type" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
+        <td>
+            <select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
+                <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>default</option>
+                <option value="SarampoCaseInOneMonth" #if( $validationRule.additionalRuleType == 'SarampoCaseInOneMonth') selected="selected" #end>sarampo case in a month</option>
+                <option value="MeningiteIncreasedInThreeWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInThreeWeeks') selected="selected" #end>meningite increased in three weeks</option>
+                <option value="DiarrieaCaseInFiveYears" #if( $validationRule.additionalRuleType == 'DiarrieaCaseInFiveYears') selected="selected" #end>diarriea case in five years</option>
+                <option value="MalariaCaseInFiveYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInFiveYears') selected="selected" #end>malaria case in five years</option>
+            </select>
+        </td>
+    </tr>
+    <tr id="additionalRule" #if ( !$validationRule.additionalRule ) style="display: none" #end>
+        <td><label for="additionalRule">$i18n.getString( "additional rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
+        <td><textarea name="additionalRule">$!encoder.htmlEncode( $validationRule.additionalRule )</textarea></td>
+        <a href="javascript:getHelpContent('additionalRules')" title="Help"><i class="fa fa-question-circle"></i></a>
+    </tr>
+
 	<tr id="organisationUnitLevelTR" #if( $!validationRule.ruleType != 'SURVEILLANCE' ) style="display:none;" #end>
 		<td><label for="organisationUnitLevel">$i18n.getString( "organisation_unit_level" )<em title="$i18n.getString( "required" )" class="required">*</em></label></td>
 		<td>
@@ -51,13 +77,8 @@
 			</select>
 		</td>
 	</tr>
-	<tr>
-		<td><select type="text" id="periodTypeName" name="periodTypeName" disabled="disabled" style="display: none">
-			<option value="Weekly" selected="selected">Weekly</option>
-			</select>
-		</td>
-	</tr>
-	<tr>
+
+	<tr id="operatorHide" #if ($validationRule.additionalRuleType != 'Default') style="display: none" #end>
 		<td><label for="operatorId">$i18n.getString( "operator" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
 		<td>
 			<select id="operator" name="operator">
@@ -73,7 +94,7 @@
 			</select>
 		</td>
 	</tr>
-	<tr>
+	<tr id="leftRightHide" #if ($validationRule.additionalRuleType != 'Default') style="display: none" #end>
 		<td></td>
 		<td>
 			<input type="button" value="$i18n.getString( 'edit_left_side' )" style="width:10em" onclick="editLeftExpression();">

@@ -21,6 +21,10 @@
 
     <property name="instruction" type="text" />
 
+    <property name="additionalRule" column="additional_rule" type="text" />
+
+    <property name="additionalRuleType" column="additional_rule_type" type="text" />
+
     <property name="importance" length="50">
       <type name="org.hibernate.type.EnumType">
         <param name="enumClass">org.hisp.dhis.validation.Importance</param>
