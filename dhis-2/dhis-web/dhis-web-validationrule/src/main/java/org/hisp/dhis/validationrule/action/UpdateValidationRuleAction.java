@@ -121,6 +121,14 @@ public class UpdateValidationRuleAction
         this.ruleType = ruleType;
     }
 
+    private String additionalRule;
+
+    public void setAdditionalRule( String additionalRule ) { this.additionalRule = additionalRule; }
+
+    private String additionalRuleType;
+
+    public void setAdditionalRuleType( String additionalRuleType ) { this.additionalRuleType = additionalRuleType; }
+
     private String operator;
 
     public void setOperator( String operator )
