@@ -227,6 +227,8 @@ public class UpdateValidationRuleAction
         validationRule.setName( StringUtils.trimToNull( name ) );
         validationRule.setDescription( StringUtils.trimToNull( description ) );
         validationRule.setInstruction( StringUtils.trimToNull( instruction ) );
+        validationRule.setAdditionalRuleType( StringUtils.trimToNull( additionalRuleType ) );
+        validationRule.setAdditionalRule( StringUtils.trimToNull( additionalRule ) );
         validationRule.setImportance( Importance.valueOf( StringUtils.trimToNull( importance ) ) );
         validationRule.setRuleType( RuleType.valueOf( StringUtils.trimToNull( ruleType ) ) );
         validationRule.setOperator( Operator.valueOf( operator ) );
