@@ -72,6 +72,15 @@ public class ValidationRule
     private String instruction;
 
     /**
+     * Instruction to display to user when additional validation rule is violated.
+     */
+    private String additionalRuleType;
+    /**
+     * Instruction to display to user when additional validation rule is violated.
+     */
+    private String additionalRule;
+
+    /**
      * The user-assigned importance of this rule (e.g. high, medium or low).
      */
     private Importance importance = Importance.MEDIUM;
@@ -151,7 +160,7 @@ public class ValidationRule
     }
 
     public ValidationRule( String name, String description, Operator operator, Expression leftSide,
-        Expression rightSide )
+        Expression rightSide, String additionalRule, String additionalRuleType )
     {
         this.name = name;
         this.description = description;
@@ -159,10 +168,12 @@ public class ValidationRule
         this.leftSide = leftSide;
         this.rightSide = rightSide;
         this.sampleSkipTest = null;
+        this.additionalRule = additionalRule;
+        this.additionalRuleType = additionalRuleType;
     }
 
     public ValidationRule( String name, String description, Operator operator, Expression leftSide,
-        Expression rightSide, Expression skipTest )
+        Expression rightSide, Expression skipTest, String additionalRule, String additionalRuleType )
     {
         this.name = name;
         this.description = description;
@@ -170,6 +181,8 @@ public class ValidationRule
         this.leftSide = leftSide;
         this.rightSide = rightSide;
         this.sampleSkipTest = skipTest;
+        this.additionalRule = additionalRule;
+        this.additionalRuleType = additionalRuleType;
     }
 
     // -------------------------------------------------------------------------
@@ -337,6 +350,33 @@ public class ValidationRule
     public void setDescription( String description )
     {
         this.description = description;
+    }
+
+    @JsonProperty
+    @JsonView( { DetailedView.class, ExportView.class } )
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public String getAdditionalRuleType()
+    {
+        return additionalRuleType;
+    }
+
+    public void setAdditionalRuleType( String additionalRuleType )
+    {
+        this.additionalRuleType = additionalRuleType;
+    }
+
+
+    @JsonProperty
+    @JsonView( { DetailedView.class, ExportView.class } )
+    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
+    public String getAdditionalRule()
+    {
+        return additionalRule;
+    }
+
+    public void setAdditionalRule( String additionalRule )
+    {
+        this.additionalRule = additionalRule;
     }
 
     @JsonProperty
