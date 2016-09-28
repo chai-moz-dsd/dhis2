@@ -16,276 +16,299 @@
 #end
 
 <script type="text/javascript">
-  var ouwtSelected = [];
+    var ouwtSelected = [];
 
-  jQuery(function() {
-    var rules = getValidationRules("user");
-    rules["rawPassword"].required = false;
-    rules["retypePassword"].required = false;
-    rules["inviteEmail"].required = false;
+    jQuery(function () {
+        var rules = getValidationRules("user");
+        rules["rawPassword"].required = false;
+        rules["retypePassword"].required = false;
+        rules["inviteEmail"].required = false;
 
-    validation2('updateUserForm', function(form) {
-      jQuery("#ugSelected").children().attr("selected", "selected");
-      jQuery("#dcSelected").children().attr("selected", "selected");
+        validation2('updateUserForm', function (form) {
+            jQuery("#ugSelected").children().attr("selected", "selected");
+            jQuery("#dcSelected").children().attr("selected", "selected");
 
-      if( $('#orgUnitTree').find('.selected').size() == 0 ) {
-        setHeaderDelayMessage('$encoder.jsEncode( $i18n.getString( "data_capture_organisation_unit_required_for_user" ) )');
-      } else {
-        $('#ouwtSelected').val(ouwtSelected[0]);
-        selection.setSelected(ouwtSelected !== undefined ? ouwtSelected : []);
-        form.submit();
-      }
-    }, {
-      'beforeValidateHandler': function() {
-        //listValidator('urValidator', 'urSelected');
-        #tblDynamicAttributesJavascript()
-      },
-      'rules': rules
-    });
-
-      jQuery('input[name^="attribute_${orgName.id}"').each(
-              function(){
-                  jQuery(this).rules('add', {'required': true})
-              }
-      );
-
-$.ajax({
-url: "../api/24/userRoles",
-type: "GET",
-dataType:'json',
-success:function(data){
-        $.each(data.userRoles, function(){
-                var id = "";
-                if (this.displayName.toString() == "data_viewer")
-                {
-                  id = "data_viewer_id";
-                }
-                else
-                {
-                  id = "superuser_id";
-                }
-                document.getElementById(id).value = this.id.toString();
-
+            if ($('#orgUnitTree').find('.selected').size() == 0) {
+                setHeaderDelayMessage('$encoder.jsEncode( $i18n.getString(
+                    "data_capture_organisation_unit_required_for_user" ) )');
+            } else {
+                $('#ouwtSelected').val(ouwtSelected[0]);
+                selection.setSelected(ouwtSelected !== undefined ? ouwtSelected : []);
+                form.submit();
+            }
+        }, {
+            'beforeValidateHandler': function () {
+                //listValidator('urValidator', 'urSelected');
+                #tblDynamicAttributesJavascript()
+            },
+            'rules': rules
         });
 
-},
-error:function(er){
-console.log(er);}
-});
+        jQuery('input[name^="attribute_${orgName.id}"').each(
+                function () {
+                    jQuery(this).rules('add', {'required': true})
+                }
+        );
+
+        $.ajax({
+            url: "../api/24/userRoles",
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                $.each(data.userRoles, function () {
+                    var id = "";
+                    if (this.displayName.toString() == "data_viewer") {
+                        id = "data_viewer_id";
+                    }
+                    else {
+                        id = "superuser_id";
+                    }
+                    document.getElementById(id).value = this.id.toString();
+
+                });
+
+            },
+            error: function (er) {
+                console.log(er);
+            }
+        });
 
 
-    //checkValueIsExist("openId", "validateUser.action", { id: $userCredentials.id });
+        //checkValueIsExist("openId", "validateUser.action", { id: $userCredentials.id
+         });
 
-    ouwtSelected = selection.getSelected();
-    selection.clearSelected(); // Sync ouwt from server
-    selection.setOfflineLevel(1);
-    selection.setMultipleSelectionAllowed(true);
-    selection.setUnselectAllowed(true);
-    selection.setAutoSelectRoot(false);
+        ouwtSelected = selection.getSelected();
+        selection.clearSelected(); // Sync ouwt from server
+        selection.setOfflineLevel(1);
+        selection.setMultipleSelectionAllowed(true);
+        selection.setUnselectAllowed(true);
+        selection.setAutoSelectRoot(false);
 
-    jQuery("#cancel").click(function() {
-      dhis2.commons.redirectCurrentPage('alluser.action');
+        jQuery("#cancel").click(function () {
+            dhis2.commons.redirectCurrentPage('alluser.action');
+        });
+
+        selectionTreeSelection.setMultipleSelectionAllowed(true);
+        selectionTree.buildSelectionTree();
+
+        externalAuthChanged();
+
+        $('#urAvailable').selected({
+            url: '../api/userRoles.json?canIssue=true',
+            target: $('#urSelected'),
+            search: $('#urAvailableSearch'),
+            iterator: 'userRoles'
+        });
+
+        $('#ugAvailable').selected({
+            url: '../api/userGroups.json',
+            target: $('#ugSelected'),
+            search: $('#ugAvailableSearch'),
+            iterator: 'userGroups'
+        });
+
+        $('#dcAvailable').selected({
+            url: '../api/dimensions/constraints.json',
+            target: $('#dcSelected'),
+            search: $('#dcAvailableSearch'),
+            iterator: 'dimensions'
+        });
     });
-
-    selectionTreeSelection.setMultipleSelectionAllowed(true);
-    selectionTree.buildSelectionTree();
-    
-    externalAuthChanged();
-
-    $('#urAvailable').selected({
-      url: '../api/userRoles.json?canIssue=true',
-      target: $('#urSelected'),
-      search: $('#urAvailableSearch'),
-      iterator: 'userRoles'
-    });
-
-    $('#ugAvailable').selected({
-      url: '../api/userGroups.json',
-      target: $('#ugSelected'),
-      search: $('#ugAvailableSearch'),
-      iterator: 'userGroups'
-    });
-
-    $('#dcAvailable').selected({
-      url: '../api/dimensions/constraints.json',
-      target: $('#dcSelected'),
-      search: $('#dcAvailableSearch'),
-      iterator: 'dimensions'
-    });
-  });
-
 
 
 </script>
 
 <style type="text/css">
-  div#orgUnitTree {
-    width  : 495px;
-    border : 1px solid #ccc;
-  }
-span.displayNone
-{
-  display: none;
-}
+    div#orgUnitTree {
+        width: 495px;
+        border: 1px solid #ccc;
+    }
 
-input[type=tel] {
-  width: 26em;
-  border: 1px solid #aaa;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  border-radius: 3px;
-  padding: 6px 5px;
-  margin: 2px 0;
-  color: #222;
-}
+    span.displayNone {
+        display: none;
+    }
+
+    input[type=tel] {
+        width: 26em;
+        border: 1px solid #aaa;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        border-radius: 3px;
+        padding: 6px 5px;
+        margin: 2px 0;
+        color: #222;
+    }
 </style>
 
 <h3>$i18n.getString( "edit_user" )</h3>
 
 <form id="updateUserForm" action="updateUser.action" method="post" class="inputForm">
-  <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
+    <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
 
-  <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
+    <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
 
-  <table>
-    <col style="width: 120px"/>
-    <col style="width: 350px"/>
-    <col/>
-    <col style="width: 350px"/>
+    <table>
+        <col style="width: 120px"/>
+        <col style="width: 350px"/>
+        <col/>
+        <col style="width: 350px"/>
 
-    <tr>
-      <th colspan="4">$i18n.getString( "details" )</th>
-    </tr>
+        <tr>
+            <th colspan="4">$i18n.getString( "details" )</th>
+        </tr>
 
-    <tr>
-      <td><label for="username">$i18n.getString( "username" )</label></td>
-      <td colspan="3"><input type="email" id="username" name="username" value="$encoder.htmlEncode( $userCredentials.username )" disabled="disabled" autocomplete="off"/></td>
-    </tr>
+        <tr>
+            <td><label for="username">$i18n.getString( "username" )</label></td>
+            <td colspan="3"><input type="email" id="username" name="username"
+                                   value="$encoder.htmlEncode( $userCredentials.username )" disabled="disabled"
+                                   autocomplete="off"/></td>
+        </tr>
 
-    <tr>
-      <td><label for="rawPassword">$i18n.getString( "password" )</label></td>
-      <td colspan="3"><input type="password" id="rawPassword" name="rawPassword" autocomplete="off"></td>
-    </tr>
+        <tr>
+            <td><label for="rawPassword">$i18n.getString( "password" )</label></td>
+            <td colspan="3"><input type="password" id="rawPassword" name="rawPassword" autocomplete="off"></td>
+        </tr>
 
-    <tr>
-      <td><label for="retypePassword">$i18n.getString( "retype_password" ) </label></td>
-      <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
-    </tr>
+        <tr>
+            <td><label for="retypePassword">$i18n.getString( "retype_password" ) </label></td>
+            <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
+        </tr>
 
-    <tr>
-      <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-      <td colspan="3"><input type="text" id="surname" name="surname" value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>
-    </tr>
+        <tr>
+            <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )"
+                                                                      class="required">*</em></label></td>
+            <td colspan="3"><input type="text" id="surname" name="surname"
+                                   value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>
+        </tr>
 
-    <tr>
-      <td><label for="firstName">$i18n.getString( "firstName" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-      <td colspan="3"><input type="text" id="firstName" name="firstName" value="$encoder.htmlEncode( $userCredentials.userInfo.firstName )"></td>
-    </tr>
+        <tr>
+            <td><label for="firstName">$i18n.getString( "firstName" ) <em title="$i18n.getString( 'required' )"
+                                                                          class="required">*</em></label></td>
+            <td colspan="3"><input type="text" id="firstName" name="firstName"
+                                   value="$encoder.htmlEncode( $userCredentials.userInfo.firstName )"></td>
+        </tr>
 
-	<tr class="account">
-		<td colspan="3"><input style="display:none" type="text" id="email" name="email" value="$encoder.htmlEncode( $userCredentials.username )"></td>
-	</tr>
+        <tr class="account">
+            <td colspan="3"><input style="display:none" type="text" id="email" name="email"
+                                   value="$encoder.htmlEncode( $userCredentials.username )"></td>
+        </tr>
 
 
-    <tr class="account">
-        <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
-        <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id" name="attribute_$workPhone.id" value="$workPhoneValue"></td>
-    </tr>
-    <tr>
-    <td></td>
-    <td>
-        <span for="attribute_$workPhone.id" class="errorworkPhone displayNone error">Please enter a valid telephone number.</span></td>
-    </tr>
+        <tr class="account">
+            <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
+            <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id"
+                                   name="attribute_$workPhone.id" value="$workPhoneValue"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <span for="attribute_$workPhone.id" class="errorworkPhone displayNone error">Please enter a valid telephone number.</span>
+            </td>
+        </tr>
 
-    <tr>
-      <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
-      <td colspan="3"><input type="tel" id="phoneNumber" name="phoneNumber" value="$!encoder.htmlEncode( $userCredentials.userInfo.phoneNumber )"></td>
-    </tr>
+        <tr>
+            <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
+            <td colspan="3"><input type="tel" id="phoneNumber" name="phoneNumber"
+                                   value="$!encoder.htmlEncode( $userCredentials.userInfo.phoneNumber )"></td>
+        </tr>
 
-    <tr>
-      <td></td>
-      <td>
-        <span for="phoneNumber" class="errorphoneNumber displayNone error">Please enter a valid telephone number.</span>
-      </td>
-    </tr>
+        <tr>
+            <td></td>
+            <td>
+                <span for="phoneNumber" class="errorphoneNumber displayNone error">Please enter a valid telephone number.</span>
+            </td>
+        </tr>
 
-    <tr>
-        <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-        <td>
-            <select id="attribute_$orgType.id" name="attribute_$orgType.id"">
+        <tr>
+            <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em
+                    title="$i18n.getString( 'required' )" class="required">*</em></label></td>
+            <td>
+                <select id="attribute_$orgType.id" name="attribute_$orgType.id"">
                 <option value="Governmental Organisation" selected="selected">Governmental Organisation</option>
                 <option value="Non-Governmental Organisation" selected="selected">Non-Governmental Organisation</option>
-            </select>
-        </td>
-    </tr>
+                </select>
+            </td>
+        </tr>
 
 
-    <tr class="account">
-        <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-        <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id" value="$orgNameValue" class="error"></td>
-    </tr>
+        <tr class="account">
+            <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em
+                    title="$i18n.getString( 'required' )" class="required">*</em></label></td>
+            <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id"
+                                   value="$orgNameValue" class="error"></td>
+        </tr>
 
-    <tr class="account">
-        <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
-        <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id" value="$notesValue"></td>
-    </tr>
-
-
-    <tr>
-      <td><label>$i18n.getString( "language" )</label></td>
-      <td>
-        <select id="localeUi" name="localeUi">
-          #foreach( $locale in $availableLocales )
-            <option value="$locale.toString()" #if( $locale == $currentLocale )selected="selected"#end>$locale.getDisplayName()</option>
-          #end
-        </select>
-      </td>
-    </tr>
-
-    <tr>
-        <td><label for="urSelected">$i18n.getString("User Role")<em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-        <td>
-            <select id="urSelected" name="urSelected" class="valid">
-                <option id="data_viewer_id" selected="selected">data_viewer</option>
-                <option id="superuser_id">supseruser</option>
-            </select>
-        </td>
-    </tr>
-
-    
-</table>
+        <tr class="account">
+            <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
+            <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id"
+                                   value="$notesValue"></td>
+        </tr>
 
 
-  <table style="margin-bottom: 20px;">
-    <tr>
-		<th>$i18n.getString( "Locations" )</th>
-    </tr>
-    <tr>
-      <td>
-        #parse( "/dhis-web-commons/ouwt/orgunittree.vm" )
-      </td>
-    </tr>
-  </table>
+        <tr>
+            <td><label>$i18n.getString( "language" )</label></td>
+            <td>
+                <select id="localeUi" name="localeUi">
+                    #foreach( $locale in $availableLocales )
+                        <option value="$locale.toString()"
+                                #if( $locale == $currentLocale )selected="selected"#end>$locale.getDisplayName()</option>
+                    #end
+                </select>
+            </td>
+        </tr>
 
-<select id="jsonAttributeValues" name="jsonAttributeValues" multiple="multiple" style="display:none">
-</select>
+        <tr>
+            <td><label for="urSelected">$i18n.getString("User Role")<em title="$i18n.getString( 'required' )"
+                                                                        class="required">*</em></label></td>
+            <td>
+                <select id="urSelected" name="urSelected" class="valid">
+                    <option id="data_viewer_id" selected="selected">data_viewer</option>
+                    <option id="superuser_id">supseruser</option>
+                </select>
+            </td>
+        </tr>
 
 
+        <tr>
+            <td><label for="alertFlag">$i18n.getString("alert")</label></td>
+
+            <td>
+                <input type="checkbox" name="alertFlag" value="true" #if ($user.alertFlag == "true") checked="checked" #end>
+            </td>
+        </tr>
 
 
-  <p>
-    <input type="submit" value="$i18n.getString( 'save' )" style="width:10em"/>
-    <input type="button" id="cancel" value="$i18n.getString( 'cancel' )" style="width:10em"/>
-  </p>
+    </table>
+
+
+    <table style="margin-bottom: 20px;">
+        <tr>
+            <th>$i18n.getString( "Locations" )</th>
+        </tr>
+        <tr>
+            <td>
+                #parse( "/dhis-web-commons/ouwt/orgunittree.vm" )
+            </td>
+        </tr>
+    </table>
+
+    <select id="jsonAttributeValues" name="jsonAttributeValues" multiple="multiple" style="display:none">
+    </select>
+
+
+    <p>
+        <input type="submit" value="$i18n.getString( 'save' )" style="width:10em"/>
+        <input type="button" id="cancel" value="$i18n.getString( 'cancel' )" style="width:10em"/>
+    </p>
 
 </form>
 
-  <script type="text/javascript">
-     $("#username").change(function(){
-         var username = $("#username").val();
-         $("#email").val(username);
-     });
+<script type="text/javascript">
+    $("#username").change(function () {
+        var username = $("#username").val();
+        $("#email").val(username);
+    });
 
-     validate_phone_number('workPhone');
-     validate_phone_number('phoneNumber');
-      
-  </script>
+    validate_phone_number('workPhone');
+    validate_phone_number('phoneNumber');
+
+</script>

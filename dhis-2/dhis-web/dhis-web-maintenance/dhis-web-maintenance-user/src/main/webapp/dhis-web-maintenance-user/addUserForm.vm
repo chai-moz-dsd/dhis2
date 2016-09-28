@@ -269,6 +269,14 @@
             </td>
         </tr>
 
+        <tr>
+            <td><label for="alertFlag">$i18n.getString("alert")</label> </td>
+
+            <td>
+                <input type="checkbox" name="alertFlag" value="true">
+            </td>
+        </tr>
+
 
     </table>
 

@@ -46,6 +46,8 @@
 
     <property name="languages" type="text" />
 
+    <property name="alertFlag" column="alert_flag" type="text" />
+
     <property name="lastCheckedInterpretations" type="timestamp" />
 
     <one-to-one name="userCredentials" class="org.hisp.dhis.user.UserCredentials" foreign-key="fk_userinfo_userid" />

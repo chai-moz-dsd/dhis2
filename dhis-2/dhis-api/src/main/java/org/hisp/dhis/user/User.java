@@ -56,10 +56,9 @@ import java.util.Set;
 /**
  * @author Nguyen Hong Duc
  */
-@JacksonXmlRootElement( localName = "user", namespace = DxfNamespaces.DXF_2_0 )
+@JacksonXmlRootElement(localName = "user", namespace = DxfNamespaces.DXF_2_0)
 public class User
-    extends BaseIdentifiableObject
-{
+        extends BaseIdentifiableObject {
     /**
      * Required.
      */
@@ -91,6 +90,8 @@ public class User
     private String interests;
 
     private String languages;
+
+    private String alertFlag;
 
     private Date lastCheckedInterpretations;
 
@@ -126,31 +127,25 @@ public class User
     // Logic
     // -------------------------------------------------------------------------
 
-    public void addOrganisationUnit( OrganisationUnit unit )
-    {
-        organisationUnits.add( unit );
-        unit.getUsers().add( this );
+    public void addOrganisationUnit(OrganisationUnit unit) {
+        organisationUnits.add(unit);
+        unit.getUsers().add(this);
     }
 
-    public void removeOrganisationUnit( OrganisationUnit unit )
-    {
-        organisationUnits.remove( unit );
-        unit.getUsers().remove( this );
+    public void removeOrganisationUnit(OrganisationUnit unit) {
+        organisationUnits.remove(unit);
+        unit.getUsers().remove(this);
     }
 
-    public void updateOrganisationUnits( Set<OrganisationUnit> updates )
-    {
-        for ( OrganisationUnit unit : new HashSet<>( organisationUnits ) )
-        {
-            if ( !updates.contains( unit ) )
-            {
-                removeOrganisationUnit( unit );
+    public void updateOrganisationUnits(Set<OrganisationUnit> updates) {
+        for (OrganisationUnit unit : new HashSet<>(organisationUnits)) {
+            if (!updates.contains(unit)) {
+                removeOrganisationUnit(unit);
             }
         }
 
-        for ( OrganisationUnit unit : updates )
-        {
-            addOrganisationUnit( unit );
+        for (OrganisationUnit unit : updates) {
+            addOrganisationUnit(unit);
         }
     }
 
@@ -158,8 +153,7 @@ public class User
      * Returns the concatenated first name and surname.
      */
     @Override
-    public String getName()
-    {
+    public String getName() {
         return firstName + " " + surname;
     }
 
@@ -167,15 +161,13 @@ public class User
      * Checks whether the profile has been filled, which is defined as three
      * not-null properties out of all optional properties.
      */
-    public boolean isProfileFilled()
-    {
-        Object[] props = { jobTitle, introduction, gender, birthday,
-            nationality, employer, education, interests, languages };
+    public boolean isProfileFilled() {
+        Object[] props = {jobTitle, introduction, gender, birthday,
+                nationality, employer, education, interests, languages};
 
         int count = 0;
 
-        for ( Object prop : props )
-        {
+        for (Object prop : props) {
             count = prop != null ? (count + 1) : count;
         }
 
@@ -188,41 +180,35 @@ public class User
      * organisation unit to return is undefined if the user has multiple
      * organisation units.
      */
-    public OrganisationUnit getOrganisationUnit()
-    {
-        return CollectionUtils.isEmpty( organisationUnits ) ? null : organisationUnits.iterator().next();
+    public OrganisationUnit getOrganisationUnit() {
+        return CollectionUtils.isEmpty(organisationUnits) ? null : organisationUnits.iterator().next();
     }
 
-    public List<OrganisationUnit> getSortedOrganisationUnits()
-    {
-        List<OrganisationUnit> sortedOrgUnits = new ArrayList<>( organisationUnits );
+    public List<OrganisationUnit> getSortedOrganisationUnits() {
+        List<OrganisationUnit> sortedOrgUnits = new ArrayList<>(organisationUnits);
 
-        Collections.sort( sortedOrgUnits );
+        Collections.sort(sortedOrgUnits);
 
         return sortedOrgUnits;
     }
 
-    public boolean hasOrganisationUnit()
-    {
-        return !CollectionUtils.isEmpty( organisationUnits );
+    public boolean hasOrganisationUnit() {
+        return !CollectionUtils.isEmpty(organisationUnits);
     }
 
     // -------------------------------------------------------------------------
     // Logic - data view organisation unit
     // -------------------------------------------------------------------------
 
-    public boolean hasDataViewOrganisationUnit()
-    {
-        return !CollectionUtils.isEmpty( dataViewOrganisationUnits );
+    public boolean hasDataViewOrganisationUnit() {
+        return !CollectionUtils.isEmpty(dataViewOrganisationUnits);
     }
 
-    public OrganisationUnit getDataViewOrganisationUnit()
-    {
-        return CollectionUtils.isEmpty( dataViewOrganisationUnits ) ? null : dataViewOrganisationUnits.iterator().next();
+    public OrganisationUnit getDataViewOrganisationUnit() {
+        return CollectionUtils.isEmpty(dataViewOrganisationUnits) ? null : dataViewOrganisationUnits.iterator().next();
     }
 
-    public boolean hasDataViewOrganisationUnitWithFallback()
-    {
+    public boolean hasDataViewOrganisationUnitWithFallback() {
         return hasDataViewOrganisationUnit() || hasOrganisationUnit();
     }
 
@@ -231,16 +217,14 @@ public class User
      * user. If none, returns the first of the data capture organisation units.
      * If none, return nulls.
      */
-    public OrganisationUnit getDataViewOrganisationUnitWithFallback()
-    {
+    public OrganisationUnit getDataViewOrganisationUnitWithFallback() {
         return hasDataViewOrganisationUnit() ? getDataViewOrganisationUnit() : getOrganisationUnit();
     }
 
     /**
      * Returns the data view organisation units or organisation units if not exist.
      */
-    public Set<OrganisationUnit> getDataViewOrganisationUnitsWithFallback()
-    {
+    public Set<OrganisationUnit> getDataViewOrganisationUnitsWithFallback() {
         return hasDataViewOrganisationUnit() ? dataViewOrganisationUnits : organisationUnits;
     }
 
@@ -248,18 +232,15 @@ public class User
     // Logic - tei search organisation unit
     // -------------------------------------------------------------------------
 
-    public boolean hasTeiSearchOrganisationUnit()
-    {
-        return !CollectionUtils.isEmpty( teiSearchOrganisationUnits );
+    public boolean hasTeiSearchOrganisationUnit() {
+        return !CollectionUtils.isEmpty(teiSearchOrganisationUnits);
     }
 
-    public OrganisationUnit getTeiSearchOrganisationUnit()
-    {
-        return CollectionUtils.isEmpty( teiSearchOrganisationUnits ) ? null : teiSearchOrganisationUnits.iterator().next();
+    public OrganisationUnit getTeiSearchOrganisationUnit() {
+        return CollectionUtils.isEmpty(teiSearchOrganisationUnits) ? null : teiSearchOrganisationUnits.iterator().next();
     }
 
-    public boolean hasTeiSearchOrganisationUnitWithFallback()
-    {
+    public boolean hasTeiSearchOrganisationUnitWithFallback() {
         return hasTeiSearchOrganisationUnit() || hasOrganisationUnit();
     }
 
@@ -268,32 +249,27 @@ public class User
      * user. If none, returns the first of the data capture organisation units.
      * If none, return nulls.
      */
-    public OrganisationUnit getTeiSearchOrganisationUnitWithFallback()
-    {
+    public OrganisationUnit getTeiSearchOrganisationUnitWithFallback() {
         return hasTeiSearchOrganisationUnit() ? getTeiSearchOrganisationUnit() : getOrganisationUnit();
     }
 
     /**
      * Returns the tei search organisation units or organisation units if not exist.
      */
-    public Set<OrganisationUnit> getTeiSearchOrganisationUnitsWithFallback()
-    {
+    public Set<OrganisationUnit> getTeiSearchOrganisationUnitsWithFallback() {
         return hasTeiSearchOrganisationUnit() ? teiSearchOrganisationUnits : organisationUnits;
     }
 
 
-    public String getOrganisationUnitsName()
-    {
-        return IdentifiableObjectUtils.join( organisationUnits );
+    public String getOrganisationUnitsName() {
+        return IdentifiableObjectUtils.join(organisationUnits);
     }
 
-    public String getUsername()
-    {
+    public String getUsername() {
         return userCredentials != null ? userCredentials.getUsername() : null;
     }
 
-    public boolean isSuper()
-    {
+    public boolean isSuper() {
         return userCredentials != null && userCredentials.isSuper();
     }
 
@@ -301,29 +277,23 @@ public class User
      * Tests whether the user has the given authority. Returns true in any case
      * if the user has the ALL authority.
      */
-    public boolean isAuthorized( String auth )
-    {
-        return userCredentials != null && userCredentials.isAuthorized( auth );
+    public boolean isAuthorized(String auth) {
+        return userCredentials != null && userCredentials.isAuthorized(auth);
     }
 
-    public Set<UserGroup> getManagedGroups()
-    {
+    public Set<UserGroup> getManagedGroups() {
         Set<UserGroup> managedGroups = new HashSet<>();
 
-        for ( UserGroup group : groups )
-        {
-            managedGroups.addAll( group.getManagedGroups() );
+        for (UserGroup group : groups) {
+            managedGroups.addAll(group.getManagedGroups());
         }
 
         return managedGroups;
     }
 
-    public boolean hasManagedGroups()
-    {
-        for ( UserGroup group : groups )
-        {
-            if ( group != null && group.getManagedGroups() != null && !group.getManagedGroups().isEmpty() )
-            {
+    public boolean hasManagedGroups() {
+        for (UserGroup group : groups) {
+            if (group != null && group.getManagedGroups() != null && !group.getManagedGroups().isEmpty()) {
                 return true;
             }
         }
@@ -337,9 +307,8 @@ public class User
      * @param userGroup the user group to test.
      * @return true if the given user group can be managed by this user, false if not.
      */
-    public boolean canManage( UserGroup userGroup )
-    {
-        return userGroup != null && CollectionUtils.containsAny( groups, userGroup.getManagedByGroups() );
+    public boolean canManage(UserGroup userGroup) {
+        return userGroup != null && CollectionUtils.containsAny(groups, userGroup.getManagedByGroups());
     }
 
     /**
@@ -348,17 +317,13 @@ public class User
      * @param user the user to test.
      * @return true if the given user can be managed by this user, false if not.
      */
-    public boolean canManage( User user )
-    {
-        if ( user == null || user.getGroups() == null )
-        {
+    public boolean canManage(User user) {
+        if (user == null || user.getGroups() == null) {
             return false;
         }
 
-        for ( UserGroup group : user.getGroups() )
-        {
-            if ( canManage( group ) )
-            {
+        for (UserGroup group : user.getGroups()) {
+            if (canManage(group)) {
                 return true;
             }
         }
@@ -372,9 +337,8 @@ public class User
      * @param userGroup the user group to test.
      * @return true if the given user group is managed by this user, false if not.
      */
-    public boolean isManagedBy( UserGroup userGroup )
-    {
-        return userGroup != null && CollectionUtils.containsAny( groups, userGroup.getManagedGroups() );
+    public boolean isManagedBy(UserGroup userGroup) {
+        return userGroup != null && CollectionUtils.containsAny(groups, userGroup.getManagedGroups());
     }
 
     /**
@@ -383,17 +347,13 @@ public class User
      * @param user the user  to test.
      * @return true if the given user is managed by this user, false if not.
      */
-    public boolean isManagedBy( User user )
-    {
-        if ( user == null || user.getGroups() == null )
-        {
+    public boolean isManagedBy(User user) {
+        if (user == null || user.getGroups() == null) {
             return false;
         }
 
-        for ( UserGroup group : user.getGroups() )
-        {
-            if ( isManagedBy( group ) )
-            {
+        for (UserGroup group : user.getGroups()) {
+            if (isManagedBy(group)) {
                 return true;
             }
         }
@@ -401,8 +361,7 @@ public class User
         return false;
     }
 
-    public static String getSafeUsername( User user )
-    {
+    public static String getSafeUsername(User user) {
         return user != null && user.getUsername() != null ? user.getUsername() : "[Unknown]";
     }
 
@@ -411,289 +370,257 @@ public class User
     // -------------------------------------------------------------------------
 
     @Override
-    public boolean haveUniqueNames()
-    {
+    public boolean haveUniqueNames() {
         return false;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    @PropertyRange( min = 2 )
-    public String getFirstName()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    @PropertyRange(min = 2)
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName( String firstName )
-    {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    @PropertyRange( min = 2 )
-    public String getSurname()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    @PropertyRange(min = 2)
+    public String getSurname() {
         return surname;
     }
 
-    public void setSurname( String surname )
-    {
+    public void setSurname(String surname) {
         this.surname = surname;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getEmail()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail( String email )
-    {
+    public void setEmail(String email) {
         this.email = email;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getJobTitle()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getJobTitle() {
         return jobTitle;
     }
 
-    public void setJobTitle( String jobTitle )
-    {
+    public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getPhoneNumber()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber( String phoneNumber )
-    {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getIntroduction()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getIntroduction() {
         return introduction;
     }
 
-    public void setIntroduction( String introduction )
-    {
+    public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getGender()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getGender() {
         return gender;
     }
 
-    public void setGender( String gender )
-    {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public Date getBirthday()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday( Date birthday )
-    {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getNationality()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getNationality() {
         return nationality;
     }
 
-    public void setNationality( String nationality )
-    {
+    public void setNationality(String nationality) {
         this.nationality = nationality;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getEmployer()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getEmployer() {
         return employer;
     }
 
-    public void setEmployer( String employer )
-    {
+    public void setEmployer(String employer) {
         this.employer = employer;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getEducation()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getEducation() {
         return education;
     }
 
-    public void setEducation( String education )
-    {
+    public void setEducation(String education) {
         this.education = education;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getInterests()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getInterests() {
         return interests;
     }
 
-    public void setInterests( String interests )
-    {
+    public void setInterests(String interests) {
         this.interests = interests;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public String getLanguages()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getLanguages() {
         return languages;
     }
 
-    public void setLanguages( String languages )
-    {
+    public void setLanguages(String languages) {
         this.languages = languages;
     }
 
+
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public Date getLastCheckedInterpretations()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public String getAlertFlag() {
+        return alertFlag;
+    }
+
+    public void setAlertFlag(String alertFlag) {
+        this.alertFlag = alertFlag;
+    }
+
+    @JsonProperty
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public Date getLastCheckedInterpretations() {
         return lastCheckedInterpretations;
     }
 
-    public void setLastCheckedInterpretations( Date lastCheckedInterpretations )
-    {
+    public void setLastCheckedInterpretations(Date lastCheckedInterpretations) {
         this.lastCheckedInterpretations = lastCheckedInterpretations;
     }
 
     @JsonProperty
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlProperty( namespace = DxfNamespaces.DXF_2_0 )
-    public UserCredentials getUserCredentials()
-    {
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public UserCredentials getUserCredentials() {
         return userCredentials;
     }
 
-    public void setUserCredentials( UserCredentials userCredentials )
-    {
+    public void setUserCredentials(UserCredentials userCredentials) {
         this.userCredentials = userCredentials;
     }
 
-    @JsonProperty( "userGroups" )
-    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
-    @JsonView( { DetailedView.class } )
-    @JacksonXmlElementWrapper( localName = "userGroups", namespace = DxfNamespaces.DXF_2_0 )
-    @JacksonXmlProperty( localName = "userGroup", namespace = DxfNamespaces.DXF_2_0 )
-    public Set<UserGroup> getGroups()
-    {
+    @JsonProperty("userGroups")
+    @JsonSerialize(contentAs = BaseIdentifiableObject.class)
+    @JsonView({DetailedView.class})
+    @JacksonXmlElementWrapper(localName = "userGroups", namespace = DxfNamespaces.DXF_2_0)
+    @JacksonXmlProperty(localName = "userGroup", namespace = DxfNamespaces.DXF_2_0)
+    public Set<UserGroup> getGroups() {
         return groups;
     }
 
-    public void setGroups( Set<UserGroup> groups )
-    {
+    public void setGroups(Set<UserGroup> groups) {
         this.groups = groups;
     }
 
     @JsonProperty
-    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlElementWrapper( localName = "organisationUnits", namespace = DxfNamespaces.DXF_2_0 )
-    @JacksonXmlProperty( localName = "organisationUnit", namespace = DxfNamespaces.DXF_2_0 )
-    public Set<OrganisationUnit> getOrganisationUnits()
-    {
+    @JsonSerialize(contentAs = BaseIdentifiableObject.class)
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlElementWrapper(localName = "organisationUnits", namespace = DxfNamespaces.DXF_2_0)
+    @JacksonXmlProperty(localName = "organisationUnit", namespace = DxfNamespaces.DXF_2_0)
+    public Set<OrganisationUnit> getOrganisationUnits() {
         return organisationUnits;
     }
 
-    public void setOrganisationUnits( Set<OrganisationUnit> organisationUnits )
-    {
+    public void setOrganisationUnits(Set<OrganisationUnit> organisationUnits) {
         this.organisationUnits = organisationUnits;
     }
 
     @JsonProperty
-    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlElementWrapper( localName = "dataViewOrganisationUnits", namespace = DxfNamespaces.DXF_2_0 )
-    @JacksonXmlProperty( localName = "dataViewOrganisationUnit", namespace = DxfNamespaces.DXF_2_0 )
-    public Set<OrganisationUnit> getDataViewOrganisationUnits()
-    {
+    @JsonSerialize(contentAs = BaseIdentifiableObject.class)
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlElementWrapper(localName = "dataViewOrganisationUnits", namespace = DxfNamespaces.DXF_2_0)
+    @JacksonXmlProperty(localName = "dataViewOrganisationUnit", namespace = DxfNamespaces.DXF_2_0)
+    public Set<OrganisationUnit> getDataViewOrganisationUnits() {
         return dataViewOrganisationUnits;
     }
 
-    public void setDataViewOrganisationUnits( Set<OrganisationUnit> dataViewOrganisationUnits )
-    {
+    public void setDataViewOrganisationUnits(Set<OrganisationUnit> dataViewOrganisationUnits) {
         this.dataViewOrganisationUnits = dataViewOrganisationUnits;
     }
 
     @JsonProperty
-    @JsonSerialize( contentAs = BaseIdentifiableObject.class )
-    @JsonView( { DetailedView.class, ExportView.class } )
-    @JacksonXmlElementWrapper( localName = "teiSearchOrganisationUnits", namespace = DxfNamespaces.DXF_2_0 )
-    @JacksonXmlProperty( localName = "teiSearchOrganisationUnit", namespace = DxfNamespaces.DXF_2_0 )
-    public Set<OrganisationUnit> getTeiSearchOrganisationUnits()
-    {
+    @JsonSerialize(contentAs = BaseIdentifiableObject.class)
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlElementWrapper(localName = "teiSearchOrganisationUnits", namespace = DxfNamespaces.DXF_2_0)
+    @JacksonXmlProperty(localName = "teiSearchOrganisationUnit", namespace = DxfNamespaces.DXF_2_0)
+    public Set<OrganisationUnit> getTeiSearchOrganisationUnits() {
         return teiSearchOrganisationUnits;
     }
 
-    public void setTeiSearchOrganisationUnits( Set<OrganisationUnit> teiSearchOrganisationUnits )
-    {
+    public void setTeiSearchOrganisationUnits(Set<OrganisationUnit> teiSearchOrganisationUnits) {
         this.teiSearchOrganisationUnits = teiSearchOrganisationUnits;
     }
 
-    public List<String> getApps()
-    {
+    public List<String> getApps() {
         return apps;
     }
 
-    public void setApps( List<String> apps )
-    {
+    public void setApps(List<String> apps) {
         this.apps = apps;
     }
 
     @Override
-    public void mergeWith( IdentifiableObject other, MergeMode mergeMode )
-    {
-        super.mergeWith( other, mergeMode );
+    public void mergeWith(IdentifiableObject other, MergeMode mergeMode) {
+        super.mergeWith(other, mergeMode);
 
-        if ( other.getClass().isInstance( this ) )
-        {
+        if (other.getClass().isInstance(this)) {
             User user = (User) other;
 
-            if ( mergeMode.isReplace() )
-            {
+            if (mergeMode.isReplace()) {
                 surname = user.getSurname();
                 firstName = user.getFirstName();
                 email = user.getEmail();
@@ -707,11 +634,10 @@ public class User
                 education = user.getEducation();
                 interests = user.getInterests();
                 languages = user.getLanguages();
+                alertFlag = user.getAlertFlag();
                 lastCheckedInterpretations = user.getLastCheckedInterpretations();
                 userCredentials = user.getUserCredentials();
-            }
-            else if ( mergeMode.isMerge() )
-            {
+            } else if (mergeMode.isMerge()) {
                 surname = user.getSurname() == null ? surname : user.getSurname();
                 firstName = user.getFirstName() == null ? firstName : user.getFirstName();
                 email = user.getEmail() == null ? email : user.getEmail();
@@ -725,49 +651,50 @@ public class User
                 education = user.getEducation() == null ? education : user.getEducation();
                 interests = user.getInterests() == null ? interests : user.getInterests();
                 languages = user.getLanguages() == null ? languages : user.getLanguages();
+                alertFlag = user.getAlertFlag() == null ? alertFlag : user.getAlertFlag();
                 lastCheckedInterpretations = user.getLastCheckedInterpretations() == null ? lastCheckedInterpretations : user.getLastCheckedInterpretations();
                 userCredentials = user.getUserCredentials() == null ? userCredentials : user.getUserCredentials();
             }
 
             organisationUnits.clear();
-            organisationUnits.addAll( user.getOrganisationUnits() );
+            organisationUnits.addAll(user.getOrganisationUnits());
 
             dataViewOrganisationUnits.clear();
-            dataViewOrganisationUnits.addAll( user.getDataViewOrganisationUnits() );
+            dataViewOrganisationUnits.addAll(user.getDataViewOrganisationUnits());
 
             teiSearchOrganisationUnits.clear();
-            teiSearchOrganisationUnits.addAll( user.getTeiSearchOrganisationUnits() );
+            teiSearchOrganisationUnits.addAll(user.getTeiSearchOrganisationUnits());
         }
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "{" +
-            "\"id\":\"" + id + "\", " +
-            "\"uid\":\"" + uid + "\", " +
-            "\"code\":\"" + code + "\", " +
-            "\"created\":\"" + created + "\", " +
-            "\"lastUpdated\":\"" + lastUpdated + "\", " +
-            "\"surname\":\"" + surname + "\", " +
-            "\"firstName\":\"" + firstName + "\", " +
-            "\"email\":\"" + email + "\", " +
-            "\"phoneNumber\":\"" + phoneNumber + "\", " +
-            "\"jobTitle\":\"" + jobTitle + "\", " +
-            "\"introduction\":\"" + introduction + "\", " +
-            "\"gender\":\"" + gender + "\", " +
-            "\"birthday\":\"" + birthday + "\", " +
-            "\"nationality\":\"" + nationality + "\", " +
-            "\"employer\":\"" + employer + "\", " +
-            "\"education\":\"" + education + "\", " +
-            "\"interests\":\"" + interests + "\", " +
-            "\"languages\":\"" + languages + "\", " +
-            "\"lastCheckedInterpretations\":\"" + lastCheckedInterpretations + "\", " +
-            "\"userCredentials\":\"" + userCredentials + "\", " +
-            "\"groups\":\"" + groups + "\", " +
-            "\"organisationUnits\":\"" + organisationUnits + "\", " +
-            "\"dataViewOrganisationUnits\":\"" + dataViewOrganisationUnits + "\" " +
-            "\"teiSearchOrganisationUnits\":\"" + teiSearchOrganisationUnits + "\" " +
-            "}";
+                "\"id\":\"" + id + "\", " +
+                "\"uid\":\"" + uid + "\", " +
+                "\"code\":\"" + code + "\", " +
+                "\"created\":\"" + created + "\", " +
+                "\"lastUpdated\":\"" + lastUpdated + "\", " +
+                "\"surname\":\"" + surname + "\", " +
+                "\"firstName\":\"" + firstName + "\", " +
+                "\"email\":\"" + email + "\", " +
+                "\"phoneNumber\":\"" + phoneNumber + "\", " +
+                "\"jobTitle\":\"" + jobTitle + "\", " +
+                "\"introduction\":\"" + introduction + "\", " +
+                "\"gender\":\"" + gender + "\", " +
+                "\"birthday\":\"" + birthday + "\", " +
+                "\"nationality\":\"" + nationality + "\", " +
+                "\"employer\":\"" + employer + "\", " +
+                "\"education\":\"" + education + "\", " +
+                "\"interests\":\"" + interests + "\", " +
+                "\"languages\":\"" + languages + "\", " +
+                "\"alertFlag\":\"" + alertFlag + "\", " +
+                "\"lastCheckedInterpretations\":\"" + lastCheckedInterpretations + "\", " +
+                "\"userCredentials\":\"" + userCredentials + "\", " +
+                "\"groups\":\"" + groups + "\", " +
+                "\"organisationUnits\":\"" + organisationUnits + "\", " +
+                "\"dataViewOrganisationUnits\":\"" + dataViewOrganisationUnits + "\" " +
+                "\"teiSearchOrganisationUnits\":\"" + teiSearchOrganisationUnits + "\" " +
+                "}";
     }
 }
