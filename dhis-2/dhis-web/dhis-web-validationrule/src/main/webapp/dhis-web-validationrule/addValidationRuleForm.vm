@@ -44,17 +44,17 @@
 		<td>
 			<select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
 				<option value="Default" selected="selected">default</option>
-				<option value="SarampoCaseInOneMonth">sarampo case in a month</option>
-				<option value="MeningiteIncreasedInThreeWeeks">meningite increased in three weeks</option>
-				<option value="DiarrieaCaseInFiveYears">diarriea case in five years</option>
-				<option value="MalariaCaseInFiveYears">malaria case in five years</option>
+				<option value="SarampoCaseInMonths">Sarampo: Cases in recent ( A ) month/months > ( B )</option>
+				<option value="MeningiteIncreasedInWeeks">Meningite: Cases increases by ( A ) times in last ( B ) weeks</option>
+				<option value="DiarrieaCaseInYears">Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev</option>
+				<option value="MalariaCaseInYears">Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev</option>
 			</select>
 		</td>
 	</tr>
     <tr id="additionalRule" style="display: none">
         <td><label for="additionalRule">$i18n.getString( "additional rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
         <td>
-			<textarea name="additionalRule"></textarea>
+			<textarea name="additionalRule" id="additionalRuleText"></textarea>
 			<a href="javascript:getHelpContent('additionalRules')" title="Help"><i class="fa fa-question-circle"></i></a>
 		</td>
     </tr>

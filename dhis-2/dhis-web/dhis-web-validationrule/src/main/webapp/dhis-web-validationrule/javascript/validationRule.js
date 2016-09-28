@@ -42,6 +42,27 @@ function setDefaultRightExpression() {
 
 }
 
+function setDefaultRuleContent(ruleType) {
+
+  ruleText = $('#additionalRuleText');
+  switch (ruleType) {
+    case 'SarampoCaseInMonths':
+      ruleText.text('A:\r\nB:');
+      break;
+    case 'MeningiteIncreasedInWeeks':
+      ruleText.text('A:\r\nB:');
+      break;
+    case 'DiarrieaCaseInYears':
+      ruleText.text('A:\r\nB:');
+      break;
+    case 'MalariaCaseInYears':
+      ruleText.text('A:\r\nB:\r\nC:\r\nD:');
+      break;
+    default:
+      break;
+  }
+}
+
 function changeAdditionalRuleType() {
   var additionalRuleType = $('#additionalRuleType').val();
 
@@ -55,6 +76,8 @@ function changeAdditionalRuleType() {
     showById('additionalRule');
     hideById('operatorHide');
     hideById('leftRightHide');
+
+    setDefaultRuleContent(additionalRuleType);
 
     $('#operator').val('equal_to');
     setDefaultLeftExpression();

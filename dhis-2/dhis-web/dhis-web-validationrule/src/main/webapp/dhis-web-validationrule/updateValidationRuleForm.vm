@@ -54,10 +54,10 @@
         <td>
             <select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
                 <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>default</option>
-                <option value="SarampoCaseInOneMonth" #if( $validationRule.additionalRuleType == 'SarampoCaseInOneMonth') selected="selected" #end>sarampo case in a month</option>
-                <option value="MeningiteIncreasedInThreeWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInThreeWeeks') selected="selected" #end>meningite increased in three weeks</option>
-                <option value="DiarrieaCaseInFiveYears" #if( $validationRule.additionalRuleType == 'DiarrieaCaseInFiveYears') selected="selected" #end>diarriea case in five years</option>
-                <option value="MalariaCaseInFiveYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInFiveYears') selected="selected" #end>malaria case in five years</option>
+                <option value="SarampoCaseInMonths" #if( $validationRule.additionalRuleType == 'SarampoCaseInMonths') selected="selected" #end>Sarampo: Cases in recent ( A ) month/months > ( B )</option>
+                <option value="MeningiteIncreasedInWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInWeeks') selected="selected" #end>Meningite: Cases increases by ( A ) times in last ( B ) weeks</option>
+                <option value="DiarrieaCaseInYears" #if( $validationRule.additionalRuleType == 'DiarrieaCaseInYears') selected="selected" #end>Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev</option>
+                <option value="MalariaCaseInYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInYears') selected="selected" #end>Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev</option>
             </select>
         </td>
     </tr>
