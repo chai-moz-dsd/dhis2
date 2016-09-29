@@ -272,7 +272,7 @@
             <td><label for="alertFlag">$i18n.getString("alert")</label></td>
 
             <td>
-                <input type="checkbox" name="alertFlag" value="true" #if ($user.alertFlag == "true") checked="checked" #end>
+                <input type="checkbox" name="alertFlag" value="true" #if ($user.alertFlag) checked="checked" #end>
             </td>
         </tr>
 

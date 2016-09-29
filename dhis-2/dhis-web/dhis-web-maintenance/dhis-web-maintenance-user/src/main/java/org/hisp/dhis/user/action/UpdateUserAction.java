@@ -258,7 +258,7 @@ public class UpdateUserAction
         user.setFirstName( StringUtils.trimToNull( firstName ) );
         user.setEmail( StringUtils.trimToNull( email ) );
         user.setPhoneNumber( StringUtils.trimToNull( phoneNumber ) );
-        user.setAlertFlag( StringUtils.trimToNull( alertFlag ) );
+        user.setAlertFlag( Boolean.getBoolean(StringUtils.trimToNull( alertFlag )) );
 
         UserCredentials userCredentials = user.getUserCredentials();
 

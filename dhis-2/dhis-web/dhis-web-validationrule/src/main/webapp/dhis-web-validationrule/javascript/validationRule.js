@@ -63,6 +63,10 @@ function setDefaultRuleContent(ruleType) {
   }
 }
 
+function changeAdditionalRuleHelpContent(ruleType) {
+  $('#additionalRuleHelp').attr('href', 'javascript:getHelpContent("' + ruleType + '")');
+}
+
 function changeAdditionalRuleType() {
   var additionalRuleType = $('#additionalRuleType').val();
 
@@ -78,9 +82,11 @@ function changeAdditionalRuleType() {
     hideById('leftRightHide');
 
     setDefaultRuleContent(additionalRuleType);
+    changeAdditionalRuleHelpContent(additionalRuleType);
 
     $('#operator').val('equal_to');
     setDefaultLeftExpression();
     setDefaultRightExpression();
   }
 }
+

@@ -91,7 +91,7 @@ public class User
 
     private String languages;
 
-    private String alertFlag;
+    private Boolean alertFlag;
 
     private Date lastCheckedInterpretations;
 
@@ -523,11 +523,11 @@ public class User
     @JsonProperty
     @JsonView({DetailedView.class, ExportView.class})
     @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
-    public String getAlertFlag() {
+    public Boolean getAlertFlag() {
         return alertFlag;
     }
 
-    public void setAlertFlag(String alertFlag) {
+    public void setAlertFlag(Boolean alertFlag) {
         this.alertFlag = alertFlag;
     }
 

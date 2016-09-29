@@ -5200,15 +5200,62 @@ No upload if the chosen file is not spreadsheet file.</para>
 <title>Validation Rule Group</title>
 <para>A validation rule group provides a mechanism for classifying related data elements. Another advantate of using validation rule grops is that it can later be run separately, contrary to running all validation rules.</para>
 </section>
-        <section id="additionalRules">
-            <title>disease case in a month</title>
-            <para>month: 1</para>
-            <title>disease increased in several weeks</title>
-            <para>week number: 3</para>
-            <title>disease case in five years</title>
-            <para>year start: 2010</para>
-            <para>year end: 2014</para>
+        <section id="SarampoCaseInMonths">
+            <title>Cases in a district in several weeks</title>
+            <para>
+                rule: Sarampo: Cases in recent ( A ) week/weeks > ( B )
+                      A:
+                      B:
+                sample:
+                      A: 3
+                      B: 10
+            </para>
         </section>
+    <section id="MeningiteIncreasedInWeeks">
+        <title>Case duplication in last consectuve epidemiological weeks</title>
+        <para>
+            rule: Meningite: Cases increases by ( A ) times in last ( B ) weeks
+                  A:
+                  B:
+            sample:
+                  A: 3
+                  B: 5
+            description:
+                  Case for week 1 * 2 <= Case for week 2 && Case for week 2 * 2 <= Case for week 3
+                  For example, week 1 we have 2 cases, week 2 we have 4 or more cases, and for week 3 we have 8 or more cases, then this would trigger the alert.
+        </para>
+    </section>
+    <section id="DiarrieaCaseInYears">
+        <title> Cases reported within the reporting period > the mean of the same week for the previous n * years + m * std dev. </title>
+        <para>
+            rule: Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev
+            A:
+            B:
+            sample:
+            A: 5
+            B: 2
+            description:
+                Cases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.
+
+        </para>
+    </section>
+
+    <section id="MalariaCaseInYears">
+        <title> Cases reported within the reporting period > the mean of the same epidemilogical period for the previous n * years + m * std dev. </title>
+        <para>
+            rule: Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev
+            A:
+            B:
+            sample:
+            A: 5
+            B: 2
+            C: 5
+            D: 2
+            description:
+            Cases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.
+
+        </para>
+    </section>
 </chapter>
 <chapter>
 <title>Data elements</title>

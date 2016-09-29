@@ -46,7 +46,7 @@
 
     <property name="languages" type="text" />
 
-    <property name="alertFlag" column="alert_flag" type="text" />
+    <property name="alertFlag" column="alert_flag" type="boolean" />
 
     <property name="lastCheckedInterpretations" type="timestamp" />
 

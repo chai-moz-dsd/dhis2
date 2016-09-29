@@ -54,7 +54,7 @@
         <td>
             <select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
                 <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>default</option>
-                <option value="SarampoCaseInMonths" #if( $validationRule.additionalRuleType == 'SarampoCaseInMonths') selected="selected" #end>Sarampo: Cases in recent ( A ) month/months > ( B )</option>
+                <option value="SarampoCaseInMonths" #if( $validationRule.additionalRuleType == 'SarampoCaseInMonths') selected="selected" #end>Sarampo: Cases in recent ( A ) week/weeks > ( B )</option>
                 <option value="MeningiteIncreasedInWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInWeeks') selected="selected" #end>Meningite: Cases increases by ( A ) times in last ( B ) weeks</option>
                 <option value="DiarrieaCaseInYears" #if( $validationRule.additionalRuleType == 'DiarrieaCaseInYears') selected="selected" #end>Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev</option>
                 <option value="MalariaCaseInYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInYears') selected="selected" #end>Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev</option>
@@ -65,7 +65,7 @@
         <td><label for="additionalRule">$i18n.getString( "additional rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
         <td>
 			<textarea name="additionalRule">$!encoder.htmlEncode( $validationRule.additionalRule )</textarea>
-            <a href="javascript:getHelpContent('additionalRules')" title="Help"><i class="fa fa-question-circle"></i></a>
+            <a id="additionalRuleHelp" title="Help"><i class="fa fa-question-circle"></i></a>
 		</td>
     </tr>
 

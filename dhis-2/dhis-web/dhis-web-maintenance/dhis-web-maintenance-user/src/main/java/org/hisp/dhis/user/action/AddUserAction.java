@@ -60,6 +60,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.lang.Boolean;
+
+
 
 /**
  * @author Torgeir Lorange Ostby
@@ -311,7 +314,7 @@ public class AddUserAction
             userCredentials.setUsername( StringUtils.trimToNull( inviteUsername ) );
             userCredentials.setInvitation( true );
             user.setEmail( StringUtils.trimToNull( inviteEmail ) );
-            user.setAlertFlag( StringUtils.trimToNull( alertFlag ) );
+            user.setAlertFlag( Boolean.getBoolean(StringUtils.trimToNull( alertFlag )) );
 
             securityService.prepareUserForInvite( user );
         }
@@ -321,7 +324,7 @@ public class AddUserAction
             user.setFirstName( StringUtils.trimToNull( firstName ) );
             user.setEmail( StringUtils.trimToNull( email ) );
             user.setPhoneNumber( StringUtils.trimToNull( phoneNumber ) );
-            user.setAlertFlag( StringUtils.trimToNull( alertFlag ) );
+            user.setAlertFlag( Boolean.getBoolean(StringUtils.trimToNull( alertFlag )) );
 
             userService.encodeAndSetPassword( userCredentials, StringUtils.trimToNull( rawPassword ) );
         }
