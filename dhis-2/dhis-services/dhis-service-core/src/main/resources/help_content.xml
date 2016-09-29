@@ -5202,59 +5202,19 @@ No upload if the chosen file is not spreadsheet file.</para>
 </section>
         <section id="SarampoCaseInMonths">
             <title>Cases in a district in several weeks</title>
-            <para>
-                rule: Sarampo: Cases in recent ( A ) week/weeks > ( B )
-                      A:
-                      B:
-                sample:
-                      A: 3
-                      B: 10
-            </para>
+            <para><![CDATA[rule: Sarampo: Cases in recent ( A ) week/weeks > ( B )\r\nA:\r\nB:\r\nsample:\r\nA: 3\r\nB: 10]]></para>
         </section>
     <section id="MeningiteIncreasedInWeeks">
         <title>Case duplication in last consectuve epidemiological weeks</title>
-        <para>
-            rule: Meningite: Cases increases by ( A ) times in last ( B ) weeks
-                  A:
-                  B:
-            sample:
-                  A: 3
-                  B: 5
-            description:
-                  Case for week 1 * 2 <= Case for week 2 && Case for week 2 * 2 <= Case for week 3
-                  For example, week 1 we have 2 cases, week 2 we have 4 or more cases, and for week 3 we have 8 or more cases, then this would trigger the alert.
-        </para>
+        <para><![CDATA[rule: Meningite: Cases increases by ( A ) times in last ( B ) weeks\r\nA:\r\nB:\r\nsample:\r\nA: 3\r\nB: 5\r\ndescription:\r\nCase for week 1 * 2 <= Case for week 2 && Case for week 2 * 2 <= Case for week 3\r\nFor example, week 1 we have 2 cases, week 2 we have 4 or more cases, and for week 3 we have 8 or more cases, then this would trigger the alert.]]></para>
     </section>
     <section id="DiarrieaCaseInYears">
         <title> Cases reported within the reporting period > the mean of the same week for the previous n * years + m * std dev. </title>
-        <para>
-            rule: Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev
-            A:
-            B:
-            sample:
-            A: 5
-            B: 2
-            description:
-                Cases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.
-
-        </para>
+        <para><![CDATA[rule: Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev\r\nA:\r\nB:\r\nsample:\r\nA: 5\r\nB: 2\r\nescription:\r\nCases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.]]></para>
     </section>
-
     <section id="MalariaCaseInYears">
         <title> Cases reported within the reporting period > the mean of the same epidemilogical period for the previous n * years + m * std dev. </title>
-        <para>
-            rule: Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev
-            A:
-            B:
-            sample:
-            A: 5
-            B: 2
-            C: 5
-            D: 2
-            description:
-            Cases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.
-
-        </para>
+        <para><![CDATA[rule: Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev\r\nA:\r\nB:\r\nsample:\r\nA: 5\r\nB: 2\r\nC: 5\r\nD: 2\r\ndescription:\r\nCases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.]]></para>
     </section>
 </chapter>
 <chapter>
