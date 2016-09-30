@@ -182,6 +182,11 @@ public class DefaultMessageService
         {
             boolean read = user != null && user.equals( sender );
 
+            if (!user.getAlertFlag())
+            {
+                continue;
+            }
+
             conversation.addUserMessage( new UserMessage( user, read ) );
         }
 
