@@ -324,7 +324,8 @@ public class AddUserAction
             user.setFirstName( StringUtils.trimToNull( firstName ) );
             user.setEmail( StringUtils.trimToNull( email ) );
             user.setPhoneNumber( StringUtils.trimToNull( phoneNumber ) );
-            user.setAlertFlag( Boolean.getBoolean(StringUtils.trimToNull( alertFlag )) );
+
+            user.setAlertFlag( Boolean.valueOf(StringUtils.trimToNull( alertFlag )) );
 
             userService.encodeAndSetPassword( userCredentials, StringUtils.trimToNull( rawPassword ) );
         }
