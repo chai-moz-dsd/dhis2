@@ -339,10 +339,10 @@ public class AddUserAction
         // Organisation units
         // ---------------------------------------------------------------------
 
-        Set<OrganisationUnit> dataCaptureOrgUnits = new HashSet<>( selectionManager.getSelectedOrganisationUnits() );
+        Set<OrganisationUnit> dataCaptureOrgUnits = new HashSet<OrganisationUnit>( selectionManager.getSelectedOrganisationUnits() );
         user.updateOrganisationUnits( dataCaptureOrgUnits );
 
-        Set<OrganisationUnit> dataViewOrgUnits = new HashSet<>( selectionTreeManager.getReloadedSelectedOrganisationUnits() );
+        Set<OrganisationUnit> dataViewOrgUnits = new HashSet<OrganisationUnit>( selectionManager.getSelectedOrganisationUnits() );
         user.setDataViewOrganisationUnits( dataViewOrgUnits );
 
         if ( dataViewOrgUnits.size() == 0 && currentUser.getDataViewOrganisationUnits().size() != 0 )
