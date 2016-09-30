@@ -5201,54 +5201,40 @@ No upload if the chosen file is not spreadsheet file.</para>
 <para>A validation rule group provides a mechanism for classifying related data elements. Another advantate of using validation rule grops is that it can later be run separately, contrary to running all validation rules.</para>
 </section>
         <section id="SarampoCaseInMonths">
-            <title>Cases in a district in several weeks</title>
-            <para>rule: </para>
-            <para>Sarampo: Cases in recent ( A ) week/weeks > ( B )</para>
-            <para>A:</para>
-            <para>B:</para>
-            <para>sample:</para>
-            <para>A: 3</para>
-            <para>B: 10</para>
+            <title><![CDATA[Sarampo: Cases in recent ( A ) EPI week(s) > ( B )]]></title>
+            <para>Example: If below info is entered:</para>
+            <para>A: 5</para>
+            <para>B: 5</para>
+            <para>It means threshold for Sarampo will be surpassed when: </para>
+            <para>cases for Sarampo in current week and 4 earlier weeks > 5</para>
         </section>
     <section id="MeningiteIncreasedInWeeks">
-        <title>Case duplication in last consectuve epidemiological weeks</title>
-        <para>rule: Meningite: Cases increases by ( A ) times in last ( B ) weeks</para>
-        <para>A:</para>
-        <para>B:</para>
-        <para>sample:</para>
-        <para>A: 3</para>
-        <para>B: 5</para>
-        <para>description:</para>
+        <title>Meningite: Cases increases by ( A ) times in recent ( B ) consecutive weeks</title>
+        <para>Example: If below info is entered: </para>
+        <para>A: 2</para>
+        <para>B: 3</para>
+        <para>It means threshold for Meningite will be surpassed when: </para>
         <para>
-            <![CDATA[Case for week 1 * 2 <= Case for week 2 && Case for week 2 * 2 <= Case for week 3]]>
+            <![CDATA[Cases in current EPI week  >= Cases in last EPI week * 2 and Cases in last EPI week  >= Cases in the week before last EPI week * 2]]>
         </para>
-        <para><![CDATA[For example, week 1 we have 2 cases, week 2 we have 4 or more cases, and for week 3 we have 8 or more cases, then this would trigger the alert.]]></para>
     </section>
     <section id="DiarrieaCaseInYears">
-        <title> Cases reported within the reporting period > the mean of the same week for the previous n * years + m * std dev. </title>
-        <para><![CDATA[rule: Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev]]></para>
-        <para>A:</para>
-        <para>B:</para>
-        <para>sample:</para>
-        <para>A: 5</para>
+        <title><![CDATA[Disenteria: Cases > average for same week in last ( A ) years + ( B ) * std dev]]></title>
+        <para>Example: If below info is entered: </para>
+        <para>A: 4</para>
         <para>B: 2</para>
-        <para>escription:</para>
-        <para><![CDATA[Cases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.]]></para>
+        <para>It means threshold for Disenteria will be surpassed when: </para>
+        <para><![CDATA[Cases in current EPI week  > Cases in same EPI week for the previous 4 years + 2 * standard deviation]]></para>
     </section>
     <section id="MalariaCaseInYears">
-        <title> Cases reported within the reporting period > the mean of the same epidemilogical period for the previous n * years + m * std dev. </title>
-        <para><![CDATA[rule: Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev]]></para>
-        <para>A:</para>
-        <para>B:</para>
-        <para>C:</para>
-        <para>D:</para>
-        <para>sample:</para>
-        <para>A: 5</para>
-        <para>B: 2</para>
+        <title><![CDATA[Malária: Cases > average from current week + ( A ) earlier weeks to current week - ( B ) later weeks in past ( C ) years + ( D ) * std dev]]></title>
+        <para>Example: If below info is entered:</para>
+        <para>A: 3</para>
+        <para>B: 1</para>
         <para>C: 5</para>
         <para>D: 2</para>
-        <para>description:</para>
-        <para><![CDATA[Cases reported within the epidemiological week > the mean of the same epidemilogical week for the previous n * years + m * std dev.]]></para>
+        <para>It means threshold for Malária will be surpassed when: </para>
+        <para><![CDATA[Cases in current EPI week and 4 earlier weeks  > Cases in current EPI week and 3 weeks before and 1 week after for the previous 4 years + 2 * standard deviation]]></para>
     </section>
 </chapter>
 <chapter>
