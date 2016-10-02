@@ -74,8 +74,7 @@
         });
 
 
-        //checkValueIsExist("openId", "validateUser.action", { id: $userCredentials.id
-         });
+        //checkValueIsExist("openId", "validateUser.action", { id: $userCredentials.id});
 
         ouwtSelected = selection.getSelected();
         selection.clearSelected(); // Sync ouwt from server
@@ -287,6 +286,11 @@
         <tr>
             <td>
                 #parse( "/dhis-web-commons/ouwt/orgunittree.vm" )
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="selectionTree" style="display: none"></div>
             </td>
         </tr>
     </table>
