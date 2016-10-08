@@ -101,4 +101,10 @@
 		</action>
 	</package>
 
+	<package name="reporting-app" extends="dhis-web-commons" namespace="/reporting-page">
+		<action name="index" class="org.hisp.dhis.commons.action.NoAction">
+			<result name="success" type="redirect">index.html</result>
+		</action>
+	</package>
+
 </struts>
