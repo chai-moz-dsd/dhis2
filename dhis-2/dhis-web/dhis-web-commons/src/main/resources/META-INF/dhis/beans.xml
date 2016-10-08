@@ -42,6 +42,7 @@
         <value>dhis-web-mobile</value>
         <value>dhis-web-reporting</value>
         <value>dhis-web-sms</value>
+        <value>reporting-page</value>
       </list>
     </property>
   </bean>
@@ -384,7 +385,7 @@
     <property name="dataSetService" ref="org.hisp.dhis.dataset.DataSetService" />
     <property name="categoryService" ref="org.hisp.dhis.dataelement.DataElementCategoryService" />
   </bean>
-  
+
   <bean id="org.hisp.dhis.commons.action.GetSectionIndicatorsAction" class="org.hisp.dhis.commons.action.GetSectionIndicatorsAction"
     scope="prototype">
     <property name="dataSetService" ref="org.hisp.dhis.dataset.DataSetService" />
@@ -411,7 +412,7 @@
     scope="prototype">
     <property name="programService" ref="org.hisp.dhis.program.ProgramService" />
   </bean>
-  
+
   <bean id="org.hisp.dhis.commons.action.GetIndicatorAction" class="org.hisp.dhis.commons.action.GetIndicatorAction"
     scope="prototype">
     <property name="indicatorService" ref="org.hisp.dhis.indicator.IndicatorService" />
