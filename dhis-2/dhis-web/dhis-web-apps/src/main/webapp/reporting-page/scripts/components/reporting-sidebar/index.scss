@@ -1,0 +1,65 @@
+.sidebar {
+  padding-top: 4.8rem;
+  background: #F2F2F1;
+  min-width: 330px;
+  height: 100vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.head {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.filterName {
+  margin-left: 21px;
+}
+
+.filter {
+  border-radius: 2px;
+  height: 430px;
+  overflow: auto;
+  background: #FFFFFF;
+  border: 1px solid #979797;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+
+.reportBtn {
+  margin-top: 30px;
+  width: 100%;
+  background: #1b5184;
+  font-size: 14px;
+  color: white;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+
+.exportDiv {
+  text-align: center;
+  padding-top: 10px;
+  a {
+    font-size: 14px;
+    color: #1B5184;
+    opacity: 0.86;
+    text-decoration: none;
+  }
+}
+
+.selected:after {
+  content: "\2714";
+  color: #1B5184;
+}
+
+.unCheck:after {
+  content: "\2714";
+  visibility:hidden
+}
+
+.exportBtn {
+  color: grey;
+  font-size: small;
+  white-space: normal;
+}

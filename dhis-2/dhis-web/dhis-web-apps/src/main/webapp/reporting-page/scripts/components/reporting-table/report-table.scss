@@ -1,0 +1,27 @@
+table {
+    margin-left: 20px;
+    margin-right: 20px;
+    border-spacing: 0;
+    border: thin solid black;
+    background-color: white;
+}
+
+th, td {
+    border: thin solid grey;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    min-width: 50px;
+    background-color: #b4c5d4;
+}
+
+td .item-td {
+    text-align: left;
+    width: 10%;
+}
+
+li {
+    font-size: small;
+}

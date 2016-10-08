@@ -1,0 +1,187 @@
+.sidebar {
+  padding-top: 4.8rem;
+  background: #F2F2F1;
+  min-width: 330px;
+  height: 100vh;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.head {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.content {
+  padding-top: 4.8rem;
+  height: 100vh;
+  background: white;
+  overflow-y: auto;
+
+  table {
+    margin: 0;
+
+    thead {
+      tr:nth-child(1) {
+        th {
+          background-color: #7CA1CC;
+        }
+
+        th:nth-child(1){
+          background-color: white;
+          min-width: 20rem;
+        }
+      }
+
+      tr:nth-child(2) {
+        background-color: #B6C5D4;
+
+        th {
+          min-width: 10rem;
+        }
+      }
+    }
+
+    tbody {
+      text-align: left;
+    }
+  }
+}
+
+.reportBtn {
+  margin-top: 30px;
+  width: 100%;
+  background: #1b5184;
+  font-size: 14px;
+  color: white;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+
+.ReportingRow {
+}
+
+.rowStyle {
+  white-space: nowrap;
+}
+
+.rowName {
+  text-align: left;
+  position: relative;
+  font-size: 1.2rem;
+  padding-left: 3px;
+  padding-right: 3px;
+  table-layout: fixed;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.loading:after {
+  font-family: Glyphicons Halflings;
+  content: "\E031";
+  font-size: 1.1rem;
+  color: white;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  -webkit-animation:spin 2s linear infinite;
+  -moz-animation:spin 2s linear infinite;
+  animation:spin 2s linear infinite;
+}
+
+.sick {
+  background-color: #DEA8A7;
+  color: #D1827F;
+}
+
+.normal {
+  background-color: #DDDDDD;
+  color: #ACA9A9;
+}
+
+.ok {
+  background-color: #CDDCAE;
+  color: #A0BC6B;
+}
+
+.syncStatus{
+  min-width: 25rem;
+  text-align: left;
+}
+
+.syncTimeStatus {
+  padding: 0 .3rem;
+  float: left;
+}
+
+.syncTime {
+  padding: 0 .3rem 0 1rem;
+  min-width: 35rem;
+  text-align: right;
+}
+
+.ODKVersion {
+  padding: 0 .3rem;
+  min-width: 10rem;
+  text-align: left;
+}
+
+.mark {
+  font-weight: bold;
+}
+
+.icon {
+  float: left;
+  margin: 3px 3px 0 4px;
+  color: #ECECEC;
+  font-size: 12px;
+}
+
+.primaryTitle {
+  background: #535353;
+  color: white;
+}
+
+.secondaryTitle {
+  background: #A7A7A7;
+}
+
+.tertiaryTitle {
+  background: #DDDDDD;
+}
+
+.primaryTitle, .secondaryTitle, .tertiaryTitle {
+  font-size: 1.6rem;
+  font-weight: bold;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.tableContainer {
+  width: auto;
+  overflow-y: auto;
+  height: calc(100vh - 7.3rem);
+}
+
+.changeScreenLabel {
+  text-align: right;
+  height: 25px;
+  background: #F2F2F1;
+  a {
+    display: inline-block;
+    text-decoration: none;
+    margin: 0;
+  }
+
+  & > a:last-child {
+    margin-right: 20px;
+  }
+
+  a:nth-child(2){
+    margin: 0 20px;
+  }
+}
