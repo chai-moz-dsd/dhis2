@@ -3,3 +3,4 @@
 .bzr
 .bzrignore
 **/target
+**/node_modules
