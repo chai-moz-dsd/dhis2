@@ -32,7 +32,6 @@ var getPeriod = function (period) {
 module.exports = {
     getConfig: function() {
         return {
-            headers: {'Authorization': 'Basic YWRtaW46ZGlzdHJpY3Q='}
         };
     },
 
