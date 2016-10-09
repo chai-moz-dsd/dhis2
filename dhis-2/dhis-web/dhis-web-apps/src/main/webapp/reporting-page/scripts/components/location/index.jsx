@@ -143,7 +143,7 @@ export default class Location extends Component {
                         icon = <FontIcon style={{
                             ...iconStyle,
                             marginLeft: (level) * 20 + 'px'
-                        }}>{ item.showChildren ? 'arrow_drop_down' : 'arrow_drop_up' }</FontIcon>;
+                        }}>{ item.showChildren ? 'expand_more' : 'chevron_right' }</FontIcon>;
                     }
 
                     return (
