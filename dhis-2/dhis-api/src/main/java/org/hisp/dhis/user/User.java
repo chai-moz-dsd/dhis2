@@ -651,6 +651,7 @@ public class User
                 education = user.getEducation() == null ? education : user.getEducation();
                 interests = user.getInterests() == null ? interests : user.getInterests();
                 languages = user.getLanguages() == null ? languages : user.getLanguages();
+                alertFlag = !user.getAlertFlag() ? alertFlag : user.getAlertFlag();
                 lastCheckedInterpretations = user.getLastCheckedInterpretations() == null ? lastCheckedInterpretations : user.getLastCheckedInterpretations();
                 userCredentials = user.getUserCredentials() == null ? userCredentials : user.getUserCredentials();
             }
