@@ -28,20 +28,23 @@ package org.hisp.dhis.webapi.controller;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.hisp.dhis.analytics.AggregationType;
-import org.hisp.dhis.analytics.AnalyticsService;
-import org.hisp.dhis.analytics.AnalyticsUtils;
-import org.hisp.dhis.analytics.DataQueryParams;
-import org.hisp.dhis.analytics.DataQueryService;
+import java.awt.*;
+import java.util.List;
+
+import org.hisp.dhis.analytics.*;
 import org.hisp.dhis.common.DisplayProperty;
 import org.hisp.dhis.common.Grid;
 import org.hisp.dhis.common.IdScheme;
 import org.hisp.dhis.common.IdentifiableProperty;
 import org.hisp.dhis.common.cache.CacheStrategy;
 import org.hisp.dhis.i18n.I18nManager;
+import org.hisp.dhis.i18n.I18nFormat;
 import org.hisp.dhis.system.grid.GridUtils;
 import org.hisp.dhis.webapi.mvc.annotation.ApiVersion;
 import org.hisp.dhis.webapi.utils.ContextUtils;
+
+
+import org.hisp.dhis.validation.ValidationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,10 +54,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
+import java.util.Collection;
 
 import static org.hisp.dhis.common.DimensionalObjectUtils.getItemsFromParam;
+import org.hisp.dhis.validation.ValidationRuleService;
+import org.hisp.dhis.organisationunit.OrganisationUnitService;
+import org.hisp.dhis.common.DimensionalItemObject;
+import org.hisp.dhis.common.DimensionalObject;
+import org.hisp.dhis.common.DimensionType;
+import org.hisp.dhis.organisationunit.OrganisationUnit;
+import org.hisp.dhis.dataelement.DataElementCategoryOptionCombo;
+import org.hisp.dhis.validation.ValidationRuleGroup;
+import org.hisp.dhis.organisationunit.OrganisationUnit;
+
+
 
 /**
  * @author Lars Helge Overland
@@ -76,6 +92,12 @@ public class AnalyticsController
 
     @Autowired
     private I18nManager i18nManager;
+
+    @Autowired
+    private ValidationRuleService validationRuleService;
+
+    @Autowired
+    private OrganisationUnitService organisationUnitService;
 
     // -------------------------------------------------------------------------
     // Resources
@@ -111,9 +133,73 @@ public class AnalyticsController
 
         contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING );
         Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
+
+        List<List<ValidationResult>> results = getValidationResults(params);
+        List<List<Object>> allRows = grid.getRows();
+        for (List<Object> row : allRows) {
+            String diseaseId = (String) row.get(0);
+            row.add(String.format("highlight.%s", verifyHighlight(results, diseaseId)));
+        }
+
         model.addAttribute( "model", grid );
         model.addAttribute( "viewClass", "detailed" );
         return "grid";
+    }
+
+    private List<List<ValidationResult>> getValidationResults(DataQueryParams params) {
+        List<DimensionalItemObject> ous = params.getOrganisationUnits();
+        List<DimensionalObject> dimensionObjects = params.getDimensionsAndFilters(DimensionType.DATA_X);
+        List<DimensionalItemObject> diseaseItems = dimensionObjects.get(0).getItems();
+
+        List<List<ValidationResult>> results = new ArrayList<List<ValidationResult>>();
+        for (DimensionalItemObject ou : ous) {
+            OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou.getDimensionItem());
+            Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+
+            for (DimensionalItemObject diseaseItem : diseaseItems) {
+                List<ValidationRuleGroup> ruleGroupsForDisease = getRuleGroupsForDisease(diseaseItem.getShortName());
+                List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
+                for (ValidationRuleGroup validationRuleGroup : ruleGroupsForDisease) {
+                    validationResults.addAll(new ArrayList<>( validationRuleService.validate(
+                            params.getFilterPeriod().getStartDate(),
+                            params.getFilterPeriod().getEndDate(),
+                            organisationUnits,
+                            null,
+                            validationRuleGroup,
+                            false,
+                            i18nManager.getI18nFormat())));
+                }
+
+                results.add(validationResults);
+            }
+        }
+        return results;
+    }
+
+    private boolean verifyHighlight(List<List<ValidationResult>> results, String diseaseId) {
+        for (List<ValidationResult> allResult : results) {
+            for (ValidationResult weekResult : allResult) {
+                String expression = weekResult.getValidationRule().getLeftSide().getExpression();
+                if (expression.contains(diseaseId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private List<ValidationRuleGroup> getRuleGroupsForDisease(String diseaseName) {
+        List<ValidationRuleGroup> results = new ArrayList<ValidationRuleGroup>();
+
+        List<ValidationRuleGroup> groups = validationRuleService.getAllValidationRuleGroups();
+        for (ValidationRuleGroup group : groups) {
+            String groupName = group.getName();
+            if (diseaseName.contains(groupName.substring(0, groupName.indexOf(" GROUP")))) {
+                results.add(group);
+            }
+        }
+
+        return results;
     }
 
     @RequestMapping( value = RESOURCE_PATH + ".xml", method = RequestMethod.GET )

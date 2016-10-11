@@ -91,7 +91,7 @@ public class User
 
     private String languages;
 
-    private boolean alertFlag;
+    private Boolean alertFlag;
 
     private Date lastCheckedInterpretations;
 
@@ -523,11 +523,11 @@ public class User
     @JsonProperty
     @JsonView({DetailedView.class, ExportView.class})
     @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
-    public boolean getAlertFlag() {
-        return alertFlag;
+    public Boolean getAlertFlag() {
+        return alertFlag == null ? false : alertFlag;
     }
 
-    public void setAlertFlag(boolean alertFlag) {
+    public void setAlertFlag(Boolean alertFlag) {
         this.alertFlag = alertFlag;
     }
 
@@ -651,7 +651,7 @@ public class User
                 education = user.getEducation() == null ? education : user.getEducation();
                 interests = user.getInterests() == null ? interests : user.getInterests();
                 languages = user.getLanguages() == null ? languages : user.getLanguages();
-                alertFlag = !user.getAlertFlag() ? alertFlag : user.getAlertFlag();
+                alertFlag = user.getAlertFlag() == null ? alertFlag : user.getAlertFlag();
                 lastCheckedInterpretations = user.getLastCheckedInterpretations() == null ? lastCheckedInterpretations : user.getLastCheckedInterpretations();
                 userCredentials = user.getUserCredentials() == null ? userCredentials : user.getUserCredentials();
             }
