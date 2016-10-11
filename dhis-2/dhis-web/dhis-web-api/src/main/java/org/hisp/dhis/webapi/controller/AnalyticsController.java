@@ -134,11 +134,15 @@ public class AnalyticsController
         contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING );
         Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
 
-        List<List<ValidationResult>> results = getValidationResults(params);
-        List<List<Object>> allRows = grid.getRows();
-        for (List<Object> row : allRows) {
-            String diseaseId = (String) row.get(0);
-            row.add(String.format("highlight.%s", verifyHighlight(results, diseaseId)));
+        try {
+            List<List<ValidationResult>> results = getValidationResults(params);
+            List<List<Object>> allRows = grid.getRows();
+            for (List<Object> row : allRows) {
+                String diseaseId = (String) row.get(0);
+                row.add(String.format("highlight.%s", verifyHighlight(results, diseaseId)));
+            }
+        } catch (Exception e) {
+            grid.setSubtitle(e.toString());
         }
 
         model.addAttribute( "model", grid );
