@@ -1,0 +1,33 @@
+.content {
+  height: 100vh;
+  background: white;
+}
+
+.tableContainer {
+  width: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 25px);
+}
+
+.ReportingTable {
+  margin: 0;
+}
+
+.changeScreenLabel {
+  text-align: right;
+  height: 25px;
+  background: #F2F2F1;
+  a {
+    display: inline-block;
+    text-decoration: none;
+    margin: 0;
+  }
+
+  & > a:last-child {
+    margin-right: 20px;
+  }
+
+  a:nth-child(2){
+    margin: 0 20px;
+  }
+}

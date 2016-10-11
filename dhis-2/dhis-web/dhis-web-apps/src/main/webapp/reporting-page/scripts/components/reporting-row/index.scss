@@ -1,0 +1,56 @@
+.ReportingRow {
+}
+
+.rowName {
+  text-align: left;
+  position: relative;
+  font-size: 1.2rem;
+  padding-left: 3px;
+  padding-right: 3px;
+  table-layout: fixed;
+  white-space: nowrap;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.loading:after {
+  font-family: Glyphicons Halflings;
+  content: "\E031";
+  font-size: 1.1rem;
+  color: white;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  -webkit-animation:spin 2s linear infinite;
+  -moz-animation:spin 2s linear infinite;
+  animation:spin 2s linear infinite;
+}
+
+.icon {
+  float: left;
+  margin: 3px 3px 0 4px;
+  color: #ECECEC;
+  font-size: 12px;
+}
+
+.primary {
+  background: #535353;
+  color: white;
+}
+
+.secondary {
+  background: #A7A7A7;
+}
+
+.tertiary {
+  background: #DDDDDD;
+}
+
+.primaryTitle, .secondaryTitle, .tertiaryTitle {
+  font-size: 1.6rem;
+  font-weight: bold;
+  border: 1px solid #000;
+  cursor: pointer;
+}
