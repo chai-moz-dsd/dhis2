@@ -58,17 +58,9 @@ import org.hisp.dhis.user.UserGroup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
+import org.hisp.dhis.organisationunit.OrganisationUnit;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import static org.hisp.dhis.commons.util.TextUtils.LN;
 import static org.hisp.dhis.i18n.I18nUtils.*;
@@ -164,7 +156,7 @@ public class DefaultValidationRuleService
     {
         this.systemSettingManager = systemSettingManager;
     }
-    
+
     @Autowired
     private ApplicationContext applicationContext;
 
@@ -182,10 +174,10 @@ public class DefaultValidationRuleService
         Collection<ValidationRule> rules = group != null ? group.getMembers() : getAllValidationRules();
 
         User user = currentUserService.getCurrentUser();
-        
-        Collection<ValidationResult> results = Validator.validate( ValidationRunContext.getNewContext( 
-            sources, periods, rules, attributeCombo, 
-            null, ValidationRunType.SCHEDULED, constantService.getConstantMap(), 
+
+        Collection<ValidationResult> results = Validator.validate( ValidationRunContext.getNewContext(
+            sources, periods, rules, attributeCombo,
+            null, ValidationRunType.SCHEDULED, constantService.getConstantMap(),
             categoryService.getCogDimensionConstraints( user.getUserCredentials() ),
             categoryService.getCoDimensionConstraints( user.getUserCredentials() ) ), applicationContext );
 
@@ -212,10 +204,10 @@ public class DefaultValidationRuleService
         sources.add( source );
 
         User user = currentUserService.getCurrentUser();
-        
-        return Validator.validate( ValidationRunContext.getNewContext( 
+
+        return Validator.validate( ValidationRunContext.getNewContext(
             sources, periods, rules, null, null,
-            ValidationRunType.SCHEDULED, constantService.getConstantMap(), 
+            ValidationRunType.SCHEDULED, constantService.getConstantMap(),
             categoryService.getCogDimensionConstraints( user.getUserCredentials() ),
             categoryService.getCoDimensionConstraints( user.getUserCredentials() ) ), applicationContext );
     }
@@ -239,10 +231,10 @@ public class DefaultValidationRuleService
         sources.add( source );
 
         User user = currentUserService.getCurrentUser();
-        
-        return Validator.validate( ValidationRunContext.getNewContext( 
+
+        return Validator.validate( ValidationRunContext.getNewContext(
             sources, periods, rules, attributeCombo, null,
-            ValidationRunType.SCHEDULED, constantService.getConstantMap(), 
+            ValidationRunType.SCHEDULED, constantService.getConstantMap(),
             categoryService.getCogDimensionConstraints( user.getUserCredentials() ),
             categoryService.getCoDimensionConstraints( user.getUserCredentials() ) ), applicationContext );
     }
@@ -270,10 +262,10 @@ public class DefaultValidationRuleService
             + ", last run: " + (lastScheduledRun == null ? "[none]" : lastScheduledRun) );
 
         User user = currentUserService.getCurrentUser();
-        
-        Collection<ValidationResult> results = Validator.validate( ValidationRunContext.getNewContext( 
+
+        Collection<ValidationResult> results = Validator.validate( ValidationRunContext.getNewContext(
             sources, periods, rules, null, lastScheduledRun,
-            ValidationRunType.SCHEDULED, constantService.getConstantMap(), 
+            ValidationRunType.SCHEDULED, constantService.getConstantMap(),
             categoryService.getCogDimensionConstraints( user.getUserCredentials() ),
             categoryService.getCoDimensionConstraints( user.getUserCredentials() ) ), applicationContext );
 
@@ -555,23 +547,40 @@ public class DefaultValidationRuleService
 
         Map<Importance, Integer> importanceCountMap = countResultsByImportanceType( results );
 
-        String subject = "Alerts as of " + DateUtils.getLongDateString( scheduledRunStart ) + ": High "
-            + (importanceCountMap.get( Importance.HIGH ) == null ? 0 : importanceCountMap.get( Importance.HIGH )) + ", Medium "
-            + (importanceCountMap.get( Importance.MEDIUM ) == null ? 0 : importanceCountMap.get( Importance.MEDIUM )) + ", Low "
-            + (importanceCountMap.get( Importance.LOW ) == null ? 0 : importanceCountMap.get( Importance.LOW ));
-
         //TODO use velocity template for message
-
+        String leftSideDescription = "Rule description";
         for ( ValidationResult result : results )
         {
             ValidationRule rule = result.getValidationRule();
+            leftSideDescription = rule.getLeftSide().getDescription();
+            StringBuilder absoluteLocationContainer = new StringBuilder(result.getOrgUnit().getName());
 
-            builder.append( result.getOrgUnit().getName() ).append( " " ).append( result.getPeriod().getName() ).
-                append( result.getAttributeOptionCombo().isDefault() ? "" : " " + result.getAttributeOptionCombo().getName() ).append( LN ).
-                append( rule.getName() ).append( " (" ).append( rule.getImportance() ).append( ") " ).append( LN ).
-                append( rule.getLeftSide().getDescription() ).append( ": " ).append( result.getLeftsideValue() ).append( LN ).
-                append( rule.getRightSide().getDescription() ).append( ": " ).append( result.getRightsideValue() ).append( LN ).append( LN );
+            OrganisationUnit parent = result.getOrgUnit().getParent();
+            while (parent != null){
+                absoluteLocationContainer.append(", "+parent.getName());
+                parent = parent.getParent();
+            }
+
+            String location = String.format("%s(%s) ",result.getOrgUnit().getName(), absoluteLocationContainer.toString());
+            String combo = result.getAttributeOptionCombo().isDefault() ? "" : " " + result.getAttributeOptionCombo().getName();
+            builder.append(location).append( LN )
+                    .append("Period: " + result.getPeriod().getName()).append( LN )
+                    .append(combo ).append( LN )
+                    .append( "Actual disease number: " ).append( result.getLeftsideValue() ).append( LN )
+                    .append( "Rule name: " ).append( rule.getName() ).append( LN );
+
+            if (rule.getDescription() != null && !"".equals(rule.getDescription().trim())){
+                builder.append( "Description: " ).append( rule.getDescription() ).append( LN );
+            }
+            if (rule.getInstruction() != null && !"".equals(rule.getInstruction().trim())){
+                builder.append( "Instruction: " ).append( rule.getInstruction() ).append( LN );
+            }
+            builder.append( LN ).append( LN );
         }
+        String subject = new StringBuilder().append(leftSideDescription)
+                .append(" is surpassing threshold on ")
+                .append(DateUtils.getLongDateString( scheduledRunStart ))
+                .toString();
 
         log.info( "Alerting users: " + users.size() + ", subject: " + subject );
 

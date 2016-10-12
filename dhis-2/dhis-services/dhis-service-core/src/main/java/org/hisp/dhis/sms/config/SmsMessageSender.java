@@ -115,18 +115,20 @@ public class SmsMessageSender
 
         if (defaultGateway == null) {
             try {
-                log.info("***********************Send sms**********************");
-                log.info("Recipients = " + recipients.toString());
-                log.info("Content = " + text);
-                Map<String, String> params = new HashMap<>();
-                params.put("uid", REMOTE_SMS_GATEWAY_UID);
-                params.put("sec", REMOTE_SMS_GATEWAY_SCE);
-                params.put("destNumber", "258825299873");
-                params.put("message", text);
-                params.put("messageType", REMOTE_SMS_GATEWAY_MESSAGE_TYPE);
-                String result = invokeRemoteSMSGateway(REMOTE_SMS_GATEWAY_URL, params).getResponseBodyAsString();
-                log.info("result = " + result);
-                return result;
+                for (String recipient : recipients) {
+                    log.info("***********************Send sms**********************");
+                    log.info("Recipients = " + recipients.toString());
+                    log.info("Content = " + text);
+                    Map<String, String> params = new HashMap<>();
+                    params.put("uid", REMOTE_SMS_GATEWAY_UID);
+                    params.put("sec", REMOTE_SMS_GATEWAY_SCE);
+                    params.put("destNumber", recipient);
+                    params.put("message", text);
+                    params.put("messageType", REMOTE_SMS_GATEWAY_MESSAGE_TYPE);
+                    String result = invokeRemoteSMSGateway(REMOTE_SMS_GATEWAY_URL, params).getResponseBodyAsString();
+                    log.info("result = " + result);
+                }
+                return "SMS is successfully sended!";
             } catch (IOException exception) {
                 return ResponseHandler(GatewayResponse.NO_DEFAULT_GATEWAY).getResponseMessage();
             }
