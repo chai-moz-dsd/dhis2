@@ -58,7 +58,7 @@ public enum SettingKey
     AUTO_SAVE_TRACKED_ENTITY_REGISTRATION_ENTRY_FORM( "keyAutoSavetTrackedEntityForm", Boolean.FALSE, Boolean.class ),
     AUTO_SAVE_DATA_ENTRY_FORM( "keyAutoSaveDataEntryForm", Boolean.FALSE, Boolean.class ),
     TRACKER_DASHBOARD_LAYOUT( "keyTrackerDashboardLayout" ),
-    APPLICATION_TITLE( "applicationTitle", "DHIS 2", String.class ), 
+    APPLICATION_TITLE( "applicationTitle", "DSD", String.class ),
     APPLICATION_INTRO( "keyApplicationIntro" ),
     APPLICATION_NOTIFICATION( "keyApplicationNotification" ),
     APPLICATION_FOOTER( "keyApplicationFooter" ),
