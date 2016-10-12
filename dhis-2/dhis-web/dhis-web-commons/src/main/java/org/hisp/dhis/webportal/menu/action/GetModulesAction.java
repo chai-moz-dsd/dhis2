@@ -28,6 +28,7 @@ package org.hisp.dhis.webportal.menu.action;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -53,7 +54,14 @@ public class GetModulesAction
 
     @Autowired
     private CurrentUserService currentUserService;
-    
+
+    private final static List<String> USED_APPS = new ArrayList<String>();
+    static {
+        Collections.addAll(USED_APPS,
+                "dhis-web-dashboard-integration", "reporting-page", "dhis-web-maintenance-user", "dhis-web-validationrule",
+                "dhis-web-pivot", "dhis-web-visualizer", "dhis-web-mapping", "dhis-web-settings");
+    }
+
     private List<Module> modules;
     
     public List<Module> getModules()
@@ -67,7 +75,7 @@ public class GetModulesAction
     {
         String contextPath = ContextUtils.getContextPath( ServletActionContext.getRequest() );
         
-        modules = manager.getAccessibleMenuModulesAndApps( contextPath );
+        modules = getSpecificAppsForDsd(manager.getAccessibleMenuModulesAndApps( contextPath ));
 
         User user = currentUserService.getCurrentUser();
         
@@ -92,5 +100,33 @@ public class GetModulesAction
         }
         
         return SUCCESS;
+    }
+
+    private List<Module> getSpecificAppsForDsd(List<Module> accessibleApps)
+    {
+        List<Module> results = new ArrayList<Module> ();
+        for (org.hisp.dhis.webportal.module.Module accessibleApp : accessibleApps) {
+            String moduleName = accessibleApp.getName();
+
+            if (isDisplayedApp(moduleName))
+            {
+                results.add(accessibleApp);
+            }
+
+        }
+
+        return results;
+    }
+
+    private boolean isDisplayedApp(String moduleName)
+    {
+        for (String appName : USED_APPS) {
+            if (moduleName.contains(appName))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
