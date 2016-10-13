@@ -13,6 +13,13 @@ D2Library.getManifest('manifest.webapp')
     .then(manifest => {
         D2Library.config.baseUrl = calUrl.getBaseUrl();
     })
+    .then(D2Library.getUserSettings)
+    .then(userSettings => {
+        if (userSettings.keyUiLocale !== 'en') {
+            D2Library.config.i18n.sources.add(`i18n/i18n_module_${userSettings.keyUiLocale}.properties`);
+        }
+        D2Library.config.i18n.sources.add('i18n/i18n_module_en.properties');
+    })
     .then(D2Library.init)
     .then(d2 => {
         ReactDOM.render((
