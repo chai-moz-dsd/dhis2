@@ -30,6 +30,7 @@ D2Library.getManifest('manifest.webapp')
             ), document.getElementById('app'));
     })
     .catch(error => {
+        console.log("error:",error);
         ReactDOM.render((<div>Failed to initialise D2</div>), document.getElementById('app'));
     });
 
