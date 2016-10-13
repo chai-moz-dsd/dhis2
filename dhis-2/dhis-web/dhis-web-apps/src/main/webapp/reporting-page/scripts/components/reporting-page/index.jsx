@@ -16,7 +16,7 @@ const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
 class ReportingPage extends React.Component {
 
-    static childContextTypes = {
+    static childContext = {
         d2: React.PropTypes.object,
         muiTheme: React.PropTypes.object,
     };
