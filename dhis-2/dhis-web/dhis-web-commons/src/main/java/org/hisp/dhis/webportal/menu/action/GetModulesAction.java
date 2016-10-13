@@ -77,27 +77,27 @@ public class GetModulesAction
         
         modules = getSpecificAppsForDsd(manager.getAccessibleMenuModulesAndApps( contextPath ));
 
-        User user = currentUserService.getCurrentUser();
+//        User user = currentUserService.getCurrentUser();
         
-        if ( user != null && user.getApps() != null && !user.getApps().isEmpty() )
-        {
-            final List<String> userApps = user.getApps();
-            
-            Collections.sort( modules, new Comparator<Module>()
-            {
-                @Override
-                public int compare( Module m1, Module m2 )
-                {
-                    int i1 = userApps.indexOf( m1.getName() );
-                    int i2 = userApps.indexOf( m2.getName() );
-
-                    i1 = i1 == -1 ? 9999 : i1;
-                    i2 = i2 == -1 ? 9999 : i2;
-                    
-                    return Integer.valueOf( i1 ).compareTo( Integer.valueOf( i2 ) );
-                }
-            } );
-        }
+//        if ( user != null && user.getApps() != null && !user.getApps().isEmpty() )
+//        {
+//            final List<String> userApps = user.getApps();
+//
+//            Collections.sort( modules, new Comparator<Module>()
+//            {
+//                @Override
+//                public int compare( Module m1, Module m2 )
+//                {
+//                    int i1 = userApps.indexOf( m1.getName() );
+//                    int i2 = userApps.indexOf( m2.getName() );
+//
+//                    i1 = i1 == -1 ? 9999 : i1;
+//                    i2 = i2 == -1 ? 9999 : i2;
+//
+//                    return Integer.valueOf( i1 ).compareTo( Integer.valueOf( i2 ) );
+//                }
+//            } );
+//        }
         
         return SUCCESS;
     }
@@ -105,12 +105,16 @@ public class GetModulesAction
     private List<Module> getSpecificAppsForDsd(List<Module> accessibleApps)
     {
         List<Module> results = new ArrayList<Module> ();
-        for (org.hisp.dhis.webportal.module.Module accessibleApp : accessibleApps) {
-            String moduleName = accessibleApp.getName();
 
-            if (isDisplayedApp(moduleName))
+        for (String appName : USED_APPS)
+        {
+            for (org.hisp.dhis.webportal.module.Module accessibleApp : accessibleApps)
             {
-                results.add(accessibleApp);
+                String moduleName = accessibleApp.getName();
+                if (moduleName.contains(appName))
+                {
+                    results.add(accessibleApp);
+                }
             }
 
         }
@@ -118,15 +122,4 @@ public class GetModulesAction
         return results;
     }
 
-    private boolean isDisplayedApp(String moduleName)
-    {
-        for (String appName : USED_APPS) {
-            if (moduleName.contains(appName))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

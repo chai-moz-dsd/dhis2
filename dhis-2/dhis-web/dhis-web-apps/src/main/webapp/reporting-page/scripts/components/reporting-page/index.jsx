@@ -97,8 +97,10 @@ class ReportingPage extends React.Component {
     };
 
     render() {
+        const d2 = this.props.d2;
         return (
             <div className={ css.ReportingPage }>
+                <p> {d2.i18n.getTranslation('by')} </p>
                 <HeaderBar lastUpdate={new Date()}/>
                 <ReportingSidebar filter={this.state.filter} exportTable={this.exportTable}
                                   currentCategory={ this.state.currentCategory }
