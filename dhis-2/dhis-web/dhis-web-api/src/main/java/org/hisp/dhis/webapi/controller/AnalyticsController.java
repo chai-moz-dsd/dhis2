@@ -134,19 +134,16 @@ public class AnalyticsController
         contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING );
         Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
 
-//        long start = System.currentTimeMillis();
-//        long interval = 0;
-//        try {
-//            List<List<ValidationResult>> results = getValidationResults(params);
-//            List<List<Object>> allRows = grid.getRows();
-//            for (List<Object> row : allRows) {
-//                String diseaseId = (String) row.get(0);
-//                interval = System.currentTimeMillis() - start;
-//                row.add(String.format("highlight.%s.%l", verifyHighlight(results, diseaseId), interval));
-//            }
-//        } catch (Exception e) {
-//            grid.setSubtitle(e.toString());
-//        }
+        try {
+            List<List<ValidationResult>> results = getValidationResults(params);
+            List<List<Object>> allRows = grid.getRows();
+            for (List<Object> row : allRows) {
+                String diseaseId = (String) row.get(0);
+                row.add(String.format("highlight.%s", verifyHighlight(results, diseaseId)));
+            }
+        } catch (Exception e) {
+            grid.setSubtitle(e.toString());
+        }
 
         model.addAttribute( "model", grid );
         model.addAttribute( "viewClass", "detailed" );
@@ -161,24 +158,28 @@ public class AnalyticsController
         List<List<ValidationResult>> results = new ArrayList<List<ValidationResult>>();
         for (DimensionalItemObject ou : ous) {
             OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou.getDimensionItem());
-            Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+//            Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
 
-            for (DimensionalItemObject diseaseItem : diseaseItems) {
-                List<ValidationRuleGroup> ruleGroupsForDisease = getRuleGroupsForDisease(diseaseItem.getShortName());
-                List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-                for (ValidationRuleGroup validationRuleGroup : ruleGroupsForDisease) {
-                    validationResults.addAll(new ArrayList<>( validationRuleService.validate(
+//            for (DimensionalItemObject diseaseItem : diseaseItems) {
+//                List<ValidationRuleGroup> ruleGroupsForDisease = getRuleGroupsForDisease(diseaseItem.getShortName());
+//                List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
+//                for (ValidationRuleGroup validationRuleGroup : ruleGroupsForDisease) {
+//                    validationResults.addAll(new ArrayList<>( validationRuleService.validate(
+//                            params.getFilterPeriod().getStartDate(),
+//                            params.getFilterPeriod().getEndDate(),
+//                            organisationUnits,
+//                            null,
+//                            validationRuleGroup,
+//                            false,
+//                            i18nManager.getI18nFormat())));
+//                }
+
+            List<ValidationResult> validationResults = new ArrayList<>(validationRuleService.validate(
                             params.getFilterPeriod().getStartDate(),
                             params.getFilterPeriod().getEndDate(),
-                            organisationUnits,
-                            null,
-                            validationRuleGroup,
-                            false,
-                            i18nManager.getI18nFormat())));
-                }
-
-                results.add(validationResults);
-            }
+                            organisationUnit));
+            results.add(validationResults);
+//            }
         }
         return results;
     }
