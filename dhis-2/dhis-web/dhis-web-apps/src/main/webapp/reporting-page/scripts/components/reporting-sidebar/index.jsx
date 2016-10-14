@@ -78,7 +78,7 @@ class ReportingSidebar extends React.Component {
     }
 
     render() {
-        const d2 = this.context.d2;
+        const d2 = this.context.routes[0].d2;;
         x = d2.i18n.getTranslation('start_epi_week');
         console.log('translate:', x)
         return (
