@@ -46,7 +46,6 @@
 					</td>
 					<td id="allUserAddNew" colspan="3" style="text-align:right" >
 						<input type="button" value="$i18n.getString( 'add_new' )"
-							#if ($users.get(0).getSurname() != "admin") style="display: none" #end
                                onclick="window.location.href='showAddUserForm.action'"/>
 					</td>
 				</tr>

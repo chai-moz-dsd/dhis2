@@ -106,7 +106,14 @@ public class GetOrgunitUserListAction
         params.setFirst( paging.getStartPos() );
         params.setMax( paging.getPageSize() );
         
-        users = userService.getUsers( params );
+        if (params.getUser().getSurname().equals("admin"))
+        {
+            users = userService.getUsers( params );
+        }
+        else
+        {
+            users.add(params.getUser());
+        }
         
         return SUCCESS;
     }
