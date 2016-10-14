@@ -16,6 +16,31 @@
 #end
 
 <script type="text/javascript">
+
+    var setUserRolePermisstion = function (currentUserAccount)
+    {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/24/userRoles.json',
+            dataType: 'json',
+            username: 'admin',
+            password: 'district',
+            success: function(data)
+            {
+                $.each(data.userRoles, function(){
+                    if ((this.displayName == 'Superuser')
+                            && (this.id == currentUserAccount.id))
+                    {
+                        $('#needShowInSuperuser').show();
+                    }
+                    else
+                    {
+                        $('#needShowInSuperuser').hide();
+                    }
+                });
+            }
+        });
+    }
     var ouwtSelected = [];
 
     jQuery(function () {
@@ -112,6 +137,22 @@
             search: $('#dcAvailableSearch'),
             iterator: 'dimensions'
         });
+
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/api/24/me.json',
+            data: {fields: 'userCredentials'},
+            dataType: 'json',
+            username: 'admin',
+            username: 'district',
+            success: function(data) {
+                setUserRolePermisstion(data.userCredentials.userRoles[0]);
+            }
+        });
+
+
+
+
     });
 
 
@@ -255,13 +296,13 @@
             </td>
         </tr>
 
-        <tr>
+        <tr id="needShowInSuperuser">
             <td><label for="urSelected">$i18n.getString("User Role")<em title="$i18n.getString( 'required' )"
                                                                         class="required">*</em></label></td>
             <td>
                 <select id="urSelected" name="urSelected" class="valid">
-                    <option id="data_viewer_id" selected="selected">data_viewer</option>
-                    <option id="superuser_id">supseruser</option>
+                    <option id="data_viewer_id" #if ($userAuthorityGroups.get(0).name == "data_viewer") selected="selected" #end>data_viewer</option>
+                    <option id="superuser_id" #if ($userAuthorityGroups.get(0).name == "Superuser") selected="selected" #end>supseruser</option>
                 </select>
             </td>
         </tr>
