@@ -29,15 +29,9 @@ class ReportingSidebar extends React.Component {
         }
     };
 
-    childContextTypes = {
-        d2: React.PropTypes.object,
+    ContextTypes = {
+        d2: React.PropTypes.object
     };
-
-    getChildContext() {
-        return {
-            d2: this.props.routes[0].d2,
-        };
-    }
 
     componentWillReceiveProps(next) {
         if(this.props.currentCategory !== next.currentCategory) {
@@ -84,9 +78,9 @@ class ReportingSidebar extends React.Component {
     }
 
     render() {
-        const d2 = this.props.routes[0].d2;
-        x = d2.i18n.getTranslation('start_epi_week');
-        console.log('xxxxx',x)
+        // const d2 = this.props.routes[0].d2;
+        // x = d2.i18n.getTranslation('start_epi_week');
+        console.log(this.context)
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
                 <div className={ css.head }>{ categoryTitle[this.props.currentCategory] }</div>
