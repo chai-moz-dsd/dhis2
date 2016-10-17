@@ -79,8 +79,8 @@ class ReportingSidebar extends React.Component {
     }
 
     render() {
-        x = this.props.d2.i18n.getTranslation('start_epi_week');
-        console.log(x);
+        console.log(this.props.d2);
+        console.log(this.props.d2.i18n.getTranslation('start_epi_week'));
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
                 <div className={ css.head }>{ categoryTitle[this.props.currentCategory] }</div>
