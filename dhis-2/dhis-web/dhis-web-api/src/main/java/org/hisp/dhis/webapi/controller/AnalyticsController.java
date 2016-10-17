@@ -154,7 +154,12 @@ public class AnalyticsController
                     }
                 }
             } catch (Exception e) {
-                row.add("id: " + row.get(0) + " value: " + row.get(2) + " " + e.toString());
+                StackTraceElement[] elements = e.getStackTrace();
+                String res = "";
+                for (StackTraceElement element : elements) {
+                    res += element.toString();
+                }
+                row.add("id: " + row.get(0) + " value: " + row.get(2) + " " +  res);
             }
         }
 
