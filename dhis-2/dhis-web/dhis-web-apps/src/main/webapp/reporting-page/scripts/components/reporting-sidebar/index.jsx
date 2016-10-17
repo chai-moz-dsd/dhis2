@@ -29,7 +29,7 @@ class ReportingSidebar extends React.Component {
         }
     };
 
-    static ContextTypes = {
+    ContextTypes = {
         d2: React.PropTypes.object
     };
 
@@ -78,9 +78,9 @@ class ReportingSidebar extends React.Component {
     }
 
     render() {
-        const d2 = this.context.routes[0].d2;;
+        const d2 = this.context.d2;
         x = d2.i18n.getTranslation('start_epi_week');
-        console.log('translate:', x)
+        console.log('xxxxx',x)
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
                 <div className={ css.head }>{ categoryTitle[this.props.currentCategory] }</div>
