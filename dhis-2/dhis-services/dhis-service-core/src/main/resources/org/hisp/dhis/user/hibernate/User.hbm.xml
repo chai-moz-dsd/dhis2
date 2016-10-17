@@ -46,7 +46,9 @@
 
     <property name="languages" type="text" />
 
-    <property name="alertFlag" column="alert_flag" type="boolean" />
+    <property name="emailAlert" column="alert_flag" type="boolean" />
+
+    <property name="smsAlert" column="sms_flag" type="boolean" />
 
     <property name="lastCheckedInterpretations" type="timestamp" />
 

@@ -230,10 +230,13 @@ public class UpdateUserAction
         this.ouwtSelected = ouwtSelected;
     }
 
-    private String alertFlag;
+    private String emailAlert;
 
-    public void setAlertFlag( String alertFlag ) { this.alertFlag = alertFlag; }
+    public void setEmailAlert( String emailAlert ) { this.emailAlert = emailAlert; }
 
+    private String smsAlert;
+
+    public void setSmsAlert(String smsAlert) { this.smsAlert = smsAlert; }
     // -------------------------------------------------------------------------
     // Action implementation
     // -------------------------------------------------------------------------
@@ -258,7 +261,8 @@ public class UpdateUserAction
         user.setFirstName( StringUtils.trimToNull( firstName ) );
         user.setEmail( StringUtils.trimToNull( email ) );
         user.setPhoneNumber( StringUtils.trimToNull( phoneNumber ) );
-        user.setAlertFlag( Boolean.valueOf(StringUtils.trimToNull( alertFlag )) );
+        user.setEmailAlert( Boolean.valueOf(StringUtils.trimToNull( emailAlert )) );
+        user.setSmsAlert(Boolean.valueOf(StringUtils.trimToNull(smsAlert)));
 
         UserCredentials userCredentials = user.getUserCredentials();
 

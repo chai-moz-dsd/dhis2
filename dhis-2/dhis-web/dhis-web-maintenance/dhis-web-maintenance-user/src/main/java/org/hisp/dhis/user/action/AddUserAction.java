@@ -275,10 +275,13 @@ public class AddUserAction
         this.ouwtSelected = ouwtSelected;
     }
 
-    private String alertFlag;
+    private String emailAlert;
 
-    public void setAlertFlag( String alertFlag ) { this.alertFlag = alertFlag; }
+    public void setEmailAlert( String emailAlert ) { this.emailAlert = emailAlert; }
 
+    private String smsAlert;
+
+    public void setSmsAlert(String smsAlert) { this.smsAlert = smsAlert; }
     // -------------------------------------------------------------------------
     // Action implementation
     // -------------------------------------------------------------------------
@@ -314,7 +317,8 @@ public class AddUserAction
             userCredentials.setUsername( StringUtils.trimToNull( inviteUsername ) );
             userCredentials.setInvitation( true );
             user.setEmail( StringUtils.trimToNull( inviteEmail ) );
-            user.setAlertFlag( Boolean.getBoolean(StringUtils.trimToNull( alertFlag )) );
+            user.setEmailAlert( Boolean.getBoolean(StringUtils.trimToNull( emailAlert )) );
+            user.setSmsAlert(Boolean.getBoolean(StringUtils.trimToNull(smsAlert)));
 
             securityService.prepareUserForInvite( user );
         }
@@ -325,7 +329,8 @@ public class AddUserAction
             user.setEmail( StringUtils.trimToNull( email ) );
             user.setPhoneNumber( StringUtils.trimToNull( phoneNumber ) );
 
-            user.setAlertFlag( Boolean.valueOf(StringUtils.trimToNull( alertFlag )) );
+            user.setEmailAlert( Boolean.valueOf(StringUtils.trimToNull( emailAlert )) );
+            user.setSmsAlert(Boolean.valueOf(StringUtils.trimToNull(emailAlert)));
 
             userService.encodeAndSetPassword( userCredentials, StringUtils.trimToNull( rawPassword ) );
         }

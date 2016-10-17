@@ -91,7 +91,9 @@ public class User
 
     private String languages;
 
-    private Boolean alertFlag;
+    private Boolean emailAlert;
+
+    private Boolean smsAlert;
 
     private Date lastCheckedInterpretations;
 
@@ -523,13 +525,25 @@ public class User
     @JsonProperty
     @JsonView({DetailedView.class, ExportView.class})
     @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
-    public Boolean getAlertFlag() {
-        return alertFlag == null ? false : alertFlag;
+    public Boolean getEmailAlert() {
+        return emailAlert == null ? false : emailAlert;
     }
 
-    public void setAlertFlag(Boolean alertFlag) {
-        this.alertFlag = alertFlag;
+    public void setEmailAlert(Boolean emailAlert) {
+        this.emailAlert = emailAlert;
     }
+
+    @JsonProperty
+    @JsonView({DetailedView.class, ExportView.class})
+    @JacksonXmlProperty(namespace = DxfNamespaces.DXF_2_0)
+    public Boolean getSmsAlert() {
+        return smsAlert == null ? false : smsAlert;
+    }
+
+    public void setSmsAlert(Boolean smsAlert) {
+        this.smsAlert = smsAlert;
+    }
+
 
     @JsonProperty
     @JsonView({DetailedView.class, ExportView.class})
@@ -634,7 +648,8 @@ public class User
                 education = user.getEducation();
                 interests = user.getInterests();
                 languages = user.getLanguages();
-                alertFlag = user.getAlertFlag();
+                emailAlert = user.getEmailAlert();
+                smsAlert = user.getSmsAlert();
                 lastCheckedInterpretations = user.getLastCheckedInterpretations();
                 userCredentials = user.getUserCredentials();
             } else if (mergeMode.isMerge()) {
@@ -651,7 +666,8 @@ public class User
                 education = user.getEducation() == null ? education : user.getEducation();
                 interests = user.getInterests() == null ? interests : user.getInterests();
                 languages = user.getLanguages() == null ? languages : user.getLanguages();
-                alertFlag = user.getAlertFlag() == null ? alertFlag : user.getAlertFlag();
+                emailAlert = user.getEmailAlert() == null ? emailAlert : user.getEmailAlert();
+                smsAlert = user.getSmsAlert() == null ? smsAlert : user.getSmsAlert();
                 lastCheckedInterpretations = user.getLastCheckedInterpretations() == null ? lastCheckedInterpretations : user.getLastCheckedInterpretations();
                 userCredentials = user.getUserCredentials() == null ? userCredentials : user.getUserCredentials();
             }
@@ -688,7 +704,8 @@ public class User
                 "\"education\":\"" + education + "\", " +
                 "\"interests\":\"" + interests + "\", " +
                 "\"languages\":\"" + languages + "\", " +
-                "\"alertFlag\":\"" + alertFlag + "\", " +
+                "\"emailAlert\":\"" + emailAlert + "\", " +
+                "\"smsAlert\":\"" + smsAlert + "\", " +
                 "\"lastCheckedInterpretations\":\"" + lastCheckedInterpretations + "\", " +
                 "\"userCredentials\":\"" + userCredentials + "\", " +
                 "\"groups\":\"" + groups + "\", " +
