@@ -138,25 +138,24 @@ public class AnalyticsController
         List<ValidationRule> rules = validationRuleService.getAllValidationRules();
 
         for (List<Object> row : allRows) {
-            String diseaseId = (String) row.get(0);
-            for (ValidationRule rule : rules) {
-                if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)
-                        && rule.getLeftSide().getExpression().contains(diseaseId)) {
-                    Operator operator = rule.getOperator();
-                    double value = Double.valueOf((String) row.get(2));
-                    double threshold = Double.valueOf(rule.getRightSide().getExpression());
+            try {
+                String diseaseId = (String) row.get(0);
+                for (ValidationRule rule : rules) {
+                    if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)
+                            && rule.getLeftSide().getExpression().contains(diseaseId)) {
+                        Operator operator = rule.getOperator();
+                        double value = Double.valueOf((String) row.get(2));
+                        double threshold = Double.valueOf(rule.getRightSide().getExpression());
 
-                    try {
                         row.add(String.format("highlight.%b", !expressionIsTrue(value, operator, threshold)));
-                    } catch (Exception e) {
-                        row.add("value: " + value + " threshold: " + threshold + e.toString());
+                        break;
+                    } else {
+                        row.add("highlight.false");
                     }
-                    break;
-                } else {
-                    row.add("highlight.false");
                 }
+            } catch (Exception e) {
+                row.add("id: " + row.get(0) + " value: " + row.get(2) + " " + e.toString());
             }
-
         }
 
 //        for (ValidationRule rule : rules) {
