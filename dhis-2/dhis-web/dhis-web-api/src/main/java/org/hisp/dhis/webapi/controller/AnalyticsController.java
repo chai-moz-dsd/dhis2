@@ -138,29 +138,23 @@ public class AnalyticsController
         List<ValidationRule> rules = validationRuleService.getAllValidationRules();
 
         for (List<Object> row : allRows) {
-            try {
-                String diseaseId = (String) row.get(0);
-                for (ValidationRule rule : rules) {
-                    if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)
-                            && rule.getLeftSide().getExpression().contains(diseaseId)) {
-                        Operator operator = rule.getOperator();
-                        //double value = Double.valueOf((String) row.get(2));
-                        double threshold = Double.valueOf(rule.getRightSide().getExpression());
 
-                        row.add(String.format("highlight.%b", !expressionIsTrue((Double)row.get(2), operator, threshold)));
-                        break;
-                    } else {
-                        row.add("highlight.false");
-                    }
+            String highLight = "";
+            String diseaseId = (String) row.get(0);
+            for (ValidationRule rule : rules) {
+                if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)
+                        && rule.getLeftSide().getExpression().contains(diseaseId)) {
+                    Operator operator = rule.getOperator();
+                    double threshold = Double.valueOf(rule.getRightSide().getExpression());
+
+                    highLight = String.format("highlight.%b", !expressionIsTrue((Double)row.get(2), operator, threshold));
+                    break;
+                } else {
+                    highLight = "highlight.false";
                 }
-            } catch (Exception e) {
-                StackTraceElement[] elements = e.getStackTrace();
-                String res = "";
-                for (StackTraceElement element : elements) {
-                    res += element.toString();
-                }
-                row.add("id: " + row.get(0) + " value: " + row.get(2) + " " +  res);
             }
+            row.add(highLight);
+
         }
 
 //        for (ValidationRule rule : rules) {
