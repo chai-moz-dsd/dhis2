@@ -309,10 +309,19 @@
 
 
         <tr>
-            <td><label for="alertFlag">$i18n.getString("alert")</label></td>
+            <td><label for="emailAlert">$i18n.getString("email_alert")</label></td>
 
             <td>
-                <input type="checkbox" name="alertFlag" value="true" #if ($user.alertFlag) checked="checked" #end>
+                <input type="checkbox" name="emailAlert" value="true" #if ($user.emailAlert) checked="checked" #end>
+            </td>
+        </tr>
+
+
+        <tr>
+            <td><label for="smsAlert">$i18n.getString("sms_alert")</label></td>
+
+            <td>
+                <input type="checkbox" name="smsAlert" value="true" #if ($user.smsAlert) checked="checked" #end>
             </td>
         </tr>
 
