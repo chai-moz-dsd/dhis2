@@ -37,8 +37,9 @@ class ReportingPage extends React.Component {
     }
 
     getChildContext() {
+        var d2=this.props.routes[0].d2;
         return {
-            d2: this.props.routes[0].d2,
+            d2: d2,
             muiTheme: AppTheme,
         };
     }
@@ -97,7 +98,7 @@ class ReportingPage extends React.Component {
     };
 
     render() {
-        const d2 = this.props.routes[0].d2;
+        console.log(this.context)
         return (
             <div className={ css.ReportingPage }>
                 <HeaderBar lastUpdate={new Date()}/>
