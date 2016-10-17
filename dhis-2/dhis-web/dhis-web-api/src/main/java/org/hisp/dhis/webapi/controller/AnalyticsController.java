@@ -147,7 +147,7 @@ public class AnalyticsController
                         //double value = Double.valueOf((String) row.get(2));
                         double threshold = Double.valueOf(rule.getRightSide().getExpression());
 
-                        row.add(String.format("highlight.%b", !expressionIsTrue(row.get(2), operator, threshold)));
+                        row.add(String.format("highlight.%b", !expressionIsTrue((Double)row.get(2), operator, threshold)));
                         break;
                     } else {
                         row.add("highlight.false");
