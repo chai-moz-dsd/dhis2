@@ -37,9 +37,8 @@ class ReportingPage extends React.Component {
     }
 
     getChildContext() {
-        var d2=this.props.routes[0].d2;
         return {
-            d2: d2,
+            d2: this.props.routes[0].d2,
             muiTheme: AppTheme,
         };
     }
@@ -98,13 +97,13 @@ class ReportingPage extends React.Component {
     };
 
     render() {
-        console.log(this.context)
         return (
             <div className={ css.ReportingPage }>
                 <HeaderBar lastUpdate={new Date()}/>
                 <ReportingSidebar filter={this.state.filter} exportTable={this.exportTable}
                                   currentCategory={ this.state.currentCategory }
-                                  updateTable={this.updateTable}/>
+                                  updateTable={this.updateTable}
+                                  d2={this.props.routes[0].d2}/>
                 <ReportingTable head={this.state.head}
                                 oriHead={this.state.updatedOriHead}
                                 ref={(ref) => this.reportingTable = ref}
