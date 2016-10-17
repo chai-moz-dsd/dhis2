@@ -29,9 +29,17 @@ class ReportingSidebar extends React.Component {
         }
     };
 
-    ContextTypes = {
-        d2: React.PropTypes.object
+    childContextTypes = {
+        d2: React.PropTypes.object,
+        muiTheme: React.PropTypes.object,
     };
+
+    getChildContext() {
+        return {
+            d2: this.props.routes[0].d2,
+            muiTheme: AppTheme,
+        };
+    }
 
     componentWillReceiveProps(next) {
         if(this.props.currentCategory !== next.currentCategory) {
@@ -78,7 +86,7 @@ class ReportingSidebar extends React.Component {
     }
 
     render() {
-        const d2 = this.context.d2;
+        const d2 = this.props.routes[0].d2;
         x = d2.i18n.getTranslation('start_epi_week');
         console.log('xxxxx',x)
         return (
