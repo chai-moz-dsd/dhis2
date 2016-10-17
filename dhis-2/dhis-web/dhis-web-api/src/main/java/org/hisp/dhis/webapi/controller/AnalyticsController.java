@@ -36,15 +36,21 @@ import org.hisp.dhis.common.DisplayProperty;
 import org.hisp.dhis.common.Grid;
 import org.hisp.dhis.common.IdScheme;
 import org.hisp.dhis.common.IdentifiableProperty;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hisp.dhis.common.*;
 import org.hisp.dhis.common.cache.CacheStrategy;
 import org.hisp.dhis.i18n.I18nManager;
-import org.hisp.dhis.i18n.I18nFormat;
+import org.hisp.dhis.organisationunit.OrganisationUnit;
+import org.hisp.dhis.organisationunit.OrganisationUnitService;
 import org.hisp.dhis.system.grid.GridUtils;
+import org.hisp.dhis.validation.ValidationResult;
+import org.hisp.dhis.validation.ValidationRule;
+import org.hisp.dhis.validation.ValidationRuleGroup;
+import org.hisp.dhis.validation.ValidationRuleService;
 import org.hisp.dhis.webapi.mvc.annotation.ApiVersion;
 import org.hisp.dhis.webapi.utils.ContextUtils;
-
-
-import org.hisp.dhis.validation.ValidationResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,24 +59,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.hisp.dhis.analytics.AnalyticsService;
+
+import static org.hisp.dhis.system.util.MathUtils.*;
+import org.hisp.dhis.expression.Operator;
+
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Set;
-import java.util.Collection;
+import java.util.*;
 
 import static org.hisp.dhis.common.DimensionalObjectUtils.getItemsFromParam;
-import org.hisp.dhis.validation.ValidationRuleService;
-import org.hisp.dhis.organisationunit.OrganisationUnitService;
-import org.hisp.dhis.common.DimensionalItemObject;
-import org.hisp.dhis.common.DimensionalObject;
-import org.hisp.dhis.common.DimensionType;
-import org.hisp.dhis.organisationunit.OrganisationUnit;
-import org.hisp.dhis.dataelement.DataElementCategoryOptionCombo;
-import org.hisp.dhis.validation.ValidationRuleGroup;
-import org.hisp.dhis.organisationunit.OrganisationUnit;
-
-
 
 /**
  * @author Lars Helge Overland
@@ -79,7 +76,11 @@ import org.hisp.dhis.organisationunit.OrganisationUnit;
 @ApiVersion( { ApiVersion.Version.DEFAULT, ApiVersion.Version.ALL } )
 public class AnalyticsController
 {
+    public static final String SIMPLE_RULE_TYPE = "Default";
+
     private static final String RESOURCE_PATH = "/analytics";
+
+    private static final Log log = LogFactory.getLog( AnalyticsController.class );
 
     @Autowired
     private DataQueryService dataQueryService;
@@ -133,23 +134,60 @@ public class AnalyticsController
 
         contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING );
         Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
+        List<List<Object>> allRows = grid.getRows();
 
-        /*try {
-            List<List<ValidationResult>> results = getValidationResults(params);
-            List<List<Object>> allRows = grid.getRows();
-            List<Object> r = new ArrayList<>();
-            r.add("1");
-            r.add("2");
-            r.add("3");
-            allRows.add(r);
+        List<ValidationRule> rules = validationRuleService.getAllValidationRules();
 
-            for (List<Object> row : allRows) {
-                String diseaseId = (String) row.get(0);
-                row.add(String.format("highlight.%s", verifyHighlight(results, diseaseId)));
+        for (List<Object> row : allRows) {
+            String diseaseId = (String) row.get(0);
+            for (ValidationRule rule : rules) {
+                if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)
+                        && rule.getLeftSide().getExpression().contains(diseaseId)) {
+                    Operator operator = rule.getOperator();
+                    double value = Double.valueOf((String) row.get(2));
+                    double threshold = Double.valueOf(rule.getRightSide().getExpression());
+
+                    row.add(String.format("highlight.%b", !expressionIsTrue(value, operator, threshold)));
+                    break;
+                }
+                else
+                {
+                    row.add("highlight.false");
+                }
             }
-        } catch (Exception e) {
-            grid.setSubtitle(e.toString());
-        }*/
+
+        }
+
+//        for (ValidationRule rule : rules) {
+//            if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)) {
+//                for (List<Object> row : allRows) {
+//                    String diseaseId = (String) row.get(0);
+//                    if (rule.getLeftSide().getExpression().contains(diseaseId)) {
+//                        Operator operator = rule.getOperator();
+//                        double value = Double.valueOf((String) row.get(2));
+//                        double threshold = Double.valueOf(rule.getRightSide().getExpression());
+//
+//                        boolean highlight = !expressionIsTrue(value, operator, threshold);
+//                        row.add(String.format("highlight.%s", highlight));
+//                    }
+//                }
+//            }
+//        }
+
+//        try {
+//            List<List<ValidationResult>> results = getValidationResults(params);
+//            List<List<Object>> allRows = grid.getRows();
+//            List<Object> r = new ArrayList<>();
+//            r.add("1");
+//            allRows.add(r);
+//
+//            for (List<Object> row : allRows) {
+//                String diseaseId = (String) row.get(0);
+//                row.add(String.format("highlight.%s", verifyHighlight(results, diseaseId)));
+//            }
+//        } catch (Exception e) {
+//            grid.setSubtitle(e.toString());
+//        }
 
         model.addAttribute( "model", grid );
         model.addAttribute( "viewClass", "detailed" );
@@ -161,32 +199,33 @@ public class AnalyticsController
         List<DimensionalObject> dimensionObjects = params.getDimensionsAndFilters(DimensionType.DATA_X);
         List<DimensionalItemObject> diseaseItems = dimensionObjects.get(0).getItems();
 
+        long startTime = System.currentTimeMillis();
+
         List<List<ValidationResult>> results = new ArrayList<List<ValidationResult>>();
         for (DimensionalItemObject ou : ous) {
             OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou.getDimensionItem());
-//            Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+            Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
 
-//            for (DimensionalItemObject diseaseItem : diseaseItems) {
-//                List<ValidationRuleGroup> ruleGroupsForDisease = getRuleGroupsForDisease(diseaseItem.getShortName());
-//                List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-//                for (ValidationRuleGroup validationRuleGroup : ruleGroupsForDisease) {
-//                    validationResults.addAll(new ArrayList<>( validationRuleService.validate(
-//                            params.getFilterPeriod().getStartDate(),
-//                            params.getFilterPeriod().getEndDate(),
-//                            organisationUnits,
-//                            null,
-//                            validationRuleGroup,
-//                            false,
-//                            i18nManager.getI18nFormat())));
-//                }
-
-            List<ValidationResult> validationResults = new ArrayList<>(validationRuleService.validate(
+            for (DimensionalItemObject diseaseItem : diseaseItems) {
+                List<ValidationRuleGroup> ruleGroupsForDisease = getRuleGroupsForDisease(diseaseItem.getShortName());
+                List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
+                for (ValidationRuleGroup validationRuleGroup : ruleGroupsForDisease) {
+                    validationResults.addAll(new ArrayList<>( validationRuleService.validate(
                             params.getFilterPeriod().getStartDate(),
                             params.getFilterPeriod().getEndDate(),
-                            organisationUnit));
-            results.add(validationResults);
-//            }
+                            organisationUnits,
+                            null,
+                            validationRuleGroup,
+                            false,
+                            i18nManager.getI18nFormat())));
+                }
+
+                results.add(validationResults);
+            }
         }
+
+        long interval = System.currentTimeMillis() - startTime;
+        log.info("interval: " + interval);
         return results;
     }
 
