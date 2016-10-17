@@ -144,10 +144,10 @@ public class AnalyticsController
                     if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)
                             && rule.getLeftSide().getExpression().contains(diseaseId)) {
                         Operator operator = rule.getOperator();
-                        double value = Double.valueOf((String) row.get(2));
+                        //double value = Double.valueOf((String) row.get(2));
                         double threshold = Double.valueOf(rule.getRightSide().getExpression());
 
-                        row.add(String.format("highlight.%b", !expressionIsTrue(value, operator, threshold)));
+                        row.add(String.format("highlight.%b", !expressionIsTrue(row.get(2), operator, threshold)));
                         break;
                     } else {
                         row.add("highlight.false");
