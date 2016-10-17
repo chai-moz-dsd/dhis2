@@ -131,7 +131,10 @@ public class EmailMessageSender
                 boolean doSend = forceSend
                     || (Boolean) userSettingService.getUserSetting( UserSettingKey.MESSAGE_EMAIL_NOTIFICATION, user );
 
-                if ( doSend && user.getEmail() != null && !user.getEmail().trim().isEmpty() )
+                if ( doSend
+                        && user.getEmail() != null
+                        && !user.getEmail().trim().isEmpty()
+                        && user.getEmailAlert() == true)
                 {
                     email.addBcc( user.getEmail() );
 

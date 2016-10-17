@@ -86,7 +86,9 @@ public class SmsMessageSender
 
         if (!forceSend) {
             for (User user : users) {
-                if (currentUser == null || !currentUser.equals(user)) {
+                if ( (currentUser.getSmsAlert() == true)
+                        &&(currentUser == null
+                        || !currentUser.equals(user))) {
                     if (isQualifiedReceiver(user)) {
                         toSendList.add(user);
                     }

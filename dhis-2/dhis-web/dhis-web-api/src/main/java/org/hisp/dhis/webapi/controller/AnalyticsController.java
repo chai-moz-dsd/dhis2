@@ -135,7 +135,6 @@ public class AnalyticsController
         contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING );
         Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
         List<List<Object>> allRows = grid.getRows();
-
         List<ValidationRule> rules = validationRuleService.getAllValidationRules();
 
         for (List<Object> row : allRows) {
@@ -147,11 +146,13 @@ public class AnalyticsController
                     double value = Double.valueOf((String) row.get(2));
                     double threshold = Double.valueOf(rule.getRightSide().getExpression());
 
-                    row.add(String.format("highlight.%b", !expressionIsTrue(value, operator, threshold)));
+                    try {
+                        row.add(String.format("highlight.%b", !expressionIsTrue(value, operator, threshold)));
+                    } catch (Exception e) {
+                        row.add("value: " + value + " threshold: " + threshold + e.toString());
+                    }
                     break;
-                }
-                else
-                {
+                } else {
                     row.add("highlight.false");
                 }
             }
