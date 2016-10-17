@@ -16,7 +16,7 @@ const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
 class ReportingPage extends React.Component {
 
-    childContextTypes = {
+    static childContextTypes = {
         d2: React.PropTypes.object,
         muiTheme: React.PropTypes.object,
     };
@@ -97,7 +97,7 @@ class ReportingPage extends React.Component {
     };
 
     render() {
-        const d2 = this.props.routes[0].d2;
+        console.log(this.props)
         return (
             <div className={ css.ReportingPage }>
                 <HeaderBar lastUpdate={new Date()}/>
