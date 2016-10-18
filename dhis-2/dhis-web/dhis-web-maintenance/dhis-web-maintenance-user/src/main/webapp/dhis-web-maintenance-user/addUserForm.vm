@@ -201,7 +201,7 @@
 
 
         <tr class="account">
-            <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
+            <td><label for="attribute_$workPhone.id">$i18n.getString("work_phone")</label></td>
             <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id" name="attribute_$workPhone.id"></td>
         </tr>
         <tr>
@@ -212,7 +212,7 @@
         </tr>
 
         <tr class="account">
-            <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
+            <td><label for="phoneNumber">$i18n.getString( "telephone" )</label></td>
             <td colspan="3"><input type="tel" id="phoneNumber" name="phoneNumber"></td>
         </tr>
         <tr>
@@ -223,7 +223,7 @@
         </tr>
 
         <tr>
-            <td><label for="attribute_$orgType.id">$i18n.getString("$orgType.displayName")<em
+            <td><label for="attribute_$orgType.id">$i18n.getString("org_type")<em
                     title="$i18n.getString( 'required' )" class="required">*</em></label></td>
             <td>
                 <select id="attribute_$orgType.id" name="attribute_$orgType.id">
@@ -235,14 +235,14 @@
 
 
         <tr class="account">
-            <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em
+            <td><label for="attribute_$orgName.id">$i18n.getString("org_name")<em
                     title="$i18n.getString( 'required' )" class="required">*</em></label></td>
             <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id" class="error">
             </td>
         </tr>
 
         <tr class="account">
-            <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
+            <td><label for="attribute_$notes.id">$i18n.getString("notes")</label></td>
             <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id"></td>
         </tr>
 
@@ -259,7 +259,7 @@
         </tr>
 
         <tr>
-            <td><label for="urSelected">$i18n.getString("User Role")<em title="$i18n.getString( 'required' )"
+            <td><label for="urSelected">$i18n.getString("user_role")<em title="$i18n.getString( 'required' )"
                                                                         class="required">*</em></label></td>
             <td>
                 <select id="urSelected" name="urSelected" class="valid">
@@ -288,7 +288,7 @@
 
     <table style="margin-bottom: 20px;">
         <tr>
-            <th>$i18n.getString( "Locations" )</th>
+            <th>$i18n.getString( "locations" )</th>
         </tr>
         <tr>
             <td>
