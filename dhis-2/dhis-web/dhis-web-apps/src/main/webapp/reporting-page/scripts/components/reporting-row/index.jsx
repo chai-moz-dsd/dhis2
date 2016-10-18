@@ -31,7 +31,7 @@ class ReportingRow extends React.Component {
                     <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }{this.props.row.name}
                 </td>
                 {this.props.row.values.map(function (column, index) {
-                    return <td key={index} className={`${(column.highlight ? css.highlight: '')}`}>{column}</td>;
+                    return <td key={index} className={`${(column.highlight ? css.highlight: '')}`}>{column.value}</td>;
                 })}
             </tr>
         )
