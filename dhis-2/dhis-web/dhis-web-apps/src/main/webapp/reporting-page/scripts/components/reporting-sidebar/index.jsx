@@ -30,9 +30,15 @@ class ReportingSidebar extends React.Component {
         }
     };
 
-    // static ContextTypes = {
-    //     d2: React.PropTypes.object
-    // };
+    static childContextTypes = {
+        d2: React.PropTypes.object
+    };
+
+    getChildContext() {
+        return {
+            d2: this.props.d2
+        };
+    }
 
     componentWillReceiveProps(next) {
         if(this.props.currentCategory !== next.currentCategory) {
@@ -81,7 +87,7 @@ class ReportingSidebar extends React.Component {
     render() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
-                <div className={ css.head }>{ categoryTitle[this.props.currentCategory] }</div>
+                <div className={ css.head }>{this.props.d2.i18n.getTranslation(categoryTitle[this.props.currentCategory])}</div>
                 <DatePickerBar
                     label={this.props.d2.i18n.getTranslation('start_epi_week')}
                     value={this.state.startDate}

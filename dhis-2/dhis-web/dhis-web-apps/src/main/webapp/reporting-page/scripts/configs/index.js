@@ -1,6 +1,6 @@
 export const categoryTitle = {
-    location: 'B.E.S - Multiple locations',
-    week: 'B.E.S - Time series'
+    location: 'category-location',
+    week: 'category_week'
 };
 
 export const tableHeaderTitle = {
