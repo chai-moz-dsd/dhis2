@@ -35,6 +35,7 @@ export default class DatePickerBar extends React.Component {
                             minDate={minDate}
                             maxDate={maxDate}
                             onChange={onChange}
+                            locale={this.context.d2.i18n.getTranslation('locale')}
                 >
                     { this.props.value !== null &&
                     <FontIcon className={ css.clear } onClick={ onClean }>clear</FontIcon> }
