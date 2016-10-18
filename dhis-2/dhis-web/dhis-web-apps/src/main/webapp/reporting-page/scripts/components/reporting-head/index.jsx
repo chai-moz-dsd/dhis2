@@ -4,6 +4,12 @@ import css from "./index.scss";
 import {tableHeaderTitle} from "../../configs";
 
 class ReportingHead extends React.Component {
+
+    static contextTypes = {
+        d2: React.PropTypes.object
+    };
+
+
     render() {
         var spans = this.props.spans;
 
@@ -40,7 +46,7 @@ class ReportingHead extends React.Component {
             <thead className="ReportingHead">
             <tr>
                 <th rowSpan={maxLayer}
-                    className={ css.headerTitle }>{ tableHeaderTitle[this.props.currentCategory] }</th>
+                    className={ css.headerTitle }>{ this.context.d2.i18n.getTranslation(tableHeaderTitle[this.props.currentCategory]) }</th>
                 {_.forEach(firstLayer, (function (value) {
                     return value
                 }))}

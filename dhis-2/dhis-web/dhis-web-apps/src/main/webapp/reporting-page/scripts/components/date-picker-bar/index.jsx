@@ -21,7 +21,6 @@ export default class DatePickerBar extends React.Component {
     };
 
     render() {
-        console.log("test",this.context.d2);
         const formatDate = (date) => `${moment(date).format('D MMMM YYYY')} - ` + this.context.d2.i18n.getTranslation('week') +` ${moment(date).format('ww')}`;
         const { label, value, minDate, maxDate, onChange, onClean } = this.props;
 

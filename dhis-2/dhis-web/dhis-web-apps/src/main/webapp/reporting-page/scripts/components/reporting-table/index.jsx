@@ -38,9 +38,20 @@ class ReportingTable extends React.Component {
             oriHead: [],
             currentCategory: 'location',
             changeCategory: _.noop,
-            periods: ["THIS_YEAR"]
+            periods: ["THIS_YEAR"],
+            d2:[],
         }
     };
+
+    static childContextTypes = {
+        d2: React.PropTypes.object
+    };
+
+    getChildContext() {
+        return {
+            d2: this.props.d2
+        };
+    }
 
     fetchRows(props) {
         var mohId = 'MOH12345678';
@@ -151,12 +162,12 @@ class ReportingTable extends React.Component {
         return (
             <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
-                    <ToolBoxLink active={this.props.currentCategory == 'location'} label="Locations" icon='location_city'
+                    <ToolBoxLink active={this.props.currentCategory == 'location'} label={this.props.d2.i18n.getTranslation('location')} icon='location_city'
                           onClick={() => this.props.changeCategory('location')}/>
-                    <ToolBoxLink active={this.props.currentCategory == 'week'} label="Time series" icon='date_range'
+                    <ToolBoxLink active={this.props.currentCategory == 'week'} label={this.props.d2.i18n.getTranslation('time_series')} icon='date_range'
                           onClick={() => this.props.changeCategory('week')}/>
                     <Link to='/ops'>
-                        <ToolBoxLink label="Ops Indicator" icon='assignment'/>
+                        <ToolBoxLink label={this.props.d2.i18n.getTranslation('ops_indicator')} icon='assignment'/>
                     </Link>
 
                 </div>

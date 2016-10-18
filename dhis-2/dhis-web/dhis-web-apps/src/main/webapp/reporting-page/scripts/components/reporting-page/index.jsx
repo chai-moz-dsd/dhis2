@@ -109,7 +109,8 @@ class ReportingPage extends React.Component {
                                 ref={(ref) => this.reportingTable = ref}
                                 currentCategory={ this.state.currentCategory }
                                 periods={ this.state.periods}
-                                changeCategory={ ::this.onChangeCategory }/>
+                                changeCategory={ ::this.onChangeCategory }
+                                d2={this.props.routes[0].d2} />
             </div>
         )
     }

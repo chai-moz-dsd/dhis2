@@ -1,14 +1,14 @@
 export const categoryTitle = {
-    location: 'category-location',
+    location: 'category_location',
     week: 'category_week'
 };
 
 export const tableHeaderTitle = {
-    location: 'Localização',
-    week: 'Semana'
+    location: 'location',
+    week: 'week'
 };
 
-export const LOCATION_DIALOG_TEXT = 'Select all provinces, districts or health facilities that you would like to report on';
+export const LOCATION_DIALOG_TEXT = "location_dialog_text";
 
 export const DEFAULT_TEXT_LEVEL = 3;
 
