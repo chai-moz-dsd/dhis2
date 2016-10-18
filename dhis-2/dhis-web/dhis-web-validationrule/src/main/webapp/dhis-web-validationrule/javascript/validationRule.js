@@ -26,11 +26,59 @@ function changeRuleType() {
   }
 }
 
-function setDefaultLeftExpression() {
+function getPtRuleNameByRuleType(ruleType) {
+  var ruleName = '';
+  switch (ruleType) {
+    case 'SarampoCaseInMonths':
+      ruleName = 'SARAMPO';
+      break;
+    case 'MeningiteIncreasedInWeeks':
+      ruleName = 'MENINGITE';
+      break;
+    case 'DisenteriaCaseInYears':
+      ruleName = 'DISENTERIA';
+      break;
+    case 'MalariaCaseInYears':
+      ruleName = 'MALARIA';
+      break;
+    default:
+      break;
+  }
+
+  return ruleName;
+}
+
+function isContains(str, subStr) {
+  return str.indexOf(subStr) >= 0;
+}
+
+function setDefaultLeftExpression(ruleType) {
   $('#leftSideDescription').val('null');
-  $('#leftSideExpression').val(0);
   $('#leftSideTextualExpression').text('null');
   $('#leftSideMissingValueStrategy').val('SKIP_IF_ANY_VALUE_MISSING');
+
+  var ruleName = getPtRuleNameByRuleType(ruleType);
+  var formularExpression = [];
+
+  $.ajax({
+    type: 'GET',
+    url: '../dhis-web-commons-ajax-json/getOperands.action',
+    data: {},
+    dataType: 'json',
+    success: function(data) {
+      jQuery.each(data.operands, function(index, item){
+        if (isContains(item.operandName, ruleName) && isContains(item.operandName, ' C'))
+        {
+          formularExpression.push('#{' + item.operandId + '}');
+        }
+      });
+
+      $('#leftSideExpression').val(formularExpression.join('+'));
+    }
+  });
+
+
+
 }
 
 function setDefaultRightExpression() {
@@ -52,7 +100,7 @@ function setDefaultRuleContent(ruleType) {
     case 'MeningiteIncreasedInWeeks':
       ruleText.text('A:\r\nB:');
       break;
-    case 'DiarrieaCaseInYears':
+    case 'DisenteriaCaseInYears':
       ruleText.text('A:\r\nB:');
       break;
     case 'MalariaCaseInYears':
@@ -84,8 +132,8 @@ function changeAdditionalRuleType() {
     setDefaultRuleContent(additionalRuleType);
     changeAdditionalRuleHelpContent(additionalRuleType);
 
-    $('#operator').val('equal_to');
-    setDefaultLeftExpression();
+    $('#operator').val('less_than_or_equal_to');
+    setDefaultLeftExpression(additionalRuleType);
     setDefaultRightExpression();
   }
 }
