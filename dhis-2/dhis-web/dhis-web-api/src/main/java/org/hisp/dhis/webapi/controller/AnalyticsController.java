@@ -86,7 +86,7 @@ public class AnalyticsController
     private static final String RESOURCE_PATH = "/analytics";
 
     private static final Log log = LogFactory.getLog( AnalyticsController.class );
-    public static final String MENINGITE_CASE_INCREASED_BY_TIMES = "meningite case increased by times";
+    public static final String MENINGITE_CASE_INCREASED_BY_TIMES = "MeningiteIncreasedInWeeks";
 
     @Autowired
     private DataQueryService dataQueryService;
@@ -155,10 +155,10 @@ public class AnalyticsController
 
         List<List<Object>> allRows = grid.getRows();
         List<Object> r = new ArrayList<>();
-        r.add("af47c3c71d0");
-        r.add("MOH12345678");
-        r.add(3.0);
-        allRows.add(r);
+//        r.add("m9fe3ae729c");
+//        r.add("MOH12345678");
+//        r.add(3.0);
+//        allRows.add(r);
 
         for (List<Object> row : allRows) {
             String highLight = "";
@@ -236,13 +236,7 @@ public class AnalyticsController
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int threshold = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
-        Calendar c = Calendar.getInstance();
-        c.setTime(startDate);
-        c.add(Calendar.DATE, -(weeks * 7));
-        startDate.setTime(c.getTime().getTime());
-
-
+        Date startDate = calculateStartDate(params, weeks);
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
@@ -288,13 +282,7 @@ public class AnalyticsController
         int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
-        Calendar c = Calendar.getInstance();
-        c.setTime(startDate);
-        c.add(Calendar.DATE, -(weeks * 7));
-        startDate.setTime(c.getTime().getTime());
-
-
+        Date startDate = calculateStartDate(params, weeks);
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
@@ -324,6 +312,7 @@ public class AnalyticsController
                     for (ValidationResult result : validationResult){
 
                         if (result.getLeftsideValue() < times * diseaseNum){
+                            increasedFlag = false;
                             break;
                         }
 
@@ -342,6 +331,14 @@ public class AnalyticsController
         return false;
     }
 
+    private Date calculateStartDate(DataQueryParams params, int weeks) {
+        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
+        Calendar c = Calendar.getInstance();
+        c.setTime(startDate);
+        c.add(Calendar.DATE, -(weeks * 7));
+        startDate.setTime(c.getTime().getTime());
+        return startDate;
+    }
 
     @RequestMapping( value = RESOURCE_PATH + ".xml", method = RequestMethod.GET )
     public void getXml(
