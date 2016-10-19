@@ -48,7 +48,7 @@ class ReportingSidebar extends React.Component {
                     endDate: new Date()
                 })
             } else {
-                this.setState({ startDate: null, endDate: null });
+                this.setState({ startDate: new Date(new Date().getFullYear(), 0, 1), endDate: new Date() });
                 this.initWeekTable = false;
             }
         }
