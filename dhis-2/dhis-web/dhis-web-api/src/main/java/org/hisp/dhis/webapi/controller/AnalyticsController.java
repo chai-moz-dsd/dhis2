@@ -60,6 +60,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.hisp.dhis.analytics.AnalyticsService;
+import org.hisp.dhis.dataelement.DataElementService;
+import org.hisp.dhis.dataelement.DataElement;
+import org.hisp.dhis.period.Period;
+import org.hisp.dhis.period.WeeklyPeriodType;
 
 import static org.hisp.dhis.system.util.MathUtils.*;
 import org.hisp.dhis.expression.Operator;
@@ -77,16 +81,21 @@ import static org.hisp.dhis.common.DimensionalObjectUtils.getItemsFromParam;
 public class AnalyticsController
 {
     public static final String SIMPLE_RULE_TYPE = "Default";
+    public static final String SARAMPO_CASE_IN_MONTHS = "SarampoCaseInMonths";
 
     private static final String RESOURCE_PATH = "/analytics";
 
     private static final Log log = LogFactory.getLog( AnalyticsController.class );
+    public static final String MENINGITE_CASE_INCREASED_BY_TIMES = "meningite case increased by times";
 
     @Autowired
     private DataQueryService dataQueryService;
 
     @Autowired
     private AnalyticsService analyticsService;
+
+    @Autowired
+    private DataElementService dataElementService;
 
     @Autowired
     private ContextUtils contextUtils;
@@ -134,125 +143,205 @@ public class AnalyticsController
 
         contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING );
         Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
-        List<List<Object>> allRows = grid.getRows();
-        List<ValidationRule> rules = validationRuleService.getAllValidationRules();
-
-        for (List<Object> row : allRows) {
-
-            String highLight = "";
-            String diseaseId = (String) row.get(0);
-            for (ValidationRule rule : rules) {
-                if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)
-                        && rule.getLeftSide().getExpression().contains(diseaseId)) {
-                    Operator operator = rule.getOperator();
-                    double threshold = Double.valueOf(rule.getRightSide().getExpression());
-
-                    highLight = String.format("highlight.%b", !expressionIsTrue((Double)row.get(2), operator, threshold));
-                    break;
-                } else {
-                    highLight = "highlight.false";
-                }
-            }
-            row.add(highLight);
-
-        }
-
-//        for (ValidationRule rule : rules) {
-//            if (rule.getAdditionalRuleType().equals(SIMPLE_RULE_TYPE)) {
-//                for (List<Object> row : allRows) {
-//                    String diseaseId = (String) row.get(0);
-//                    if (rule.getLeftSide().getExpression().contains(diseaseId)) {
-//                        Operator operator = rule.getOperator();
-//                        double value = Double.valueOf((String) row.get(2));
-//                        double threshold = Double.valueOf(rule.getRightSide().getExpression());
-//
-//                        boolean highlight = !expressionIsTrue(value, operator, threshold);
-//                        row.add(String.format("highlight.%s", highlight));
-//                    }
-//                }
-//            }
-//        }
-
-//        try {
-//            List<List<ValidationResult>> results = getValidationResults(params);
-//            List<List<Object>> allRows = grid.getRows();
-//            List<Object> r = new ArrayList<>();
-//            r.add("1");
-//            allRows.add(r);
-//
-//            for (List<Object> row : allRows) {
-//                String diseaseId = (String) row.get(0);
-//                row.add(String.format("highlight.%s", verifyHighlight(results, diseaseId)));
-//            }
-//        } catch (Exception e) {
-//            grid.setSubtitle(e.toString());
-//        }
+        highLightForDataValues(params, grid);
 
         model.addAttribute( "model", grid );
         model.addAttribute( "viewClass", "detailed" );
         return "grid";
     }
 
-    private List<List<ValidationResult>> getValidationResults(DataQueryParams params) {
-        List<DimensionalItemObject> ous = params.getOrganisationUnits();
-        List<DimensionalObject> dimensionObjects = params.getDimensionsAndFilters(DimensionType.DATA_X);
-        List<DimensionalItemObject> diseaseItems = dimensionObjects.get(0).getItems();
+    private void highLightForDataValues(DataQueryParams params, Grid grid) {
+        List<ValidationRule> rules = validationRuleService.getAllValidationRules();
 
-        long startTime = System.currentTimeMillis();
+        List<List<Object>> allRows = grid.getRows();
+        List<Object> r = new ArrayList<>();
+        r.add("af47c3c71d0");
+        r.add("MOH12345678");
+        r.add(3.0);
+        allRows.add(r);
 
-        List<List<ValidationResult>> results = new ArrayList<List<ValidationResult>>();
-        for (DimensionalItemObject ou : ous) {
-            OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou.getDimensionItem());
-            Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+        for (List<Object> row : allRows) {
+            String highLight = "";
+            String diseaseId = (String) row.get(0);
 
-            for (DimensionalItemObject diseaseItem : diseaseItems) {
-                List<ValidationRuleGroup> ruleGroupsForDisease = getRuleGroupsForDisease(diseaseItem.getShortName());
-                List<ValidationResult> validationResults = new ArrayList<ValidationResult>();
-                for (ValidationRuleGroup validationRuleGroup : ruleGroupsForDisease) {
-                    validationResults.addAll(new ArrayList<>( validationRuleService.validate(
-                            params.getFilterPeriod().getStartDate(),
-                            params.getFilterPeriod().getEndDate(),
-                            organisationUnits,
-                            null,
-                            validationRuleGroup,
-                            false,
-                            i18nManager.getI18nFormat())));
+            for (ValidationRule rule : rules) {
+                if (!rule.getLeftSide().getExpression().contains(diseaseId))
+                {
+                    continue;
                 }
 
-                results.add(validationResults);
-            }
-        }
+                boolean shouldStop = false;
 
-        long interval = System.currentTimeMillis() - startTime;
-        log.info("interval: " + interval);
-        return results;
+                switch (rule.getAdditionalRuleType())
+                {
+                    case SIMPLE_RULE_TYPE:
+                        Operator operator = rule.getOperator();
+                        double threshold = Double.valueOf(rule.getRightSide().getExpression());
+
+                        if (!expressionIsTrue((Double)row.get(2), operator, threshold)) {
+                            highLight = String.format("highlight.%b", true);
+
+                            shouldStop = true;
+                        }
+                        break;
+
+                    case SARAMPO_CASE_IN_MONTHS:
+                        if (notCustomizedPeroids(params)) {
+                            break;
+                        }
+
+                        if (isSarampoCaseInMonthsValidationSucc(params, row, rule)){
+                            highLight = String.format("highlight.%b", true);
+
+                            shouldStop = true;
+                        }
+                        break;
+
+                    case MENINGITE_CASE_INCREASED_BY_TIMES:
+                        if (notCustomizedPeroids(params)) {
+                            break;
+                        }
+
+                        if (isMeningiteCaseIncreasedByTimesValidationSucc(params, row, rule)){
+                            highLight = String.format("highlight.%b", true);
+
+                            shouldStop = true;
+                        }
+                        break;
+
+                    default:
+                        highLight = "highlight.false";
+                        shouldStop = false;
+                        break;
+                }
+
+                if (shouldStop)
+                {
+                    break;
+                }
+
+            }
+            row.add(highLight);
+
+        }
     }
 
-    private boolean verifyHighlight(List<List<ValidationResult>> results, String diseaseId) {
-        for (List<ValidationResult> allResult : results) {
-            for (ValidationResult weekResult : allResult) {
-                String expression = weekResult.getValidationRule().getLeftSide().getExpression();
-                if (expression.contains(diseaseId)) {
-                    return true;
+    private boolean notCustomizedPeroids(DataQueryParams params)
+    {
+        return (params.getFilterPeriods().size() != 1) && (((Period) params.getFilterPeriods().get(0)).getPeriodType() instanceof WeeklyPeriodType);
+    }
+
+    private boolean isSarampoCaseInMonthsValidationSucc(DataQueryParams params, List<Object> row, ValidationRule rule) {
+        String additionalRuleExpression = rule.getAdditionalRule();
+        int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
+        int threshold = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+
+        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
+        Calendar c = Calendar.getInstance();
+        c.setTime(startDate);
+        c.add(Calendar.DATE, -(weeks * 7));
+        startDate.setTime(c.getTime().getTime());
+
+
+        Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
+
+        OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
+
+        Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+
+        for (ValidationRuleGroup group : rule.getGroups()) {
+
+            for(OrganisationUnit org : organisationUnits) {
+
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
+                orgUnits.add(org);
+
+                List<ValidationResult> validationResult = new ArrayList<>(validationRuleService.validate(
+                        startDate,
+                        endDate,
+                        orgUnits,
+                        null,
+                        group,
+                        false,
+                        i18nManager.getI18nFormat()));
+
+                if (validationResult.size() == weeks)
+                {
+                    Double diseaseNum = 0.0;
+                    for (ValidationResult result : validationResult){
+                        diseaseNum += result.getLeftsideValue();
+                    }
+
+                    if (diseaseNum >= threshold){
+                        return true;
+                    }
                 }
             }
+
         }
+
         return false;
     }
 
-    private List<ValidationRuleGroup> getRuleGroupsForDisease(String diseaseName) {
-        List<ValidationRuleGroup> results = new ArrayList<ValidationRuleGroup>();
+    private boolean isMeningiteCaseIncreasedByTimesValidationSucc(DataQueryParams params, List<Object> row, ValidationRule rule) {
+        String additionalRuleExpression = rule.getAdditionalRule();
+        int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
+        int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        List<ValidationRuleGroup> groups = validationRuleService.getAllValidationRuleGroups();
-        for (ValidationRuleGroup group : groups) {
-            String groupName = group.getName();
-            if (diseaseName.contains(groupName.substring(0, groupName.indexOf(" GROUP")))) {
-                results.add(group);
+        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
+        Calendar c = Calendar.getInstance();
+        c.setTime(startDate);
+        c.add(Calendar.DATE, -(weeks * 7));
+        startDate.setTime(c.getTime().getTime());
+
+
+        Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
+
+        OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
+
+        Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+
+        for (ValidationRuleGroup group : rule.getGroups()) {
+
+            for(OrganisationUnit org : organisationUnits) {
+
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
+                orgUnits.add(org);
+
+                List<ValidationResult> validationResult = new ArrayList<>(validationRuleService.validate(
+                        startDate,
+                        endDate,
+                        orgUnits,
+                        null,
+                        group,
+                        false,
+                        i18nManager.getI18nFormat()));
+
+                if (validationResult.size() == weeks)
+                {
+                    boolean increasedFlag = false;
+                    Double diseaseNum = 0.0;
+                    for (ValidationResult result : validationResult){
+
+                        if (result.getLeftsideValue() < times * diseaseNum){
+                            break;
+                        }
+
+                        increasedFlag = true;
+                        diseaseNum = result.getLeftsideValue();
+                    }
+
+                    if (increasedFlag){
+                        return true;
+                    }
+                }
             }
+
         }
 
-        return results;
+        return false;
     }
+
 
     @RequestMapping( value = RESOURCE_PATH + ".xml", method = RequestMethod.GET )
     public void getXml(
