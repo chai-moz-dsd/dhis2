@@ -317,8 +317,8 @@ public class AddUserAction
             userCredentials.setUsername( StringUtils.trimToNull( inviteUsername ) );
             userCredentials.setInvitation( true );
             user.setEmail( StringUtils.trimToNull( inviteEmail ) );
-            user.setEmailAlert( Boolean.getBoolean(StringUtils.trimToNull( emailAlert )) );
-            user.setSmsAlert(Boolean.getBoolean(StringUtils.trimToNull(smsAlert)));
+            user.setEmailAlert( Boolean.valueOf(StringUtils.trimToNull( emailAlert )) );
+            user.setSmsAlert(Boolean.valueOf(StringUtils.trimToNull(smsAlert)));
 
             securityService.prepareUserForInvite( user );
         }
@@ -330,7 +330,7 @@ public class AddUserAction
             user.setPhoneNumber( StringUtils.trimToNull( phoneNumber ) );
 
             user.setEmailAlert( Boolean.valueOf(StringUtils.trimToNull( emailAlert )) );
-            user.setSmsAlert(Boolean.valueOf(StringUtils.trimToNull(emailAlert)));
+            user.setSmsAlert(Boolean.valueOf(StringUtils.trimToNull(smsAlert)));
 
             userService.encodeAndSetPassword( userCredentials, StringUtils.trimToNull( rawPassword ) );
         }
