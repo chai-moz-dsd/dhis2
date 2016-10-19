@@ -134,9 +134,9 @@ public class RunValidationAction
         this.attributeOptionComboId = attributeOptionComboId;
     }
 
-    private Integer validationRuleGroupId;
+    private String validationRuleGroupId;
 
-    public void setValidationRuleGroupId( Integer validationRuleGroupId )
+    public void setValidationRuleGroupId( String validationRuleGroupId )
     {
         this.validationRuleGroupId = validationRuleGroupId;
     }
@@ -187,7 +187,7 @@ public class RunValidationAction
 
         Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
 
-        ValidationRuleGroup group = validationRuleGroupId == -1 ? null : validationRuleService.getValidationRuleGroup( validationRuleGroupId );
+        ValidationRuleGroup group = "-1".equals(validationRuleGroupId)  ? null : validationRuleService.getValidationRuleGroup( validationRuleGroupId );
 
         DataElementCategoryOptionCombo attributeOptionCombo = attributeOptionComboId == null || attributeOptionComboId == -1 ? null : dataElementCategoryService.getDataElementCategoryOptionCombo( attributeOptionComboId );
 
