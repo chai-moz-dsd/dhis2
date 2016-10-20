@@ -28,7 +28,6 @@ package org.hisp.dhis.webapi.controller;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.awt.*;
 import java.util.List;
 
 import org.hisp.dhis.analytics.*;
@@ -171,13 +170,12 @@ public class AnalyticsController
             Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
 
             for (ValidationRule rule : rules) {
-                if (!rule.getLeftSide().getExpression().contains(diseaseId))
+                if (!isDiseaseNeedValidation(diseaseId, rule))
                 {
                     continue;
                 }
 
                 boolean shouldStop = false;
-
                 switch (rule.getAdditionalRuleType())
                 {
                     case SIMPLE_RULE_TYPE:
@@ -192,7 +190,7 @@ public class AnalyticsController
                         break;
 
                     case SARAMPO_CASE_IN_MONTHS:
-                        if (notCustomizedPeroids(params)) {
+                        if (!periodShouldBeOneWeek(params)) {
                             break;
                         }
 
@@ -203,7 +201,7 @@ public class AnalyticsController
                         break;
 
                     case MENINGITE_CASE_INCREASED_BY_TIMES:
-                        if (notCustomizedPeroids(params)) {
+                        if (!periodShouldBeOneWeek(params)) {
                             break;
                         }
 
@@ -215,7 +213,7 @@ public class AnalyticsController
 
 
                     case MALARIA_CASE_IN_YEARS:
-                        if (notCustomizedPeroids(params)){
+                        if (!periodShouldBeOneWeek(params)){
                             break;
                         }
 
@@ -226,7 +224,7 @@ public class AnalyticsController
                         break;
 
                     case DISENTERIA_CASE_IN_YEARS:
-                        if (notCustomizedPeroids(params)){
+                        if (!periodShouldBeOneWeek(params)){
                             break;
                         }
 
@@ -253,9 +251,13 @@ public class AnalyticsController
         }
     }
 
-    private boolean notCustomizedPeroids(DataQueryParams params)
+    private boolean isDiseaseNeedValidation(String diseaseId, ValidationRule rule) {
+        return rule.getLeftSide().getExpression().contains(diseaseId);
+    }
+
+    private boolean periodShouldBeOneWeek(DataQueryParams params)
     {
-        return (params.getFilterPeriods().size() != 1) && (((Period) params.getFilterPeriods().get(0)).getPeriodType() instanceof WeeklyPeriodType);
+        return (params.getFilterPeriods().size() == 1) && (((Period) params.getFilterPeriods().get(0)).getPeriodType() instanceof WeeklyPeriodType);
     }
 
 
