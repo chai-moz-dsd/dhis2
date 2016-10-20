@@ -196,7 +196,7 @@ public class AnalyticsController
                             break;
                         }
 
-                        if (isSarampoCaseInMonthsValidationSucc(params, row, rule, organisationUnits)){
+                        if (isSarampoCaseInMonthsValidationSucc(params, rule, organisationUnits)){
                             highLight = String.format("highlight.%b", true);
                             shouldStop = true;
                         }
@@ -207,7 +207,7 @@ public class AnalyticsController
                             break;
                         }
 
-                        if (isMeningiteCaseIncreasedByTimesValidationSucc(params, row, rule, organisationUnits)){
+                        if (isMeningiteCaseIncreasedByTimesValidationSucc(params, rule, organisationUnits)){
                             highLight = String.format("highlight.%b", true);
                             shouldStop = true;
                         }
@@ -219,7 +219,7 @@ public class AnalyticsController
                             break;
                         }
 
-                        if (isMalariaCaseInYears(params, row, rule, organisationUnits)){
+                        if (isMalariaCaseInYears(params, rule, organisationUnits)){
                             highLight = String.format("highlight.%b", true);
                             shouldStop = true;
                         }
@@ -230,7 +230,7 @@ public class AnalyticsController
                             break;
                         }
 
-                        if (isDisenteriaCaseInYears(params, row, rule, organisationUnits)){
+                        if (isDisenteriaCaseInYears(params, rule, organisationUnits)){
                             highLight = String.format("highlight.%b", true);
                             shouldStop = true;
                         }
@@ -258,7 +258,9 @@ public class AnalyticsController
         return (params.getFilterPeriods().size() != 1) && (((Period) params.getFilterPeriods().get(0)).getPeriodType() instanceof WeeklyPeriodType);
     }
 
-    private boolean isSarampoCaseInMonthsValidationSucc(DataQueryParams params, List<Object> row, ValidationRule rule,
+
+
+    private boolean isSarampoCaseInMonthsValidationSucc(DataQueryParams params, ValidationRule rule,
                                                         Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
@@ -283,17 +285,20 @@ public class AnalyticsController
                         false,
                         i18nManager.getI18nFormat()));
 
-                if (validationResult.size() == weeks)
+                if (validationResult.size() == 0)
                 {
-                    Double diseaseNum = 0.0;
-                    for (ValidationResult result : validationResult){
-                        diseaseNum += result.getLeftsideValue();
-                    }
-
-                    if (diseaseNum >= threshold){
-                        return true;
-                    }
+                    continue;
                 }
+
+                Double diseaseNum = 0.0;
+                for (ValidationResult result : validationResult){
+                    diseaseNum += result.getLeftsideValue();
+                }
+
+                if (diseaseNum >= threshold){
+                    return true;
+                }
+
             }
 
         }
@@ -301,13 +306,13 @@ public class AnalyticsController
         return false;
     }
 
-    private boolean isMeningiteCaseIncreasedByTimesValidationSucc(DataQueryParams params, List<Object> row, ValidationRule rule,
+    private boolean isMeningiteCaseIncreasedByTimesValidationSucc(DataQueryParams params, ValidationRule rule,
                                                                   Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
+        Date startDate = calculateStartDate(params, weeks);
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         for (ValidationRuleGroup group : rule.getGroups()) {
@@ -317,7 +322,7 @@ public class AnalyticsController
                 Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
                 orgUnits.add(org);
 
-                List<ValidationResult> validationResult = new ArrayList<>(validationRuleService.validate(
+                List<ValidationResult> validationResults = new ArrayList<>(validationRuleService.validate(
                         startDate,
                         endDate,
                         orgUnits,
@@ -326,11 +331,11 @@ public class AnalyticsController
                         false,
                         i18nManager.getI18nFormat()));
 
-                if (validationResult.size() == weeks)
+                if (validationResults.size() == weeks)
                 {
                     boolean increasedFlag = false;
                     Double diseaseNum = 0.0;
-                    for (ValidationResult result : validationResult){
+                    for (ValidationResult result : validationResults){
 
                         if (result.getLeftsideValue() < times * diseaseNum){
                             increasedFlag = false;
@@ -352,11 +357,12 @@ public class AnalyticsController
         return false;
     }
 
-    private boolean isDisenteriaCaseInYears(DataQueryParams params, List<Object> row, ValidationRule rule,
+    private boolean isDisenteriaCaseInYears(DataQueryParams params, ValidationRule rule,
                                             Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int years = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+
         int currentWeekNum = Integer.valueOf(((Period)((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
 
@@ -444,7 +450,7 @@ public class AnalyticsController
 
     }
 
-    private boolean isMalariaCaseInYears(DataQueryParams params, List<Object> row, ValidationRule rule,
+    private boolean isMalariaCaseInYears(DataQueryParams params, ValidationRule rule,
                                          Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int earlyWeeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
