@@ -14,8 +14,8 @@ class ReportingSidebar extends React.Component {
         super(props);
 
         this.state = {
-            startDate: null,
-            endDate: null,
+            startDate: new Date(new Date().getFullYear(), 0, 1),
+            endDate: new Date(),
             location: null
         };
 
