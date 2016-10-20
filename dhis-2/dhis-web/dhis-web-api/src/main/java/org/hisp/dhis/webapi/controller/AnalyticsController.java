@@ -87,6 +87,9 @@ public class AnalyticsController
 
     private static final Log log = LogFactory.getLog( AnalyticsController.class );
     public static final String MENINGITE_CASE_INCREASED_BY_TIMES = "MeningiteIncreasedInWeeks";
+    public static final String MALARIA_CASE_IN_YEARS = "MalariaCaseInYears";
+    public static final String DISENTERIA_CASE_IN_YEARS = "DisenteriaCaseInYears";
+
 
     @Autowired
     private DataQueryService dataQueryService;
@@ -155,7 +158,7 @@ public class AnalyticsController
 
         List<List<Object>> allRows = grid.getRows();
         List<Object> r = new ArrayList<>();
-//        r.add("m9fe3ae729c");
+//        r.add("ma97d9c69c5");
 //        r.add("MOH12345678");
 //        r.add(3.0);
 //        allRows.add(r);
@@ -192,7 +195,6 @@ public class AnalyticsController
 
                         if (isSarampoCaseInMonthsValidationSucc(params, row, rule)){
                             highLight = String.format("highlight.%b", true);
-
                             shouldStop = true;
                         }
                         break;
@@ -204,7 +206,29 @@ public class AnalyticsController
 
                         if (isMeningiteCaseIncreasedByTimesValidationSucc(params, row, rule)){
                             highLight = String.format("highlight.%b", true);
+                            shouldStop = true;
+                        }
+                        break;
 
+
+                    case MALARIA_CASE_IN_YEARS:
+                        if (notCustomizedPeroids(params)){
+                            break;
+                        }
+
+//                        if (isMalariaCaseInYears(params, row, rule)){
+//                            highLight = String.format("highlight.%b", true);
+//                            shouldStop = true;
+//                        }
+                        break;
+
+                    case DISENTERIA_CASE_IN_YEARS:
+                        if (notCustomizedPeroids(params)){
+                            break;
+                        }
+
+                        if (isDisenteriaCaseInYears(params, row, rule)){
+                            highLight = String.format("highlight.%b", true);
                             shouldStop = true;
                         }
                         break;
@@ -282,7 +306,7 @@ public class AnalyticsController
         int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        Date startDate = calculateStartDate(params, weeks);
+        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
@@ -329,6 +353,199 @@ public class AnalyticsController
         }
 
         return false;
+    }
+
+    private boolean isDisenteriaCaseInYears(DataQueryParams params, List<Object> row, ValidationRule rule) {
+        String additionalRuleExpression = rule.getAdditionalRule();
+        int years = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
+        int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+        int currentWeekNum = Integer.valueOf(((Period)((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
+
+        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
+        Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
+
+        OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
+
+        Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+
+        for (ValidationRuleGroup group : rule.getGroups()) {
+
+            for(OrganisationUnit org : organisationUnits) {
+
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
+                orgUnits.add(org);
+
+                List<ValidationResult> currentWeekResults = new ArrayList<> (validationRuleService.validate(
+                        startDate,
+                        endDate,
+                        orgUnits,
+                        null,
+                        group,
+                        false,
+                        i18nManager.getI18nFormat()));
+
+                if (currentWeekResults.size() <= 0)
+                {
+                    continue;
+                }
+
+                List<ValidationResult> previousYearsResults = new ArrayList<> ();
+
+                for (int i = 0; i < years; i++){
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setMinimalDaysInFirstWeek(4);
+                    cal.set(currentYear - i, 1, 1);
+                    cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
+                    cal.setFirstDayOfWeek(Calendar.MONDAY);
+
+                    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                    startDate = cal.getTime();
+
+                    cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                    endDate = cal.getTime();
+
+                    previousYearsResults.addAll(validationRuleService.validate(
+                            startDate,
+                            endDate,
+                            orgUnits,
+                            null,
+                            group,
+                            false,
+                            i18nManager.getI18nFormat()));
+
+                }
+
+                if (previousYearsResults.size() == 0)
+                {
+                    continue;
+                }
+
+                Double totalDiseaseNum = 0.0;
+                for (ValidationResult previousYearsResult : previousYearsResults) {
+                    totalDiseaseNum += previousYearsResult.getLeftsideValue();
+                }
+
+                Double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
+
+                Double powDiseaseNum = 0.0;
+                for (ValidationResult previousYearsResult : previousYearsResults) {
+                    powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
+                }
+
+                Double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
+
+                if (currentWeekResults.get(0).getLeftsideValue() > averageDiseaseNum + times * stdDevDiseaseNum)
+                {
+                    return true;
+                }
+
+            }
+
+        }
+
+        return false;
+
+
+    }
+
+    private boolean isMalariaCaseInYears(DataQueryParams params, List<Object> row, ValidationRule rule) {
+        String additionalRuleExpression = rule.getAdditionalRule();
+        int earlyWeeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
+        int afterWeeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+        int pastYears = Integer.valueOf(additionalRuleExpression.split("\r\n")[2].split(":")[1], 10);
+        int stddevTimes = Integer.valueOf(additionalRuleExpression.split("\r\n")[3].split(":")[1], 10);
+
+        int currentWeekNum = Integer.valueOf(((Period)((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
+
+        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
+        Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
+
+        OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
+
+        Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+
+        for (ValidationRuleGroup group : rule.getGroups()) {
+
+            for(OrganisationUnit org : organisationUnits) {
+
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
+                orgUnits.add(org);
+
+                List<ValidationResult> currentWeekResults = new ArrayList<> (validationRuleService.validate(
+                        startDate,
+                        endDate,
+                        orgUnits,
+                        null,
+                        group,
+                        false,
+                        i18nManager.getI18nFormat()));
+
+                if (currentWeekResults.size() <= 0)
+                {
+                    continue;
+                }
+
+                List<ValidationResult> previousYearsResults = new ArrayList<> ();
+
+                for (int i = 0; i < years; i++){
+
+                    Calendar cal = Calendar.getInstance();
+                    cal.setMinimalDaysInFirstWeek(4);
+                    cal.set(currentYear - i, 1, 1);
+                    cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
+                    cal.setFirstDayOfWeek(Calendar.MONDAY);
+
+                    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                    startDate = cal.getTime();
+
+                    cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                    endDate = cal.getTime();
+
+                    previousYearsResults.addAll(validationRuleService.validate(
+                            startDate,
+                            endDate,
+                            orgUnits,
+                            null,
+                            group,
+                            false,
+                            i18nManager.getI18nFormat()));
+
+                }
+
+                if (previousYearsResults.size() == 0)
+                {
+                    continue;
+                }
+
+                Double totalDiseaseNum = 0.0;
+                for (ValidationResult previousYearsResult : previousYearsResults) {
+                    totalDiseaseNum += previousYearsResult.getLeftsideValue();
+                }
+
+                Double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
+
+                Double powDiseaseNum = 0.0;
+                for (ValidationResult previousYearsResult : previousYearsResults) {
+                    powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
+                }
+
+                Double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
+
+                if (currentWeekResults.get(0).getLeftsideValue() > averageDiseaseNum + times * stdDevDiseaseNum)
+                {
+                    return true;
+                }
+
+            }
+
+        }
+
+        return false;
+
+
     }
 
     private Date calculateStartDate(DataQueryParams params, int weeks) {
