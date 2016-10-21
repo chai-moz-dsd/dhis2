@@ -175,80 +175,79 @@ public class AnalyticsController
                     continue;
                 }
 
-                boolean shouldStop = false;
-                switch (rule.getAdditionalRuleType())
-                {
-                    case SIMPLE_RULE_TYPE:
-                        Operator operator = rule.getOperator();
-                        double threshold = Double.valueOf(rule.getRightSide().getExpression());
+                boolean shouldHighLight = validatedRuleInDisease(params, row, organisationUnits, rule);
 
-                        if (!expressionIsTrue((Double)row.get(2), operator, threshold)) {
-                            highLight = String.format("highlight.%b", true);
-
-                            shouldStop = true;
-                        }
-                        break;
-
-                    case SARAMPO_CASE_IN_MONTHS:
-                        if (!periodShouldBeOneWeek(params)) {
-                            break;
-                        }
-
-                        if (isSarampoCaseInWeeksValidationSucc(params, rule, organisationUnits)){
-                            highLight = String.format("highlight.%b", true);
-                            shouldStop = true;
-                        }
-                        break;
-
-                    case MENINGITE_CASE_INCREASED_BY_TIMES:
-                        if (!periodShouldBeOneWeek(params)) {
-                            break;
-                        }
-
-                        if (isMeningiteCaseIncreasedByTimesValidationSucc(params, rule, organisationUnits)){
-                            highLight = String.format("highlight.%b", true);
-                            shouldStop = true;
-                        }
-                        break;
-
-
-                    case MALARIA_CASE_IN_YEARS:
-                        if (!periodShouldBeOneWeek(params)){
-                            break;
-                        }
-
-                        if (isMalariaCaseInYears(params, rule, organisationUnits)){
-                            highLight = String.format("highlight.%b", true);
-                            shouldStop = true;
-                        }
-                        break;
-
-                    case DISENTERIA_CASE_IN_YEARS:
-                        if (!periodShouldBeOneWeek(params)){
-                            break;
-                        }
-
-                        if (isDisenteriaCaseInYears(params, rule, organisationUnits)){
-                            highLight = String.format("highlight.%b", true);
-                            shouldStop = true;
-                        }
-                        break;
-
-                    default:
-                        highLight = "highlight.false";
-                        shouldStop = false;
-                        break;
-                }
-
-                if (shouldStop)
-                {
+                if (shouldHighLight){
+                    highLight = String.format("highlight.%b", true);
                     break;
+                }
+                else {
+                    highLight = "highlight.false";
                 }
 
             }
             row.add(highLight);
 
         }
+    }
+
+    private boolean validatedRuleInDisease(DataQueryParams params, List<Object> row, Collection<OrganisationUnit> organisationUnits, ValidationRule rule) {
+        switch (rule.getAdditionalRuleType())
+        {
+            case SIMPLE_RULE_TYPE:
+                Operator operator = rule.getOperator();
+                double threshold = Double.valueOf(rule.getRightSide().getExpression());
+
+                if (!expressionIsTrue((Double)row.get(2), operator, threshold)) {
+                    return true;
+                }
+                break;
+
+            case SARAMPO_CASE_IN_MONTHS:
+                if (!periodShouldBeOneWeek(params)) {
+                    break;
+                }
+
+                if (isSarampoCaseInWeeksValidationSucc(params, rule, organisationUnits)){
+                    return true;
+                }
+                break;
+
+            case MENINGITE_CASE_INCREASED_BY_TIMES:
+                if (!periodShouldBeOneWeek(params)) {
+                    break;
+                }
+
+                if (isMeningiteCaseIncreasedByTimesValidationSucc(params, rule, organisationUnits)){
+                    return true;
+                }
+                break;
+
+
+            case MALARIA_CASE_IN_YEARS:
+                if (!periodShouldBeOneWeek(params)){
+                    break;
+                }
+
+                if (isMalariaCaseInYears(params, rule, organisationUnits)){
+                    return true;
+                }
+                break;
+
+            case DISENTERIA_CASE_IN_YEARS:
+                if (!periodShouldBeOneWeek(params)){
+                    break;
+                }
+
+                if (isDisenteriaCaseInYears(params, rule, organisationUnits)){
+                    return true;
+                }
+                break;
+
+            default:
+                break;
+        }
+        return false;
     }
 
     private boolean isDiseaseNeedValidation(String diseaseId, ValidationRule rule) {
