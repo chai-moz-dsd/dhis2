@@ -65,6 +65,7 @@ import org.hisp.dhis.period.Period;
 import org.hisp.dhis.period.WeeklyPeriodType;
 
 import static org.hisp.dhis.system.util.MathUtils.*;
+
 import org.hisp.dhis.expression.Operator;
 
 import javax.servlet.http.HttpServletResponse;
@@ -76,18 +77,17 @@ import static org.hisp.dhis.common.DimensionalObjectUtils.getItemsFromParam;
  * @author Lars Helge Overland
  */
 @Controller
-@ApiVersion( { ApiVersion.Version.DEFAULT, ApiVersion.Version.ALL } )
-public class AnalyticsController
-{
-    public static final String SIMPLE_RULE_TYPE = "Default";
-    public static final String SARAMPO_CASE_IN_MONTHS = "SarampoCaseInMonths";
-
+@ApiVersion({ApiVersion.Version.DEFAULT, ApiVersion.Version.ALL})
+public class AnalyticsController {
     private static final String RESOURCE_PATH = "/analytics";
 
-    private static final Log log = LogFactory.getLog( AnalyticsController.class );
-    public static final String MENINGITE_CASE_INCREASED_BY_TIMES = "MeningiteIncreasedInWeeks";
-    public static final String MALARIA_CASE_IN_YEARS = "MalariaCaseInYears";
-    public static final String DISENTERIA_CASE_IN_YEARS = "DisenteriaCaseInYears";
+    private static final Log log = LogFactory.getLog(AnalyticsController.class);
+
+    private static final String SIMPLE_RULE_TYPE = "Default";
+    private static final String SARAMPO_CASE_IN_MONTHS = "SarampoCaseInMonths";
+    private static final String MENINGITE_CASE_INCREASED_BY_TIMES = "MeningiteIncreasedInWeeks";
+    private static final String MALARIA_CASE_IN_YEARS = "MalariaCaseInYears";
+    private static final String DISENTERIA_CASE_IN_YEARS = "DisenteriaCaseInYears";
 
 
     @Autowired
@@ -115,40 +115,39 @@ public class AnalyticsController
     // Resources
     // -------------------------------------------------------------------------
 
-    @RequestMapping( value = RESOURCE_PATH, method = RequestMethod.GET, produces = { "application/json", "application/javascript" } )
+    @RequestMapping(value = RESOURCE_PATH, method = RequestMethod.GET, produces = {"application/json", "application/javascript"})
     public String getJson( // JSON, JSONP
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) String approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
-            ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat() );
+                           @RequestParam Set<String> dimension,
+                           @RequestParam(required = false) Set<String> filter,
+                           @RequestParam(required = false) AggregationType aggregationType,
+                           @RequestParam(required = false) String measureCriteria,
+                           @RequestParam(required = false) boolean skipMeta,
+                           @RequestParam(required = false) boolean skipData,
+                           @RequestParam(required = false) boolean skipRounding,
+                           @RequestParam(required = false) boolean completedOnly,
+                           @RequestParam(required = false) boolean hierarchyMeta,
+                           @RequestParam(required = false) boolean ignoreLimit,
+                           @RequestParam(required = false) boolean hideEmptyRows,
+                           @RequestParam(required = false) boolean showHierarchy,
+                           @RequestParam(required = false) DisplayProperty displayProperty,
+                           @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+                           @RequestParam(required = false) IdScheme inputIdScheme,
+                           @RequestParam(required = false) String approvalLevel,
+                           @RequestParam(required = false) Date relativePeriodDate,
+                           @RequestParam(required = false) String userOrgUnit,
+                           @RequestParam(required = false) String columns,
+                           @RequestParam(required = false) String rows,
+                           Model model,
+                           HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
+                ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING );
-        Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING);
+        Grid grid = analyticsService.getAggregatedDataValues(params, getItemsFromParam(columns), getItemsFromParam(rows));
         highLightForDataValues(params, grid);
 
-        model.addAttribute( "model", grid );
-        model.addAttribute( "viewClass", "detailed" );
+        model.addAttribute("model", grid);
+        model.addAttribute("viewClass", "detailed");
         return "grid";
     }
 
@@ -167,98 +166,97 @@ public class AnalyticsController
             String diseaseId = (String) row.get(0);
 
             OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
-            Collection<OrganisationUnit> organisationUnits = organisationUnitService.getOrganisationUnitWithChildren( organisationUnit.getId() );
+            Collection<OrganisationUnit> organisationUnits =
+                    organisationUnitService.getOrganisationUnitWithChildren(organisationUnit.getId());
 
             for (ValidationRule rule : rules) {
-                if (!isDiseaseNeedValidation(diseaseId, rule))
-                {
+                if (!isValidRuleForDisease(diseaseId, rule)) {
                     continue;
                 }
 
-                boolean shouldHighLight = validatedRuleInDisease(params, row, organisationUnits, rule);
+                boolean shouldHighLight = validateDisease(params, row, organisationUnits, rule);
+                highLight = shouldHighLight ? "highlight.true" : "highlight.false";
 
-                if (shouldHighLight){
-                    highLight = String.format("highlight.%b", true);
+                if (shouldHighLight) {
                     break;
                 }
-                else {
-                    highLight = "highlight.false";
-                }
-
             }
             row.add(highLight);
-
         }
     }
 
-    private boolean validatedRuleInDisease(DataQueryParams params, List<Object> row, Collection<OrganisationUnit> organisationUnits, ValidationRule rule) {
-        switch (rule.getAdditionalRuleType())
-        {
+//    interface Validator {
+//        boolean validate(DataQueryParams params, ValidationRule rule, Collection<OrganisationUnit> organisationUnits);
+//    }
+//
+//    class SimpleRuleValidator implements Validator {
+//
+//        public boolean validate(DataQueryParams params, ValidationRule rule, Collection<OrganisationUnit> organisationUnits) {
+//            return false;
+//        }
+//    }
+//
+//    class ValidatorFactory {
+//        static Validator getValidator(String type) {
+//            switch (type) {
+//                case SIMPLE_RULE_TYPE:
+//                    return new SimpleRuleValidator();
+//            }
+//        }
+//    }
+//
+//    void
+//
+//    abstract test() {
+//        step1;
+//        step2;
+//        abstract step3()
+//        abstract step4()
+//        step5;
+//        step6;
+//    }
+//
+//    step3();
+//
+//    step4();
+
+    private boolean validateDisease(DataQueryParams params, List<Object> row,
+                                    Collection<OrganisationUnit> organisationUnits, ValidationRule rule) {
+
+//        Validator validator = ValidatorFactory.getValidator(rule.getAdditionalRuleType());
+//        boolean res = validator.validate(params, rule, organisationUnits);
+
+        switch (rule.getAdditionalRuleType()) {
             case SIMPLE_RULE_TYPE:
                 Operator operator = rule.getOperator();
                 double threshold = Double.valueOf(rule.getRightSide().getExpression());
 
-                if (!expressionIsTrue((Double)row.get(2), operator, threshold)) {
-                    return true;
-                }
-                break;
-
+                return !expressionIsTrue((Double) row.get(2), operator, threshold);
             case SARAMPO_CASE_IN_MONTHS:
-                if (!periodShouldBeOneWeek(params)) {
-                    break;
-                }
-
-                if (isSarampoCaseInWeeksValidationSucc(params, rule, organisationUnits)){
-                    return true;
-                }
-                break;
+                return isPeriodOneWeek(params) && validateSarampoCaseInWeeks(params, rule, organisationUnits);
 
             case MENINGITE_CASE_INCREASED_BY_TIMES:
-                if (!periodShouldBeOneWeek(params)) {
-                    break;
-                }
-
-                if (isMeningiteCaseIncreasedByTimesValidationSucc(params, rule, organisationUnits)){
-                    return true;
-                }
-                break;
-
+                return isPeriodOneWeek(params) && validateMeningiteCaseIncreasedByTimes(params, rule, organisationUnits);
 
             case MALARIA_CASE_IN_YEARS:
-                if (!periodShouldBeOneWeek(params)){
-                    break;
-                }
-
-                if (isMalariaCaseInYears(params, rule, organisationUnits)){
-                    return true;
-                }
-                break;
+                return isPeriodOneWeek(params) && validateMalariaCaseInYears(params, rule, organisationUnits);
 
             case DISENTERIA_CASE_IN_YEARS:
-                if (!periodShouldBeOneWeek(params)){
-                    break;
-                }
-
-                if (isDisenteriaCaseInYears(params, rule, organisationUnits)){
-                    return true;
-                }
-                break;
+                return isPeriodOneWeek(params) && validateDisenteriaCaseInYears(params, rule, organisationUnits);
 
             default:
-                break;
+                return false;
         }
-        return false;
     }
 
-    private boolean isDiseaseNeedValidation(String diseaseId, ValidationRule rule) {
+    private boolean isValidRuleForDisease(String diseaseId, ValidationRule rule) {
         return rule.getLeftSide().getExpression().contains(diseaseId);
     }
 
-    private boolean periodShouldBeOneWeek(DataQueryParams params)
-    {
-        return (params.getFilterPeriods().size() == 1) && (((Period) params.getFilterPeriods().get(0)).getPeriodType() instanceof WeeklyPeriodType);
+    private boolean isPeriodOneWeek(DataQueryParams params) {
+        return (params.getFilterPeriods().size() == 1)
+                && (((Period) params.getFilterPeriods().get(0)).getPeriodType().getName().equals(WeeklyPeriodType.NAME));
     }
-
 
     private Date calculateStartDate(DataQueryParams params, int weeks) {
         Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
@@ -266,11 +264,12 @@ public class AnalyticsController
         c.setTime(startDate);
         c.add(Calendar.DATE, -(weeks * 7));
         startDate.setTime(c.getTime().getTime());
+
         return startDate;
     }
 
-    private boolean isSarampoCaseInWeeksValidationSucc(DataQueryParams params, ValidationRule rule,
-                                                       Collection<OrganisationUnit> organisationUnits) {
+    private boolean validateSarampoCaseInWeeks(DataQueryParams params, ValidationRule rule,
+                                               Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int threshold = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
@@ -279,56 +278,8 @@ public class AnalyticsController
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         for (ValidationRuleGroup group : rule.getGroups()) {
-
-            for(OrganisationUnit org : organisationUnits) {
-
-                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
-                orgUnits.add(org);
-
-                List<ValidationResult> validationResult = new ArrayList<>(validationRuleService.validate(
-                        startDate,
-                        endDate,
-                        orgUnits,
-                        null,
-                        group,
-                        false,
-                        i18nManager.getI18nFormat()));
-
-                if (validationResult.size() == 0)
-                {
-                    continue;
-                }
-
-                Double diseaseNum = 0.0;
-                for (ValidationResult result : validationResult){
-                    diseaseNum += result.getLeftsideValue();
-                }
-
-                if (diseaseNum >= threshold){
-                    return true;
-                }
-
-            }
-
-        }
-
-        return false;
-    }
-
-    private boolean isMeningiteCaseIncreasedByTimesValidationSucc(DataQueryParams params, ValidationRule rule,
-                                                                  Collection<OrganisationUnit> organisationUnits) {
-        String additionalRuleExpression = rule.getAdditionalRule();
-        int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
-        int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
-
-        Date startDate = calculateStartDate(params, weeks);
-        Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
-
-        for (ValidationRuleGroup group : rule.getGroups()) {
-
-            for(OrganisationUnit org : organisationUnits) {
-
-                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
+            for (OrganisationUnit org : organisationUnits) {
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit>();
                 orgUnits.add(org);
 
                 List<ValidationResult> validationResults = new ArrayList<>(validationRuleService.validate(
@@ -340,13 +291,53 @@ public class AnalyticsController
                         false,
                         i18nManager.getI18nFormat()));
 
-                if (validationResults.size() == weeks)
-                {
-                    boolean increasedFlag = false;
-                    Double diseaseNum = 0.0;
-                    for (ValidationResult result : validationResults){
+                if (validationResults.isEmpty()) {
+                    continue;
+                }
 
-                        if (result.getLeftsideValue() < times * diseaseNum){
+                double diseaseNum = 0.0;
+                for (ValidationResult result : validationResults) {
+                    diseaseNum += result.getLeftsideValue();
+                }
+
+                if (diseaseNum >= threshold) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean validateMeningiteCaseIncreasedByTimes(DataQueryParams params, ValidationRule rule,
+                                                          Collection<OrganisationUnit> organisationUnits) {
+        String additionalRuleExpression = rule.getAdditionalRule();
+        int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
+        int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+
+        Date startDate = calculateStartDate(params, weeks);
+        Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
+
+        for (ValidationRuleGroup group : rule.getGroups()) {
+            for (OrganisationUnit org : organisationUnits) {
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit>();
+                orgUnits.add(org);
+
+                List<ValidationResult> validationResults = new ArrayList<>(validationRuleService.validate(
+                        startDate,
+                        endDate,
+                        orgUnits,
+                        null,
+                        group,
+                        false,
+                        i18nManager.getI18nFormat()));
+
+                if (validationResults.size() == weeks) {
+                    boolean increasedFlag = false;
+                    double diseaseNum = 0.0;
+
+                    for (ValidationResult result : validationResults) {
+                        if (result.getLeftsideValue() < times * diseaseNum) {
                             increasedFlag = false;
                             break;
                         }
@@ -355,7 +346,7 @@ public class AnalyticsController
                         diseaseNum = result.getLeftsideValue();
                     }
 
-                    if (increasedFlag){
+                    if (increasedFlag) {
                         return true;
                     }
                 }
@@ -366,13 +357,13 @@ public class AnalyticsController
         return false;
     }
 
-    private boolean isDisenteriaCaseInYears(DataQueryParams params, ValidationRule rule,
-                                            Collection<OrganisationUnit> organisationUnits) {
+    private boolean validateDisenteriaCaseInYears(DataQueryParams params, ValidationRule rule,
+                                                  Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int years = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        int currentWeekNum = Integer.valueOf(((Period)((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentWeekNum = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
 
         Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
@@ -380,12 +371,12 @@ public class AnalyticsController
 
         for (ValidationRuleGroup group : rule.getGroups()) {
 
-            for(OrganisationUnit org : organisationUnits) {
+            for (OrganisationUnit org : organisationUnits) {
 
-                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit>();
                 orgUnits.add(org);
 
-                List<ValidationResult> currentWeekResults = new ArrayList<> (validationRuleService.validate(
+                List<ValidationResult> currentWeekResults = new ArrayList<>(validationRuleService.validate(
                         startDate,
                         endDate,
                         orgUnits,
@@ -394,14 +385,13 @@ public class AnalyticsController
                         false,
                         i18nManager.getI18nFormat()));
 
-                if (currentWeekResults.size() <= 0)
-                {
+                if (currentWeekResults.isEmpty()) {
                     continue;
                 }
 
-                List<ValidationResult> previousYearsResults = new ArrayList<> ();
+                List<ValidationResult> previousYearsResults = new ArrayList<>();
 
-                for (int i = 0; i < years; i++){
+                for (int i = 1; i < years; i++) {
 
                     Calendar cal = Calendar.getInstance();
                     cal.setMinimalDaysInFirstWeek(4);
@@ -426,32 +416,27 @@ public class AnalyticsController
 
                 }
 
-                if (previousYearsResults.size() == 0)
-                {
+                if (previousYearsResults.isEmpty()) {
                     continue;
                 }
 
-                Double totalDiseaseNum = 0.0;
+                double totalDiseaseNum = 0.0;
                 for (ValidationResult previousYearsResult : previousYearsResults) {
                     totalDiseaseNum += previousYearsResult.getLeftsideValue();
                 }
 
-                Double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
+                double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
 
-                Double powDiseaseNum = 0.0;
+                double powDiseaseNum = 0.0;
                 for (ValidationResult previousYearsResult : previousYearsResults) {
                     powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
                 }
 
-                Double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
-
-                if (currentWeekResults.get(0).getLeftsideValue() > averageDiseaseNum + times * stdDevDiseaseNum)
-                {
+                double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
+                if (currentWeekResults.get(0).getLeftsideValue() > averageDiseaseNum + times * stdDevDiseaseNum) {
                     return true;
                 }
-
             }
-
         }
 
         return false;
@@ -459,15 +444,15 @@ public class AnalyticsController
 
     }
 
-    private boolean isMalariaCaseInYears(DataQueryParams params, ValidationRule rule,
-                                         Collection<OrganisationUnit> organisationUnits) {
+    private boolean validateMalariaCaseInYears(DataQueryParams params, ValidationRule rule,
+                                               Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int earlyWeeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int afterWeeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
         int pastYears = Integer.valueOf(additionalRuleExpression.split("\r\n")[2].split(":")[1], 10);
         int stddevTimes = Integer.valueOf(additionalRuleExpression.split("\r\n")[3].split(":")[1], 10);
 
-        int currentWeekNum = Integer.valueOf(((Period)((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentWeekNum = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
 
         Calendar cal = Calendar.getInstance();
@@ -483,12 +468,12 @@ public class AnalyticsController
 
         for (ValidationRuleGroup group : rule.getGroups()) {
 
-            for(OrganisationUnit org : organisationUnits) {
+            for (OrganisationUnit org : organisationUnits) {
 
-                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit> ();
+                Collection<OrganisationUnit> orgUnits = new ArrayList<OrganisationUnit>();
                 orgUnits.add(org);
 
-                List<ValidationResult> currentWeekResults = new ArrayList<> (validationRuleService.validate(
+                List<ValidationResult> currentWeekResults = new ArrayList<>(validationRuleService.validate(
                         startDate,
                         endDate,
                         orgUnits,
@@ -497,14 +482,13 @@ public class AnalyticsController
                         false,
                         i18nManager.getI18nFormat()));
 
-                if (currentWeekResults.size() <= 0)
-                {
+                if (currentWeekResults.isEmpty()) {
                     continue;
                 }
 
-                List<ValidationResult> previousYearsResults = new ArrayList<> ();
+                List<ValidationResult> previousYearsResults = new ArrayList<>();
 
-                for (int i = 1; i < pastYears; i++){
+                for (int i = 1; i < pastYears; i++) {
 
                     cal.set(currentYear - i, 1, 1);
                     cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
@@ -530,32 +514,30 @@ public class AnalyticsController
 
                 }
 
-                if (previousYearsResults.size() == 0)
-                {
+                if (previousYearsResults.isEmpty()) {
                     continue;
                 }
 
-                Double totalDiseaseNum = 0.0;
+                double totalDiseaseNum = 0.0;
                 for (ValidationResult previousYearsResult : previousYearsResults) {
                     totalDiseaseNum += previousYearsResult.getLeftsideValue();
                 }
 
-                Double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
+                double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
 
-                Double powDiseaseNum = 0.0;
+                double powDiseaseNum = 0.0;
                 for (ValidationResult previousYearsResult : previousYearsResults) {
                     powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
                 }
 
-                Double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
+                double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
 
-                Double recentWeeksDiseaseNum = 0.0;
+                double recentWeeksDiseaseNum = 0.0;
                 for (ValidationResult currentWeekResult : currentWeekResults) {
                     recentWeeksDiseaseNum += currentWeekResult.getLeftsideValue();
                 }
 
-                if (recentWeeksDiseaseNum > averageDiseaseNum + stddevTimes * stdDevDiseaseNum)
-                {
+                if (recentWeeksDiseaseNum > averageDiseaseNum + stddevTimes * stdDevDiseaseNum) {
                     return true;
                 }
 
@@ -568,234 +550,229 @@ public class AnalyticsController
 
     }
 
-    @RequestMapping( value = RESOURCE_PATH + ".xml", method = RequestMethod.GET )
+    @RequestMapping(value = RESOURCE_PATH + ".xml", method = RequestMethod.GET)
     public void getXml(
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) String approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
-            ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat() );
+            @RequestParam Set<String> dimension,
+            @RequestParam(required = false) Set<String> filter,
+            @RequestParam(required = false) AggregationType aggregationType,
+            @RequestParam(required = false) String measureCriteria,
+            @RequestParam(required = false) boolean skipMeta,
+            @RequestParam(required = false) boolean skipData,
+            @RequestParam(required = false) boolean skipRounding,
+            @RequestParam(required = false) boolean completedOnly,
+            @RequestParam(required = false) boolean hierarchyMeta,
+            @RequestParam(required = false) boolean ignoreLimit,
+            @RequestParam(required = false) boolean hideEmptyRows,
+            @RequestParam(required = false) boolean showHierarchy,
+            @RequestParam(required = false) DisplayProperty displayProperty,
+            @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+            @RequestParam(required = false) IdScheme inputIdScheme,
+            @RequestParam(required = false) String approvalLevel,
+            @RequestParam(required = false) Date relativePeriodDate,
+            @RequestParam(required = false) String userOrgUnit,
+            @RequestParam(required = false) String columns,
+            @RequestParam(required = false) String rows,
+            Model model,
+            HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
+                ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_XML, CacheStrategy.RESPECT_SYSTEM_SETTING );
-        Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
-        GridUtils.toXml( grid, response.getOutputStream() );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_XML, CacheStrategy.RESPECT_SYSTEM_SETTING);
+        Grid grid = analyticsService.getAggregatedDataValues(params, getItemsFromParam(columns), getItemsFromParam(rows));
+        GridUtils.toXml(grid, response.getOutputStream());
     }
 
-    @RequestMapping( value = RESOURCE_PATH + ".html", method = RequestMethod.GET )
+    @RequestMapping(value = RESOURCE_PATH + ".html", method = RequestMethod.GET)
     public void getHtml(
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) String approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
-            ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat() );
+            @RequestParam Set<String> dimension,
+            @RequestParam(required = false) Set<String> filter,
+            @RequestParam(required = false) AggregationType aggregationType,
+            @RequestParam(required = false) String measureCriteria,
+            @RequestParam(required = false) boolean skipMeta,
+            @RequestParam(required = false) boolean skipData,
+            @RequestParam(required = false) boolean skipRounding,
+            @RequestParam(required = false) boolean completedOnly,
+            @RequestParam(required = false) boolean hierarchyMeta,
+            @RequestParam(required = false) boolean ignoreLimit,
+            @RequestParam(required = false) boolean hideEmptyRows,
+            @RequestParam(required = false) boolean showHierarchy,
+            @RequestParam(required = false) DisplayProperty displayProperty,
+            @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+            @RequestParam(required = false) IdScheme inputIdScheme,
+            @RequestParam(required = false) String approvalLevel,
+            @RequestParam(required = false) Date relativePeriodDate,
+            @RequestParam(required = false) String userOrgUnit,
+            @RequestParam(required = false) String columns,
+            @RequestParam(required = false) String rows,
+            Model model,
+            HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
+                ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_HTML, CacheStrategy.RESPECT_SYSTEM_SETTING );
-        Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
-        GridUtils.toHtml( grid, response.getWriter() );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_HTML, CacheStrategy.RESPECT_SYSTEM_SETTING);
+        Grid grid = analyticsService.getAggregatedDataValues(params, getItemsFromParam(columns), getItemsFromParam(rows));
+        GridUtils.toHtml(grid, response.getWriter());
     }
 
-    @RequestMapping( value = RESOURCE_PATH + ".html+css", method = RequestMethod.GET )
+    @RequestMapping(value = RESOURCE_PATH + ".html+css", method = RequestMethod.GET)
     public void getHtmlCss(
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) String approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
-            ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat() );
+            @RequestParam Set<String> dimension,
+            @RequestParam(required = false) Set<String> filter,
+            @RequestParam(required = false) AggregationType aggregationType,
+            @RequestParam(required = false) String measureCriteria,
+            @RequestParam(required = false) boolean skipMeta,
+            @RequestParam(required = false) boolean skipData,
+            @RequestParam(required = false) boolean skipRounding,
+            @RequestParam(required = false) boolean completedOnly,
+            @RequestParam(required = false) boolean hierarchyMeta,
+            @RequestParam(required = false) boolean ignoreLimit,
+            @RequestParam(required = false) boolean hideEmptyRows,
+            @RequestParam(required = false) boolean showHierarchy,
+            @RequestParam(required = false) DisplayProperty displayProperty,
+            @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+            @RequestParam(required = false) IdScheme inputIdScheme,
+            @RequestParam(required = false) String approvalLevel,
+            @RequestParam(required = false) Date relativePeriodDate,
+            @RequestParam(required = false) String userOrgUnit,
+            @RequestParam(required = false) String columns,
+            @RequestParam(required = false) String rows,
+            Model model,
+            HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
+                ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_HTML, CacheStrategy.RESPECT_SYSTEM_SETTING );
-        Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
-        GridUtils.toHtmlCss( grid, response.getWriter() );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_HTML, CacheStrategy.RESPECT_SYSTEM_SETTING);
+        Grid grid = analyticsService.getAggregatedDataValues(params, getItemsFromParam(columns), getItemsFromParam(rows));
+        GridUtils.toHtmlCss(grid, response.getWriter());
     }
 
-    @RequestMapping( value = RESOURCE_PATH + ".csv", method = RequestMethod.GET )
+    @RequestMapping(value = RESOURCE_PATH + ".csv", method = RequestMethod.GET)
     public void getCsv(
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) String approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
-            ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat() );
+            @RequestParam Set<String> dimension,
+            @RequestParam(required = false) Set<String> filter,
+            @RequestParam(required = false) AggregationType aggregationType,
+            @RequestParam(required = false) String measureCriteria,
+            @RequestParam(required = false) boolean skipMeta,
+            @RequestParam(required = false) boolean skipData,
+            @RequestParam(required = false) boolean skipRounding,
+            @RequestParam(required = false) boolean completedOnly,
+            @RequestParam(required = false) boolean hierarchyMeta,
+            @RequestParam(required = false) boolean ignoreLimit,
+            @RequestParam(required = false) boolean hideEmptyRows,
+            @RequestParam(required = false) boolean showHierarchy,
+            @RequestParam(required = false) DisplayProperty displayProperty,
+            @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+            @RequestParam(required = false) IdScheme inputIdScheme,
+            @RequestParam(required = false) String approvalLevel,
+            @RequestParam(required = false) Date relativePeriodDate,
+            @RequestParam(required = false) String userOrgUnit,
+            @RequestParam(required = false) String columns,
+            @RequestParam(required = false) String rows,
+            Model model,
+            HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
+                ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_CSV, CacheStrategy.RESPECT_SYSTEM_SETTING, "data.csv", true );
-        Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
-        GridUtils.toCsv( grid, response.getWriter() );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_CSV, CacheStrategy.RESPECT_SYSTEM_SETTING, "data.csv", true);
+        Grid grid = analyticsService.getAggregatedDataValues(params, getItemsFromParam(columns), getItemsFromParam(rows));
+        GridUtils.toCsv(grid, response.getWriter());
     }
 
-    @RequestMapping( value = RESOURCE_PATH + ".xls", method = RequestMethod.GET )
+    @RequestMapping(value = RESOURCE_PATH + ".xls", method = RequestMethod.GET)
     public void getXls(
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) String approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
-            ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat() );
+            @RequestParam Set<String> dimension,
+            @RequestParam(required = false) Set<String> filter,
+            @RequestParam(required = false) AggregationType aggregationType,
+            @RequestParam(required = false) String measureCriteria,
+            @RequestParam(required = false) boolean skipMeta,
+            @RequestParam(required = false) boolean skipData,
+            @RequestParam(required = false) boolean skipRounding,
+            @RequestParam(required = false) boolean completedOnly,
+            @RequestParam(required = false) boolean hierarchyMeta,
+            @RequestParam(required = false) boolean ignoreLimit,
+            @RequestParam(required = false) boolean hideEmptyRows,
+            @RequestParam(required = false) boolean showHierarchy,
+            @RequestParam(required = false) DisplayProperty displayProperty,
+            @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+            @RequestParam(required = false) IdScheme inputIdScheme,
+            @RequestParam(required = false) String approvalLevel,
+            @RequestParam(required = false) Date relativePeriodDate,
+            @RequestParam(required = false) String userOrgUnit,
+            @RequestParam(required = false) String columns,
+            @RequestParam(required = false) String rows,
+            Model model,
+            HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
+                ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_EXCEL, CacheStrategy.RESPECT_SYSTEM_SETTING, "data.xls", true );
-        Grid grid = analyticsService.getAggregatedDataValues( params, getItemsFromParam( columns ), getItemsFromParam( rows ) );
-        GridUtils.toXls( grid, response.getOutputStream() );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_EXCEL, CacheStrategy.RESPECT_SYSTEM_SETTING, "data.xls", true);
+        Grid grid = analyticsService.getAggregatedDataValues(params, getItemsFromParam(columns), getItemsFromParam(rows));
+        GridUtils.toXls(grid, response.getOutputStream());
     }
 
-    @RequestMapping( value = RESOURCE_PATH + ".jrxml", method = RequestMethod.GET )
+    @RequestMapping(value = RESOURCE_PATH + ".jrxml", method = RequestMethod.GET)
     public void getJrxml(
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) Integer approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, null, null,
-            true, false, false, false, false, false, false, false, null, null, null, null, null, null, i18nManager.getI18nFormat() );
+            @RequestParam Set<String> dimension,
+            @RequestParam(required = false) Set<String> filter,
+            @RequestParam(required = false) AggregationType aggregationType,
+            @RequestParam(required = false) String measureCriteria,
+            @RequestParam(required = false) boolean skipMeta,
+            @RequestParam(required = false) boolean skipData,
+            @RequestParam(required = false) boolean skipRounding,
+            @RequestParam(required = false) boolean completedOnly,
+            @RequestParam(required = false) boolean hierarchyMeta,
+            @RequestParam(required = false) boolean ignoreLimit,
+            @RequestParam(required = false) boolean hideEmptyRows,
+            @RequestParam(required = false) boolean showHierarchy,
+            @RequestParam(required = false) DisplayProperty displayProperty,
+            @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+            @RequestParam(required = false) IdScheme inputIdScheme,
+            @RequestParam(required = false) Integer approvalLevel,
+            @RequestParam(required = false) Date relativePeriodDate,
+            @RequestParam(required = false) String userOrgUnit,
+            @RequestParam(required = false) String columns,
+            @RequestParam(required = false) String rows,
+            Model model,
+            HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, null, null,
+                true, false, false, false, false, false, false, false, null, null, null, null, null, null, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_XML, CacheStrategy.RESPECT_SYSTEM_SETTING, "data.jrxml", false );
-        Grid grid = analyticsService.getAggregatedDataValues( params );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_XML, CacheStrategy.RESPECT_SYSTEM_SETTING, "data.jrxml", false);
+        Grid grid = analyticsService.getAggregatedDataValues(params);
 
-        GridUtils.toJrxml( grid, null, response.getWriter() );
+        GridUtils.toJrxml(grid, null, response.getWriter());
     }
 
-    @RequestMapping( value = RESOURCE_PATH + "/debug/sql", method = RequestMethod.GET, produces = { "text/html", "text/plain" } )
-    public @ResponseBody String getDebugSql(
-        @RequestParam Set<String> dimension,
-        @RequestParam( required = false ) Set<String> filter,
-        @RequestParam( required = false ) AggregationType aggregationType,
-        @RequestParam( required = false ) String measureCriteria,
-        @RequestParam( required = false ) boolean skipMeta,
-        @RequestParam( required = false ) boolean skipData,
-        @RequestParam( required = false ) boolean skipRounding,
-        @RequestParam( required = false ) boolean completedOnly,
-        @RequestParam( required = false ) boolean hierarchyMeta,
-        @RequestParam( required = false ) boolean ignoreLimit,
-        @RequestParam( required = false ) boolean hideEmptyRows,
-        @RequestParam( required = false ) boolean showHierarchy,
-        @RequestParam( required = false ) DisplayProperty displayProperty,
-        @RequestParam( required = false ) IdentifiableProperty outputIdScheme,
-        @RequestParam( required = false ) IdScheme inputIdScheme,
-        @RequestParam( required = false ) String approvalLevel,
-        @RequestParam( required = false ) Date relativePeriodDate,
-        @RequestParam( required = false ) String userOrgUnit,
-        @RequestParam( required = false ) String columns,
-        @RequestParam( required = false ) String rows,
-        Model model,
-        HttpServletResponse response ) throws Exception
-    {
-        DataQueryParams params = dataQueryService.getFromUrl( dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
-            ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat() );
+    @RequestMapping(value = RESOURCE_PATH + "/debug/sql", method = RequestMethod.GET, produces = {"text/html", "text/plain"})
+    public
+    @ResponseBody
+    String getDebugSql(
+            @RequestParam Set<String> dimension,
+            @RequestParam(required = false) Set<String> filter,
+            @RequestParam(required = false) AggregationType aggregationType,
+            @RequestParam(required = false) String measureCriteria,
+            @RequestParam(required = false) boolean skipMeta,
+            @RequestParam(required = false) boolean skipData,
+            @RequestParam(required = false) boolean skipRounding,
+            @RequestParam(required = false) boolean completedOnly,
+            @RequestParam(required = false) boolean hierarchyMeta,
+            @RequestParam(required = false) boolean ignoreLimit,
+            @RequestParam(required = false) boolean hideEmptyRows,
+            @RequestParam(required = false) boolean showHierarchy,
+            @RequestParam(required = false) DisplayProperty displayProperty,
+            @RequestParam(required = false) IdentifiableProperty outputIdScheme,
+            @RequestParam(required = false) IdScheme inputIdScheme,
+            @RequestParam(required = false) String approvalLevel,
+            @RequestParam(required = false) Date relativePeriodDate,
+            @RequestParam(required = false) String userOrgUnit,
+            @RequestParam(required = false) String columns,
+            @RequestParam(required = false) String rows,
+            Model model,
+            HttpServletResponse response) throws Exception {
+        DataQueryParams params = dataQueryService.getFromUrl(dimension, filter, aggregationType, measureCriteria, skipMeta, skipData, skipRounding, completedOnly, hierarchyMeta,
+                ignoreLimit, hideEmptyRows, showHierarchy, displayProperty, outputIdScheme, inputIdScheme, approvalLevel, relativePeriodDate, userOrgUnit, i18nManager.getI18nFormat());
 
-        contextUtils.configureResponse( response, ContextUtils.CONTENT_TYPE_TEXT, CacheStrategy.NO_CACHE, "debug.sql", false );
-        return AnalyticsUtils.getDebugDataSql( params );
+        contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_TEXT, CacheStrategy.NO_CACHE, "debug.sql", false);
+        return AnalyticsUtils.getDebugDataSql(params);
     }
 }
