@@ -194,7 +194,7 @@ public class AnalyticsController
                             break;
                         }
 
-                        if (isSarampoCaseInMonthsValidationSucc(params, rule, organisationUnits)){
+                        if (isSarampoCaseInWeeksValidationSucc(params, rule, organisationUnits)){
                             highLight = String.format("highlight.%b", true);
                             shouldStop = true;
                         }
@@ -261,9 +261,17 @@ public class AnalyticsController
     }
 
 
+    private Date calculateStartDate(DataQueryParams params, int weeks) {
+        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
+        Calendar c = Calendar.getInstance();
+        c.setTime(startDate);
+        c.add(Calendar.DATE, -(weeks * 7));
+        startDate.setTime(c.getTime().getTime());
+        return startDate;
+    }
 
-    private boolean isSarampoCaseInMonthsValidationSucc(DataQueryParams params, ValidationRule rule,
-                                                        Collection<OrganisationUnit> organisationUnits) {
+    private boolean isSarampoCaseInWeeksValidationSucc(DataQueryParams params, ValidationRule rule,
+                                                       Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int threshold = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
@@ -557,15 +565,6 @@ public class AnalyticsController
         return false;
 
 
-    }
-
-    private Date calculateStartDate(DataQueryParams params, int weeks) {
-        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
-        Calendar c = Calendar.getInstance();
-        c.setTime(startDate);
-        c.add(Calendar.DATE, -(weeks * 7));
-        startDate.setTime(c.getTime().getTime());
-        return startDate;
     }
 
     @RequestMapping( value = RESOURCE_PATH + ".xml", method = RequestMethod.GET )
