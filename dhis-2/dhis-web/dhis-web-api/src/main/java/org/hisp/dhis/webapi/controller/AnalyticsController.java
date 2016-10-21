@@ -476,6 +476,7 @@ public class AnalyticsController
         cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
         cal.setFirstDayOfWeek(Calendar.MONDAY);
 
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         cal.add(Calendar.DAY_OF_YEAR, -1 * (earlyWeeks + afterWeeks) * 7);
         Date startDate = cal.getTime();
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
@@ -503,7 +504,7 @@ public class AnalyticsController
 
                 List<ValidationResult> previousYearsResults = new ArrayList<> ();
 
-                for (int i = 1; i <= pastYears; i++){
+                for (int i = 1; i < pastYears; i++){
 
                     cal.set(currentYear - i, 1, 1);
                     cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
@@ -513,8 +514,9 @@ public class AnalyticsController
                     cal.add(Calendar.DAY_OF_YEAR, -1 * earlyWeeks * 7);
                     startDate = cal.getTime();
 
-                    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                    cal.add(Calendar.DAY_OF_YEAR, (afterWeeks + 1) * 7);
+                    cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
+                    cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+                    cal.add(Calendar.DAY_OF_YEAR, afterWeeks * 7);
                     endDate = cal.getTime();
 
                     previousYearsResults.addAll(validationRuleService.validate(
