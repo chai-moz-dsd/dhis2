@@ -37,7 +37,7 @@
     <tr>
     	<td>
     		<label for="validationRuleGroup">$i18n.getString( "validation_rule_group" )</label>
-	    </td>u
+	    </td>
 	    <td>
 	    	<select id="validationRuleGroupId" name="validationRuleGroupId" style="width:20em">
 	    		<option value="-1">[ $i18n.getString( "all_validation_rules" ) ]</option>
