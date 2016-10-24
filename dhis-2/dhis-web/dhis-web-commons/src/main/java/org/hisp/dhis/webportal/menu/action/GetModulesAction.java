@@ -28,10 +28,7 @@ package org.hisp.dhis.webportal.menu.action;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import org.apache.struts2.ServletActionContext;
 import org.hisp.dhis.user.CurrentUserService;
@@ -55,12 +52,11 @@ public class GetModulesAction
     @Autowired
     private CurrentUserService currentUserService;
 
-    private final static List<String> USED_APPS = new ArrayList<String>();
-    static {
-        Collections.addAll(USED_APPS,
-                "dhis-web-dashboard-integration", "reporting-page", "dhis-web-maintenance-user", "dhis-web-validationrule",
-                "dhis-web-pivot", "dhis-web-visualizer", "dhis-web-mapping", "dhis-web-settings");
-    }
+    final ArrayList<String> ADMIN_USED_APPS = new ArrayList<>(Arrays.asList("dhis-web-dashboard-integration", "reporting-page", "dhis-web-maintenance-user", "dhis-web-validationrule",
+            "dhis-web-pivot", "dhis-web-visualizer", "dhis-web-mapping", "dhis-web-settings"));
+
+    final ArrayList<String> USED_APPS = new ArrayList<>(Arrays.asList("dhis-web-dashboard-integration", "reporting-page", "dhis-web-maintenance-user", "dhis-web-validationrule",
+            "dhis-web-settings"));
 
     private List<Module> modules;
     
@@ -74,8 +70,10 @@ public class GetModulesAction
         throws Exception
     {
         String contextPath = ContextUtils.getContextPath( ServletActionContext.getRequest() );
-        
-        modules = getSpecificAppsForDsd(manager.getAccessibleMenuModulesAndApps( contextPath ));
+
+        List<String> userApps = currentUserService.currentUserIsSuper() ? ADMIN_USED_APPS : USED_APPS
+
+        modules = getSpecificAppsForDsd(manager.getAccessibleMenuModulesAndApps( contextPath ), userApps);
 
 //        User user = currentUserService.getCurrentUser();
         
@@ -102,11 +100,11 @@ public class GetModulesAction
         return SUCCESS;
     }
 
-    private List<Module> getSpecificAppsForDsd(List<Module> accessibleApps)
+    private List<Module> getSpecificAppsForDsd(List<Module> accessibleApps, List<String> canUsedApps)
     {
         List<Module> results = new ArrayList<Module> ();
 
-        for (String appName : USED_APPS)
+        for (String appName : canUsedApps)
         {
             for (org.hisp.dhis.webportal.module.Module accessibleApp : accessibleApps)
             {
