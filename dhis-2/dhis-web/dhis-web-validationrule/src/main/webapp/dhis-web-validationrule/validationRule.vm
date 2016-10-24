@@ -77,8 +77,8 @@
 				<tr>
 					<th>$encoder.htmlEncode( $i18n.getString( "name" ) )&nbsp;&nbsp;&nbsp;&nbsp;</th>
 					<!-- Note: column-level sortInitialOrder only works in tablesorter 2.0.8 and later (an earlier version in use as of this writing.) --->
-					<th class="{sorter: 'importanceSorter', sortInitialOrder: 'desc'}">$encoder.htmlEncode( $i18n.getString("importance") )&nbsp;&nbsp;&nbsp;&nbsp;</th>
-					<th>$encoder.htmlEncode( $i18n.getString("period_type") )&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					<!--<th class="{sorter: 'importanceSorter', sortInitialOrder: 'desc'}">$encoder.htmlEncode( $i18n.getString("importance") )&nbsp;&nbsp;&nbsp;&nbsp;</th>
+					<th>$encoder.htmlEncode( $i18n.getString("period_type") )&nbsp;&nbsp;&nbsp;&nbsp;</th>-->
 				</tr>
 				</thead>			
 				<tbody id="list">
@@ -88,8 +88,8 @@
 				    data-can-update="$security.canUpdate( $validationRule )"
 				    data-can-delete="#if($auth.hasAccess( "dhis-web-validationrule", "removeValidationRule" ) )true#{else}false#end">
 				    <td>$encoder.htmlEncode( $!validationRule.displayName )</td>
-				    <td>$encoder.htmlEncode( $i18n.getString("$!validationRule.importance") )</td>
-				    <td>$encoder.htmlEncode( $i18n.getString($!validationRule.periodType.name) )</td>
+				    <!--<td>$encoder.htmlEncode( $i18n.getString("$!validationRule.importance") )</td>
+				    <td>$encoder.htmlEncode( $i18n.getString($!validationRule.periodType.name) )</td>-->
 				</tr>
 				#end
 				</tbody>               
