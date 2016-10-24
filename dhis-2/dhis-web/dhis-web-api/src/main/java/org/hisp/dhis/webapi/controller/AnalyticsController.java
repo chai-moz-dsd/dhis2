@@ -162,7 +162,7 @@ public class AnalyticsController {
 //        allRows.add(r);
 
         for (List<Object> row : allRows) {
-            String highLight = "";
+            String highLight = "false";
             String diseaseId = (String) row.get(0);
 
             OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
@@ -185,46 +185,10 @@ public class AnalyticsController {
         }
     }
 
-//    interface Validator {
-//        boolean validate(DataQueryParams params, ValidationRule rule, Collection<OrganisationUnit> organisationUnits);
-//    }
-//
-//    class SimpleRuleValidator implements Validator {
-//
-//        public boolean validate(DataQueryParams params, ValidationRule rule, Collection<OrganisationUnit> organisationUnits) {
-//            return false;
-//        }
-//    }
-//
-//    class ValidatorFactory {
-//        static Validator getValidator(String type) {
-//            switch (type) {
-//                case SIMPLE_RULE_TYPE:
-//                    return new SimpleRuleValidator();
-//            }
-//        }
-//    }
-//
-//    void
-//
-//    abstract test() {
-//        step1;
-//        step2;
-//        abstract step3()
-//        abstract step4()
-//        step5;
-//        step6;
-//    }
-//
-//    step3();
-//
-//    step4();
 
     private boolean validateDisease(DataQueryParams params, List<Object> row,
                                     Collection<OrganisationUnit> organisationUnits, ValidationRule rule) {
 
-//        Validator validator = ValidatorFactory.getValidator(rule.getAdditionalRuleType());
-//        boolean res = validator.validate(params, rule, organisationUnits);
 
         switch (rule.getAdditionalRuleType()) {
             case SIMPLE_RULE_TYPE:
@@ -258,23 +222,16 @@ public class AnalyticsController {
                 && (((Period) params.getFilterPeriods().get(0)).getPeriodType().getName().equals(WeeklyPeriodType.NAME));
     }
 
-    private Date calculateStartDate(DataQueryParams params, int weeks) {
-        Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
-        Calendar c = Calendar.getInstance();
-        c.setTime(startDate);
-        c.add(Calendar.DATE, -(weeks * 7));
-        startDate.setTime(c.getTime().getTime());
-
-        return startDate;
-    }
-
     private boolean validateSarampoCaseInWeeks(DataQueryParams params, ValidationRule rule,
                                                Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int threshold = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        Date startDate = calculateStartDate(params, weeks);
+        int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
+
+        Date startDate = calculateStartDate(weeks, 0, currentWeek, currentYear);
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         for (ValidationRuleGroup group : rule.getGroups()) {
@@ -315,7 +272,10 @@ public class AnalyticsController {
         int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        Date startDate = calculateStartDate(params, weeks);
+        int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
+
+        Date startDate = calculateStartDate(weeks, 0, currentWeek, currentYear);
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         for (ValidationRuleGroup group : rule.getGroups()) {
@@ -363,7 +323,7 @@ public class AnalyticsController {
         int years = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
         int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
 
-        int currentWeekNum = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
 
         Date startDate = ((Period) params.getFilterPeriods().get(0)).getStartDate();
@@ -392,18 +352,8 @@ public class AnalyticsController {
                 List<ValidationResult> previousYearsResults = new ArrayList<>();
 
                 for (int i = 1; i < years; i++) {
-
-                    Calendar cal = Calendar.getInstance();
-                    cal.setMinimalDaysInFirstWeek(4);
-                    cal.set(currentYear - i, 1, 1);
-                    cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
-                    cal.setFirstDayOfWeek(Calendar.MONDAY);
-
-                    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                    startDate = cal.getTime();
-
-                    cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                    endDate = cal.getTime();
+                    startDate = calculateStartDate(0, 0, currentWeek, currentYear - i);
+                    endDate = calculateEndDate(0, 0, currentWeek, currentYear - i);
 
                     previousYearsResults.addAll(validationRuleService.validate(
                             startDate,
@@ -420,22 +370,7 @@ public class AnalyticsController {
                     continue;
                 }
 
-                double totalDiseaseNum = 0.0;
-                for (ValidationResult previousYearsResult : previousYearsResults) {
-                    totalDiseaseNum += previousYearsResult.getLeftsideValue();
-                }
-
-                double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
-
-                double powDiseaseNum = 0.0;
-                for (ValidationResult previousYearsResult : previousYearsResults) {
-                    powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
-                }
-
-                double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
-                if (currentWeekResults.get(0).getLeftsideValue() > averageDiseaseNum + times * stdDevDiseaseNum) {
-                    return true;
-                }
+                if (checkResultForDisenteriaRule(times, currentWeekResults, previousYearsResults)) return true;
             }
         }
 
@@ -452,18 +387,10 @@ public class AnalyticsController {
         int pastYears = Integer.valueOf(additionalRuleExpression.split("\r\n")[2].split(":")[1], 10);
         int stddevTimes = Integer.valueOf(additionalRuleExpression.split("\r\n")[3].split(":")[1], 10);
 
-        int currentWeekNum = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
+        int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
 
-        Calendar cal = Calendar.getInstance();
-        cal.setMinimalDaysInFirstWeek(4);
-        cal.set(currentYear, 1, 1);
-        cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
-
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        cal.add(Calendar.DAY_OF_YEAR, -1 * (earlyWeeks + afterWeeks) * 7);
-        Date startDate = cal.getTime();
+        Date startDate = calculateStartDate(earlyWeeks, afterWeeks, currentWeek, currentYear);
         Date endDate = ((Period) params.getFilterPeriods().get(0)).getEndDate();
 
         for (ValidationRuleGroup group : rule.getGroups()) {
@@ -489,19 +416,8 @@ public class AnalyticsController {
                 List<ValidationResult> previousYearsResults = new ArrayList<>();
 
                 for (int i = 1; i < pastYears; i++) {
-
-                    cal.set(currentYear - i, 1, 1);
-                    cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
-                    cal.setFirstDayOfWeek(Calendar.MONDAY);
-
-                    cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                    cal.add(Calendar.DAY_OF_YEAR, -1 * earlyWeeks * 7);
-                    startDate = cal.getTime();
-
-                    cal.set(Calendar.WEEK_OF_YEAR, currentWeekNum);
-                    cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-                    cal.add(Calendar.DAY_OF_YEAR, afterWeeks * 7);
-                    endDate = cal.getTime();
+                    startDate = calculateStartDate(earlyWeeks, 0, currentWeek, currentYear - i);
+                    endDate = calculateEndDate(0, afterWeeks, currentWeek, currentYear - i);
 
                     previousYearsResults.addAll(validationRuleService.validate(
                             startDate,
@@ -518,36 +434,85 @@ public class AnalyticsController {
                     continue;
                 }
 
-                double totalDiseaseNum = 0.0;
-                for (ValidationResult previousYearsResult : previousYearsResults) {
-                    totalDiseaseNum += previousYearsResult.getLeftsideValue();
-                }
-
-                double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
-
-                double powDiseaseNum = 0.0;
-                for (ValidationResult previousYearsResult : previousYearsResults) {
-                    powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
-                }
-
-                double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
-
-                double recentWeeksDiseaseNum = 0.0;
-                for (ValidationResult currentWeekResult : currentWeekResults) {
-                    recentWeeksDiseaseNum += currentWeekResult.getLeftsideValue();
-                }
-
-                if (recentWeeksDiseaseNum > averageDiseaseNum + stddevTimes * stdDevDiseaseNum) {
+                if (checkMalariaResultsForCustomizedRule(stddevTimes, currentWeekResults, previousYearsResults))
                     return true;
-                }
 
             }
 
         }
 
         return false;
+    }
 
+    private Calendar initCalendar(int currentWeek, int currentYear) {
+        Calendar cal = Calendar.getInstance();
+        cal.setMinimalDaysInFirstWeek(4);
+        cal.set(currentYear, 1, 1);
+        cal.set(Calendar.WEEK_OF_YEAR, currentWeek);
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        return cal;
+    }
 
+    private Date calculateStartDate(int earlyWeeks, int afterWeeks, int currentWeek, int currentYear) {
+        Calendar cal = initCalendar(currentWeek, currentYear);
+
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        cal.add(Calendar.DAY_OF_YEAR, (-1 * (earlyWeeks + afterWeeks) * 7);
+        return cal.getTime();
+    }
+
+    private Date calculateEndDate(int earlyWeeks, int afterWeeks, int currentWeek, int currentYear) {
+        Calendar cal = initCalendar(currentWeek, currentYear);
+
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+        cal.add(Calendar.DAY_OF_YEAR, (-1 * (earlyWeeks + afterWeeks) * 7);
+        return cal.getTime();
+    }
+
+    private boolean checkMalariaResultsForCustomizedRule(int stddevTimes, List<ValidationResult> currentWeekResults, List<ValidationResult> previousYearsResults) {
+        double totalDiseaseNum = 0.0;
+        for (ValidationResult previousYearsResult : previousYearsResults) {
+            totalDiseaseNum += previousYearsResult.getLeftsideValue();
+        }
+
+        double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
+
+        double powDiseaseNum = 0.0;
+        for (ValidationResult previousYearsResult : previousYearsResults) {
+            powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
+        }
+
+        double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
+
+        double recentWeeksDiseaseNum = 0.0;
+        for (ValidationResult currentWeekResult : currentWeekResults) {
+            recentWeeksDiseaseNum += currentWeekResult.getLeftsideValue();
+        }
+
+        if (recentWeeksDiseaseNum > averageDiseaseNum + stddevTimes * stdDevDiseaseNum) {
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkResultForDisenteriaRule(int times, List<ValidationResult> currentWeekResults, List<ValidationResult> previousYearsResults) {
+        double totalDiseaseNum = 0.0;
+        for (ValidationResult previousYearsResult : previousYearsResults) {
+            totalDiseaseNum += previousYearsResult.getLeftsideValue();
+        }
+
+        double averageDiseaseNum = totalDiseaseNum / previousYearsResults.size();
+
+        double powDiseaseNum = 0.0;
+        for (ValidationResult previousYearsResult : previousYearsResults) {
+            powDiseaseNum += Math.pow(Math.abs(previousYearsResult.getLeftsideValue() - averageDiseaseNum), 2);
+        }
+
+        double stdDevDiseaseNum = Math.sqrt(powDiseaseNum / previousYearsResults.size());
+        if (currentWeekResults.get(0).getLeftsideValue() > averageDiseaseNum + times * stdDevDiseaseNum) {
+            return true;
+        }
+        return false;
     }
 
     @RequestMapping(value = RESOURCE_PATH + ".xml", method = RequestMethod.GET)
