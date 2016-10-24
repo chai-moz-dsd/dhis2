@@ -71,7 +71,7 @@ public class GetModulesAction
     {
         String contextPath = ContextUtils.getContextPath( ServletActionContext.getRequest() );
 
-        List<String> userApps = currentUserService.currentUserIsSuper() ? ADMIN_USED_APPS : USED_APPS
+        List<String> userApps = currentUserService.currentUserIsSuper() ? ADMIN_USED_APPS : USED_APPS;
 
         modules = getSpecificAppsForDsd(manager.getAccessibleMenuModulesAndApps( contextPath ), userApps);
 
