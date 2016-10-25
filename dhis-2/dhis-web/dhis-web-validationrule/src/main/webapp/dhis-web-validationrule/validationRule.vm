@@ -50,8 +50,8 @@
   var i18n_customed_validation_rule_Sarampo = '$i18n.getString("customed_validation_rule_Sarampo")';
 
   var i18n_customed_validaiton_rule_Meningite = '$i18n.getString("customed_validaiton_rule_Meningite")';
-  var i18n_customed_validation_rule_malaria = 'i18n.getString("customed_validation_rule_malaria")';
-  var i18n_customed_validation_rule_disenteria = 'i18n.getString("customed_validation_rule_disenteria")';
+  var i18n_customed_validation_rule_malaria = '$i18n.getString("customed_validation_rule_malaria")';
+  var i18n_customed_validation_rule_disenteria = '$i18n.getString("customed_validation_rule_disenteria")';
 </script>
 
 <h3>$encoder.htmlEncode( $i18n.getString( "validation_rule_management" ) ) #openHelp( "validationRule" )</h3>
