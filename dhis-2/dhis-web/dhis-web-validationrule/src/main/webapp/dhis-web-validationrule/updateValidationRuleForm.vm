@@ -54,10 +54,10 @@
         <td>
             <select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
                 <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>default</option>
-                <option value="SarampoCaseInMonths" #if( $validationRule.additionalRuleType == 'SarampoCaseInMonths') selected="selected" #end>Sarampo: Cases in recent ( A ) week/weeks > ( B )</option>
-                <option value="MeningiteIncreasedInWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInWeeks') selected="selected" #end>Meningite: Cases increases by ( A ) times in last ( B ) weeks</option>
-                <option value="DisenteriaCaseInYears" #if( $validationRule.additionalRuleType == 'DisenteriaCaseInYears') selected="selected" #end>Disenteria: Cases > average for same week in past ( A ) years + ( B ) * std dev</option>
-                <option value="MalariaCaseInYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInYears') selected="selected" #end>Malária: Cases > average from current week + ( A ) weeks to current week - ( B ) weeks in past ( C ) years + ( D ) * std dev</option>
+                <option value="SarampoCaseInMonths" #if( $validationRule.additionalRuleType == 'SarampoCaseInMonths') selected="selected" #end>$i18n.getString("customed_validation_rule_Sarampo")</option>
+                <option value="MeningiteIncreasedInWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInWeeks') selected="selected" #end>$i18n.getString("customed_validaiton_rule_Meningite")</option>
+                <option value="DisenteriaCaseInYears" #if( $validationRule.additionalRuleType == 'DisenteriaCaseInYears') selected="selected" #end>$i18n.getString("customed_validation_rule_malaria")</option>
+                <option value="MalariaCaseInYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInYears') selected="selected" #end>$i18n.getString("customed_validation_rule_disenteria")</option>
             </select>
         </td>
     </tr>
