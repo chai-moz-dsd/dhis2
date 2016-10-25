@@ -5218,7 +5218,7 @@ No upload if the chosen file is not spreadsheet file.</para>
             <![CDATA[Cases in current EPI week  >= Cases in last EPI week * 2 and Cases in last EPI week  >= Cases in the week before last EPI week * 2]]>
         </para>
     </section>
-    <section id="DiarrieaCaseInYears">
+    <section id="DisenteriaCaseInYears">
         <title><![CDATA[Disenteria: Cases > average for same week in last ( A ) years + ( B ) * std dev]]></title>
         <para>Example: If below info is entered: </para>
         <para>A: 4</para>

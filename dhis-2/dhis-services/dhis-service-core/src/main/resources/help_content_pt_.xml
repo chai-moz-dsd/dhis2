@@ -136,7 +136,35 @@
 <para>Repetindo estes dois passos, você pode construir qualquer conjunto de relações entre as regras de validação e usuários para atender às suas necessidades.</para>
 <para>Quando você cria ou edita um grupo de regras de validação, há uma opção chamada <emphasis role="italic">Somente unidades orgânicas relacionadas com usuários são alertadas</emphasis>. Se isto é colocado como <emphasis role="italic">Sim</emphasis>, então cada usuário no(s) grupo(s) será alertado somente para as exceções às validações para a unidade orgânica a qual o usuário foi associado através da gestão dos usuários -- ou para qualquer unidade orgânica de nível inferior abaixo daquela unidade orgânica. Se isto é colocado como <emphasis role="italic">Não</emphasis>, então cada usuário no(s) grupo(s) será alertado para todas as exceções às validações no grupo, independentemente da unidade orgânica.</para>
 <para>Para ativar a programação da execução rotineira de validações dos dados, selecione Administração de dados a partir do Menu de manutenção. Depois, clique em Agendamento. Se o agendamento estiver ativo, clique no botão Parar, depois selecione a Estratégia de monitoria de dados de Todos diariamente. Finalmente ativar a programação clicando no botão Iniciar.</para>
-</section>
+</section><section id="SarampoCaseInMonths"><title><![CDATA[Sarampo: casos em recente (A) EPI semana (s)> (B)]]></title><para>Exemplo: abaixo de informações é inserido:</para><para>A: 5</para><para>B: 5</para><para>Isso significa limite para sarampo será superada quando:</para><para>casos de sarampo na semana em curso e 4 anteriores semanas> 5</para></section>
+    <section id="MeningiteIncreasedInWeeks">
+        <title>Meningite: casos aumentou por vezes (a) No recente (B) semanas consecutivas</title>
+        <para>Exemplo: abaixo de informações é inserido:</para>
+        <para>A: 2</para>
+        <para>B: 3</para>
+        <para>Isso significa limite para Meningite será superada quando:</para>
+        <para>
+            <![CDATA[Casos em atuais do PAV semana> = casos em semana passada EPI * 2 e casos nas últimas EPI semana> = casos na semana anterior na semana passada EPI * 2]]>
+        </para>
+    </section>
+    <section id="DisenteriaCaseInYears">
+        <title><![CDATA[Disentería: Cases> média para mesma semana em anos passados (A) + (B) * std dev]]></title>
+        <para>Exemplo: abaixo de informações é inserido:</para>
+        <para>A: 4</para>
+        <para>B: 2</para>
+        <para>Isso significa limite para disentería será superada quando:</para>
+        <para><![CDATA[Casos na atual semana EPI> casos na mesma semana EPI para os últimos 4 anos + 2 * desvio-padrão]]></para>
+    </section>
+    <section id="MalariaCaseInYears">
+        <title><![CDATA[Malária: Cases> média da semana em curso + (A) anteriores semanas a semana em curso - (B) semanas depois, no passado (C) anos + (D) * std dev]]></title>
+        <para>Exemplo: abaixo de informações é inserido:</para>
+        <para>A: 3</para>
+        <para>B: 1</para>
+        <para>C: 5</para>
+        <para>D: 2</para>
+        <para>Isso significa limite para a malária será superada quando: </para>
+        <para><![CDATA[Casos na atual semana EPI e 4 semanas antes do> casos na atual semana EPI e 3 semanas antes e 1 semana após os 4 anos anteriores + 2 * desvio-padrão]]></para>
+    </section>
 </chapter>
 <chapter>
 <title>Entrada de Dados </title>
