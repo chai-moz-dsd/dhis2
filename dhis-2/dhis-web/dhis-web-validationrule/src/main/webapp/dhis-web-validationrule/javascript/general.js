@@ -16,7 +16,7 @@ function showValidationRuleDetails( context )
 		setText( 'importanceField', i18nalizeImportance( importance ) );
 		
 		var ruleType = json.validationRule.ruleType;
-		setText( 'ruleTypeField', i18nalizeRuleType( ruleType ) );
+		setText( 'ruleTypeField', i18nalizeAdditionalRuleType( ruleType ) );
 		
 		if ( ruleType == 'SURVEILLANCE' )
 		{
@@ -73,15 +73,19 @@ function i18nalizeImportance ( importance )
 	return null;
 }
 
-function i18nalizeRuleType ( ruleType )
+function i18nalizeAdditionalRuleType( ruleType )
 {
-	if ( ruleType == "VALIDATION" )
-	{
-		return i18n_validation;
-	}
-	else if ( ruleType == "SURVEILLANCE" )
-	{
-		return i18n_surveillance;
+	switch (ruleType) {
+		case 'SarampoCaseInMonths':
+			return i18n_customed_validation_rule_Sarampo;
+		case 'MeningiteIncreasedInWeeks':
+			return i18n_customed_validaiton_rule_Meningite;
+		case 'DisenteriaCaseInYears':
+			return i18n_customed_validation_rule_malaria;
+		case 'MalariaCaseInYears':
+			return i18n_customed_validation_rule_disenteria;
+		default:
+			break;
 	}
 	
 	return null;

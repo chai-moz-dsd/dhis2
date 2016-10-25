@@ -45,6 +45,13 @@
   var i18n_less_than_or_equal_to = '$i18n.getString( "less_than_or_equal_to" )';
   var i18n_compulsory_pair = '$i18n.getString( "compulsory_pair" )';
   var i18n_exclusive_pair = '$i18n.getString( "exclusive_pair" )';
+
+
+  var i18n_customed_validation_rule_Sarampo = '$i18n.getString("customed_validation_rule_Sarampo")';
+
+  var i18n_customed_validaiton_rule_Meningite = '$i18n.getString("customed_validaiton_rule_Meningite")';
+  var i18n_customed_validation_rule_malaria = 'i18n.getString("customed_validation_rule_malaria")';
+  var i18n_customed_validation_rule_disenteria = 'i18n.getString("customed_validation_rule_disenteria")';
 </script>
 
 <h3>$encoder.htmlEncode( $i18n.getString( "validation_rule_management" ) ) #openHelp( "validationRule" )</h3>

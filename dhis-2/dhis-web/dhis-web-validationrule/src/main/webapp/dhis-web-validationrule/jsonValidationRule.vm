@@ -5,7 +5,7 @@
 	"description": "$!encoder.jsonEncode( ${validationRule.description} )",
 	"type": "$!encoder.jsonEncode( ${validationRule.type} )",
 	"importance": "$!encoder.jsonEncode( ${validationRule.importance} )",
-	"ruleType": "$!encoder.jsonEncode( ${validationRule.ruleType} )",
+	"ruleType": "$!encoder.jsonEncode( ${validationRule.additionalRuleType} )",
 	"organisationUnitLevel": "$!encoder.jsonEncode( ${validationRule.organisationUnitLevel} )",
 	"periodType": "$!encoder.jsonEncode( ${validationRule.periodType} )",
 	"sequentialSampleCount": "$!encoder.jsonEncode( ${validationRule.sequentialSampleCount} )",
