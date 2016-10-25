@@ -55,7 +55,7 @@ public class GetModulesAction
     final ArrayList<String> ADMIN_USED_APPS = new ArrayList<>(Arrays.asList("dhis-web-dashboard-integration", "reporting-page", "dhis-web-maintenance-user", "dhis-web-validationrule",
             "dhis-web-pivot", "dhis-web-visualizer", "dhis-web-mapping", "dhis-web-settings"));
 
-    final ArrayList<String> USED_APPS = new ArrayList<>(Arrays.asList("dhis-web-dashboard-integration", "reporting-page", "dhis-web-settings"));
+    final ArrayList<String> USED_APPS = new ArrayList<>(Arrays.asList("dhis-web-dashboard-integration", "reporting-page"));
 
     private List<Module> modules;
     
