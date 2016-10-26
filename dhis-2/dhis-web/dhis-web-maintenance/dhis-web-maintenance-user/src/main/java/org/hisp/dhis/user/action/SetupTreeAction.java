@@ -149,6 +149,13 @@ public class SetupTreeAction
         return userAuthorityGroups;
     }
 
+    private List<UserAuthorityGroup> allUserAuthorityGroups;
+
+    public List<UserAuthorityGroup> getAllUserAuthorityGroups()
+    {
+        return allUserAuthorityGroups;
+    }
+
     private List<UserGroup> userGroups;
 
     public List<UserGroup> getUserGroups()
@@ -265,7 +272,12 @@ public class SetupTreeAction
 
             currentLocaleDb = (Locale) userSettingService.getUserSetting( UserSettingKey.DB_LOCALE, user );
         }
-        
+
+        allUserAuthorityGroups = new ArrayList<>( userService.getAllUserAuthorityGroups() );
+        userService.canIssueFilter( allUserAuthorityGroups );
+        Collections.sort( allUserAuthorityGroups );
+
+
         currentLocale = ObjectUtils.firstNonNull( currentLocale, LocaleManager.DEFAULT_LOCALE );
 
         availableLocales = localeManager.getAvailableLocales();
