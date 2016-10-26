@@ -19,6 +19,12 @@ class ReportingBody extends React.Component {
         };
     }
 
+    componentDidUpdate() {
+        this.setState({
+            showChildren: {MoH: true}
+        })
+    }
+
     render() {
         var rows = this.generateRows(this.props.data, this.state);
 
