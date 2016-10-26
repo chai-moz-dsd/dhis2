@@ -135,7 +135,7 @@ class TreeView extends React.Component {
 
     setParentState(node) {
         let parent = node.parentNode;
-        if (!parent || !parent.state || !parent.state.selected) {
+        if (!parent) {
             return;
         }
         if (parent.nodes.every((childNode) => !childNode.state.selected)) {
