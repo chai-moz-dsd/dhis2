@@ -40,6 +40,7 @@ class ReportingTable extends React.Component {
             changeCategory: _.noop,
             periods: ["THIS_YEAR"],
             d2: [],
+            showChildren: {MoH: true}
         }
     };
 

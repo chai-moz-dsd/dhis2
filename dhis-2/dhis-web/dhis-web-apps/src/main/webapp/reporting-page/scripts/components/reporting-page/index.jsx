@@ -30,7 +30,8 @@ class ReportingPage extends React.Component {
             updatedOriHead: [],
             filter: [],
             periods: ['THIS_YEAR'],
-            currentCategory: 'location'
+            currentCategory: 'location',
+
         };
 
         this.exportTable = this.exportTable.bind(this);
@@ -88,7 +89,8 @@ class ReportingPage extends React.Component {
             head: calHead.getHead(filteredHead, this.state.mappings),
             updatedOriHead: filteredHead,
             filter: data,
-            periods: weekRange
+            periods: weekRange,
+
         }, () => {
             if (this.state.currentCategory === 'week') {
                 this.reportingTable.fetchWeekRows(filteredHead, weekRange, state.location)
