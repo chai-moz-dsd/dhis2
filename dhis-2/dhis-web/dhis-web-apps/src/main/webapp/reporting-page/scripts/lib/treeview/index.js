@@ -123,9 +123,10 @@ class TreeView extends React.Component {
 
     nodeSelected(nodeId, selected) {
         let node = this.findNodeById(this.state.data, nodeId);
+        console.log("nodeId-->", nodeId, 'node-->', node, 'selected-->', selected);
         node.state.selected = selected;
 
-        this.setParentState(node);
+        //this.setParentState(node);
         this.setChildrenState(node.nodes, selected);
         this.setState({data: this.state.data});
 
