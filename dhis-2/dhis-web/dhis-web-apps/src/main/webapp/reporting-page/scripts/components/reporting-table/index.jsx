@@ -180,7 +180,9 @@ class ReportingTable extends React.Component {
                                        currentCategory={this.props.currentCategory}/>
                         <ReportingBody data={this.state.rows} oriHead={this.props.oriHead} periods={this.props.periods}
                                        addChildren={this.addChildren}
-                                       hasChildren={this.hasChildren}/>
+                                       hasChildren={this.hasChildren}
+                                       showChildren={this.props.showChildren}
+                        />
                     </table>
                 </div>
             </div>
