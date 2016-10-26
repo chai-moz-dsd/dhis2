@@ -32,7 +32,6 @@ class ReportingPage extends React.Component {
             periods: ['THIS_YEAR'],
             currentCategory: 'location',
         };
-
         this.exportTable = this.exportTable.bind(this);
     }
 
