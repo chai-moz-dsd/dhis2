@@ -148,7 +148,6 @@ class TreeView extends React.Component {
             console.log("child selected-->", child.state.selected);
             if(!child.state.selected){
                 isAllChildrenSelected = false;
-                break;
             }
         });
         parent.state.selected = isAllChildrenSelected;
@@ -160,7 +159,7 @@ class TreeView extends React.Component {
         if (this.props.onDoubleClick)
             this.props.onDoubleClick(this.state.data, node);
     }
-
+w
     convert(obj) {
         if (!obj || obj.length <= 0)
             return [];
