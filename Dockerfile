@@ -16,4 +16,4 @@ RUN rm /etc/nginx/sites-enabled/default \
 RUN echo "export JAVA_OPTS=$JAVA_OPTS\nexport DHIS2_HOME='/opt/dhis2/config'" >> /usr/local/tomcat/bin/setenv.sh
 COPY ./wait-for-it.sh ./wait-for-it.sh
 
-EXPOSE 80 443
+EXPOSE 80 443 8080
