@@ -2,6 +2,10 @@
 #   https://github.com/vishnubob/wait-for-it
 #   Use this script to test if a given TCP host/port are available
 
+#######start nginx###########
+service nginx start   #######
+#######start nginx###########
+
 cmdname=$(basename $0)
 
 echoerr() { if [[ $QUIET -ne 1 ]]; then echo "$@" 1>&2; fi }
