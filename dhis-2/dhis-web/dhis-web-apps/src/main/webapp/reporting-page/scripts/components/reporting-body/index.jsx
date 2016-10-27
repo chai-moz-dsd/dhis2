@@ -18,7 +18,13 @@ class ReportingBody extends React.Component {
             showChildren: {MoH: true}
         };
     }
-    
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.showChildren !== this.state.showChildren) {
+            this.setState({ showChildren: nextProps.showChildren });
+        }
+    }
+
     render() {
         var rows = this.generateRows(this.props.data, this.state);
 
