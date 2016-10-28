@@ -1,5 +1,5 @@
-import React from 'react'
-import _ from 'lodash';
+import React from "react";
+import _ from "lodash";
 
 let treeviewSpanStyle = {
     "width": "1rem",
@@ -80,6 +80,23 @@ class TreeView extends React.Component {
         return result;
     }
 
+    findParentByChildId(parents, childId){
+        let result = null;
+        if (parents)
+            parents.forEach(function (parent) {
+                let children = parent.nodes;
+                if(children){
+                    children.forEach(function(child){
+                       if(child.nodeId == childId){
+                           result = parent;
+                       }
+                    });
+                }
+            });
+        return result;
+    }
+
+
     deleteById(obj, id) {
         if (!obj || obj.length <= 0)
             return [];
@@ -123,15 +140,15 @@ class TreeView extends React.Component {
 
     nodeSelected(nodeId, selected) {
         let node = this.findNodeById(this.state.data, nodeId);
-        console.log("nodeId-->", nodeId, 'node-->', node, 'selected-->', selected);
         node.state.selected = selected;
 
         this.setChildrenState(node.nodes, selected);
         this.setState({data: this.state.data});
         this.setParentState(node);
 
-        if (this.props.onClick)
+        if (this.props.onClick) {
             this.props.onClick(this.state.data, node);
+        }
     }
 
     setParentState(node) {
@@ -139,14 +156,13 @@ class TreeView extends React.Component {
         if (!parent || !parent.state) {
             return;
         }
-        console.log("parent-->", parent);
-        console.log(parent.state);
-        console.log("parent selected-->", parent.state.selected);
-
+        parent = this.findParentByChildId(this.state.data, node.nodeId)
+        if(!parent){
+            return;
+        }
         let isAllChildrenSelected = true;
         parent.nodes.forEach(function (child) {
-            console.log("child selected-->", child.state.selected);
-            if(!child.state.selected){
+            if (!child.state.selected) {
                 isAllChildrenSelected = false;
             }
         });
@@ -158,7 +174,7 @@ class TreeView extends React.Component {
         if (this.props.onDoubleClick)
             this.props.onDoubleClick(this.state.data, node);
     }
-w
+
     convert(obj) {
         if (!obj || obj.length <= 0)
             return [];
