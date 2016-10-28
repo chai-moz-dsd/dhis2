@@ -169,19 +169,24 @@ public class AnalyticsController {
             Collection<OrganisationUnit> organisationUnits =
                     organisationUnitService.getOrganisationUnitWithChildren(organisationUnit.getId());
 
-            for (ValidationRule rule : rules) {
-                if (!isValidRuleForDisease(diseaseId, rule)) {
-                    continue;
-                }
+            try {
+                for (ValidationRule rule : rules) {
+                    if (!isValidRuleForDisease(diseaseId, rule)) {
+                        continue;
+                    }
 
-                boolean shouldHighLight = validateDisease(params, row, organisationUnits, rule);
-                highLight = shouldHighLight ? "highlight.true" : "highlight.false";
+                    boolean shouldHighLight = validateDisease(params, row, organisationUnits, rule);
+                    highLight = shouldHighLight ? "highlight.true" : "highlight.false";
 
-                if (shouldHighLight) {
-                    break;
+                    if (shouldHighLight) {
+                        break;
+                    }
                 }
+                row.add(highLight);
+            } catch (Exception e) {
+                row.add(e);
             }
-            row.add(highLight);
+
         }
     }
 
