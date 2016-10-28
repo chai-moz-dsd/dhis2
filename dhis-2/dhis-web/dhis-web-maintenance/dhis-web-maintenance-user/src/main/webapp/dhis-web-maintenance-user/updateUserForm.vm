@@ -190,15 +190,13 @@
         </tr>
 
         <tr>
-            <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )"
-                                                                      class="required">*</em></label></td>
+            <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
             <td colspan="3"><input type="text" id="surname" name="surname"
                                    value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>
         </tr>
 
         <tr>
-            <td><label for="firstName">$i18n.getString( "firstName" ) <em title="$i18n.getString( 'required' )"
-                                                                          class="required">*</em></label></td>
+            <td><label for="firstName">$i18n.getString( "firstName" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
             <td colspan="3"><input type="text" id="firstName" name="firstName"
                                    value="$encoder.htmlEncode( $userCredentials.userInfo.firstName )"></td>
         </tr>
