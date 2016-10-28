@@ -1,6 +1,6 @@
 .locationDialog {
-  width: 40rem;
-  height: 65rem;
+  width: 25rem;
+  height: 40rem;
 
   section {
     padding: 0;
@@ -14,10 +14,10 @@
 .dialogTitle {
   background-color: #1e5282;
   color: white;
-  padding: 1rem;
+  padding: 0.625rem;
   text-align: center;
   font-weight: lighter;
-  height: 6rem;
+  height: 3.75rem;
   z-index: 500;
   position: fixed;
 }
@@ -60,9 +60,9 @@
 }
 
 .regionalList {
-  height: 4rem;
-  line-height: 4rem;
-  padding-left: 1rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  padding-left: 0.625rem;
   color: black;
   border-bottom: 1px solid #888888;
   cursor: pointer;
@@ -78,32 +78,32 @@
 }
 
 .content {
-  margin-top: 6rem;
+  margin-top: 3.75rem;
 }
 
 .clear {
   display: inline-block;
   position: absolute;
   right: 0;
-  top: 2rem;
+  top: 1.25rem;
   line-height: 38px;
   color: rgba(0,0,0,.26);
   cursor: pointer;
 }
 
 .locationContainer {
-  padding: 2rem 0;
+  padding: 1.25rem 0;
   position: relative;
 }
 
 .location {
-  margin-left: 4.8rem;
+  margin-left: 3rem;
   height: 38px;
   line-height: 21px;
   cursor: pointer;
   width: calc(100% - 4.8rem);
-  padding: .8rem 0;
-  font-size: 1.6rem;
+  padding: .5rem 0;
+  font-size: 1rem;
   color: #212121;
   background-color: transparent;
   border: 0;
@@ -116,10 +116,10 @@
 
 .locationLabel {
   position: absolute;
-  top: 3.2rem;
-  left: 4.8rem;
-  font-size: 1.6rem;
-  line-height: 1.6rem;
+  top: 2rem;
+  left: 3rem;
+  font-size: 1rem;
+  line-height: 1rem;
   color: rgba(0,0,0,.26);
   pointer-events: none;
   -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);
@@ -131,6 +131,6 @@
 }
 
 .hasLocation {
-  top: .6rem;
-  font-size: 1.2rem;
+  top: .375rem;
+  font-size: 0.75rem;
 }

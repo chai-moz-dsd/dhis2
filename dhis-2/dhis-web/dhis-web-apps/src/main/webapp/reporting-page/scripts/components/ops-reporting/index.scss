@@ -1,5 +1,5 @@
 .sidebar {
-  padding-top: 4.8rem;
+  padding-top: 3rem;
   background: #F2F2F1;
   min-width: 330px;
   height: 100vh;
@@ -16,7 +16,7 @@
 }
 
 .content {
-  padding-top: 4.8rem;
+  padding-top: 3rem;
   height: 100vh;
   background: white;
   overflow-y: auto;
@@ -32,7 +32,7 @@
 
         th:nth-child(1){
           background-color: white;
-          min-width: 20rem;
+          min-width: 12.5rem;
         }
       }
 
@@ -40,7 +40,7 @@
         background-color: #B6C5D4;
 
         th {
-          min-width: 10rem;
+          min-width: 6.25rem;
         }
       }
     }
@@ -70,7 +70,7 @@
 .rowName {
   text-align: left;
   position: relative;
-  font-size: 1.2rem;
+  font-size: 0.75rem;
   padding-left: 3px;
   padding-right: 3px;
   table-layout: fixed;
@@ -83,7 +83,7 @@
 .loading:after {
   font-family: Glyphicons Halflings;
   content: "\E031";
-  font-size: 1.1rem;
+  font-size: 0.65rem;
   color: white;
   position: absolute;
   right: 3px;
@@ -109,24 +109,24 @@
 }
 
 .syncStatus{
-  min-width: 25rem;
+  min-width: 15.625rem;
   text-align: left;
 }
 
 .syncTimeStatus {
-  padding: 0 .3rem;
+  padding: 0 .18rem;
   float: left;
 }
 
 .syncTime {
-  padding: 0 .3rem 0 1rem;
-  min-width: 35rem;
+  padding: 0 .18rem 0 0.625rem;
+  min-width: 21.875rem;
   text-align: right;
 }
 
 .ODKVersion {
-  padding: 0 .3rem;
-  min-width: 10rem;
+  padding: 0 .18rem;
+  min-width: 6.25rem;
   text-align: left;
 }
 
@@ -155,7 +155,7 @@
 }
 
 .primaryTitle, .secondaryTitle, .tertiaryTitle {
-  font-size: 1.6rem;
+  font-size: 1rem;
   font-weight: bold;
   border: 1px solid #000;
   cursor: pointer;
@@ -164,7 +164,7 @@
 .tableContainer {
   width: auto;
   overflow-y: auto;
-  height: calc(100vh - 7.3rem);
+  height: calc(100vh - 4.56rem);
 }
 
 .changeScreenLabel {
