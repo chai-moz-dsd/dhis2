@@ -1,4 +1,13 @@
 @import "~react-toolbox/lib/colors";
 
+$unit: 0.625rem;
 $color-primary: $palette-blue-500;
 $color-primary-dark: $palette-blue-700;
+
+html {
+    font-size: 100%;
+}
+
+body {
+    font-size: 1rem;
+}
