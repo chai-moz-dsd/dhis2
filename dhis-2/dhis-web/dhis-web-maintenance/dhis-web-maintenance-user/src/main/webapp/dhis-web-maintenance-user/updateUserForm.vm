@@ -190,8 +190,8 @@
 
         <tr>
             <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-            <td colspan="3"><input type="text" id="surname" name="surname"
-                                   value="$userCredentials.userInfo.surname"></td>
+            <td>$userCredentials.userInfo.surname</td>
+            <td colspan="3"><input type="text" id="surname" name="surname" value="$userCredentials.userInfo.surname"></td>
         </tr>
 
         <tr>
