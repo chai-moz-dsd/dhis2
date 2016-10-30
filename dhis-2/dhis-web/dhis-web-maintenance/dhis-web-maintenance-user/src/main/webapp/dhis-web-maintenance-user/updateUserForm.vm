@@ -189,10 +189,10 @@
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
 
-        <tr>
+        <!--<tr>
             <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-            <!--<td colspan="3"><input type="text" id="surname" name="surname"
-                                   value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>-->
+            <td colspan="3"><input type="text" id="surname" name="surname"
+                                   value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>
         </tr>
 
         <tr>
@@ -332,7 +332,7 @@
     <p>
         <input type="submit" value="$i18n.getString( 'save' )" style="width:10em"/>
         <input type="button" id="cancel" value="$i18n.getString( 'cancel' )" style="width:10em"/>
-    </p>
+    </p>-->
 
 </form>
 
