@@ -161,7 +161,8 @@
     <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
 
     <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
-    <div>$userCredentials.userInfo</div>
+    <div>$userCredentials.userInfo.surname</div>
+    <div>$userCredentials.userInfo.firstName</div>
     <table>
         <col style="width: 120px"/>
         <col style="width: 350px"/>
