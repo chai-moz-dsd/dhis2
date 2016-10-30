@@ -116,7 +116,7 @@
 
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/api/24/me.json',
+            url: '../api/24/me.json',
             data: {fields: 'userCredentials'},
             dataType: 'json',
             username: 'admin',
