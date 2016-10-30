@@ -21,7 +21,7 @@
     {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/api/24/userRoles.json',
+            url: '../api/24/userRoles.json',
             dataType: 'json',
             username: 'admin',
             password: 'district',
