@@ -1,7 +1,7 @@
 var setAllUserPermission = function (currentUserAccount){
   $.ajax({
     type: 'GET',
-    url: 'http://localhost:8080/api/24/userRoles.json',
+    url: '../api/24/userRoles.json',
     dataType: 'json',
     username: 'admin',
     password: 'district',
@@ -34,7 +34,7 @@ jQuery(document).ready(function() {
   var currentAccount;
   $.ajax({
     type: 'GET',
-    url: 'http://localhost:8080/api/24/me.json',
+    url: '../api/24/me.json',
     data: {fields: 'userCredentials'},
     dataType: 'json',
     username: 'admin',
