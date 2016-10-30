@@ -166,7 +166,8 @@ public class AnalyticsController {
             String highLight = "false";
             String diseaseId = (String) row.get(0);
 
-            OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit((String) row.get(1));
+            String ou = grid.getHeaders().get(1).getName().equals("ou") ? (String) row.get(1) : "MOH12345678";
+            OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou);
             Collection<OrganisationUnit> organisationUnits =
                     organisationUnitService.getOrganisationUnitWithChildren(organisationUnit.getId());
 
