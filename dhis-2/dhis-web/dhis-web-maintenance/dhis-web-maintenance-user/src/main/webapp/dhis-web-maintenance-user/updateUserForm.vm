@@ -161,8 +161,6 @@
     <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
 
     <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
-    <div>$userCredentials.userInfo.surname</div>
-    <div>$userCredentials.userInfo.firstName</div>
     <table>
         <col style="width: 120px"/>
         <col style="width: 350px"/>
@@ -190,21 +188,21 @@
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
 
-        <!--<tr>
+        <tr>
             <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
             <td colspan="3"><input type="text" id="surname" name="surname"
-                                   value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>
+                                   value="$userCredentials.userInfo.surname"></td>
         </tr>
 
         <tr>
             <td><label for="firstName">$i18n.getString( "firstName" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
             <td colspan="3"><input type="text" id="firstName" name="firstName"
-                                   value="$encoder.htmlEncode( $userCredentials.userInfo.firstName )"></td>
+                                   value="$userCredentials.userInfo.firstName"></td>
         </tr>
 
         <tr class="account">
             <td colspan="3"><input style="display:none" type="text" id="email" name="email"
-                                   value="$encoder.htmlEncode( $userCredentials.username )"></td>
+                                   value="$userCredentials.username"></td>
         </tr>
 
 
