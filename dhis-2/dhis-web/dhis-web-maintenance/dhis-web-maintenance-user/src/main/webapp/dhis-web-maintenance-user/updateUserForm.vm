@@ -161,7 +161,7 @@
     <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
 
     <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
-
+    <div>$userCredentials.userInfo</div>
     <table>
         <col style="width: 120px"/>
         <col style="width: 350px"/>
@@ -191,8 +191,8 @@
 
         <tr>
             <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-            <td colspan="3"><input type="text" id="surname" name="surname"
-                                   value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>
+            <!--<td colspan="3"><input type="text" id="surname" name="surname"
+                                   value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>-->
         </tr>
 
         <tr>
