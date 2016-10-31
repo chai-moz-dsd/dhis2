@@ -37,8 +37,6 @@ jQuery(document).ready(function() {
     url: '../api/24/me.json',
     data: {fields: 'userCredentials'},
     dataType: 'json',
-    username: 'admin',
-    username: 'district',
     success: function(data) {
       setAllUserPermission(data.userCredentials.userRoles[0]);
     }
