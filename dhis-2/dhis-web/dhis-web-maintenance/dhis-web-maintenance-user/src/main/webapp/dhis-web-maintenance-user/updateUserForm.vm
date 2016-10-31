@@ -192,20 +192,17 @@
 
         <tr>
             <td><label for="firstName">$i18n.getString( "firstName" ) <em title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-            <td colspan="3"><input type="text" id="firstName" name="firstName"
-                                   value="$userCredentials.userInfo.firstName"></td>
+            <td colspan="3"><input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName"></td>
         </tr>
 
         <tr class="account">
-            <td colspan="3"><input style="display:none" type="text" id="email" name="email"
-                                   value="$userCredentials.username"></td>
+            <td colspan="3"><input style="display:none" type="text" id="email" name="email" value="$userCredentials.username"></td>
         </tr>
 
 
         <tr class="account">
             <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
-            <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id"
-                                   name="attribute_$workPhone.id" value="$workPhoneValue"></td>
+            <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id" name="attribute_$workPhone.id" value="$workPhoneValue"></td>
         </tr>
         <tr>
             <td></td>
@@ -216,8 +213,7 @@
 
         <tr>
             <td><label for="phoneNumber">$i18n.getString( "Telephone" )</label></td>
-            <td colspan="3"><input type="tel" id="phoneNumber" name="phoneNumber"
-                                   value="$!encoder.htmlEncode( $userCredentials.userInfo.phoneNumber )"></td>
+            <td colspan="3"><input type="tel" id="phoneNumber" name="phoneNumber" value="$!encoder.htmlEncode( $userCredentials.userInfo.phoneNumber )"></td>
         </tr>
 
         <tr>
@@ -242,14 +238,12 @@
         <tr class="account">
             <td><label for="attribute_$orgName.id">$i18n.getString("$orgName.displayName")<em
                     title="$i18n.getString( 'required' )" class="required">*</em></label></td>
-            <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id"
-                                   value="$orgNameValue" class="error"></td>
+            <td colspan="3"><input type="text" id="attribute_$orgName.id" name="attribute_$orgName.id" value="$orgNameValue" class="error"></td>
         </tr>
 
         <tr class="account">
             <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
-            <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id"
-                                   value="$notesValue"></td>
+            <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id" value="$notesValue"></td>
         </tr>
 
 
@@ -327,7 +321,7 @@
     <p>
         <input type="submit" value="$i18n.getString( 'save' )" style="width:10em"/>
         <input type="button" id="cancel" value="$i18n.getString( 'cancel' )" style="width:10em"/>
-    </p>
+    </p>-->
 
 </form>
 
