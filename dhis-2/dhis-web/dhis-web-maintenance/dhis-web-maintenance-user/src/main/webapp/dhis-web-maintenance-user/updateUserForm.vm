@@ -207,7 +207,7 @@
         <tr>
             <td><label for="firstName">$i18n.getString( "first_name" ) <em title="required" class="required">*</em></label></td>
             <td colspan="3"><input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName"></td>
-        </tr>
+        </tr>-->
 
 
         <tr class="account">
@@ -254,7 +254,7 @@
         <tr class="account">
             <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
             <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id" value="$notesValue"></td>
-        </tr>-->
+        </tr>
 
 
         <tr>
