@@ -197,7 +197,7 @@
         <tr>
             <td>
                 <label for="surname">Surname
-                <em title="required" class="required">*</em>
+                <em title="required" class="required"></em>
                 </label>
                 <td colspan="3"><input type="text" id="surname" name="surname" value="surname"></td>
             </td>
