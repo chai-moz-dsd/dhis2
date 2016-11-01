@@ -194,7 +194,7 @@
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
 
-        <tr class="account">
+        <!--<tr class="account">
             <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
             <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id" name="attribute_$workPhone.id" value="$workPhoneValue"></td>
         </tr>
@@ -268,7 +268,7 @@
                 #end
                 </select>
             </td>
-        </tr>
+        </tr>-->
 
 
         <tr>
