@@ -160,8 +160,8 @@
     <p>$userCredentials.userInfo.surname</p>
     <p>$userCredentials.userInfo.firstName</p>
 
-    <input value="$userCredentials.userInfo.surname">
-    <input value="$userCredentials.userInfo.firstName">
+    <input type="text" id="surname" name="surname" value="$userCredentials.userInfo.surname">
+    <input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName">
 
     <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
     <table>
@@ -199,10 +199,6 @@
         <tr>
             <td><label for="firstName">$i18n.getString( "first_name" ) <em title="required" class="required">*</em></label></td>
             <td colspan="3"><input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName"></td>
-        </tr>
-
-        <tr class="account">
-            <td colspan="3"><input style="display:none" type="text" id="email" name="email" value="$encoder.htmlEncode($userCredentials.username)"></td>
         </tr>
 
 
