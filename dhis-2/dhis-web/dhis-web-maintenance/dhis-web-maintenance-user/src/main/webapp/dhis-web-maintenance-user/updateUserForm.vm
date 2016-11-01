@@ -204,14 +204,14 @@
             </td>
         </tr>
 
-        <tr>
+        <!--<tr>
             <td>
                 <label for="firstName">First Name
                     <em title="required" class="required">*</em>
                 </label>
             </td>
             <td colspan="3"><input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName"></td>
-        </tr>
+        </tr>-->
 
         <!--<tr>
             <td>
