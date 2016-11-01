@@ -194,39 +194,6 @@
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
 
-        <!--<tr>
-            <td>
-                <label for="surname">Surname
-                <em title="required" class="required"></em>
-                </label>
-                <td colspan="3"><input type="text" id="surname" name="surname" value="surname"></td>
-            </td>
-        </tr>-->
-
-        <!--<tr>
-            <td>
-                <label for="firstName">First Name
-                    <em title="required" class="required">*</em>
-                </label>
-            </td>
-            <td colspan="3"><input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName"></td>
-        </tr>-->
-
-        <!--<tr>
-            <td>
-                <label for="surname">$i18n.getString( "surname" )
-                    <em title="$i18n.getString( 'required' )" class="required">*</em>
-                </label>
-            </td>
-            <td colspan="3"><input type="text" id="surname" name="surname" value="$userCredentials.userInfo.surname"></td>
-        </tr>
-
-        <tr>
-            <td><label for="firstName">$i18n.getString( "first_name" ) <em title="required" class="required">*</em></label></td>
-            <td colspan="3"><input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName"></td>
-        </tr>-->
-
-
         <tr class="account">
             <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
             <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id" name="attribute_$workPhone.id" value="$workPhoneValue"></td>
