@@ -156,6 +156,12 @@
 <form id="updateUserForm" action="updateUser.action" method="post" class="inputForm">
     <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
 
+    <p>show detail of user info</p>
+    <p>$userCredentials.userInfo.surname</p>
+    <p>$userCredentials.userInfo.firstName</p>
+
+    <input value="$userCredentials.userInfo.surname">
+    <input value="$userCredentials.userInfo.firstName">
 
     <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
     <table>
@@ -196,7 +202,7 @@
         </tr>
 
         <tr class="account">
-            <td colspan="3"><input style="display:none" type="text" id="email" name="email" value="$userCredentials.username"></td>
+            <td colspan="3"><input style="display:none" type="text" id="email" name="email" value="$encoder.htmlEncode($userCredentials.username)"></td>
         </tr>
 
 
