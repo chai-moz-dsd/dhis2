@@ -195,6 +195,24 @@
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
 
+        <tr>
+            <td>
+                <label for="surname">Surname
+                <em title="required" class="required">*</em>
+                </label>
+                <td colspan="3"><input type="text" id="surname" name="surname" value="$userCredentials.userInfo.surname"></td>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <label for="firstName">First Name
+                    <em title="required" class="required">*</em>
+                </label>
+            </td>
+            <td colspan="3"><input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName"></td>
+        </tr>
+
         <!--<tr>
             <td>
                 <label for="surname">$i18n.getString( "surname" )
