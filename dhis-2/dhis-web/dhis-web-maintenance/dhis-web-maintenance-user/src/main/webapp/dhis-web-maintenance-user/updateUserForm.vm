@@ -195,7 +195,7 @@
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
 
-        <tr>
+        <!--<tr>
             <td>
                 <label for="surname">$i18n.getString( "surname" )
                     <em title="$i18n.getString( 'required' )" class="required">*</em>
@@ -254,7 +254,7 @@
         <tr class="account">
             <td><label for="attribute_$notes.id">$i18n.getString("$notes.displayName")</label></td>
             <td colspan="3"><input type="$notes.valueType" id="attribute_$notes.id" name="attribute_$notes.id" value="$notesValue"></td>
-        </tr>
+        </tr>-->
 
 
         <tr>
