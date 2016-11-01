@@ -74,10 +74,7 @@ public class GetCurrentUserAction
     public String execute()
         throws Exception
     {
-        User user = currentUserService.getCurrentUser();
 
-        userCredentials = user.getUserCredentials();
-
-        return SUCCESS;
+        return "list_all_user";
     }
 }
