@@ -159,8 +159,8 @@
     <p>show detail of user info</p>
     <p>$userCredentials.userInfo.surname</p>
     <p>$userCredentials.userInfo.firstName</p>
-    <p>#if ($user.emailAlert) email True#else email False #end</p>
-    <p>#if ($user.smsAlert) smsTrue #else sms False #end</p>
+    <p>#if ($user.emailAlert) email True#else email False#end</p>
+    <p>#if ($user.smsAlert) smsTrue #else sms Fale</p>
 
 
     <label for="surname">$i18n.getString( "surname" )
@@ -273,7 +273,7 @@
         </tr>-->
 
 
-        <tr>
+        <!--<tr>
             <td><label for="emailAlert">$i18n.getString("email_alert")</label></td>
 
             <td>
@@ -288,7 +288,7 @@
             <td>
                 <input type="checkbox" name="smsAlert" value="true" #if ($user.smsAlert) checked="checked" #end>
             </td>
-        </tr>
+        </tr>-->
 
 
     </table>
