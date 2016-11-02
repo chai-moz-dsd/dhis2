@@ -211,7 +211,12 @@ function SelectionTree()
         var unitElements = $(rootElement).find( 'unit' );
 
         var treeTag = document.getElementById( 'selectionTree' );
-        var rootsTag = document.createElement( 'ul' );
+      var rootsTag = document.createElement( 'ul' );
+
+      if (!treeTag)
+      {
+        return;
+      }
 
         for ( var i = 0; i < unitElements.length; ++i )
         {
