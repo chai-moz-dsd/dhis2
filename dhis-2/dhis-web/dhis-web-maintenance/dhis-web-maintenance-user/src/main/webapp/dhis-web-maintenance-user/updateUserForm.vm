@@ -159,6 +159,8 @@
     <p>show detail of user info</p>
     <p>$userCredentials.userInfo.surname</p>
     <p>$userCredentials.userInfo.firstName</p>
+    <p>#if ($user.emailAlert) email True#else email False #end</p>
+    <p>#if ($user.smsAlert) smsTrue #else sms False #end</p>
 
 
     <label for="surname">$i18n.getString( "surname" )
