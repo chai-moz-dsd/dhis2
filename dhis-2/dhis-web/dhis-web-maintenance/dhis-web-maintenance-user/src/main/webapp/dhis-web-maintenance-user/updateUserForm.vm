@@ -301,11 +301,6 @@
                 #parse( "/dhis-web-commons/ouwt/orgunittree.vm" )
             </td>
         </tr>
-        <tr>
-            <td>
-                <div id="selectionTree" style="display: none"></div>
-            </td>
-        </tr>
     </table>
 
     <select id="jsonAttributeValues" name="jsonAttributeValues" multiple="multiple" style="display:none">
