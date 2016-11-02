@@ -16,7 +16,6 @@
 #end
 
 <script type="text/javascript">
-
     var setUserRolePermisstion = function (currentUserAccount)
     {
         $.ajax({
@@ -73,6 +72,8 @@
                 }
         );
 
+
+
         //checkValueIsExist("openId", "validateUser.action", { id: $userCredentials.id});
 
         ouwtSelected = selection.getSelected();
@@ -121,10 +122,6 @@
                 setUserRolePermisstion(data.userCredentials.userRoles[0]);
             }
         });
-
-
-
-
     });
 
 
@@ -157,9 +154,11 @@
     <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
 
     <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
+
     <table>
         <col style="width: 120px"/>
         <col style="width: 350px"/>
+        <col/>
         <col style="width: 350px"/>
 
         <tr>
@@ -182,6 +181,26 @@
             <td><label for="retypePassword">$i18n.getString( "retype_password" ) </label></td>
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
+
+        <tr>
+            <td><label for="surname">$i18n.getString( "surname" ) <em title="$i18n.getString( 'required' )"
+                                                                      class="required">*</em></label></td>
+            <td colspan="3"><input type="text" id="surname" name="surname"
+                                   value="$encoder.htmlEncode( $userCredentials.userInfo.surname )"></td>
+        </tr>
+
+        <tr>
+            <td><label for="firstName">$i18n.getString( "firstName" ) <em title="$i18n.getString( 'required' )"
+                                                                          class="required">*</em></label></td>
+            <td colspan="3"><input type="text" id="firstName" name="firstName"
+                                   value="$encoder.htmlEncode( $userCredentials.userInfo.firstName )"></td>
+        </tr>
+
+        <tr class="account">
+            <td colspan="3"><input style="display:none" type="text" id="email" name="email"
+                                   value="$encoder.htmlEncode( $userCredentials.username )"></td>
+        </tr>
+
 
         <tr class="account">
             <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
@@ -241,6 +260,7 @@
                 </select>
             </td>
         </tr>
+
 
         <tr id="needShowInSuperuser">
             <td><label for="urSelected">$i18n.getString("User Role")<em title="$i18n.getString( 'required' )"
