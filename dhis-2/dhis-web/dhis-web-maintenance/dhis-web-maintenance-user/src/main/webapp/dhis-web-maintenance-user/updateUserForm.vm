@@ -156,19 +156,6 @@
 <form id="updateUserForm" action="updateUser.action" method="post" class="inputForm">
     <input type="hidden" id="ouwtSelected" name="ouwtSelected" value=""/>
 
-    <p>show detail of user info</p>
-    <p>$userCredentials.userInfo.surname</p>
-    <p>$userCredentials.userInfo.firstName</p>
-    <p>#if ($user.emailAlert) email True#else email False#end</p>
-    <p>#if ($user.smsAlert) smsTrue #else sms Fale</p>
-
-
-    <label for="surname">$i18n.getString( "surname" )
-        <em class="required">*</em>
-    </label>
-    <input type="text" id="surname" name="surname" value="$userCredentials.userInfo.surname">
-    <input type="text" id="firstName" name="firstName" value="$userCredentials.userInfo.firstName">
-
     <div><input type="hidden" id="id" name="id" value="$userCredentials.id"/></div>
     <table>
         <col style="width: 120px"/>
@@ -196,7 +183,7 @@
             <td colspan="3"><input type="password" id="retypePassword" name="retypePassword" autocomplete="off"></td>
         </tr>
 
-        <!--<tr class="account">
+        <tr class="account">
             <td><label for="attribute_$workPhone.id">$i18n.getString("$workPhone.displayName")</label></td>
             <td colspan="3"><input type="tel" class="workPhone" id="attribute_$workPhone.id" name="attribute_$workPhone.id" value="$workPhoneValue"></td>
         </tr>
@@ -265,15 +252,14 @@
                         <option id="$userRole.name" value="$userRole.uid" selected="selected">$!encoder.htmlEncode( $userRole.name )</option>
                     #else
                         <option id="$userRole.name" value="$userRole.uid">$!encoder.htmlEncode( $userRole.name )</option>
-                        #set($isSelected = true)
                     #end
                 #end
                 </select>
             </td>
-        </tr>-->
+        </tr>
 
 
-        <!--<tr>
+        <tr>
             <td><label for="emailAlert">$i18n.getString("email_alert")</label></td>
 
             <td>
@@ -288,7 +274,7 @@
             <td>
                 <input type="checkbox" name="smsAlert" value="true" #if ($user.smsAlert) checked="checked" #end>
             </td>
-        </tr>-->
+        </tr>
 
 
     </table>
@@ -312,7 +298,7 @@
     <p>
         <input type="submit" value="$i18n.getString( 'save' )" style="width:10em"/>
         <input type="button" id="cancel" value="$i18n.getString( 'cancel' )" style="width:10em"/>
-    </p>-->
+    </p>
 
 </form>
 
