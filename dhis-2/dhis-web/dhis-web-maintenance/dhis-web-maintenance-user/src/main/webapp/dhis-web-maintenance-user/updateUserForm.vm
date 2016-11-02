@@ -267,6 +267,10 @@
                                                                         class="required">*</em></label></td>
             <td>
                 <select id="urSelected" name="urSelected" class="valid">
+                    #if ($userAuthorityGroups.isEmpty())
+                        <option id="$allUserAuthorityGroups.get(0).name" value="$allUserAuthorityGroups.get(0).uid"
+                                selected="selected">$!encoder.htmlEncode( $allUserAuthorityGroups.get(0).name)</option>
+                    #else
                 #foreach( $userRole in $allUserAuthorityGroups)
                     #if ($userRole.uid == $userAuthorityGroups.get(0).uid)
                         <option id="$userRole.name" value="$userRole.uid" selected="selected">$!encoder.htmlEncode( $userRole.name )</option>
@@ -274,6 +278,7 @@
                         <option id="$userRole.name" value="$userRole.uid">$!encoder.htmlEncode( $userRole.name )</option>
                     #end
                 #end
+                    #end
                 </select>
             </td>
         </tr>
