@@ -1001,13 +1001,6 @@
                     description: ""
                 },
                 {
-                    name: "profile",
-                    namespace: "/dhis-web-commons-about",
-                    defaultAction: "../dhis-web-commons-about/showUpdateUserProfileForm.action",
-                    icon: "../icons/function-profile.png",
-                    description: ""
-                },
-                {
                     name: "account",
                     namespace: "/dhis-web-commons-about",
                     defaultAction: "../dhis-web-commons-about/showUpdateUserAccountForm.action",
