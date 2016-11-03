@@ -268,7 +268,9 @@
             <td>
                 <select id="urSelected" name="urSelected" class="valid">
                     #if ($userAuthorityGroups.isEmpty())
-                        <option id="$allUserAuthorityGroups.get(0).name" value="$$allUserAuthorityGroups.get(0).uid" selected="selected">$!encoder.htmlEncode( $allUserAuthorityGroups.get(0).name )</option>
+                        #foreach( $userRole in $allUserAuthorityGroups)
+                            <option id="$userRole.name" value="$userRole.uid" selected="selected">$!encoder.htmlEncode( $userRole.name )</option>
+                        #end
                     #else
                         #foreach( $userRole in $allUserAuthorityGroups)
                             #if ($userRole.uid == $userAuthorityGroups.get(0).uid)
