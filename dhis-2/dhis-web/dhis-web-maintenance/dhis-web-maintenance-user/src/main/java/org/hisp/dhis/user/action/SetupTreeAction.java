@@ -43,6 +43,7 @@ import org.hisp.dhis.system.util.AttributeUtils;
 import org.hisp.dhis.user.User;
 import org.hisp.dhis.user.UserAuthorityGroup;
 import org.hisp.dhis.user.UserCredentials;
+import org.hisp.dhis.user.CurrentUserService;
 import org.hisp.dhis.user.UserGroup;
 import org.hisp.dhis.user.UserService;
 import org.hisp.dhis.user.UserSettingKey;
@@ -116,6 +117,9 @@ public class SetupTreeAction
 
     @Autowired
     private SystemSettingManager systemSettingManager;
+
+    @Autowired
+    private CurrentUserService currentUserService;
 
     // -------------------------------------------------------------------------
     // Input & Output
@@ -219,6 +223,10 @@ public class SetupTreeAction
         return allowInvite;
     }
 
+    private User currentUser;
+
+    public User getCurrentUser() { return currentUser; }
+
     // -------------------------------------------------------------------------
     // Action implementation
     // -------------------------------------------------------------------------
@@ -257,7 +265,7 @@ public class SetupTreeAction
             userCredentials = user.getUserCredentials();
 
             userAuthorityGroups = new ArrayList<>( userCredentials.getUserAuthorityGroups() );
-            userService.canIssueFilter( userAuthorityGroups );
+//            userService.canIssueFilter( userAuthorityGroups );
             Collections.sort( userAuthorityGroups );
 
             userGroups = new ArrayList<>( user.getGroups() );
@@ -274,7 +282,7 @@ public class SetupTreeAction
         }
 
         allUserAuthorityGroups = new ArrayList<>( userService.getAllUserAuthorityGroups() );
-        userService.canIssueFilter( allUserAuthorityGroups );
+//        userService.canIssueFilter( allUserAuthorityGroups );
         Collections.sort( allUserAuthorityGroups );
 
 
@@ -288,6 +296,8 @@ public class SetupTreeAction
         Collections.sort( attributes, AttributeSortOrderComparator.INSTANCE );
 
         allowInvite = systemSettingManager.emailEnabled();
+
+        currentUser = currentUserService.getCurrentUser();
 
         return SUCCESS;
     }

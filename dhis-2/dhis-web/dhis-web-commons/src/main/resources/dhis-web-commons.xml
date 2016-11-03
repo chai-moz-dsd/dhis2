@@ -901,7 +901,7 @@
 
     <action name="showUpdateUserAccountForm" class="org.hisp.dhis.useraccount.action.GetCurrentUserAction">
       <result name="success" type="velocity">/main.vm</result>
-      <result name="list_all_user" type="redirect">/dhis-web-maintenance-user/alluser.action</result>
+      <result name="list_all_user" type="redirect">/dhis-web-maintenance-user/showUpdateUserForm.action?id=${userId}</result>
       <param name="page">/dhis-web-commons/useraccount/updateUserAccountForm.vm</param>
       <param name="menu">/dhis-web-commons/about/menuDashboard.vm</param>
     </action>

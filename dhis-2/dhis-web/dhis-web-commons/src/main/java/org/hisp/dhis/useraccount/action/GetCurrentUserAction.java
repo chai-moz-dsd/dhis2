@@ -44,6 +44,8 @@ public class GetCurrentUserAction
     // Dependencies
     // -------------------------------------------------------------------------
 
+    int userId;
+
     private CurrentUserService currentUserService;
 
     // -------------------------------------------------------------------------
@@ -61,6 +63,12 @@ public class GetCurrentUserAction
         this.currentUserService = currentUserService;
     }
 
+    public int getUserId() { return userId; }
+
+    public void SetUserId(int userId) {
+        this.userId = userId;
+    }
+
     public UserCredentials getUserCredentials()
     {
         return userCredentials;
@@ -74,6 +82,11 @@ public class GetCurrentUserAction
     public String execute()
         throws Exception
     {
+        User user = currentUserService.getCurrentUser();
+
+        userCredentials = user.getUserCredentials();
+
+        userId = user.getId();
 
         return "list_all_user";
     }

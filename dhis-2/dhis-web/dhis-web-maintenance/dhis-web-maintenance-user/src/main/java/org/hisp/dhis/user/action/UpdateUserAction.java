@@ -301,7 +301,7 @@ public class UpdateUserAction
             userAuthorityGroups.add( userService.getUserAuthorityGroup( id ) );
         }
 
-        userService.canIssueFilter( userAuthorityGroups );
+//        userService.canIssueFilter( userAuthorityGroups );
 
         userCredentials.setUserAuthorityGroups( userAuthorityGroups );
 
