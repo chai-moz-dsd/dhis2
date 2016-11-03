@@ -163,7 +163,7 @@ public class AnalyticsController {
 //        allRows.add(r);
 
         for (List<Object> row : allRows) {
-            String highLight = "false";
+            String highLight = "highlight.false";
             String diseaseId = (String) row.get(0);
 
             String ou = grid.getHeaders().get(1).getName().equals("ou") ? (String) row.get(1) : "MOH12345678";

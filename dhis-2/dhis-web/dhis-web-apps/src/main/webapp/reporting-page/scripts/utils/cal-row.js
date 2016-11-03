@@ -1,5 +1,6 @@
 var _ = {
-    each: require('lodash/each')
+    each: require('lodash/each'),
+    sort: require('lodash/sortBy')
 };
 
 var getRow = function (rows, head, ouId) {
@@ -37,6 +38,8 @@ module.exports = {
 
             res.push(row);
         });
+
+        res = _.sort(res, [function(o) { return o.name; }]);
 
         return res;
     },
