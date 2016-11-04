@@ -11,6 +11,7 @@ import {Link} from "react-router";
 import DatePickerBar from "../date-picker-bar/index.jsx";
 import corsRequest from "../../utils/cors-request.js";
 import calUrl from "../../utils/cal-url.js";
+import calRow from "../../utils/cal-row";
 import {DEFAULT_OPS_COLUMN, syncStatusMap, syncTimeStatusMap} from "../../configs";
 import css from "./index.scss";
 import AppTheme from "../../../theme/theme.js";
@@ -41,7 +42,7 @@ export default class OpsReporting extends Component {
             rows: []
         };
 
-        this.generateRows = ::this.generateRows
+        this.generateRows = ::calRow.generateRows
     }
 
     getChildContext() {
@@ -235,19 +236,6 @@ export default class OpsReporting extends Component {
             )
     }
 
-    generateRows(item, childrenList, result) {
-        item.children = childrenList.map((children) => {
-            return {
-                name: children.displayName,
-                id: children.id,
-                level: (item.level + 1),
-                value: result[children.displayName]
-            }
-        });
-        item.showChildren = true;
-
-        this.forceUpdate();
-    }
 
     fetchChild(item, enableFetch) {
         if (item.showChildren || item.children) {

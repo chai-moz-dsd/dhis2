@@ -73,5 +73,25 @@ module.exports = {
                 }
             }
         }
-    }
+    },
+
+  generateRows: function (item, childrenList, result) {
+      var rows = childrenList.map((children) => {
+          return {
+              name: children.displayName,
+              id: children.id,
+              level: (item.level + 1),
+              value: result[children.displayName]
+          };
+      });
+      item.showChildren = true;
+
+      item.children = _.sort(rows, [function(o) { return o.name; }]);
+
+      _.each(item.children, function (row) {
+          console.log("row: " + row.name);
+      });
+
+    //this.forceUpdate();
+  }
 };
