@@ -54,7 +54,7 @@ public class DatabaseAutomaticAccessProvider
         // ---------------------------------------------------------------------
 
         String username = "admin";
-        String password = "district";
+        String password = "CHA!d3d";
 
         User user = new User();
         user.setUid( "M5zQapPyTZI" );
