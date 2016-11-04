@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import moment from 'moment';
 import ReportingHead from "../reporting-head/index.jsx";
 import ReportingBody from "../reporting-body/index.jsx";
 import calSpan from "../../utils/cal-span.js";
@@ -94,10 +95,20 @@ class ReportingTable extends React.Component {
         }.bind(this));
     }
 
+    changeToEpiWeek(week) {
+        var CALENDAR_FORMAT = 'YYYYMMDD';
+        var WEEK_FORMAT = 'YYYYW';
+        var week_start = moment(week, WEEK_FORMAT).add(-1, 'day').format(CALENDAR_FORMAT);
+        var week_end = moment(week, WEEK_FORMAT).add(5, 'day').format(CALENDAR_FORMAT);
+
+        return '(' + week_start + '-' + week_end + ')';
+    }
+
     fetchWeekRows(oriHead, periods, ou) {
         axios.get(calUrl.getWeekRowUrl(oriHead, calPeriod.generatePeriod(periods), ou.id), calUrl.getConfig())
             .then((res) => {
                 let rows = calRow.getRows(res.data, oriHead, 'pe').map((row) => {
+                    row.name += this.changeToEpiWeek(row.name);
                     return {...row, level: DEFAULT_TEXT_LEVEL}
                 });
 
