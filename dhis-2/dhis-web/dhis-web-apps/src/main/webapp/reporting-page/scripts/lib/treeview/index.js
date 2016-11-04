@@ -151,24 +151,23 @@ class TreeView extends React.Component {
         }
     }
 
-    setParentState(node) {
-        let parent = node.parentNode;
-        if (!parent || !parent.state) {
-            return;
-        }
-        parent = this.findParentByChildId(this.state.data, node.nodeId)
-        if(!parent){
-            return;
-        }
-        let isAllChildrenSelected = true;
-        parent.nodes.forEach(function (child) {
-            if (!child.state.selected) {
-                isAllChildrenSelected = false;
-            }
-        });
-        parent.state.selected = isAllChildrenSelected;
+  setParentState(node) {
+    let parent = node.parentNode;
+    if (!parent || !parent.state) {
+      return;
     }
-
+    parent = this.findParentByChildId(this.state.data, node.nodeId)
+    if(!parent){
+      return;
+    }
+    let existSelectedChild = false;
+    parent.nodes.forEach(function (child) {
+      if (child.state.selected) {
+        existSelectedChild = true;
+      }
+    });
+    parent.state.selected = existSelectedChild;
+  }
     nodeDoubleClicked(nodeId, selected) {
         let node = this.findNodeById(this.state.data, nodeId);
         if (this.props.onDoubleClick)
