@@ -101,7 +101,7 @@ class ReportingTable extends React.Component {
         var week_start = moment(week, WEEK_FORMAT).add(-1, 'day').format(CALENDAR_FORMAT);
         var week_end = moment(week, WEEK_FORMAT).add(5, 'day').format(CALENDAR_FORMAT);
 
-        return '(' + week_start + '-' + week_end + ')';
+        return ' (' + week_start + '-' + week_end + ')';
     }
 
     fetchWeekRows(oriHead, periods, ou) {
