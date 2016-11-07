@@ -3,7 +3,7 @@
 #   Use this script to test if a given TCP host/port are available
 
 #######start nginx###########
-service nginx start   #######
+#service nginx start   #######
 #######start nginx###########
 
 cmdname=$(basename $0)
