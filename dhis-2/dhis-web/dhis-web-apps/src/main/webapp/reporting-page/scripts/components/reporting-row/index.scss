@@ -48,6 +48,10 @@
   background: #DDDDDD;
 }
 
+.default:nth-child(even) {
+  background: #dfe6ec;
+}
+
 .primaryTitle, .secondaryTitle, .tertiaryTitle {
   font-size: 1rem;
   font-weight: bold;

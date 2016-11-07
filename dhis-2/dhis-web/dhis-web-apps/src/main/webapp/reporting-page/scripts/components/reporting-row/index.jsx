@@ -24,7 +24,7 @@ class ReportingRow extends React.Component {
         const isLoading = this.props.isLoading[name];
 
         return (
-            <tr className={(css[rowStyle] || '') + ' ReportingRow'}>
+            <tr className={(css[rowStyle] || css['default']) + ' ReportingRow'}>
                 <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(isLoading ? css.loading : '')}`}
                     onClick={this.handleClick.bind(this, id, name)}>
                     { !!rowStyle &&
