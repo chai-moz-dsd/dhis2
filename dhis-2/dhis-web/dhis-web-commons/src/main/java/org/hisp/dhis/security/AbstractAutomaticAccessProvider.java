@@ -78,6 +78,7 @@ public abstract class AbstractAutomaticAccessProvider
         {
             initialise();
         }
+        access();
     }
 
     // -------------------------------------------------------------------------
