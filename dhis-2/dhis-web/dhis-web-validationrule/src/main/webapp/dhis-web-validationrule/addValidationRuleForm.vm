@@ -46,8 +46,8 @@
 				<option value="Default" selected="selected">default</option>
 				<option value="SarampoCaseInMonths">$i18n.getString("customed_validation_rule_Sarampo")</option>
 				<option value="MeningiteIncreasedInWeeks">$i18n.getString("customed_validaiton_rule_Meningite")</option>
-				<option value="DisenteriaCaseInYears">$i18n.getString("customed_validation_rule_malaria")</option>
-				<option value="MalariaCaseInYears">$i18n.getString("customed_validation_rule_disenteria")</option>
+				<option value="DisenteriaCaseInYears">$i18n.getString("customed_validation_rule_disenteria")</option>
+				<option value="MalariaCaseInYears">$i18n.getString("customed_validation_rule_malaria")</option>
 			</select>
 		</td>
 	</tr>

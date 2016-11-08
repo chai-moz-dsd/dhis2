@@ -56,8 +56,8 @@
                 <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>default</option>
                 <option value="SarampoCaseInMonths" #if( $validationRule.additionalRuleType == 'SarampoCaseInMonths') selected="selected" #end>$i18n.getString("customed_validation_rule_Sarampo")</option>
                 <option value="MeningiteIncreasedInWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInWeeks') selected="selected" #end>$i18n.getString("customed_validaiton_rule_Meningite")</option>
-                <option value="DisenteriaCaseInYears" #if( $validationRule.additionalRuleType == 'DisenteriaCaseInYears') selected="selected" #end>$i18n.getString("customed_validation_rule_malaria")</option>
-                <option value="MalariaCaseInYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInYears') selected="selected" #end>$i18n.getString("customed_validation_rule_disenteria")</option>
+                <option value="DisenteriaCaseInYears" #if( $validationRule.additionalRuleType == 'DisenteriaCaseInYears') selected="selected" #end>$i18n.getString("customed_validation_rule_disenteria")</option>
+                <option value="MalariaCaseInYears" #if( $validationRule.additionalRuleType == 'MalariaCaseInYears') selected="selected" #end>$i18n.getString("customed_validation_rule_malaria")</option>
             </select>
         </td>
     </tr>
