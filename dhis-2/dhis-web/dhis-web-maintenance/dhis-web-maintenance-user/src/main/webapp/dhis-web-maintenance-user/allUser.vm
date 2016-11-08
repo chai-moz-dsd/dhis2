@@ -75,6 +75,7 @@
 				<tr>
 					<th>$i18n.getString( "name" )</th>
 					<th>$i18n.getString( "username" )</th>
+          <th>$i18n.getString("user_role")</th>
 				</tr>
 				</thead>
 				<tbody id="list">
@@ -91,6 +92,11 @@
                     data-user-disabled="$user.userCredentials.disabled">
 				    <td>$encoder.htmlEncode( $!user.surname ), $encoder.htmlEncode( $!user.firstName )</td>
 				    <td>$encoder.htmlEncode( $!user.userCredentials.username )</td>
+ 					#if ($user.userCredentials.getUserAuthorityGroups().isEmpty())
+                        <td>$encoder.htmlEncode("null")</td>
+					#else
+                        <td>$encoder.htmlEncode( $!user.userCredentials.getUserAuthorityGroups().get(0).name)</td>
+					#end
                 </tr>
 				#end
 				</tbody>
