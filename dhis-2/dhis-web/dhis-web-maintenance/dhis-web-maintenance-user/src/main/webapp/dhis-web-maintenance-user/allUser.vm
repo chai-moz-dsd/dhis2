@@ -95,7 +95,11 @@
  					#if ($user.userCredentials.getUserAuthorityGroups().isEmpty())
                         <td>$encoder.htmlEncode("null")</td>
 					#else
-                        <td>$encoder.htmlEncode( $!user.userCredentials.getUserAuthorityGroups().get(0).name)</td>
+ 						<td>
+							#foreach ($role in $!user.userCredentials.getUserAuthorityGroups())
+    	                        $encoder.htmlEncode($role.name)
+							#end
+						</td>
 					#end
                 </tr>
 				#end
