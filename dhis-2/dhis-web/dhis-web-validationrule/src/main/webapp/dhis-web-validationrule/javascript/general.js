@@ -85,10 +85,8 @@ function i18nalizeAdditionalRuleType( ruleType )
 		case 'MalariaCaseInYears':
 			return i18n_customed_validation_rule_disenteria;
 		default:
-			break;
+			return 'default'
 	}
-	
-	return null;
 }
 
 function i18nalizeOperator( operator )
