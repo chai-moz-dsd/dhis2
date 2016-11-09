@@ -76,6 +76,8 @@ function i18nalizeImportance ( importance )
 function i18nalizeAdditionalRuleType( ruleType )
 {
 	switch (ruleType) {
+    case 'Default':
+        return i18n_default_rule;
 		case 'SarampoCaseInMonths':
 			return i18n_customed_validation_rule_Sarampo;
 		case 'MeningiteIncreasedInWeeks':
@@ -84,10 +86,10 @@ function i18nalizeAdditionalRuleType( ruleType )
 		return i18n_customed_validation_rule_disenteria;
 		case 'MalariaCaseInYears':
 		return i18n_customed_validation_rule_malaria;
-		default:
-			return 'Default';
+		  default:
+		    return i18n_default_rule;
 	}
-	return 'Default';
+	return i18n_default_rule;
 }
 
 function i18nalizeOperator( operator )
