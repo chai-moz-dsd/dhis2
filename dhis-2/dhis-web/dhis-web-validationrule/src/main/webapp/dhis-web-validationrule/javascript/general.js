@@ -81,9 +81,9 @@ function i18nalizeAdditionalRuleType( ruleType )
 		case 'MeningiteIncreasedInWeeks':
 			return i18n_customed_validaiton_rule_Meningite;
 		case 'DisenteriaCaseInYears':
-			return i18n_customed_validation_rule_malaria;
+		return i18n_customed_validation_rule_disenteria;
 		case 'MalariaCaseInYears':
-			return i18n_customed_validation_rule_disenteria;
+		return i18n_customed_validation_rule_malaria;
 		default:
 			return 'Default';
 	}
