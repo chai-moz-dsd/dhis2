@@ -134,7 +134,7 @@ public class GetUserListAction
         params.setFirst( paging.getStartPos() );
         params.setMax( paging.getPageSize() );
 
-        if (params.getUser().getSurname().equals("admin"))
+        if (params.getUser().isSuper())
         {
             users = userService.getUsers( params );
         }
