@@ -38,6 +38,7 @@
 				<tr>
 					<th>$i18n.getString( "name" )</th>
 					<th>$i18n.getString( "username" )</th>
+          <th>$i18n.getString("user_role")</th>
 				</tr>
 				</thead>
 				<tbody id="list">
