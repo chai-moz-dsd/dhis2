@@ -48,6 +48,15 @@
 				    data-can-delete="#if( $currentUsername != $user.userCredentials.username )true#{else}false#end">
 				    <td>$encoder.htmlEncode( $!user.surname ), $encoder.htmlEncode( $!user.firstName )</td>
 				    <td>$encoder.htmlEncode( $!user.userCredentials.username )</td>
+					#if ($user.userCredentials.getUserAuthorityGroups().isEmpty())
+                        <td>$encoder.htmlEncode("null")</td>
+					#else
+                        <td>
+							#foreach ($role in $!user.userCredentials.getUserAuthorityGroups())
+    	                        $encoder.htmlEncode($role.name)
+							#end
+                        </td>
+					#end
 				</tr>
 				#end
 				</tbody>
