@@ -283,6 +283,14 @@ public class SmsUtils
             {
                 recipients.add( phoneNumber );
             }
+
+            Object attributeValues[] = user.getAttributeValues().toArray();
+            for (Object attributeValue : attributeValues) {
+                Attribute attribute = ((AttributeValue)attributeValue).getAttribute();
+                if (attribute.getDisplayName().equals("Work Phone")){
+                    recipients.add(((AttributeValue)attributeValue).getValue());
+                }
+            }
         }
         return recipients;
     }
