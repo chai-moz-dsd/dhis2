@@ -25,10 +25,12 @@ class ReportingRow extends React.Component {
 
         return (
             <tr className={(css[rowStyle] || css['default']) + ' ReportingRow'}>
-                <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(isLoading ? css.loading : '')}`}
+                <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName}`}
                     onClick={this.handleClick.bind(this, id, name)}>
                     { !!rowStyle &&
-                    <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }{this.props.row.name}
+                    <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }
+                    {this.props.row.name}
+                    <span className={`${css.loadingWrapper} ${(isLoading ? css.loading : '')}`} />
                 </td>
                 {this.props.row.values.map(function (column, index) {
                     return <td key={index} className={`${(column.highlight ? css.highlight: '')}`}>{column.value}</td>;

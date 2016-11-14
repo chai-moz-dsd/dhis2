@@ -3,12 +3,16 @@
 
 .rowName {
   text-align: left;
-  position: relative;
-  font-size: 0.75rem;
+  //position: relative;
+  font-size: 1.2rem;
   padding-left: 3px;
   padding-right: 3px;
   table-layout: fixed;
   white-space: nowrap;
+}
+
+.loadingWrapper {
+  position: relative;
 }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
@@ -18,11 +22,11 @@
 .loading:after {
   font-family: Glyphicons Halflings;
   content: "\E031";
-  font-size: 0.6875rem;
+  font-size: 1.1rem;
   color: white;
   position: absolute;
-  right: 3px;
-  top: 3px;
+  top: 2px;
+  left: 3px;
   -webkit-animation:spin 2s linear infinite;
   -moz-animation:spin 2s linear infinite;
   animation:spin 2s linear infinite;
@@ -53,7 +57,7 @@
 }
 
 .primaryTitle, .secondaryTitle, .tertiaryTitle {
-  font-size: 1rem;
+  font-size: 1.6rem;
   font-weight: bold;
   border: 1px solid #000;
   cursor: pointer;
