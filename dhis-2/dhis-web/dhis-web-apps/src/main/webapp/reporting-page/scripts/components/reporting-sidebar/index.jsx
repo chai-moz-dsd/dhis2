@@ -6,7 +6,7 @@ import calPeriod from "../../utils/cal_period.js";
 import moment from "moment";
 import css from "./index.scss";
 import DatePickerBar from '../date-picker-bar/index.jsx'
-import { categoryTitle, DEFAULT_WEEK_ROWS } from "../../configs";
+import {categoryTitle, DEFAULT_WEEK_ROWS} from "../../configs";
 import Location from '../location/index.jsx';
 
 class ReportingSidebar extends React.Component {
@@ -26,7 +26,7 @@ class ReportingSidebar extends React.Component {
         return {
             filter: [],
             currentCategory: 'location',
-            d2:[]
+            d2: []
         }
     };
 
@@ -41,14 +41,14 @@ class ReportingSidebar extends React.Component {
     }
 
     componentWillReceiveProps(next) {
-        if(this.props.currentCategory !== next.currentCategory) {
+        if (this.props.currentCategory !== next.currentCategory) {
             if (next.currentCategory === 'week') {
                 this.setState({
                     startDate: new Date(moment().subtract((DEFAULT_WEEK_ROWS - 1), 'weeks').valueOf()),
                     endDate: new Date()
                 })
             } else {
-                this.setState({ startDate: new Date(new Date().getFullYear(), 0, 1), endDate: new Date() });
+                this.setState({startDate: new Date(new Date().getFullYear(), 0, 1), endDate: new Date()});
                 this.initWeekTable = false;
             }
         }
@@ -58,7 +58,7 @@ class ReportingSidebar extends React.Component {
         const isCurrentCategory = this.props.currentCategory === 'week';
         const isHasRequestData = this.state.startDate && this.state.endDate && this.state.location;
 
-        if(!this.initWeekTable && isCurrentCategory && isHasRequestData) {
+        if (!this.initWeekTable && isCurrentCategory && isHasRequestData) {
             this.initWeekTable = true;
             this.generateReport()
         }
@@ -87,7 +87,8 @@ class ReportingSidebar extends React.Component {
     render() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
-                <div className={ css.head }>{this.props.d2.i18n.getTranslation(categoryTitle[this.props.currentCategory])}</div>
+                <div
+                    className={ css.head }>{this.props.d2.i18n.getTranslation(categoryTitle[this.props.currentCategory])}</div>
                 <DatePickerBar
                     label={this.props.d2.i18n.getTranslation('start_epi_week')}
                     value={this.state.startDate}
@@ -102,7 +103,10 @@ class ReportingSidebar extends React.Component {
                     onChange={this.handleChange.bind(this, 'endDate')}
                     onClean={this.onClean.bind(this, 'endDate')}
                 />
-                { this.props.currentCategory == 'week' && ( <Location  onSelect={::this.handleSelectedLocation} /> ) }
+                { this.props.currentCategory == 'week' && (
+                    <Location cancelLable={this.props.d2.i18n.getTranslation('cancel')}
+                              okLabel={this.props.d2.i18n.getTranslation('ok')}
+                              onSelect={::this.handleSelectedLocation}/> ) }
                 <div className={ css.filterName }>{this.props.d2.i18n.getTranslation('diseases')}</div>
                 <div className={ css.filter }>
                     {
@@ -116,10 +120,12 @@ class ReportingSidebar extends React.Component {
                                                                  ref={(ref) => this.treeView = ref}/>)
                     }
                 </div>
-                <Button className={ css.reportBtn } label={this.props.d2.i18n.getTranslation('gen_report')} neutral={ false }
+                <Button className={ css.reportBtn } label={this.props.d2.i18n.getTranslation('gen_report')}
+                        neutral={ false }
                         onClick={this.generateReport}/>
                 <div className={ css.exportDiv }>
-                    <Link onClick={this.exportTable} label={this.props.d2.i18n.getTranslation('export_to_xls')} icon="get_app"/>
+                    <Link onClick={this.exportTable} label={this.props.d2.i18n.getTranslation('export_to_xls')}
+                          icon="get_app"/>
                 </div>
             </div>
         )

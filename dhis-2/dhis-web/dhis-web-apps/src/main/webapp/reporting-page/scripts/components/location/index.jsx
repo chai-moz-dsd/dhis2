@@ -11,12 +11,8 @@ import _ from 'lodash';
 import css from './index.scss';
 
 export default class Location extends Component {
-    static contextTypes = {
-        d2: React.PropTypes.object
-    };
-    
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             showModal: false,
@@ -30,10 +26,9 @@ export default class Location extends Component {
             },
             currentSelected: null
         };
-
         this.actions = [
-            { label: this.context.d2.i18n.getTranslation('cancel'), onClick: ::this.handleToggle },
-            { label: this.context.d2.i18n.getTranslation('ok'), onClick: this.handleToggle.bind(this, 'OK') }
+            { label: props.cancelLabel, onClick: ::this.handleToggle },
+            { label: props.okLabel, onClick: this.handleToggle.bind(this, 'OK') }
         ];
     }
 
@@ -41,6 +36,9 @@ export default class Location extends Component {
         this.initList();
     }
 
+    static contextTypes = {
+        d2: React.PropTypes.object
+    };
 
     initList() {
         let regionalList = [];
