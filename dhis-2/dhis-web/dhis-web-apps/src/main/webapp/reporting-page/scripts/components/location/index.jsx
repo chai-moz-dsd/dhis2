@@ -11,6 +11,10 @@ import _ from 'lodash';
 import css from './index.scss';
 
 export default class Location extends Component {
+    static contextTypes = {
+        d2: React.PropTypes.object
+    };
+    
     constructor() {
         super();
 
@@ -37,9 +41,6 @@ export default class Location extends Component {
         this.initList();
     }
 
-    static contextTypes = {
-        d2: React.PropTypes.object
-    };
 
     initList() {
         let regionalList = [];
