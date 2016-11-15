@@ -58,7 +58,6 @@ module.exports = {
             filename: 'vendor.bundle.js',
             minChunks: Infinity
         }),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
         new webpack.DefinePlugin({
             // 'process.env.NODE_ENV': JSON.stringify('development')
