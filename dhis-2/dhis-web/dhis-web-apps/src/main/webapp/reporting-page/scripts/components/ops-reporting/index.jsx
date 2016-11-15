@@ -277,6 +277,7 @@ export default class OpsReporting extends Component {
                     this.forceUpdate();
                 }
             }).catch((err) => {
+            console.log('err', err);
             item.isLoading = false;
             this.forceUpdate();
         });
