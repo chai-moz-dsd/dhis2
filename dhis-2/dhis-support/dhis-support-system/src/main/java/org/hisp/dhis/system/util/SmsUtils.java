@@ -28,6 +28,7 @@ package org.hisp.dhis.system.util;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -50,6 +51,11 @@ import org.hisp.dhis.sms.parse.SMSParserException;
 import org.hisp.dhis.user.User;
 import org.hisp.dhis.sms.command.SMSCommand;
 import org.hisp.dhis.sms.incoming.IncomingSms;
+import org.hisp.dhis.attribute.AttributeValue;
+import org.hisp.dhis.attribute.Attribute;
+
+import org.hisp.dhis.system.util.AttributeUtils;
+import sun.font.AttributeValues;
 
 /**
  * @author Zubair <rajazubair.asghar@gmail.com>
