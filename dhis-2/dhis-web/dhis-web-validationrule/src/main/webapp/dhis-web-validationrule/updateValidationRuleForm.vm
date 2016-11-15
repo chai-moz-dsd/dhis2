@@ -53,7 +53,7 @@
         <td style="width:120px"><label for="additionalRuleType">$i18n.getString( "rule_type" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
         <td>
             <select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
-                <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>default</option>
+                <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>$i18n.getString("default")</option>
                 <option value="SarampoCaseInMonths" #if( $validationRule.additionalRuleType == 'SarampoCaseInMonths') selected="selected" #end>$i18n.getString("customed_validation_rule_Sarampo")</option>
                 <option value="MeningiteIncreasedInWeeks" #if( $validationRule.additionalRuleType == 'MeningiteIncreasedInWeeks') selected="selected" #end>$i18n.getString("customed_validaiton_rule_Meningite")</option>
                 <option value="DisenteriaCaseInYears" #if( $validationRule.additionalRuleType == 'DisenteriaCaseInYears') selected="selected" #end>$i18n.getString("customed_validation_rule_disenteria")</option>
