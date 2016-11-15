@@ -96,7 +96,7 @@ class ReportingTable extends React.Component {
     }
 
     changeToEpiWeek(week) {
-        var CALENDAR_FORMAT = 'MM/DD/YYYY';
+        var CALENDAR_FORMAT = 'DD/MM/YYYY';
         var WEEK_FORMAT = 'YYYYW';
         var week_start = moment(week, WEEK_FORMAT).add(-1, 'day').format(CALENDAR_FORMAT);
         var week_end = moment(week, WEEK_FORMAT).add(5, 'day').format(CALENDAR_FORMAT);
