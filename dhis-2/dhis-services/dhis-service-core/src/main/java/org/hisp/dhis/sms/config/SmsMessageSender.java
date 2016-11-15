@@ -144,6 +144,8 @@ public class SmsMessageSender
             postMethod.addParameter(entry.getKey(), entry.getValue());
         }
 
+        postMethod.getParams().setContentCharset("utf-8");
+        
         httpClient.executeMethod(postMethod);
         return postMethod;
     }
