@@ -22,6 +22,8 @@ module.exports = {
             callback(xhr.responseText);
         };
 
+        xhr.withCredentials = false;
+
         xhr.send();
     }
 };
