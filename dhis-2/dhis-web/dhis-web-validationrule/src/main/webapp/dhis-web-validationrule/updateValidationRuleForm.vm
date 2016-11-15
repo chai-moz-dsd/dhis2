@@ -50,7 +50,7 @@
 
 
     <tr>
-        <td style="width:120px"><label for="additionalRuleType">$i18n.getString( "rule type" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
+        <td style="width:120px"><label for="additionalRuleType">$i18n.getString( "rule_type" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
         <td>
             <select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
                 <option value="Default" #if( $validationRule.additionalRuleType == 'Default') selected="selected" #end>default</option>
@@ -62,7 +62,7 @@
         </td>
     </tr>
     <tr id="additionalRule" #if ( !$validationRule.additionalRule ) style="display: none" #end>
-        <td><label for="additionalRule">$i18n.getString( "additional rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
+        <td><label for="additionalRule">$i18n.getString( "additional_rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
         <td>
 			<textarea name="additionalRule">$!encoder.htmlEncode( $validationRule.additionalRule )</textarea>
             <a id="additionalRuleHelp" title="Help" href="javascript:getHelpContent('$validationRule.additionalRuleType')"><i class="fa fa-question-circle"></i></a>

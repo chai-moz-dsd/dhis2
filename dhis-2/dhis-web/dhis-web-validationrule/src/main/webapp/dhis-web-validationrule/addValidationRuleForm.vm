@@ -40,10 +40,10 @@
     </tr>
 
 	<tr>
-        <td style="width:120px"><label for="additionalRuleType">$i18n.getString( "rule type" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
+        <td style="width:120px"><label for="additionalRuleType">$i18n.getString( "rule_type" ) <em title="$i18n.getString( "required" )" class="required">*</em></label></td>
 		<td>
 			<select type="text" id="additionalRuleType" name="additionalRuleType" onchange="changeAdditionalRuleType()">
-				<option value="Default" selected="selected">default</option>
+				<option value="Default" selected="selected">$i18n.getString("default")</option>
 				<option value="SarampoCaseInMonths">$i18n.getString("customed_validation_rule_Sarampo")</option>
 				<option value="MeningiteIncreasedInWeeks">$i18n.getString("customed_validaiton_rule_Meningite")</option>
 				<option value="DisenteriaCaseInYears">$i18n.getString("customed_validation_rule_disenteria")</option>
@@ -52,7 +52,7 @@
 		</td>
 	</tr>
     <tr id="additionalRule" style="display: none">
-        <td><label for="additionalRule">$i18n.getString( "additional rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
+        <td><label for="additionalRule">$i18n.getString( "additional_rule" ) <span class="tipText">($i18n.getString( "visible_in_default_rule_type" ))</span></label></td>
         <td>
 			<textarea name="additionalRule" id="additionalRuleText"></textarea>
 			<a id="additionalRuleHelp" title="Help"><i class="fa fa-question-circle"></i></a>
