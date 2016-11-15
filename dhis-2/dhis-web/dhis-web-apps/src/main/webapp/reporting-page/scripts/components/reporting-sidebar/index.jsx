@@ -102,7 +102,7 @@ class ReportingSidebar extends React.Component {
                     onChange={this.handleChange.bind(this, 'endDate')}
                     onClean={this.onClean.bind(this, 'endDate')}
                 />
-                { this.props.currentCategory == 'week' && ( <Location onSelect={::this.handleSelectedLocation} /> ) }
+                { this.props.currentCategory == 'week' && ( <Location  onSelect={::this.handleSelectedLocation} /> ) }
                 <div className={ css.filterName }>{this.props.d2.i18n.getTranslation('diseases')}</div>
                 <div className={ css.filter }>
                     {

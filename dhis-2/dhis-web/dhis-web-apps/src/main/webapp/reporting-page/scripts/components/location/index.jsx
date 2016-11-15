@@ -28,8 +28,8 @@ export default class Location extends Component {
         };
 
         this.actions = [
-            { label: "CANCEL", onClick: ::this.handleToggle },
-            { label: "OK", onClick: this.handleToggle.bind(this, 'OK') }
+            { label: this.context.d2.i18n.getTranslation('cancel'), onClick: ::this.handleToggle },
+            { label: this.context.d2.i18n.getTranslation('ok'), onClick: this.handleToggle.bind(this, 'OK') }
         ];
     }
 
