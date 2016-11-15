@@ -86,6 +86,6 @@ module.exports = {
         const ou = 'organisationUnits=' + organisationUnits;
         const st = 'startDate=' + startDate;
         const ed = 'endDate=' + endDate;
-        return  'http://' + hostname + ':8080' + '/api/indicator?' + ou + '&' + st + '&' + ed;
+        return  protocol + '//' + hostname + ':8080' + '/api/indicator?' + ou + '&' + st + '&' + ed;
     }
 };
