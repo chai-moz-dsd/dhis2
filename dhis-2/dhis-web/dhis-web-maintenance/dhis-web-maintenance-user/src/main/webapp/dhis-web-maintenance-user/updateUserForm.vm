@@ -16,28 +16,6 @@
 #end
 
 <script type="text/javascript">
-    var setUserRolePermisstion = function (currentUserAccount)
-    {
-        $.ajax({
-            type: 'GET',
-            url: '../api/24/userRoles.json',
-            dataType: 'json',
-            success: function(data)
-            {
-                $.each(data.userRoles, function(){
-                    if ((this.displayName == 'Superuser')
-                            && (this.id == currentUserAccount.id))
-                    {
-                        $('#needShowInSuperuser').show();
-                    }
-                    else
-                    {
-                        $('#needShowInSuperuser').hide();
-                    }
-                });
-            }
-        });
-    }
     var ouwtSelected = [];
 
     jQuery(function () {
@@ -113,15 +91,6 @@
             iterator: 'dimensions'
         });
 
-        $.ajax({
-            type: 'GET',
-            url: '../api/24/me.json',
-            data: {fields: 'userCredentials'},
-            dataType: 'json',
-            success: function(data) {
-                setUserRolePermisstion(data.userCredentials.userRoles[0]);
-            }
-        });
     });
 
 
