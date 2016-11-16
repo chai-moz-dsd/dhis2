@@ -77,7 +77,7 @@ function i18nalizeAdditionalRuleType( ruleType )
 {
 	switch (ruleType) {
     case 'Default':
-        return i18n_default_rule;
+        return default_rule;
 		case 'SarampoCaseInMonths':
 			return i18n_customed_validation_rule_Sarampo;
 		case 'MeningiteIncreasedInWeeks':
