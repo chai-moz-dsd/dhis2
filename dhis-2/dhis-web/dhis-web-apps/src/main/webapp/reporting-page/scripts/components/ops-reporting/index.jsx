@@ -85,6 +85,11 @@ export default class OpsReporting extends Component {
         this.setState({rootLocation})
     }
 
+    generateRowsAndUpdate = (item, childrenList, result) => {
+        this.generateRows(item, childrenList, result);
+        this.forceUpdate();
+    };
+
     generateReport = () => {
         let startWeek, endWeek;
 
@@ -268,7 +273,7 @@ export default class OpsReporting extends Component {
                     return corsRequest.sendCORSRequest('GET', calUrl.getIndicatorInfo(organisationUnits, startDate, endDate), (res) => {
                         item.isLoading = false;
                         this.forceUpdate();
-                        this.generateRows(item, childrenList, JSON.parse(res))
+                        this.generateRowsAndUpdate(item, childrenList, JSON.parse(res))
                     });
                 } else {
                     item.showChildren = true;
