@@ -14,7 +14,7 @@ class ReportingSidebar extends React.Component {
         super(props);
 
         this.state = {
-            startDate: new Date(new Date().getFullYear(), 0, 1),
+            startDate: new Date(moment().subtract((DEFAULT_WEEK_ROWS - 1), 'weeks').valueOf()),
             endDate: new Date(),
             location: null
         };
@@ -40,19 +40,19 @@ class ReportingSidebar extends React.Component {
         };
     }
 
-    componentWillReceiveProps(next) {
-        if (this.props.currentCategory !== next.currentCategory) {
-            if (next.currentCategory === 'week') {
-                this.setState({
-                    startDate: new Date(moment().subtract((DEFAULT_WEEK_ROWS - 1), 'weeks').valueOf()),
-                    endDate: new Date()
-                })
-            } else {
-                this.setState({startDate: new Date(new Date().getFullYear(), 0, 1), endDate: new Date()});
-                this.initWeekTable = false;
-            }
-        }
-    }
+    // componentWillReceiveProps(next) {
+    //     if (this.props.currentCategory !== next.currentCategory) {
+    //         if (next.currentCategory === 'week') {
+    //             this.setState({
+    //                 startDate: new Date(moment().subtract((DEFAULT_WEEK_ROWS - 1), 'weeks').valueOf()),
+    //                 endDate: new Date()
+    //             })
+    //         } else {
+    //             this.setState({startDate: new Date(new Date().getFullYear(), 0, 1), endDate: new Date()});
+    //             this.initWeekTable = false;
+    //         }
+    //     }
+    // }
 
     componentDidUpdate() {
         const isCurrentCategory = this.props.currentCategory === 'week';
