@@ -465,7 +465,7 @@ export class TreeNode extends React.Component {
                     node: node,
                     key: node.nodeId,
                     level: _this.props.level + 1,
-                    visible: _this.state.expanded && _this.props.visible,
+                    visible: false,
                     onSelectedStatusChanged: _this.props.onSelectedStatusChanged,
                     onNodeDoubleClicked: _this.props.onNodeDoubleClicked,
                     addNode: _this.props.addNode,
@@ -475,7 +475,6 @@ export class TreeNode extends React.Component {
                 }));
             });
         }
-
         let addButton = this.props.allowNew ? (
             <span className="glyphicon glyphicon-plus addElement" style={{float: "right", cursor: "pointer"}}
                   onClick={this.newNodeForm}></span>) : "";
