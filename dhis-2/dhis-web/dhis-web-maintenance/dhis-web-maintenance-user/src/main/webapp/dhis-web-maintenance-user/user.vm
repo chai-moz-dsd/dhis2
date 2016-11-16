@@ -29,8 +29,10 @@
 			<table width='100%'>
 				<tr>
 					<td>#filterDiv( "user" )</td>
-					<td id="specificUserAddNew" colspan="3" style="text-align:right"><input type="button" value="$i18n.getString( 'add_new' )"
-																	onclick="window.location.href='showAddUserForm.action'"/></td>
+					<td colspan="3" style="text-align:right" #if (!($params.getUser().isSuper())) style="display: none"#end>
+						<input type="button" value="$i18n.getString( 'add_new' )"
+																	onclick="window.location.href='showAddUserForm.action'"/>
+					</td>
 				</tr>
 			</table>
 			<table class="listTable" id="userList" width='100%'>
