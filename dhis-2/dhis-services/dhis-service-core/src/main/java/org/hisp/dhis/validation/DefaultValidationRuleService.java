@@ -560,22 +560,13 @@ public class DefaultValidationRuleService
                 absoluteLocationContainer.append(", "+parent.getName());
                 parent = parent.getParent();
             }
-
-            String location = String.format("%s(%s) ",result.getOrgUnit().getName(), absoluteLocationContainer.toString());
-            String combo = result.getAttributeOptionCombo().isDefault() ? "" : " " + result.getAttributeOptionCombo().getName();
-            builder.append(location).append( LN )
-                    .append("Period: " + result.getPeriod().getName()).append( LN )
-                    .append(combo ).append( LN )
-                    .append( "Actual disease number: " ).append( result.getLeftsideValue() ).append( LN )
-                    .append( "Rule name: " ).append( rule.getName() ).append( LN );
-
-            if (rule.getDescription() != null && !"".equals(rule.getDescription().trim())){
-                builder.append( "Description: " ).append( rule.getDescription() ).append( LN );
+            String location = absoluteLocationContainer.toString();
+            if (absoluteLocationContainer.indexOf("MoH") != -1){
+                location = absoluteLocationContainer.substring(0, absoluteLocationContainer.indexOf("MoH"));
             }
-            if (rule.getInstruction() != null && !"".equals(rule.getInstruction().trim())){
-                builder.append( "Instruction: " ).append( rule.getInstruction() ).append( LN );
-            }
-            builder.append( LN ).append( LN );
+            builder.append(result.getPeriod().getName()).append( LN )
+                    .append(location).append( LN )
+                    .append( rule.getName() ).append(", ").append( result.getLeftsideValue() );
         }
         String subject = new StringBuilder().append(leftSideDescription)
                 .append(" is surpassing threshold on ")
@@ -583,6 +574,7 @@ public class DefaultValidationRuleService
                 .toString();
 
         log.info( "Alerting users: " + users.size() + ", subject: " + subject );
+
 
         messageService.sendMessage( subject, builder.toString(), null, users );
     }
