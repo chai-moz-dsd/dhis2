@@ -85,6 +85,8 @@ public class GetOrgunitUserListAction
         return key;
     }
 
+    private UserQueryParams params;
+
     // -------------------------------------------------------------------------
     // Action implementation
     // -------------------------------------------------------------------------
@@ -95,7 +97,7 @@ public class GetOrgunitUserListAction
     {
         OrganisationUnit organisationUnit = selectionManager.getSelectedOrganisationUnit();
         
-        UserQueryParams params = new UserQueryParams();
+        params = new UserQueryParams();
         
         params.setQuery( key );
         params.setOrganisationUnit( organisationUnit );

@@ -113,6 +113,12 @@ public class GetUserListAction
         this.invitationStatus = invitationStatus;
     }
 
+    private UserQueryParams params;
+
+    public UserQueryParams getParams() {
+        return params;
+    }
+
     // -------------------------------------------------------------------------
     // Action implementation
     // -------------------------------------------------------------------------
@@ -121,7 +127,7 @@ public class GetUserListAction
     public String execute()
         throws Exception
     {
-        UserQueryParams params = new UserQueryParams();
+        params = new UserQueryParams();
         
         params.setQuery( key );
         params.setInactiveMonths( months );

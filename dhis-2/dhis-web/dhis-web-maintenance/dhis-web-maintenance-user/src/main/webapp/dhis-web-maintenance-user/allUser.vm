@@ -44,7 +44,11 @@
 					<td>
 						#filterDiv( "alluser" )
 					</td>
-					<td id="allUserAddNew" colspan="3" style="text-align:right" #if (!($params.getUser().isSuper())) style="display: none"#end>
+					<td id="allUserAddNew" colspan="3" #if (${params.getUser().isSuper()})
+                        									style="text-align:right"
+                                                        #else
+									                        style="display: none"
+                                                        #end>
 						<input type="button" value="$i18n.getString( 'add_new' )"
                                onclick="window.location.href='showAddUserForm.action'"/>
 					</td>
