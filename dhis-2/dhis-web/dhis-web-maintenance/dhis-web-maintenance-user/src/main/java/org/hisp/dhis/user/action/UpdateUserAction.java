@@ -390,14 +390,14 @@ public class UpdateUserAction
             userGroups.add( userGroupService.getUserGroup( id ) );
         }
 
-        for ( UserGroup userGroup : new HashSet<>( user.getGroups() ) )
+        /*for ( UserGroup userGroup : new HashSet<>( user.getGroups() ) )
         {
             if ( !userGroups.contains( userGroup ) )
             {
                 userGroup.removeUser( user );
                 userGroupService.updateUserGroup( userGroup );
             }
-        }
+        }*/
 
         for ( UserGroup userGroup : userGroups )
         {
