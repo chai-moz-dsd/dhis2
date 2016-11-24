@@ -12,7 +12,8 @@ import ToolBoxLink from "react-toolbox/lib/link";
 import {Link} from 'react-router';
 import "./report-table.scss";
 import * as calPeriod from "../../utils/cal_period";
-import {DEFAULT_TEXT_LEVEL} from '../../configs';
+import {DEFAULT_TEXT_LEVEL, DEFAULT_WEEK_ROWS} from '../../configs';
+import moment from "moment";
 
 var _ = {
     each: require('lodash/each'),
@@ -39,7 +40,10 @@ class ReportingTable extends React.Component {
             oriHead: [],
             currentCategory: 'location',
             changeCategory: _.noop,
-            periods: ["THIS_YEAR"],
+            periods: calPeriod.getWeekRange({
+                startDate: new Date(moment().subtract((DEFAULT_WEEK_ROWS - 1), 'weeks').valueOf()),
+                endDate: new Date()
+            }),
             d2: [],
             showChildren: {MoH: true}
         }

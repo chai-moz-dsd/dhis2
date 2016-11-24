@@ -10,7 +10,8 @@ import ReportingSidebar from "../reporting-sidebar/index.jsx";
 import css from "./index.scss";
 import * as calPeriod from "../../utils/cal_period";
 import AppTheme from "../../../theme/theme.js";
-import { categoryList } from '../../configs';
+import moment from "moment";
+import { categoryList, DEFAULT_WEEK_ROWS } from "../../configs";
 
 const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
@@ -29,7 +30,10 @@ class ReportingPage extends React.Component {
             oriHead: [],
             updatedOriHead: [],
             filter: [],
-            periods: ['THIS_YEAR'],
+            periods: calPeriod.getWeekRange({
+                startDate: new Date(moment().subtract((DEFAULT_WEEK_ROWS - 1), 'weeks').valueOf()),
+                endDate: new Date()
+            }),
             currentCategory: 'location',
             showChildren: {MoH: true}
         };
