@@ -189,12 +189,11 @@ public class AnalyticsController {
             } catch (Exception e) {
                 StackTraceElement[] traces = e.getStackTrace();
 
-                StringBuilder sb = new StringBuilder();
-                for (StackTraceElement trace : traces) {
-                    sb.append(trace).append(" ");
+                if (traces.length > 0) {
+                    row.add(traces[0]);
+                } else {
+                    row.add("");
                 }
-
-                row.add(sb.toString());
             }
 
         }
