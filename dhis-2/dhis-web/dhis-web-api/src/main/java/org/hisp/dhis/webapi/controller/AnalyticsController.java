@@ -166,12 +166,13 @@ public class AnalyticsController {
             String highLight = "highlight.false";
             String diseaseId = (String) row.get(0);
 
-            String ou = grid.getHeaders().get(1).getName().equals("ou") ? (String) row.get(1) : "MOH12345678";
-            OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou);
-            Collection<OrganisationUnit> organisationUnits =
-                    organisationUnitService.getOrganisationUnitWithChildren(organisationUnit.getId());
-
             try {
+
+                String ou = grid.getHeaders().get(1).getName().equals("ou") ? (String) row.get(1) : "MOH12345678";
+                OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou);
+                Collection<OrganisationUnit> organisationUnits =
+                        organisationUnitService.getOrganisationUnitWithChildren(organisationUnit.getId());
+
                 for (ValidationRule rule : rules) {
                     if (!isValidRuleForDisease(diseaseId, rule)) {
                         continue;
@@ -185,8 +186,15 @@ public class AnalyticsController {
                     }
                 }
                 row.add(highLight);
-            }catch (Exception e){
-                row.add(e);
+            } catch (Exception e) {
+                StackTraceElement[] traces = e.getStackTrace();
+
+                StringBuilder sb = new StringBuilder();
+                for (StackTraceElement trace : traces) {
+                    sb.append(trace).append(" ");
+                }
+
+                row.add(sb.toString());
             }
 
         }
