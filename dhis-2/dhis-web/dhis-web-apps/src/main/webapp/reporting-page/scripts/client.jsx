@@ -15,7 +15,7 @@ D2Library.getManifest('manifest.webapp')
     })
     .then(D2Library.getUserSettings)
     .then(userSettings => {
-        if (userSettings.keyUiLocale !== 'en') {
+        if (userSettings.keyUiLocale !== 'en' && userSettings.keyUiLocale !== null) {
             D2Library.config.i18n.sources.add(`i18n/i18n_module_${userSettings.keyUiLocale}.properties`);
         }
         D2Library.config.i18n.sources.add('i18n/i18n_module_en.properties');
