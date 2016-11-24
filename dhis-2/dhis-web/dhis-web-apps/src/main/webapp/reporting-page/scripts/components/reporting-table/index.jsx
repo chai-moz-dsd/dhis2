@@ -13,7 +13,6 @@ import {Link} from 'react-router';
 import "./report-table.scss";
 import * as calPeriod from "../../utils/cal_period";
 import {DEFAULT_TEXT_LEVEL, DEFAULT_WEEK_ROWS} from '../../configs';
-import moment from "moment";
 
 var _ = {
     each: require('lodash/each'),
