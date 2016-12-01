@@ -216,7 +216,8 @@ export default class OpsReporting extends Component {
             thInfo = _.concat(thInfo,
                 <th>{this.props.routes[0].d2.i18n.getTranslation('sync_status')}</th>,
                 <th>{this.props.routes[0].d2.i18n.getTranslation('sync_time')}</th>,
-                <th>{this.props.routes[0].d2.i18n.getTranslation('odk_version')}</th>
+                <th>{this.props.routes[0].d2.i18n.getTranslation('odk_version')}</th>,
+                <th>{this.props.routes[0].d2.i18n.getTranslation('comments')}</th>
             )
         }
 
@@ -227,7 +228,8 @@ export default class OpsReporting extends Component {
                     {
                         headerList.map((header, idx) => {
                             return (
-                                <th colSpan="3" key={idx}>{header.displayText}</th>
+                                <th colSpan="3" key={idx}>{header.displayText}</th>,
+                                <th colSpan="4" key={idx}>{header.displayText}</th>
                             )
                         })
                     }
@@ -309,7 +311,8 @@ export default class OpsReporting extends Component {
                         <span>{level == 3 ? item.syncTime.time : ''}</span>
                     </td>
                 ),
-                <td className={level == 3 ? css.ODKVersion : ''}>{level == 3 ? item.ODKVersion : ''}</td>
+                <td className={level == 3 ? css.ODKVersion : ''}>{level == 3 ? item.ODKVersion : ''}</td>,
+                <td className={level == 3 ? css.comments : ''}>{level == 3 ? item.comments : ''}</td>
             )
         });
 
