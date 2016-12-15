@@ -1,29 +1,57 @@
-import moment from "moment";
+import epi from './cal-epi';
+import moment from 'moment';
 moment.locale('moz');
 
 var _ = {
     each: require('lodash/each')
 };
 
+const FORMAT = 'YYYY-MM-DD';
+
 function generateWeek(tempDate) {
     return tempDate.weekYear() + 'W' + tempDate.week()
 }
+
 module.exports = {
     getWeekRange: function (dateRange) {
-        console.log('dateRange', dateRange);
-        var startDate = dateRange.startDate;
-        var endDate = dateRange.endDate;
-        console.log('startDate: ', startDate);
-        console.log('endDate: ', endDate);
-        if (startDate && endDate) {
-            var tempDate = moment(startDate).startOf("week");
-            var endPoint = moment(endDate).endOf("week");
-            var weekRange = [];
-            while (tempDate <= endPoint) {
-                weekRange.push(generateWeek(tempDate));
-                tempDate = tempDate.add(7, 'day')
+        const startDate = moment(dateRange.startDate);
+        const endDate = moment(dateRange.endDate);
+        if (startDate.isAfter(endDate)) {
+            return ['THIS_YEAR'];
+        }
+
+        let epiStartWeek = epi(startDate.format(FORMAT));
+        let epiEndWeek = epi(endDate.format(FORMAT));
+
+        console.log('epiStartWeek', epiStartWeek);
+        console.log('epiEndWeek', epiEndWeek);
+
+        if (epiStartWeek && epiEndWeek) {
+            let weekRange = [];
+            if (epiStartWeek.year === epiEndWeek.year) {
+                for (let week = epiStartWeek.week; week <= epiEndWeek.week; week++) {
+                    weekRange.push(`${epiStartWeek.year}W${week}`)
+                }
+            } else {
+                for (let year = epiStartWeek.year; year <= epiEndWeek.year; year++) {
+                    if (year === epiStartWeek.year) {
+                        for (let week = epiStartWeek.week; week <= 52; week++) {
+                            weekRange.push(`${epiStartWeek.year}W${week}`)
+                        }
+                    } else if (year === epiEndWeek.year) {
+                        for (let week = 1; week <= epiEndWeek.week; week++) {
+                            weekRange.push(`${epiEndWeek.year}W${week}`);
+                        }
+                    } else {
+                        for (let week = 1; week <= 52; week++) {
+                            weekRange.push(`${year}W${week}`);
+                        }
+                    }
+                }
             }
+
             console.log('weekRange', weekRange);
+
             return weekRange;
         }
         else {
