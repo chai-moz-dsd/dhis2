@@ -10,8 +10,11 @@ function generateWeek(tempDate) {
 }
 module.exports = {
     getWeekRange: function (dateRange) {
+        console.log('dateRange', dateRange);
         var startDate = dateRange.startDate;
         var endDate = dateRange.endDate;
+        console.log('startDate: ', startDate);
+        console.log('endDate: ', endDate);
         if (startDate && endDate) {
             var tempDate = moment(startDate).startOf("week");
             var endPoint = moment(endDate).endOf("week");
@@ -20,6 +23,7 @@ module.exports = {
                 weekRange.push(generateWeek(tempDate));
                 tempDate = tempDate.add(7, 'day')
             }
+            console.log('weekRange', weekRange);
             return weekRange;
         }
         else {
