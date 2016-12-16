@@ -23,9 +23,6 @@ module.exports = {
         let epiStartWeek = epi(startDate.format(FORMAT));
         let epiEndWeek = epi(endDate.format(FORMAT));
 
-        console.log('epiStartWeek', epiStartWeek);
-        console.log('epiEndWeek', epiEndWeek);
-
         if (epiStartWeek && epiEndWeek) {
             let weekRange = [];
             if (epiStartWeek.year === epiEndWeek.year) {
@@ -49,8 +46,6 @@ module.exports = {
                     }
                 }
             }
-
-            console.log('weekRange', weekRange);
 
             return weekRange;
         }
