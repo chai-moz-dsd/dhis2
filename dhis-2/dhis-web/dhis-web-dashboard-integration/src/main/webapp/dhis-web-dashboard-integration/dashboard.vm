@@ -75,6 +75,8 @@ jQuery( document ).ready( function() {
 
 <div id="dashboardListContainer" class="horizontalMenu">
     <div id="dashboardListWrapper" class="dashboardList">
+        <ul id="dashboardList">
+        </ul>
         <ul id="dashboardList"></ul>
     </div>
 </div>

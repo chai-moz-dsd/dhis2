@@ -68,6 +68,8 @@ $(document).ready(function () {
     $.getJSON("../api/system/info.json", function (json) {
         dhis2.db.contextPath = json.contextPath;
     });
+
+    $("#app-doughnut").hide();
 });
 
 //------------------------------------------------------------------------------
@@ -395,9 +397,6 @@ dhis2.db.renderDashboardListLoadFirst = function () {
 
     $l.empty();
 
-    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "default", "name": "Default"}));
-
-    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "doughnut", "name": "Doughnut"}));
 
     $.getJSON("../api/dashboards.json?fields=id,displayName&paging=false&links=false&" + dhis2.util.cacheBust(), function (data) {
         if (undefined !== data.dashboards) {
@@ -427,6 +426,9 @@ dhis2.db.renderDashboardListLoadFirst = function () {
             $("#contentList").append($.tmpl(dhis2.db.tmpl.moduleIntro, {"i18n_click": i18n_click_add_new_to_get_started}));
         }
     });
+
+    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "doughnut", "name": "Doughnut"}));
+
 }
 
 dhis2.db.clearDashboard = function () {
