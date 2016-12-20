@@ -6,7 +6,6 @@
 <script type="text/javascript" src="plugin/eventchart.js"></script>
 <script type="text/javascript" src="../dhis-web-commons/oust/oust.js"></script>
 <script type="text/javascript" src="javascript/dashboard.js"></script>
-
 <script type="text/javascript">
 
 var i18n_share_your_interpretation_of = '$encoder.jsEscape( $i18n.getString( "share_your_interpretation_of" ), "'")';
@@ -84,6 +83,8 @@ jQuery( document ).ready( function() {
     <ul id="contentList" class="horizontalMenu"></ul>
 </div>
 
+<div id="app-doughnut" ></div>
+
 <div id="chartView" class="page">
     <div id="chartViewHeader">
         <span><a id="chartImageDownload" href="javascript:dhis2.db.downloadImage()">$i18n.getString( "download" )</a></span>
@@ -131,3 +132,6 @@ jQuery( document ).ready( function() {
         <a class="greyButtonLink" href="javascript:dhis2.db.updateSelectedOrgUnits()">$i18n.getString( "update" )</a>
     </div>
 </div>
+
+<script type="text/javascript" src="javascript/doughnut.js"></script>
+

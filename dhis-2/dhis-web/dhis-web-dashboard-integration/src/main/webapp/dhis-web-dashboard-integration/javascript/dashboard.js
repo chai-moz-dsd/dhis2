@@ -395,6 +395,10 @@ dhis2.db.renderDashboardListLoadFirst = function () {
 
     $l.empty();
 
+    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "default", "name": "Default"}));
+
+    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "doughnut", "name": "Doughnut"}));
+
     $.getJSON("../api/dashboards.json?fields=id,displayName&paging=false&links=false&" + dhis2.util.cacheBust(), function (data) {
         if (undefined !== data.dashboards) {
             var first;
@@ -528,6 +532,20 @@ dhis2.db.renderDashboard = function (id) {
     if (!id) {
         return;
     }
+
+    $dou = $("#app-doughnut");
+
+    if (id === 'doughnut') {
+        $d = $("#contentList").empty();
+
+        $dou.show();
+        console.log('doughnut clear!!!!', $d);
+        dhis2.db.dashboardReady();
+        return;
+    } else {
+        $dou.hide();
+    }
+
 
     dhis2.db.reportTableItems = [];
 
