@@ -535,6 +535,19 @@ dhis2.db.renderDashboard = function (id) {
         return;
     }
 
+
+
+
+    dhis2.db.reportTableItems = [];
+
+    var fullWidth = dhis2.db.getFullWidth();
+
+    $("#dashboard-" + dhis2.db.current()).removeClass("currentDashboard");
+
+    dhis2.db.setCurrent(id);
+
+    $("#dashboard-" + dhis2.db.current()).addClass("currentDashboard");
+
     $dou = $("#app-doughnut");
 
     if (id === 'doughnut') {
@@ -548,16 +561,6 @@ dhis2.db.renderDashboard = function (id) {
         $dou.hide();
     }
 
-
-    dhis2.db.reportTableItems = [];
-
-    var fullWidth = dhis2.db.getFullWidth();
-
-    $("#dashboard-" + dhis2.db.current()).removeClass("currentDashboard");
-
-    dhis2.db.setCurrent(id);
-
-    $("#dashboard-" + dhis2.db.current()).addClass("currentDashboard");
 
     $.getJSON("../api/dashboards/" + id + "?fields=:all,dashboardItems[:all,reports[id,displayName],chart[id,displayName],map[id,displayName],reportTable[id,displayName],resources[id,displayName],users[id,displayName]]&" + dhis2.util.cacheBust(), function (data) {
         $( "#dashboardTitle" ).html( data.displayName );
