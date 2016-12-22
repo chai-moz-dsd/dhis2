@@ -504,6 +504,10 @@ dhis2.db.setFullItemWidth = function (id, isScrollbar) {
 
 dhis2.db.drawWideItems = function () {
     if (undefined !== dhis2.db.current()) {
+        if (dhis2.db.current() === 'doughnut') {
+            return;
+        }
+
         var url = "../api/dashboards/" + dhis2.db.current() + "?fields=dashboardItems[id,shape]",
             viewPortWidth = $(window).width(),
             marginAndSpacing = 60,
