@@ -1,0 +1,17 @@
+.titleContainer {
+  column-count: 2
+}
+
+.contentContainer {
+  column-count: 4
+}
+
+.currentWeek {
+  padding-top: 130px;
+  padding-left: 100px
+}
+
+.lastWeek {
+  padding-top: 148px;
+  padding-left: 100px
+}

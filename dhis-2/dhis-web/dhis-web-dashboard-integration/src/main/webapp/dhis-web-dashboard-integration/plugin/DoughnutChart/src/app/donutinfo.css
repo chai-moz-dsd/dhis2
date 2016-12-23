@@ -1,0 +1,42 @@
+.doughnutInfoStyle {
+  padding-top: 80px;
+  padding-left: 10px;
+}
+
+.total {
+  color: black;
+}
+
+.mBes {
+  color: darkblue;
+}
+
+.completed {
+  color: #84b761;
+}
+
+.incomplete {
+  color: #808184;
+}
+
+.missing {
+  color: #cc4748;
+}
+
+.total, .mBes, .completed, .incomplete, .missing {
+  font-size: 1.2em;
+}
+
+.doughnutTitle {
+  font-size: 40px;
+  color: darkcyan;
+  padding-left: 60px;
+}
+
+table {
+  font-size: 18px;
+}
+
+th, td {
+  padding: 10px;
+}
