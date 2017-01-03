@@ -26,7 +26,7 @@ export default class Donut extends React.Component {
   }
 
   updateDoughnutState(week) {
-    let offset = (week === 'thisWeek') ? 0 : 7;
+    let offset = (week === 'thisWeek') ? 0 : -7;
 
     axios.get(getRelatedOuList())
       .then(response => {
@@ -50,16 +50,17 @@ export default class Donut extends React.Component {
   };
 
   render() {
-    const epiWeek = epi(getToday());
+    const currentWeek = epi(getToday());
+    const lastWeek = epi(getToday(-7))
     return (
       <div>
         <div className={css.titleContainer}>
           <h3 className={css.currentWeek}>
-            {`National mBES submission data for week ${epiWeek.week - 1} ${epiWeek.year }`}
+            {`National mBES submission data for week ${currentWeek.week} ${currentWeek.year}`}
           </h3>
 
           <h3 className={css.lastWeek}>
-            {`National mBES submission data for week ${epiWeek.week - 2} ${epiWeek.year }`}
+            {`National mBES submission data for week ${lastWeek.week} ${lastWeek.year}`}
           </h3>
         </div>
 
