@@ -8,6 +8,9 @@ import DoughnutInfo from './donutinfo';
 import css from './donut.css';
 
 
+const LAST_WEEK_OFFSET = -7;
+const LAST_TWO_WEEK_OFFSET = -14;
+
 const mBes = [{status: 'completed', amount: 0},
   {status: 'incomplete', amount: 0},
   {status: 'missing', amount: 0}
@@ -26,7 +29,7 @@ export default class Donut extends React.Component {
   }
 
   updateDoughnutState(week) {
-    let offset = (week === 'thisWeek') ? 0 : -7;
+    let offset = (week === 'thisWeek') ? LAST_WEEK_OFFSET : LAST_TWO_WEEK_OFFSET;
 
     axios.get(getRelatedOuList())
       .then(response => {
@@ -50,17 +53,17 @@ export default class Donut extends React.Component {
   };
 
   render() {
-    const currentWeek = epi(getToday());
-    const lastWeek = epi(getToday(-7))
+    const lastWeek = epi(getToday(LAST_WEEK_OFFSET));
+    const theWeekBeforeLastWeek = epi(getToday(LAST_TWO_WEEK_OFFSET));
     return (
       <div>
         <div className={css.titleContainer}>
-          <h3 className={css.currentWeek}>
-            {`National mBES submission data for week ${currentWeek.week} ${currentWeek.year}`}
-          </h3>
-
           <h3 className={css.lastWeek}>
             {`National mBES submission data for week ${lastWeek.week} ${lastWeek.year}`}
+          </h3>
+
+          <h3 className={css.theWeekBeforeLastWeek}>
+            {`National mBES submission data for week ${theWeekBeforeLastWeek.week} ${theWeekBeforeLastWeek.year}`}
           </h3>
         </div>
 
