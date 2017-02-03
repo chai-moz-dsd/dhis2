@@ -601,6 +601,8 @@ public class HibernateDataValueStore
             "and p.periodtypeid in (" + TextUtils.getCommaDelimitedString( getIds( periodTypes ) ) + ") " +
             whereCo + whereCog + whereCombo;
 
+        log.debug("[TW debug] sql: " + sql);
+
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet( sql );
 
         MapMap<Integer, DataElementOperand, Long> checkForDuplicates = new MapMap<>();

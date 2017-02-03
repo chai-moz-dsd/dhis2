@@ -141,7 +141,7 @@ public class DataValidationTask
                             periodTypeX.getAllowedPeriodTypes(), period, sourceX.getSource(), lastUpdatedMap,
                             incompleteValuesMap );
 
-                        log.trace( "Source " + sourceX.getSource().getName() + " [" + period.getStartDate() + " - "
+                        log.debug( "Source " + sourceX.getSource().getName() + " [" + period.getStartDate() + " - "
                             + period.getEndDate() + "]" + " currentValueMap[" + currentValueMap.size() + "]" );
 
                         for ( ValidationRule rule : rules )
@@ -164,6 +164,8 @@ public class DataValidationTask
                                         period, window, n_years, skip,
                                         periodTypeX, periodTypes, lastUpdatedMap, sourceDataElements );
 
+                                log.debug("[TW debug] leftSideValues size: " + leftSideValues.size());
+
                                 if ( !leftSideValues.isEmpty()
                                     || Operator.compulsory_pair.equals( rule.getOperator() )
                                     || Operator.exclusive_pair.equals( rule.getOperator() ) )
@@ -173,6 +175,8 @@ public class DataValidationTask
                                             currentValueMap, incompleteValuesMap, sourceX.getSource(),
                                             period, window, n_years, skip, periodTypeX, periodTypes, lastUpdatedMap,
                                             sourceDataElements );
+
+                                    log.debug("[TW debug] rightSideValues size: " + rightSideValues.size());
 
                                     if ( !rightSideValues.isEmpty()
                                         || Operator.compulsory_pair.equals( rule.getOperator() )
@@ -480,7 +484,7 @@ public class DataValidationTask
         Set<DataElement> dataElementsToGet = new HashSet<>( ruleDataElements );
         dataElementsToGet.retainAll( sourceDataElements );
 
-        log.trace( "getDataValueMapRecursive: source:" + source.getName() + " ruleDataElements["
+        log.debug( "getDataValueMapRecursive: source:" + source.getName() + " ruleDataElements["
             + ruleDataElements.size() + "] sourceDataElements[" + sourceDataElements.size() + "] elementsToGet["
             + dataElementsToGet.size() + "] recursiveDataElements[" + recursiveDataElements.size()
             + "] allowedPeriodTypes[" + allowedPeriodTypes.size() + "]" );
@@ -499,9 +503,14 @@ public class DataValidationTask
                 context.getCogDimensionConstraints(), context.getCoDimensionConstraints(), lastUpdatedMap );
         }
 
+        log.debug("[TW debug] dataValueMap size: " + dataValueMap.size());
+
         // See if there are any data elements we need to get recursively:
         Set<DataElement> recursiveDataElementsNeeded = new HashSet<>( recursiveDataElements );
-        recursiveDataElementsNeeded.removeAll( dataElementsToGet );
+
+        // [TW!!!] Rules for district will not aggregate any values on the facility level
+        // as recursiveDataElementsNeeded is always empty. So remove the following line.
+        //recursiveDataElementsNeeded.removeAll( dataElementsToGet );
 
         if ( !recursiveDataElementsNeeded.isEmpty() )
         {
