@@ -566,7 +566,7 @@ public class DefaultValidationRuleService
             }
             builder.append(result.getPeriod().getName()).append( LN )
                     .append(location).append( LN )
-                    .append( rule.getName() ).append(", ").append( result.getLeftsideValue() );
+                    .append( rule.getName() ).append(", ").append( result.getLeftsideValue() ).append( LN );
         }
         String subject = new StringBuilder().append(leftSideDescription)
                 .append(" is surpassing threshold on ")
