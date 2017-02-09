@@ -60,6 +60,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 import org.hisp.dhis.organisationunit.OrganisationUnit;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static org.hisp.dhis.commons.util.TextUtils.LN;
@@ -159,6 +161,43 @@ public class DefaultValidationRuleService
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    public String getEpiWeek(String day) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = dateFormat.parse(day);
+            return chageDateToEpiWeek(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    private String chageDateToEpiWeek(Date date) {
+        GregorianCalendar gcal = new GregorianCalendar();
+        gcal.setMinimalDaysInFirstWeek(4);
+        gcal.setFirstDayOfWeek(Calendar.SUNDAY);
+        gcal.setTime(date);
+
+        int weekOfYear =  gcal.get(Calendar.WEEK_OF_YEAR);
+        int monthOfYear = gcal.get(Calendar.MONTH) + 1;
+
+        int year = gcal.get(Calendar.YEAR);
+        if ((weekOfYear == 1) && (monthOfYear == 12)) {
+            year += 1;
+        }
+
+        if ((weekOfYear == 52) && (monthOfYear == 1)) {
+            year -= 1;
+        }
+
+        if (weekOfYear == 53) {
+            return "";
+        }
+
+        return String.format("%dW%02d", year, weekOfYear);
+    }
+
 
     // -------------------------------------------------------------------------
     // ValidationRule business logic
@@ -618,7 +657,7 @@ public class DefaultValidationRuleService
             {
                 if ( result != null && result.getPeriod() != null )
                 {
-                    result.getPeriod().setName( format.formatPeriod( result.getPeriod() ) );
+                    result.getPeriod().setName( getEpiWeek(result.getPeriod().getStartDateString()) );
                 }
             }
         }
