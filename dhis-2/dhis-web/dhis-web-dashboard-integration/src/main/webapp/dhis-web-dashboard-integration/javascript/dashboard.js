@@ -427,7 +427,7 @@ dhis2.db.renderDashboardListLoadFirst = function () {
         }
     });
 
-    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "doughnut", "name": "Doughnut"}));
+    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "doughnut", "name": i18n_donut_name}));
 
 }
 
