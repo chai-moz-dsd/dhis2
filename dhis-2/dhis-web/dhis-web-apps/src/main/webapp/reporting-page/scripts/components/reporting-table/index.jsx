@@ -136,8 +136,9 @@ class ReportingTable extends React.Component {
                 'xmlns="http://www.w3.org/TR/REC-html40">' +
                 '<head>' +
                 '<!--[if gte mso 9]>' +
+                '<xml>' +
                 '<style> table, td {border: thin solid black} table {border-collapse:collapse}</style>' +
-                '<xml><x:ExcelWorkbook>' +
+                '<x:ExcelWorkbook>' +
                 '<x:ExcelWorksheets><x:ExcelWorksheet>' +
                 '<x:Name>{worksheet}</x:Name>' +
                 '<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>' +
