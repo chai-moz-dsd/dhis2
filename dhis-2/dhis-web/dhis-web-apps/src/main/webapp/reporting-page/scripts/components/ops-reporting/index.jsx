@@ -229,7 +229,7 @@ export default class OpsReporting extends Component {
                         headerList.map((header, idx) => {
                             return (
                                 <th colSpan="3" key={idx}>{header.displayText}</th>,
-                                <th colSpan="4" key={idx}>{header.displayText}</th>
+                                    <th colSpan="4" key={idx}>{header.displayText}</th>
                             )
                         })
                     }
@@ -299,14 +299,16 @@ export default class OpsReporting extends Component {
         };
 
         value.forEach((item) => {
+            const syncStatus = this.props.routes[0].d2.i18n.getTranslation(syncStatusMap[item.syncStatus]);
+            const syncTime = this.props.routes[0].d2.i18n.getTranslation(syncTimeStatusMap[item.syncTime.status]);
             columnList = _.concat(columnList,
                 <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : ''}>
-                    {level == 3 ? syncStatusMap[item.syncStatus] : ''}</td>,
+                    {level == 3 ? syncStatus : ''}</td>,
                 (
                     <td className={level == 3 ? css.syncTime : ''}>
                         <span
                             className={level == 3 ? css.syncTimeStatus + ' ' + (item.syncTime.status < 0 ? css.mark : '') : ''}>
-                            {level == 3 ? syncTimeStatusMap[item.syncTime.status] : ''}
+                            {level == 3 ? syncTime : ''}
                         </span>
                         <span>{level == 3 ? item.syncTime.time : ''}</span>
                     </td>
@@ -374,13 +376,16 @@ export default class OpsReporting extends Component {
             <div className={ css.content }>
                 <div className={ css.changeScreenLabel }>
                     <Link to='/?category=location'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('location')} icon='location_city'/>
+                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('location')}
+                                     icon='location_city'/>
                     </Link>
                     <Link to='/?category=week'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('time_series')} icon='date_range'/>
+                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('time_series')}
+                                     icon='date_range'/>
                     </Link>
                     <Link to='/ops'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('ops_indicator')} active={true} icon='assignment'/>
+                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('ops_indicator')} active={true}
+                                     icon='assignment'/>
                     </Link>
                 </div>
                 <div className={ css.tableContainer }>

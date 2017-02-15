@@ -17,15 +17,15 @@ export const DEFAULT_WEEK_ROWS = 24;
 export const DEFAULT_OPS_COLUMN = 3;
 
 export const syncStatusMap = {
-    '-1': 'mBes not submitted',
-    '0': 'Incomplete mBes submitted',
-    '1': 'Complete mBes submitted'
+    '-1': 'mBes_not_submitted',
+    '0': 'mBes_incomplete',
+    '1': 'mBes_complete'
 };
 
 export const syncTimeStatusMap = {
-    '-1': 'Late submission',
+    '-1': 'mBes_late_submission',
     '0': '',
-    '1': 'Early submission'
+    '1': 'mBes_early_submission'
 };
 
 export const categoryList = ['location', 'week'];
