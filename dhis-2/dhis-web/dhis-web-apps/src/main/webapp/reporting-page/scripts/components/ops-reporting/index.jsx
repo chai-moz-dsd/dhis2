@@ -194,10 +194,16 @@ export default class OpsReporting extends Component {
         let endWeek = endDate >= startDate ? moment(endDate) : startDate;
 
         let headerList = [];
+        const i18nForDate = (date) => {
+            let dateList = date.split(' ');
+            dateList[1] = this.props.routes[0].d2.i18n.getTranslation(dateList[1]);
+            console.log(dateList.join(' '));
+            return dateList.join(' ');
+        };
 
         while (endWeek >= startWeek) {
-            const startDayOfWeek = endWeek.startOf('week').format('D MMM');
-            const endDayOfWeek = endWeek.endOf('week').format('D MMM');
+            const startDayOfWeek = i18nForDate(endWeek.startOf('week').format('D MMM'));
+            const endDayOfWeek = i18nForDate(endWeek.endOf('week').format('D MMM'));
 
             headerList.push({
                 moment: endWeek,
