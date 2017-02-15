@@ -21,24 +21,21 @@ export default class DatePickerBar extends React.Component {
         d2: React.PropTypes.object
     };
 
-    i18nForDate(date, d2) {
-        const formatDate = `${moment(date).format('D MMMM YYYY')}`;
-        let dateList = formatDate.split(' ');
-        dateList[1] = d2.i18n.getTranslation(dateList[1]);
-
-        return ' '.join(dateList);
-    }
-
     render() {
         // moment.locale(this.context.d2.i18n.getTranslation('locale'));
-        const formatWeek = (date) => this.context.d2.i18n.getTranslation('week') + ` ${epi(date).week}`;
-        const weekAndDate = formatWeek + ', ' + i18nForDate(date, d2);
         const {label, value, minDate, maxDate, onChange, onClean} = this.props;
+        const i18nForDate = (date) => {
+            const formatWeek = this.context.d2.i18n.getTranslation('week') + ` ${epi(date).week}`;
+            const formatDate = `${moment(date).format('D MMMM YYYY')}`;
+            let dateList = formatDate.split(' ');
+            dateList[1] = this.context.d2.i18n.getTranslation(dateList[1]);
 
+            return formatWeek + ', ' + dateList.join(' ');
+        };
         return (
             <div>
                 <DatePicker icon="event"
-                            inputFormat={weekAndDate}
+                            inputFormat={i18nForDate}
                             sundayFirstDayOfWeek
                             autoOk
                             label={label}
