@@ -307,7 +307,6 @@ export default class OpsReporting extends Component {
         value.forEach((item) => {
             const syncStatus = this.props.routes[0].d2.i18n.getTranslation(syncStatusMap[item.syncStatus]);
             const syncTime = item.syncTime.status == '0' ? '' : this.props.routes[0].d2.i18n.getTranslation(syncTimeStatusMap[item.syncTime.status]);
-
             columnList = _.concat(columnList,
                 <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : ''}>
                     {level == 3 ? syncStatus : ''}</td>,
