@@ -24,7 +24,7 @@ export const syncStatusMap = {
 
 export const syncTimeStatusMap = {
     '-1': 'mBes_late_submission',
-    '0': '',
+    '0': 'null_string',
     '1': 'mBes_early_submission'
 };
 
