@@ -295,6 +295,10 @@ export default class OpsReporting extends Component {
         });
     }
 
+    getI18nSyncTime(status, statusMap, localeFunction) {
+        return (status == null) || (status == '0') ? '' : `${localeFunction(statusMap[status])}`;
+    }
+
     renderValue(level, value = []) {
         let columnList = [];
         const bgColor = {
@@ -305,9 +309,10 @@ export default class OpsReporting extends Component {
 
         value.forEach((item) => {
             const syncStatus = this.props.routes[0].d2.i18n.getTranslation(syncStatusMap[item.syncStatus]);
-            const syncTime = item.syncTime.status == '0' ? '' : this.props.routes[0].d2.i18n.getTranslation(syncTimeStatusMap[item.syncTime.status]);
-            console.log(item.syncTime.status);
-            console.log(syncTimeStatusMap[item.syncTime.status]);
+            const syncTime = self.getI18nSyncTime(item.syncTime.status,
+                                                    syncTimeStatusMap,
+                                                    this.props.routes[0].d2.i18n.getTranslation);
+
             columnList = _.concat(columnList,
                 <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : ''}>
                     {level == 3 ? syncStatus : ''}</td>,
