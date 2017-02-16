@@ -28,6 +28,10 @@ export default class OpsReporting extends Component {
         muiTheme: React.PropTypes.object,
     };
 
+    static getI18nSyncTime(status, statusMap, localeFunction) {
+        return (!status || status == '0') ? '' : `${localeFunction(statusMap[status])}`;
+    }
+
     constructor() {
         super();
 
@@ -186,6 +190,7 @@ export default class OpsReporting extends Component {
         )
     }
 
+
     renderTableHead() {
         const startDate = this.state.tableStartDate || new Date(moment().subtract((DEFAULT_OPS_COLUMN - 1), 'weeks'));
         const endDate = this.state.tableEndDate || new Date();
@@ -248,7 +253,6 @@ export default class OpsReporting extends Component {
             )
     }
 
-
     fetchChild(item, enableFetch) {
         if (item.showChildren || item.children) {
             item.showChildren = !item.showChildren;
@@ -295,10 +299,6 @@ export default class OpsReporting extends Component {
         });
     }
 
-    getI18nSyncTime(status, statusMap, localeFunction) {
-        return (status == null) || (status == '0') ? '' : `${localeFunction(statusMap[status])}`;
-    }
-
     renderValue(level, value = []) {
         let columnList = [];
         const bgColor = {
@@ -309,9 +309,8 @@ export default class OpsReporting extends Component {
 
         value.forEach((item) => {
             const syncStatus = this.props.routes[0].d2.i18n.getTranslation(syncStatusMap[item.syncStatus]);
-            const syncTime = self.getI18nSyncTime(item.syncTime.status,
-                                                    syncTimeStatusMap,
-                                                    this.props.routes[0].d2.i18n.getTranslation);
+            const syncTime = OpsReporting.getI18nSyncTime(item.syncTime.status, syncTimeStatusMap,
+                this.props.routes[0].d2.i18n.getTranslation);
 
             columnList = _.concat(columnList,
                 <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : ''}>
