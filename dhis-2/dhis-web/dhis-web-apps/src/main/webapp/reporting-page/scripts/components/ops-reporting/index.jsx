@@ -28,10 +28,6 @@ export default class OpsReporting extends Component {
         muiTheme: React.PropTypes.object,
     };
 
-    static getI18nSyncTime(status, statusMap, localeFunction) {
-        return (!status || status == '0') ? '' : `${localeFunction(statusMap[status])}`;
-    }
-
     constructor() {
         super();
 
@@ -309,8 +305,8 @@ export default class OpsReporting extends Component {
 
         value.forEach((item) => {
             const syncStatus = this.props.routes[0].d2.i18n.getTranslation(syncStatusMap[item.syncStatus]);
-            const syncTime = OpsReporting.getI18nSyncTime(item.syncTime.status, syncTimeStatusMap,
-                this.props.routes[0].d2.i18n.getTranslation);
+            const syncTime = (!item.syncTime.status || item.syncTime.status == '0') ? '' :
+                this.props.routes[0].d2.i18n.getTranslation(syncTimeStatusMap[item.syncTime.status]);
 
             columnList = _.concat(columnList,
                 <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : ''}>
