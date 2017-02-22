@@ -50,7 +50,7 @@
                     <a id="forgotPasswordLink" href="recovery.action">Forgot password?</a>
                 </div>
                 #end
-                <div id="redirectToMBes" style="padding-bottom: 10px">
+                <div id="redirectToMBes">
                     <a href="http://www.supervisaombes.com">Redirect to mBES</a>
                 </div>
                 #if( $keyConfig.selfRegistrationAllowed() )
