@@ -21,7 +21,7 @@ export function getRelatedOuList() {
 }
 
 export function getDonutChartData(year, week, ou) {
-  return `${getBaseUrl(50000)}api/data_completeness?week=${year}W${week - 1}&ou=${ou}`;
+  return `${getBaseUrl(50000)}api/data_completeness?week=${year}W${week}&ou=${ou}`;
 }
 
 export function getIndicatorUrl() {
