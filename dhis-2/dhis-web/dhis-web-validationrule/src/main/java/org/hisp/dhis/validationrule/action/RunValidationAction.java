@@ -197,6 +197,7 @@ public class RunValidationAction
                 .parseDate( startDate ), format.parseDate( endDate ), organisationUnits, attributeOptionCombo, group, sendAlerts, format ) );
 
         maxExceeded = validationResults.size() > ValidationRuleService.MAX_INTERACTIVE_ALERTS;
+        log.info( "Validating data exceeded is " + validationResults.size());
 
         Collections.sort( validationResults, new ValidationResultComparator() );
 
