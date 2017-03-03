@@ -4,6 +4,7 @@ import {VictoryPie} from 'victory-pie';
 import {VictoryContainer} from 'victory-core';
 import {DonutColor} from './config';
 import {getIndicatorUrl} from './utils';
+import css from './donutpie.css'
 
 
 export default class DoughnutPie extends Component {
@@ -26,7 +27,7 @@ export default class DoughnutPie extends Component {
   render() {
 
     return (
-      <div onClick={DoughnutPie.redirectToIndex}>
+      <div onClick={DoughnutPie.redirectToIndex} className={css.donutPie}>
         <VictoryPie
         data={this.props.data.mBes}
         x="status"
