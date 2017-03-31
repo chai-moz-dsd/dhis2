@@ -239,8 +239,8 @@ public class AnalyticsController {
     private boolean validateSarampoCaseInWeeks(DataQueryParams params, ValidationRule rule,
                                                Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
-        int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
-        int threshold = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+        int weeks = Integer.valueOf(additionalRuleExpression.split("\n")[0].split(":")[1], 10);
+        int threshold = Integer.valueOf(additionalRuleExpression.split("\n")[1].split(":")[1], 10);
 
         int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
@@ -283,8 +283,8 @@ public class AnalyticsController {
     private boolean validateMeningiteCaseIncreasedByTimes(DataQueryParams params, ValidationRule rule,
                                                           Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
-        int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
-        int weeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+        int times = Integer.valueOf(additionalRuleExpression.split("\n")[0].split(":")[1], 10);
+        int weeks = Integer.valueOf(additionalRuleExpression.split("\n")[1].split(":")[1], 10);
 
         int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
@@ -334,8 +334,8 @@ public class AnalyticsController {
     private boolean validateDisenteriaCaseInYears(DataQueryParams params, ValidationRule rule,
                                                   Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
-        int years = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
-        int times = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
+        int years = Integer.valueOf(additionalRuleExpression.split("\n")[0].split(":")[1], 10);
+        int times = Integer.valueOf(additionalRuleExpression.split("\n")[1].split(":")[1], 10);
 
         int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
@@ -396,10 +396,10 @@ public class AnalyticsController {
     private boolean validateMalariaCaseInYears(DataQueryParams params, ValidationRule rule,
                                                Collection<OrganisationUnit> organisationUnits) {
         String additionalRuleExpression = rule.getAdditionalRule();
-        int earlyWeeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[0].split(":")[1], 10);
-        int afterWeeks = Integer.valueOf(additionalRuleExpression.split("\r\n")[1].split(":")[1], 10);
-        int pastYears = Integer.valueOf(additionalRuleExpression.split("\r\n")[2].split(":")[1], 10);
-        int stddevTimes = Integer.valueOf(additionalRuleExpression.split("\r\n")[3].split(":")[1], 10);
+        int earlyWeeks = Integer.valueOf(additionalRuleExpression.split("\n")[0].split(":")[1], 10);
+        int afterWeeks = Integer.valueOf(additionalRuleExpression.split("\n")[1].split(":")[1], 10);
+        int pastYears = Integer.valueOf(additionalRuleExpression.split("\n")[2].split(":")[1], 10);
+        int stddevTimes = Integer.valueOf(additionalRuleExpression.split("\n")[3].split(":")[1], 10);
 
         int currentWeek = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[1], 10);
         int currentYear = Integer.valueOf(((Period) ((DataQueryParams) params).getFilterPeriods().get(0)).getIsoDate().split("W")[0], 10);
