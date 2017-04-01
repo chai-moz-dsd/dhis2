@@ -166,6 +166,11 @@ public class AnalyticsController {
             String highLight = "highlight.false";
             String diseaseId = (String) row.get(0);
 
+            if (row.get(2).equals(0.0)) {
+                row.add(highLight);
+                continue;
+            }
+
             try {
 
                 String ou = grid.getHeaders().get(1).getName().equals("ou") ? (String) row.get(1) : "MOH12345678";
