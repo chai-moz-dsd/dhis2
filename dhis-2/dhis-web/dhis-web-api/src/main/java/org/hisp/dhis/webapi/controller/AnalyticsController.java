@@ -89,6 +89,11 @@ public class AnalyticsController {
     private static final String MALARIA_CASE_IN_YEARS = "MalariaCaseInYears";
     private static final String DISENTERIA_CASE_IN_YEARS = "DisenteriaCaseInYears";
 
+    private static final String HIGH_LIGHT_FALSE = "highlight.false";
+    private static final String HIGH_LIGHT_TRUE = "highlight.true";
+    public static final String MOH = "MOH12345678";
+    public static final String OU = "ou";
+
 
     @Autowired
     private DataQueryService dataQueryService;
@@ -109,7 +114,7 @@ public class AnalyticsController {
     private ValidationRuleService validationRuleService;
 
     @Autowired
-    private OrganisationUnitService organisationUnitService;
+    private OrganisationUnitService orgUnitService;
 
     // -------------------------------------------------------------------------
     // Resources
@@ -153,55 +158,42 @@ public class AnalyticsController {
     }
 
     private void highLightForDataValues(DataQueryParams params, Grid grid) {
-        List<ValidationRule> rules = validationRuleService.getAllValidationRules();
 
         List<List<Object>> allRows = grid.getRows();
         List<Object> r = new ArrayList<>();
-//        r.add("ma97d9c69c5");
-//        r.add("MOH12345678");
-//        r.add(3.0);
-//        allRows.add(r);
 
-        for (List<Object> row : allRows) {
-            String highLight = "highlight.false";
-            String diseaseId = (String) row.get(0);
+        allRows.stream()
+                .filter(row -> row.get(2).equals(0.0))
+                .forEach(row -> row.add(HIGH_LIGHT_FALSE));
 
-            if (row.get(2).equals(0.0)) {
-                row.add(highLight);
-                continue;
-            }
+        allRows.stream()
+                .filter(row -> !row.get(2).equals(0.0))
+                .forEach(row -> {
+                    try {
+                        String diseaseId = (String) row.get(0);
+                        String ou = grid.getHeaders().get(1).getName().equals(OU) ? (String) row.get(1) : MOH;
+                        Collection<OrganisationUnit> orgUnits =
+                                orgUnitService.getOrganisationUnitWithChildren(orgUnitService.getOrganisationUnit(ou).getId());
 
-            try {
+                        List<ValidationRule> rules = validationRuleService.getAllValidationRules();
+                        Optional<ValidationRule> optionalRule = rules.stream()
+                                .filter(rule -> isValidRuleForDisease(diseaseId, rule))
+                                .filter(rule -> validateDisease(params, row, orgUnits, rule))
+                                .findFirst();
 
-                String ou = grid.getHeaders().get(1).getName().equals("ou") ? (String) row.get(1) : "MOH12345678";
-                OrganisationUnit organisationUnit = organisationUnitService.getOrganisationUnit(ou);
-                Collection<OrganisationUnit> organisationUnits =
-                        organisationUnitService.getOrganisationUnitWithChildren(organisationUnit.getId());
+                        String highLight = (optionalRule == null) ? HIGH_LIGHT_FALSE : HIGH_LIGHT_TRUE;
+                        row.add(highLight);
 
-                for (ValidationRule rule : rules) {
-                    if (!isValidRuleForDisease(diseaseId, rule)) {
-                        continue;
+                    } catch (Exception e) {
+                        appendStackTraces(row, e);
                     }
+                });
+    }
 
-                    boolean shouldHighLight = validateDisease(params, row, organisationUnits, rule);
-                    highLight = shouldHighLight ? "highlight.true" : "highlight.false";
-
-                    if (shouldHighLight) {
-                        break;
-                    }
-                }
-                row.add(highLight);
-            } catch (Exception e) {
-                StackTraceElement[] traces = e.getStackTrace();
-
-                if (traces.length > 0) {
-                    row.add(traces[0]);
-                } else {
-                    row.add("");
-                }
-            }
-
-        }
+    private void appendStackTraces(List<Object> row, Exception e) {
+        StackTraceElement[] traces = e.getStackTrace();
+        String trace = traces.length > 0 ? traces[0].toString() : HIGH_LIGHT_FALSE;
+        row.add(trace);
     }
 
 
@@ -211,10 +203,9 @@ public class AnalyticsController {
 
         switch (rule.getAdditionalRuleType()) {
             case SIMPLE_RULE_TYPE:
-                Operator operator = rule.getOperator();
                 double threshold = Double.valueOf(rule.getRightSide().getExpression());
 
-                return !expressionIsTrue((Double) row.get(2), operator, threshold);
+                return !expressionIsTrue((Double) row.get(2), rule.getOperator(), threshold);
             case SARAMPO_CASE_IN_MONTHS:
                 return isPeriodOneWeek(params) && validateSarampoCaseInWeeks(params, rule, organisationUnits);
 
