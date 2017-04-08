@@ -181,7 +181,7 @@ public class AnalyticsController {
                                 .filter(rule -> validateDisease(params, row, orgUnits, rule))
                                 .findFirst();
 
-                        String highLight = (optionalRule == null) ? HIGH_LIGHT_FALSE : HIGH_LIGHT_TRUE;
+                        String highLight = optionalRule.isPresent() ? HIGH_LIGHT_TRUE : HIGH_LIGHT_FALSE;
                         row.add(highLight);
 
                     } catch (Exception e) {
