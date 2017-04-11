@@ -15,7 +15,7 @@ import static org.hisp.dhis.system.util.MathUtils.*;
 /**
  * Created by wbwang on 09/04/2017.
  */
-public class HighLightSimpleRuleValidation implements HighLightValidation {
+public class HighLightSimpleRuleValidation extends HighLightValidationService {
     public boolean validate(List<Object> row,
                             I18nManager i18nManager,
                             ValidationRuleService validationRuleService,

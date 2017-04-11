@@ -15,31 +15,7 @@ import org.hisp.dhis.period.Period;
 /**
  * Created by wbwang on 09/04/2017.
  */
-public class HighLightMeningiteValidation implements HighLightValidation{
-    private Calendar initCalendar(int currentWeek, int currentYear) {
-        Calendar cal = Calendar.getInstance();
-        cal.setMinimalDaysInFirstWeek(4);
-        cal.set(currentYear, 1, 1);
-        cal.set(Calendar.WEEK_OF_YEAR, currentWeek);
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
-        return cal;
-    }
-
-    private Date calculateStartDate(int earlyWeeks, int afterWeeks, int currentWeek, int currentYear) {
-        Calendar cal = initCalendar(currentWeek, currentYear);
-
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        cal.add(Calendar.DAY_OF_YEAR, (-1 * (earlyWeeks + afterWeeks)) * 7);
-        return cal.getTime();
-    }
-
-    private Date calculateEndDate(int earlyWeeks, int afterWeeks, int currentWeek, int currentYear) {
-        Calendar cal = initCalendar(currentWeek, currentYear);
-
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        cal.add(Calendar.DAY_OF_YEAR, (-1 * (earlyWeeks + afterWeeks)) * 7);
-        return cal.getTime();
-    }
+public class HighLightMeningiteValidation extends HighLightValidationService {
 
     public boolean validate(List<Object> row,
                             I18nManager i18nManager,
