@@ -42,7 +42,7 @@ public abstract class HighLightValidationService implements HighLightValidation 
         Calendar cal = initCalendar(currentWeek, currentYear);
 
         cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
-        cal.add(Calendar.DAY_OF_YEAR, (-1 * (earlyWeeks + afterWeeks)) * 7);
+        cal.add(Calendar.DAY_OF_YEAR, (1 * (earlyWeeks + afterWeeks)) * 7);
         return cal.getTime();
     }
 }

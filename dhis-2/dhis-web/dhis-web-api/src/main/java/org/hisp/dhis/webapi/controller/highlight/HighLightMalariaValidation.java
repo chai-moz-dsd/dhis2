@@ -84,9 +84,12 @@ public class HighLightMalariaValidation extends HighLightValidationService {
 
                 List<ValidationResult> previousYearsResults = new ArrayList<>();
 
+                Date previousYearStartDate = null;
+                Date previousYearEndDate = null;
+
                 for (int i = 1; i < pastYears; i++) {
-                    startDate = calculateStartDate(earlyWeeks, 0, currentWeek, currentYear - i);
-                    endDate = calculateEndDate(0, afterWeeks, currentWeek, currentYear - i);
+                    previousYearStartDate = calculateStartDate(earlyWeeks, 0, currentWeek, currentYear - i);
+                    previousYearEndDate = calculateEndDate(0, afterWeeks, currentWeek, currentYear - i);
 
                     previousYearsResults.addAll(validationRuleService.validate(
                             startDate,

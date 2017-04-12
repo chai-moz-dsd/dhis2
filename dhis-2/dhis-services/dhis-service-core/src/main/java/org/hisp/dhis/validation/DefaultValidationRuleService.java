@@ -207,7 +207,7 @@ public class DefaultValidationRuleService
     public Collection<ValidationResult> validate( Date startDate, Date endDate, Collection<OrganisationUnit> sources,
         DataElementCategoryOptionCombo attributeCombo, ValidationRuleGroup group, boolean sendAlerts, I18nFormat format )
     {
-        log.info( "Validate start:" + startDate + " end: " + endDate + " sources: " + sources.size() + " group: " + group );
+//        log.info( "Validate start:" + startDate + " end: " + endDate + " sources: " + sources.size() + " group: " + group );
 
         List<Period> periods = periodService.getPeriodsBetweenDates( startDate, endDate );
         Collection<ValidationRule> rules = group != null ? group.getMembers() : getAllValidationRules();
@@ -235,7 +235,7 @@ public class DefaultValidationRuleService
     @Override
     public Collection<ValidationResult> validate( Date startDate, Date endDate, OrganisationUnit source )
     {
-        log.info( "Validate start: " + startDate + " end: " + endDate + " source: " + source.getName() );
+//        log.info( "Validate start: " + startDate + " end: " + endDate + " source: " + source.getName() );
 
         Collection<Period> periods = periodService.getPeriodsBetweenDates( startDate, endDate );
         Collection<ValidationRule> rules = getAllValidationRules();
