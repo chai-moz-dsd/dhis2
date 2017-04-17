@@ -14,6 +14,21 @@
       <param name="menu">/dhis-web-validationrule/menu.vm</param>
     </action>
 
+    <!-- alertConfiguration CRUD operations just edit-->
+    <action name="getAlertConfiguration" class="org.hisp.dhis.validationrule.action.GetAlertConfiguration">
+      <result name="success" type="velocity">/main.vm</result>
+      <param name="page">/dhis-web-validationrule/alertConfiguration.vm</param>
+      <param name="menu">/dhis-web-validationrule/menu.vm</param>
+      <param name="javascripts">javascript/multipicker.js, javascript/alertConfig.js</param>
+    </action>
+
+    <action name="updateAlertConfiguration" class="org.hisp.dhis.validationrule.action.UpdateAlertConfiguration">
+      <result name="success" type="velocity">/main.vm</result>
+      <param name="page">/dhis-web-validationrule/alertConfiguration.vm</param>
+      <param name="menu">/dhis-web-validationrule/menu.vm</param>
+      <param name="javascripts">javascript/multipicker.js, javascript/alertConfig.js</param>
+    </action>
+
     <!-- ValidationRule CRUD operations -->
 
     <action name="validationRule" class="org.hisp.dhis.validationrule.action.GetValidationRuleListAction">
