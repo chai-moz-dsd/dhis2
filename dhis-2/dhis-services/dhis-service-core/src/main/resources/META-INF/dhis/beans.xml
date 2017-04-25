@@ -259,6 +259,12 @@
     <property name="cacheable" value="true" />
   </bean>
 
+  <bean id="org.hisp.dhis.validation.AlertConfigurationStore" class="org.hisp.dhis.validation.hibernate.HibernateAlertConfigurationStore">
+    <property name="clazz" value="org.hisp.dhis.validation.AlertConfiguration" />
+    <property name="sessionFactory" ref="sessionFactory" />
+    <property name="cacheable" value="true" />
+  </bean>
+
   <bean id="org.hisp.dhis.validation.ValidationRuleGroupStore" class="org.hisp.dhis.common.hibernate.HibernateIdentifiableObjectStore">
     <property name="clazz" value="org.hisp.dhis.validation.ValidationRuleGroup" />
     <property name="sessionFactory" ref="sessionFactory" />
@@ -879,6 +885,10 @@
     <property name="organisationUnitService" ref="org.hisp.dhis.organisationunit.OrganisationUnitService" />
     <property name="currentUserService" ref="org.hisp.dhis.user.CurrentUserService" />
     <property name="systemSettingManager" ref="org.hisp.dhis.setting.SystemSettingManager" />
+  </bean>
+
+  <bean id="org.hisp.dhis.validation.AlertConfigurationService" class="org.hisp.dhis.validation.DefaultAlertConfigurationService">
+    <property name="alertConfigurationStore" ref="org.hisp.dhis.validation.AlertConfigurationStore" />
   </bean>
   
   <bean id="validationTask" class="org.hisp.dhis.validation.DataValidationTask" scope="prototype" />
@@ -1861,6 +1871,7 @@
       <aop:before pointcut="execution( * org.hisp.dhis.expression.ExpressionService.delete*(..) )" method="intercept" />
       <aop:before pointcut="execution( * org.hisp.dhis.minmax.MinMaxDataElementService.delete*(..) )" method="intercept" />
       <aop:before pointcut="execution( * org.hisp.dhis.validation.ValidationRuleService.delete*(..) )" method="intercept" />
+      <aop:before pointcut="execution( * org.hisp.dhis.validation.AlertConfigurationService.delete*(..) )" method="intercept" />
       <aop:before pointcut="execution( * org.hisp.dhis.period.PeriodService.delete*(..) )" method="intercept" />
       <aop:before pointcut="execution( * org.hisp.dhis.organisationunit.OrganisationUnitService.delete*(..) )" method="intercept" />
       <aop:before pointcut="execution( * org.hisp.dhis.organisationunit.OrganisationUnitGroupService.delete*(..) )" method="intercept" />
