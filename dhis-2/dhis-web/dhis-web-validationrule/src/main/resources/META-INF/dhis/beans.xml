@@ -118,6 +118,19 @@
     <property name="validationRuleService" ref="org.hisp.dhis.validation.ValidationRuleService" />
   </bean>
 
+  <!-- AlertConfiguration -->
+  <bean id="org.hisp.dhis.validationrule.action.GetAlertConfiguration"
+        class="org.hisp.dhis.validationrule.action.GetAlertConfiguration"
+        scope="prototype">
+    <property name="alertConfigurationService" ref="org.hisp.dhis.validation.AlertConfigurationService" />
+  </bean>
+
+  <bean id="org.hisp.dhis.validationrule.action.UpdateAlertConfiguration"
+        class="org.hisp.dhis.validationrule.action.UpdateAlertConfiguration"
+        scope="prototype">
+    <property name="alertConfigurationService" ref="org.hisp.dhis.validation.AlertConfigurationService" />
+  </bean>
+
   <!-- ValidationRule Expression -->
 
   <bean id="org.hisp.dhis.validationrule.action.GetTextualExpressionAction"

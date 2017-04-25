@@ -2,22 +2,17 @@
  * Created by wbwang on 17/04/2017.
  */
 
-function dayPicker() {
+function dayPicker(days) {
     $("#days").multiPicker({ selector : "li" ,
-        prePopulate: [1, 3]});
-
-
-
-    function showSelection() {
-        console.log("i have touched");
-        $("#days").multiPicker({selector: "li"})
-            .multiPicker('get', function (value) {
-                console.log(value);
-            });
-    }
+        prePopulate: days.split(', ')
+            .map(day => day.toLowerCase().replace(/(\w)/, v => v.toUpperCase())),
+        valueSource: "text"
+    });
 }
 
-function timePicker() {
-    $("#times").multiPicker({ selector : "li" ,
+function timePicker(alertTime) {
+    $("#timeMul").multiPicker({ selector : "radio" ,
+        valueSource: "data-value",
+        prePopulate: alertTime,
         isSingle: true});
 }

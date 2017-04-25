@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"
+        [<!ENTITY identifiableProperties SYSTEM "classpath://org/hisp/dhis/common/identifiableProperties.hbm">]
+        >
+
+<hibernate-mapping>
+    <class name="org.hisp.dhis.validation.AlertConfiguration" table="alertconfiguration">
+
+        <cache usage="read-write" />
+
+        <id name="id" column="alertconfigurationid">
+            <generator class="native" />
+        </id>
+        &identifiableProperties;
+
+        <property name="alertTime" column="alerttime" not-null="true" length="16"/>
+
+        <property name="alertWeekDay" unique="true" length="50">
+            <type name="org.hibernate.type.EnumType">
+                <param name="enumClass">org.hisp.dhis.validation.AlertWeekDay</param>
+                <param name="useNamed">true</param>
+                <param name="type">12</param>
+            </type>
+        </property>
+
+    </class>
+
+    <filter-def name="locale">
+        <filter-param name="locale" type="string" />
+    </filter-def>
+</hibernate-mapping>
