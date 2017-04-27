@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
+import org.hisp.dhis.i18n.I18n;
 import org.hisp.dhis.validation.AlertWeekDay;
 import org.hisp.dhis.validation.AlertConfiguration;
 import org.hisp.dhis.validation.AlertConfigurationService;
@@ -19,6 +20,13 @@ public class UpdateAlertConfiguration implements Action {
     // -------------------------------------------------------------------------
     // Input
     // -------------------------------------------------------------------------
+
+    private I18n i18n;
+
+    public void setI18n( I18n i18n )
+    {
+        this.i18n = i18n;
+    }
 
     private String alertTime;
 
@@ -50,9 +58,24 @@ public class UpdateAlertConfiguration implements Action {
         this.alertConfigurationService = alertConfigurationService;
     }
 
+    // -------------------------------------------------------------------------
+    // Output
+    // -------------------------------------------------------------------------
+
+    private String message;
+
+    public String getMessage()
+    {
+        return message;
+    }
+
     @Override
     public String execute()
             throws Exception {
+        if (days.isEmpty() || (alertTime == null)) {
+            message = i18n.getString( "please_define_the_dates_for_alerts" );
+            return ERROR;
+        }
 
         final String pickedTime = StringUtils.trimToNull(alertTime);
 
@@ -63,9 +86,7 @@ public class UpdateAlertConfiguration implements Action {
 
         // delete all
         alertConfigurations.stream()
-                .forEach(conf -> {
-                    alertConfigurationService.deleteAlertConfiguration(conf);
-                });
+                .forEach(conf -> alertConfigurationService.deleteAlertConfiguration(conf));
 
         // save new
         mulDays.stream()

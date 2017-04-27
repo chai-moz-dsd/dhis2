@@ -14,57 +14,61 @@
         </tr>
 
         <tr>
-            <td>Day:</td>
+            <td>$encoder.htmlEncode( $i18n.getString( "Date" ) ):</td>
             <td>
                 <ul id="days">
-                    <li>Sun</li>
-                    <li>Mon</li>
-                    <li>Tue</li>
-                    <li>Wed</li>
-                    <li>Thu</li>
-                    <li>Fri</li>
-                    <li>Sat</li>
+                    <li data-day="Sun">$encoder.htmlEncode( $i18n.getString( "Sun" ) )</li>
+                    <li data-day="Mon">$encoder.htmlEncode( $i18n.getString( "Mon" ) )</li>
+                    <li data-day="Tue">$encoder.htmlEncode( $i18n.getString( "Tue" ) )</li>
+                    <li data-day="Wed">$encoder.htmlEncode( $i18n.getString( "Wed" ) )</li>
+                    <li data-day="Thu">$encoder.htmlEncode( $i18n.getString( "Thu" ) )</li>
+                    <li data-day="Fri">$encoder.htmlEncode( $i18n.getString( "Fri" ) )</li>
+                    <li data-day="Sat">$encoder.htmlEncode( $i18n.getString( "Sat" ) )</li>
                 </ul>
             </td>
         </tr>
 
 
         <tr>
-            <td>Time:</td>
+            <td>$encoder.htmlEncode( $i18n.getString( "Time" ) ):</td>
             <td>
-                <div id="timeMul">
-                    <input type="radio" name="alertTime" value="0:00">
-                    <input type="radio" name="alertTime" value="1:00">
-                    <input type="radio" name="alertTime" value="2:00">
-                    <input type="radio" name="alertTime" value="3:00">
-                    <input type="radio" name="alertTime" value="4:00">
-                    <input type="radio" name="alertTime" value="5:00">
-                    <input type="radio" name="alertTime" value="6:00">
-                    <input type="radio" name="alertTime" value="7:00">
-                    <input type="radio" name="alertTime" value="8:00">
-                    <input type="radio" name="alertTime" value="9:00">
-                    <input type="radio" name="alertTime" value="10:00">
-                    <input type="radio" name="alertTime" value="11:00">
-                    <input type="radio" name="alertTime" value="12:00">
-                    <input type="radio" name="alertTime" value="13:00">
-                    <input type="radio" name="alertTime" value="14:00">
-                    <input type="radio" name="alertTime" value="15:00">
-                    <input type="radio" name="alertTime" value="16:00">
-                    <input type="radio" name="alertTime" value="17:00">
-                    <input type="radio" name="alertTime" value="18:00">
-                    <input type="radio" name="alertTime" value="19:00">
-                    <input type="radio" name="alertTime" value="20:00">
-                    <input type="radio" name="alertTime" value="21:00">
-                    <input type="radio" name="alertTime" value="22:00">
-                    <input type="radio" name="alertTime" value="23:00">
-                </div>
+                <ul id="alertTime">
+                    <li data-time="0:00">0:00</li>
+                    <li data-time="1:00">1:00</li>
+                    <li data-time="2:00">2:00</li>
+                    <li data-time="3:00">3:00</li>
+                    <li data-time="4:00">4:00</li>
+                    <li data-time="5:00">5:00</li>
+                    <li data-time="6:00">6:00</li>
+                    <li data-time="7:00">7:00</li>
+                    <li data-time="8:00">8:00</li>
+                    <li data-time="9:00">9:00</li>
+                    <li data-time="10:00">10:00</li>
+                    <li data-time="11:00">11:00</li>
+                    <li data-time="12:00">12:00</li>
+                    <li data-time="13:00">13:00</li>
+                    <li data-time="14:00">14:00</li>
+                    <li data-time="15:00">15:00</li>
+                    <li data-time="16:00">16:00</li>
+                    <li data-time="17:00">17:00</li>
+                    <li data-time="18:00">18:00</li>
+                    <li data-time="19:00">19:00</li>
+                    <li data-time="20:00">20:00</li>
+                    <li data-time="21:00">21:00</li>
+                    <li data-time="22:00">22:00</li>
+                    <li data-time="23:00">23:00</li>
+                </ul>
             </td>
         </tr>
 
         <tr>
             <td>
-                <input type="submit" value="save">
+                <input type="submit" value="$i18n.getString( 'save' )">
             </td>
+        </tr>
+
+        <tr #if ($message) style="display: none" #end>
+            <span style="color: red">$encoder.htmlEncode( $i18n.getString( "$!message" ) )</span>
         </tr>
 
     </table>

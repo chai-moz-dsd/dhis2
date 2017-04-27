@@ -6,13 +6,13 @@ function dayPicker(days) {
     $("#days").multiPicker({ selector : "li" ,
         prePopulate: days.split(', ')
             .map(day => day.toLowerCase().replace(/(\w)/, v => v.toUpperCase())),
-        valueSource: "text"
+        valueSource: "data-day"
     });
 }
 
 function timePicker(alertTime) {
-    $("#timeMul").multiPicker({ selector : "radio" ,
-        valueSource: "data-value",
+    $("#alertTime").multiPicker({ selector : "li" ,
+        valueSource: "data-time",
         prePopulate: alertTime,
         isSingle: true});
 }

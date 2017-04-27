@@ -11,6 +11,7 @@ import org.hisp.dhis.validation.AlertConfigurationService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 /**
@@ -45,16 +46,13 @@ public class GetAlertConfiguration implements Action {
             throws Exception {
 
         List<AlertConfiguration> alertConfigurations = alertConfigurationService.getAllAlertConfigurations();
-        List<String> alertWeekDays = new ArrayList<String>();
-        alertConfigurations.stream()
-                .forEach(alertConf -> {
-                    alertWeekDays.add(alertConf.getAlertWeekDay().toString());
-                    alertTime = alertConf.getAlertTime();
-                });
 
-        days = String.join(", ", alertWeekDays);
+        List<String> alertWeekDays = alertConfigurations.stream()
+                .map(alertConf -> alertConf.getAlertWeekDay().toString())
+                .collect(Collectors.toList());
 
-        alertTime = alertTime == null ? "" : alertTime;
+        days = alertWeekDays.isEmpty() ? "" : String.join(", ", alertWeekDays);
+        alertTime = alertConfigurations.isEmpty() ? "" : alertConfigurations.get(0).getAlertTime();
 
         return SUCCESS;
     }
