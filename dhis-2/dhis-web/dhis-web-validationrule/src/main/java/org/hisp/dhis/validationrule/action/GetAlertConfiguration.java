@@ -41,6 +41,16 @@ public class GetAlertConfiguration implements Action {
         return alertTime;
     }
 
+    private String updatedMessage;
+
+    public String getUpdatedMessage() {
+        return updatedMessage;
+    }
+
+    public void setUpdatedMessage(String updatedMessage) {
+        this.updatedMessage = updatedMessage;
+    }
+
     @Override
     public String execute()
             throws Exception {
@@ -53,6 +63,8 @@ public class GetAlertConfiguration implements Action {
 
         days = alertWeekDays.isEmpty() ? "" : String.join(", ", alertWeekDays);
         alertTime = alertConfigurations.isEmpty() ? "" : alertConfigurations.get(0).getAlertTime();
+
+        updatedMessage = updatedMessage == null ? "" : updatedMessage;
 
         return SUCCESS;
     }

@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.Action;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.hisp.dhis.i18n.I18n;
 import org.hisp.dhis.validation.AlertWeekDay;
@@ -48,6 +49,16 @@ public class UpdateAlertConfiguration implements Action {
         this.days = days;
     }
 
+    private String updatedMessage;
+
+    public String getUpdatedMessage() {
+        return updatedMessage;
+    }
+
+    public void setUpdatedMessage(String updatedMessage) {
+        this.updatedMessage = updatedMessage;
+    }
+
     private AlertConfigurationService alertConfigurationService;
 
     public AlertConfigurationService getAlertConfigurationService() {
@@ -73,29 +84,20 @@ public class UpdateAlertConfiguration implements Action {
     public String execute()
             throws Exception {
         if (days.isEmpty() || (alertTime == null)) {
-            message = i18n.getString( "please_define_the_dates_for_alerts" );
+            updatedMessage = i18n.getString( "please_define_the_dates_for_alerts" );
             return ERROR;
         }
 
-        final String pickedTime = StringUtils.trimToNull(alertTime);
-
-        String[] weekDays = StringUtils.trimToNull(days).split(",");
-        Collection<String> mulDays = Arrays.asList(weekDays);
-
-        final List<AlertConfiguration> alertConfigurations = alertConfigurationService.getAllAlertConfigurations();
-
         // delete all
-        alertConfigurations.stream()
+        alertConfigurationService.getAllAlertConfigurations()
                 .forEach(conf -> alertConfigurationService.deleteAlertConfiguration(conf));
 
         // save new
-        mulDays.stream()
-                .forEach(day -> {
-                    AlertConfiguration alertDaysConf = new AlertConfiguration(AlertWeekDay.valueOf(day.toUpperCase()), pickedTime);
-                    alertConfigurationService.saveAlertConfiguration(alertDaysConf);
-                });
+        final String pickedTime = StringUtils.trimToNull(alertTime);
+        Arrays.asList(StringUtils.trimToNull(days).split(","))
+                .forEach(day -> alertConfigurationService.saveAlertConfiguration(new AlertConfiguration(AlertWeekDay.valueOf(day.toUpperCase()), pickedTime)));
 
-
+        updatedMessage = i18n.getString( "alert_configuration_saved" );
         return SUCCESS;
     }
 }

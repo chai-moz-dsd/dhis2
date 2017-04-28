@@ -23,7 +23,7 @@
     </action>
 
     <action name="updateAlertConfiguration" class="org.hisp.dhis.validationrule.action.UpdateAlertConfiguration">
-      <result name="success" type="redirect">getAlertConfiguration.action?currentPage=${keyCurrentPage}&amp;key=${keyCurrentKey}</result>
+      <result name="success" type="redirect">getAlertConfiguration.action?updatedMessage=${updatedMessage}</result>
       <result name="error" type="velocity">/main.vm</result>
       <param name="page">/dhis-web-validationrule/alertConfiguration.vm</param>
       <param name="menu">/dhis-web-validationrule/menu.vm</param>

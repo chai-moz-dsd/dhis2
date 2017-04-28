@@ -16,3 +16,9 @@ function timePicker(alertTime) {
         prePopulate: alertTime,
         isSingle: true});
 }
+
+function showMessage(detail) {
+    if (detail != "") {
+        setHeaderDelayMessage(detail);
+    }
+}

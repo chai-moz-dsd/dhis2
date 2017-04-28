@@ -8,6 +8,7 @@
 
     #set($viewDays = $!days)
     #set($viewAlertTime = $!alertTime)
+    #set($details = $!updatedMessage)
     <table>
         <tr>
             <th colspan="2"></th>
@@ -67,10 +68,6 @@
             </td>
         </tr>
 
-        <tr #if ($message) style="display: none" #end>
-            <span style="color: red">$encoder.htmlEncode( $i18n.getString( "$!message" ) )</span>
-        </tr>
-
     </table>
 
 </form>
@@ -78,4 +75,5 @@
 <script type="text/javascript">
     dayPicker('$viewDays');
     timePicker('$viewAlertTime');
+    showMessage('$details');
 </script>
