@@ -2,6 +2,7 @@ package org.hisp.dhis.validationrule.action;
 
 import com.opensymphony.xwork2.Action;
 
+import org.hisp.dhis.i18n.I18n;
 
 import org.hisp.dhis.validation.AlertWeekDay;
 import org.hisp.dhis.validation.AlertConfiguration;
@@ -18,6 +19,13 @@ import java.util.stream.Collectors;
  * Created by wbwang on 14/04/2017.
  */
 public class GetAlertConfiguration implements Action {
+
+    private I18n i18n;
+
+    public void setI18n( I18n i18n )
+    {
+        this.i18n = i18n;
+    }
 
     private AlertConfigurationService alertConfigurationService;
 
@@ -64,7 +72,7 @@ public class GetAlertConfiguration implements Action {
         days = alertWeekDays.isEmpty() ? "" : String.join(", ", alertWeekDays);
         alertTime = alertConfigurations.isEmpty() ? "" : alertConfigurations.get(0).getAlertTime();
 
-        updatedMessage = updatedMessage == null ? "" : updatedMessage;
+        updatedMessage = updatedMessage == null ? "" : i18n.getString( "alert_configuration_saved" );
 
         return SUCCESS;
     }
