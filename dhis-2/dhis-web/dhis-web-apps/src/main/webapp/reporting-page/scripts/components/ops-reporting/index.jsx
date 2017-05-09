@@ -39,7 +39,8 @@ export default class OpsReporting extends Component {
             namesMapping: [],
             regionalList: [],
             rootLocation: [],
-            rows: []
+            rows: [],
+            highlightRows: []
         };
 
         this.generateRows = ::calRow.generateRows
@@ -295,7 +296,7 @@ export default class OpsReporting extends Component {
         });
     }
 
-    renderValue(level, value = []) {
+    renderValue(level, value = [], rowIdx) {
         let columnList = [];
         const bgColor = {
             '-1': 'sick',
@@ -308,11 +309,13 @@ export default class OpsReporting extends Component {
             const syncTime = (!item.syncTime.status || item.syncTime.status == '0') ? '' :
                 this.props.routes[0].d2.i18n.getTranslation(syncTimeStatusMap[item.syncTime.status]);
 
+            const highlightCss = this.state.highlightRows.indexOf(rowIdx) == -1 ? '' : ' ' + css['highlightRow'];
+
             columnList = _.concat(columnList,
-                <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : ''}>
+                <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
                     {level == 3 ? syncStatus : ''}</td>,
                 (
-                    <td className={level == 3 ? css.syncTime : ''}>
+                    <td className={level == 3 ? css.syncTime : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
                         <span
                             className={level == 3 ? css.syncTimeStatus + ' ' + (item.syncTime.status < 0 ? css.mark : '') : ''}>
                             {level == 3 ? syncTime : ''}
@@ -320,8 +323,12 @@ export default class OpsReporting extends Component {
                         <span>{level == 3 ? item.syncTime.time : ''}</span>
                     </td>
                 ),
-                <td className={level == 3 ? css.ODKVersion : ''}>{level == 3 ? item.ODKVersion : ''}</td>,
-                <td className={level == 3 ? css.comments : ''}>{level == 3 ? item.comments : ''}</td>
+                <td className={level == 3 ? css.ODKVersion : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                    {level == 3 ? item.ODKVersion : ''}
+                </td>,
+                <td className={level == 3 ? css.comments : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                    {level == 3 ? item.comments : ''}
+                </td>
             )
         });
 
@@ -333,6 +340,7 @@ export default class OpsReporting extends Component {
 
         items.forEach((item) => {
             const rowStyle = levelStyle[item.level];
+            const rowIdx = rows.length
             rows.push((
                 <tr className={css.rowStyle}>
                     <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(item.isLoading ? css.loading : '')}`}
@@ -341,7 +349,7 @@ export default class OpsReporting extends Component {
                         { !!rowStyle && <i className={this.getClassName(item.showChildren) + ' ' + css.icon}/> }
                         {item.name}
                     </td>
-                    {this.renderValue(item.level, item.value)}
+                    {this.renderValue(item.level, item.value, rowIdx)}
                 </tr>
             ));
 
@@ -413,5 +421,15 @@ export default class OpsReporting extends Component {
                 { this.renderTable() }
             </div>
         )
+    }
+
+    handleHilightClick(rowIdx) {
+        var rows = this.state.highlightRows;
+        if(rows.indexOf(rowIdx) == -1) {
+            rows.push(rowIdx);
+        } else {
+            rows.splice(rows.indexOf(rowIdx), 1);
+        }
+        this.setState({highlightRows: rows});
     }
 }

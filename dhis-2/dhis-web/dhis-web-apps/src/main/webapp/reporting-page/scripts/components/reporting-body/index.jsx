@@ -15,7 +15,8 @@ class ReportingBody extends React.Component {
         super(props);
         this.state = {
             isLoading: {},
-            showChildren: {MoH: true}
+            showChildren: {MoH: true},
+            highlightRows: []
         };
     }
 
@@ -36,11 +37,19 @@ class ReportingBody extends React.Component {
                                          row={row}
                                          isLoading={this.state.isLoading}
                                          onClick={this.handleClick}
-                                         showChildren={this.state.showChildren}/>
+                                         highlightRows={this.state.highlightRows}
+                                         highlightClick={this.handleHighlightClick}
+                                         showChildren={this.state.showChildren}/>;
                 }.bind(this))
             }
             </tbody>
         );
+    }
+
+    handleHighlightClick = (id) => {
+        var rows = this.state.highlightRows;
+        rows.indexOf(id) == -1 ? rows.push(id) : rows.splice(rows.indexOf(id), 1);
+        this.setState({highlightRows: rows})
     }
 
     handleClick = (id, name) => {

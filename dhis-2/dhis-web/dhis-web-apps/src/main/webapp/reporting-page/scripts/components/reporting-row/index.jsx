@@ -22,25 +22,36 @@ class ReportingRow extends React.Component {
         const levelStyle = ['primary', 'secondary', 'tertiary'];
         const rowStyle = levelStyle[this.props.row.level];
         const isLoading = this.props.isLoading[name];
+        const isHighlightRow = this.props.highlightRows.indexOf(id) != -1 ? true : false;
 
         return (
             <tr className={(css[rowStyle] || css['default']) + ' ReportingRow'}>
-                <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName}`}
+                <td className={`${(css[rowStyle + 'Title'] || '')} ${(isHighlightRow ? css.highlightRow : '')} ${css.rowName}`}
                     onClick={this.handleClick.bind(this, id, name)}>
                     { !!rowStyle &&
                     <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }
                     {this.props.row.name}
-                    <span className={`${css.loadingWrapper} ${(isLoading ? css.loading : '')}`} />
+                    <span className={`${css.loadingWrapper} ${(isLoading ? css.loading : '')}`}/>
                 </td>
-                {this.props.row.values.map(function (column, index) {
-                    return <td key={index} className={`${(column.highlight ? css.highlight: '')}`}>{column.value}</td>;
-                })}
+                {
+                    this.props.row.values.map(function (column, index) {
+                        return <td key={index}
+                                   className={`${(isHighlightRow ? css.highlightRow : (column.highlight ? css.highlight : ''))}`}
+                                   onClick={this.handleClickNormalCell.bind(this, id)}>
+                            {column.value}
+                        </td>;
+                    }.bind(this))
+                }
             </tr>
-        )
+        );
     }
 
     handleClick(id, name) {
         this.props.onClick(id, name);
+    }
+
+    handleClickNormalCell(id) {
+        this.props.highlightClick(id);
     }
 
     getClassName(name) {
