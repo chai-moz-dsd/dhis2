@@ -312,10 +312,10 @@ export default class OpsReporting extends Component {
             const highlightCss = this.state.highlightRows.indexOf(rowIdx) == -1 ? '' : ' ' + css['highlightRow'];
 
             columnList = _.concat(columnList,
-                <td className={level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                <td className={(level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
                     {level == 3 ? syncStatus : ''}</td>,
                 (
-                    <td className={level == 3 ? css.syncTime : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                    <td className={(level == 3 ? css.syncTime : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
                         <span
                             className={level == 3 ? css.syncTimeStatus + ' ' + (item.syncTime.status < 0 ? css.mark : '') : ''}>
                             {level == 3 ? syncTime : ''}
@@ -323,10 +323,10 @@ export default class OpsReporting extends Component {
                         <span>{level == 3 ? item.syncTime.time : ''}</span>
                     </td>
                 ),
-                <td className={level == 3 ? css.ODKVersion : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                <td className={(level == 3 ? css.ODKVersion : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
                     {level == 3 ? item.ODKVersion : ''}
                 </td>,
-                <td className={level == 3 ? css.comments : '' + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                <td className={(level == 3 ? css.comments : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
                     {level == 3 ? item.comments : ''}
                 </td>
             )
@@ -341,9 +341,10 @@ export default class OpsReporting extends Component {
         items.forEach((item) => {
             const rowStyle = levelStyle[item.level];
             const rowIdx = rows.length
+            const highlightCss = this.state.highlightRows.indexOf(rowIdx) == -1 ? '' : ' ' + css['highlightRow'];
             rows.push((
                 <tr className={css.rowStyle}>
-                    <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(item.isLoading ? css.loading : '')}`}
+                    <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(item.isLoading ? css.loading : '')} ${highlightCss}`}
                         onClick={this.fetchChild.bind(this, item)}>
 
                         { !!rowStyle && <i className={this.getClassName(item.showChildren) + ' ' + css.icon}/> }
