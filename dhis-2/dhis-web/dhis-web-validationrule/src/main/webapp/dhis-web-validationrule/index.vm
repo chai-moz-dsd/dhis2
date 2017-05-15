@@ -3,5 +3,5 @@
 <ul class="introList">
     #if( $security.canView( "validationRule" ) )#introListImgItem( "validationRule.action" "validation_rule" "validationrule" )#end
     #if( $security.canView( "validationRuleGroup" ) )#introListImgItem( "validationRuleGroup.action" "validation_rule_group" "validationrule" )#end
-    #introListImgItem( "getAlertConfiguration.action" "alert_configuration" "validationrule" )
+##    #if ($currentUser.isSuper()) #introListImgItem( "getAlertConfiguration.action" "alert_configuration" "validationrule" )#end
 </ul>
