@@ -40,7 +40,8 @@ export default class OpsReporting extends Component {
             regionalList: [],
             rootLocation: [],
             rows: [],
-            highlightRows: []
+            highlightRows: [],
+            leftDistance: 0
         };
 
         this.generateRows = ::calRow.generateRows
@@ -250,6 +251,20 @@ export default class OpsReporting extends Component {
             )
     }
 
+    renderSingleTableHead() {
+        const style = {
+            height: '45px'
+        };
+
+        return (
+                <thead>
+                <tr>
+                    <th style={ style } rowSpan="2">{this.props.routes[0].d2.i18n.getTranslation('location')}</th>
+                </tr>
+                </thead>
+            )
+    }
+
     fetchChild(item, enableFetch) {
         if (item.showChildren || item.children) {
             item.showChildren = !item.showChildren;
@@ -312,10 +327,12 @@ export default class OpsReporting extends Component {
             const highlightCss = this.state.highlightRows.indexOf(rowIdx) == -1 ? '' : ' ' + css['highlightRow'];
 
             columnList = _.concat(columnList,
-                <td className={(level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                <td className={(level == 3 ? css.syncStatus + ' ' + css[bgColor[item.syncStatus]] : '') + highlightCss}
+                    onClick={this.handleHilightClick.bind(this, rowIdx)}>
                     {level == 3 ? syncStatus : ''}</td>,
                 (
-                    <td className={(level == 3 ? css.syncTime : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                    <td className={(level == 3 ? css.syncTime : '') + highlightCss}
+                        onClick={this.handleHilightClick.bind(this, rowIdx)}>
                         <span
                             className={level == 3 ? css.syncTimeStatus + ' ' + (item.syncTime.status < 0 ? css.mark : '') : ''}>
                             {level == 3 ? syncTime : ''}
@@ -323,10 +340,12 @@ export default class OpsReporting extends Component {
                         <span>{level == 3 ? item.syncTime.time : ''}</span>
                     </td>
                 ),
-                <td className={(level == 3 ? css.ODKVersion : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                <td className={(level == 3 ? css.ODKVersion : '') + highlightCss}
+                    onClick={this.handleHilightClick.bind(this, rowIdx)}>
                     {level == 3 ? item.ODKVersion : ''}
                 </td>,
-                <td className={(level == 3 ? css.comments : '') + highlightCss} onClick={this.handleHilightClick.bind(this, rowIdx)}>
+                <td className={(level == 3 ? css.comments : '') + highlightCss}
+                    onClick={this.handleHilightClick.bind(this, rowIdx)}>
                     {level == 3 ? item.comments : ''}
                 </td>
             )
@@ -340,13 +359,17 @@ export default class OpsReporting extends Component {
 
         items.forEach((item) => {
             const rowStyle = levelStyle[item.level];
-            const rowIdx = rows.length
+            const rowIdx = rows.length;
             const highlightCss = this.state.highlightRows.indexOf(rowIdx) == -1 ? '' : ' ' + css['highlightRow'];
-            rows.push((
-                <tr className={css.rowStyle}>
-                    <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(item.isLoading ? css.loading : '')} ${highlightCss}`}
-                        onClick={this.fetchChild.bind(this, item)}>
+            const style = {
+                left: this.state.leftDistance,
+            };
 
+            rows.push((
+                <tr className={(css[rowStyle] || css['default']) + ' ReportingRow'}>
+                    <td className={`${(css[rowStyle + 'Title'] || '')} ${css.rowName} ${(item.isLoading ? css.loading : '')} ${highlightCss}`}
+                        style={ style }
+                        onClick={this.fetchChild.bind(this, item)}>
                         { !!rowStyle && <i className={this.getClassName(item.showChildren) + ' ' + css.icon}/> }
                         {item.name}
                     </td>
@@ -404,15 +427,48 @@ export default class OpsReporting extends Component {
                                      icon='assignment'/>
                     </Link>
                 </div>
-                <div className={ css.tableContainer }>
-                    <table>
-                        { this.renderTableHead() }
-                        { this.renderTableBody() }
-                    </table>
+
+                <div className={ css.divTable }>
+                    <div className={ css.tableContainer }  onScroll={this.handleScroll}>
+                        <div className={ css.divLeft }>
+                            <div className={ css.divLeftThead }>
+                                <table>
+                                    { this.renderSingleTableHead() }
+                                </table>
+                            </div>
+                        </div>
+
+                        <div className={ css.divRight }>
+                            <div className={ css.divRightThead }>
+                                <table>
+                                    { this.renderTableHead() }
+                                </table>
+                            </div>
+
+                            <div className={ css.divRightTbody }>
+                                <table className={ css.ReportingTable }>
+                                    { this.renderTableHead() }
+                                    { this.renderTableBody() }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
     }
+
+    handleScroll = (event) => {
+        if (event.target.scrollLeft > 0) {
+            this.setState({
+                leftDistance: event.target.scrollLeft
+            });
+        } else if (event.target.scrollLeft = 0) {
+            this.setState({
+                leftDistance: 0
+            });
+        }
+    };
 
     render() {
         return (
@@ -426,7 +482,7 @@ export default class OpsReporting extends Component {
 
     handleHilightClick(rowIdx) {
         var rows = this.state.highlightRows;
-        if(rows.indexOf(rowIdx) == -1) {
+        if (rows.indexOf(rowIdx) == -1) {
             rows.push(rowIdx);
         } else {
             rows.splice(rows.indexOf(rowIdx), 1);

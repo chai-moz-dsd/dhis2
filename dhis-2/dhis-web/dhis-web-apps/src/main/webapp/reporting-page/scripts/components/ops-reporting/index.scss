@@ -30,7 +30,7 @@
           background-color: #7CA1CC;
         }
 
-        th:nth-child(1){
+        th:nth-child(1) {
           background-color: white;
           min-width: 12.5rem;
         }
@@ -57,7 +57,7 @@
   background: #1b5184;
   font-size: 14px;
   color: white;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
 }
 
 .ReportingRow {
@@ -76,9 +76,24 @@
   table-layout: fixed;
 }
 
-@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
-@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
-@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 
 .loading:after {
   font-family: Glyphicons Halflings;
@@ -88,9 +103,9 @@
   position: absolute;
   right: 3px;
   top: 3px;
-  -webkit-animation:spin 2s linear infinite;
-  -moz-animation:spin 2s linear infinite;
-  animation:spin 2s linear infinite;
+  -webkit-animation: spin 2s linear infinite;
+  -moz-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 .sick {
@@ -108,7 +123,7 @@
   color: #A0BC6B;
 }
 
-.syncStatus{
+.syncStatus {
   min-width: 15.625rem;
   text-align: left;
 }
@@ -131,11 +146,11 @@
 }
 
 .comments {
-    padding: 0 .18rem;
-    min-width: 15.625rem;
-    max-width: 21.875rem;
-    white-space: normal;
-    text-align: left;
+  padding: 0 .18rem;
+  min-width: 15.625rem;
+  max-width: 21.875rem;
+  white-space: normal;
+  text-align: left;
 }
 
 .mark {
@@ -169,12 +184,6 @@
   cursor: pointer;
 }
 
-.tableContainer {
-  width: auto;
-  overflow-y: auto;
-  height: calc(100vh - 4.56rem);
-}
-
 .changeScreenLabel {
   text-align: right;
   height: 25px;
@@ -189,11 +198,59 @@
     margin-right: 20px;
   }
 
-  a:nth-child(2){
+  a:nth-child(2) {
     margin: 0 20px;
   }
 }
 
 .highlightRow {
   background: #ADD8E6;
+}
+
+.divTable {
+  overflow: hidden;
+  .tableContainer {
+    height: 735px;
+    width: 1080px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    table-layout: fixed;
+
+    .divLeft {
+      width: 200px;
+      position: absolute;
+      z-index: 100;
+
+      .divLeftThead {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 111;
+      }
+    }
+
+    .divRight {
+      width: 1080px;
+      height: 735px;
+      overflow-y: hidden;
+      position: absolute;
+
+      .divRightThead {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 99;
+      }
+
+      .divRightTbody {
+        position: absolute;
+        height: 735px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
 }
