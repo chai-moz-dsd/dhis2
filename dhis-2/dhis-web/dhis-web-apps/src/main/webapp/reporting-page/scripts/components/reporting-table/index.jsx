@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from 'moment';
 import ReportingHead from "../reporting-head/index.jsx";
 import ReportingBody from "../reporting-body/index.jsx";
+import ReportingSingleHead from "../reporting-single-head/index.jsx";
 import calSpan from "../../utils/cal-span.js";
 import calRow from "../../utils/cal-row.js";
 import calUrl from "../../utils/cal-url.js";
@@ -28,6 +29,8 @@ class ReportingTable extends React.Component {
 
         this.state = {
             rows: [{id: '', name: '', values: [], children: [{name: '', values: []}]}],
+            isPosition: 'absolute',
+            leftDistance: 0
         };
 
         this.fetchWeekRows = ::this.fetchWeekRows
@@ -189,22 +192,62 @@ class ReportingTable extends React.Component {
                     <Link to='/ops'>
                         <ToolBoxLink label={this.props.d2.i18n.getTranslation('ops_indicator')} icon='assignment'/>
                     </Link>
-
                 </div>
-                <div className={ css.tableContainer }>
-                    <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>
-                        <ReportingHead spans={calSpan.calculateSpan(this.props.head)}
-                                       currentCategory={this.props.currentCategory}/>
-                        <ReportingBody data={this.state.rows} oriHead={this.props.oriHead} periods={this.props.periods}
-                                       addChildren={this.addChildren}
-                                       hasChildren={this.hasChildren}
-                                       showChildren={this.props.showChildren}
-                        />
-                    </table>
+
+                <div className={ css.divTable }>
+
+                    <div className={ css.tableContainer } onScroll={this.handleScroll}>
+
+                        <div className={ css.divLeft }>
+                            <div className={ css.divLeftThead }>
+                                <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>
+                                    <ReportingSingleHead spans={calSpan.calculateSpan(this.props.head)}
+                                                         currentCategory={this.props.currentCategory}/>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div className={ css.divRight }>
+                            <div className={ css.divRightThead }>
+                                <table className={ css.ReportingTableCopy }
+                                       ref={(ref) => this.reportingTable = ref}>
+                                    <ReportingHead spans={calSpan.calculateSpan(this.props.head)}
+                                                   currentCategory={this.props.currentCategory}/>
+                                </table>
+                            </div>
+
+                            <div className={ css.divRightTbody }>
+                                <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>
+                                    <ReportingHead spans={calSpan.calculateSpan(this.props.head)}
+                                                   currentCategory={this.props.currentCategory}/>
+                                    <ReportingBody data={this.state.rows} oriHead={this.props.oriHead}
+                                                   periods={this.props.periods}
+                                                   addChildren={this.addChildren}
+                                                   hasChildren={this.hasChildren}
+                                                   showChildren={this.props.showChildren}
+                                                   leftDistance={this.state.leftDistance}
+                                    />
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         )
     }
+
+    handleScroll = (event) => {
+        if (event.target.scrollLeft > 0) {
+            this.setState({
+                leftDistance: event.target.scrollLeft
+            });
+        } else if (event.target.scrollLeft = 0) {
+            this.setState({
+                leftDistance: 0
+            });
+        }
+    };
 
     componentWillReceiveProps(props) {
         if (props.currentCategory == 'location') {

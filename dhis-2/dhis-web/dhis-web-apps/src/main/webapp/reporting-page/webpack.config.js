@@ -17,7 +17,7 @@ module.exports = {
         alias: {
             'material-ui': path.resolve('./node_modules/material-ui')
         },
-        extensions: ['', '.scss', '.css', '.js', '.json'],
+        extensions: ['', '.scss', '.css', '.js', '.json', '.jsx'],
         modulesDirectories: [
             'node_modules',
             path.resolve(__dirname, 'node_modules')

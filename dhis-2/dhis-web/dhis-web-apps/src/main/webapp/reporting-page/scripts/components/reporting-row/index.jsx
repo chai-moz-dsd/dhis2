@@ -23,10 +23,18 @@ class ReportingRow extends React.Component {
         const rowStyle = levelStyle[this.props.row.level];
         const isLoading = this.props.isLoading[name];
         const isHighlightRow = this.props.highlightRows.indexOf(id) != -1 ? true : false;
+        const style = {
+            position: 'absolute',
+            left: this.props.leftDistance,
+            height: '23px',
+            width: '200px',
+            overflow: 'hidden'
+        };
 
         return (
             <tr className={(css[rowStyle] || css['default']) + ' ReportingRow'}>
-                <td className={`${(css[rowStyle + 'Title'] || '')} ${(isHighlightRow ? css.highlightRow : '')} ${css.rowName}`}
+                <td className={ (`${(css[rowStyle + 'Title'] || '')} ${css[rowStyle + 'Color']} ${(isHighlightRow ? css.highlightRow : '')} ${css.rowName} `)}
+                    style={ style }
                     onClick={this.handleClick.bind(this, id, name)}>
                     { !!rowStyle &&
                     <i className={this.getClassName(this.props.row.name) + ' ' + css.icon}/> }

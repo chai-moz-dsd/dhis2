@@ -4,13 +4,71 @@
 }
 
 .tableContainer {
-  width: auto;
+  height: 745px;
+  width: 1080px;
+  position: relative;
+  overflow-x: hidden;
   overflow-y: auto;
-  max-height: calc(100vh - 25px);
+  table-layout: fixed;
+}
+
+.ReportingTableCopy {
+  width: 100%;
+  margin: 0;
 }
 
 .ReportingTable {
   margin: 0;
+  width: 200px;
+}
+
+.divTable {
+  overflow: hidden;
+}
+
+.divRight {
+  width: 1080px;
+  height: 754px;
+  overflow-y: hidden;
+  position: absolute;
+}
+
+.divRightThead {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+.divRightTbody {
+  position: absolute;
+  height: 745px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
+}
+
+.divLeft {
+  width: 200px;
+  position: absolute;
+  z-index: 100;
+}
+
+.divLeftThead {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 111;
+}
+
+.divLeftTbody {
+  position: absolute;
+  height: 745px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
 }
 
 .changeScreenLabel {
@@ -27,7 +85,7 @@
     margin-right: 20px;
   }
 
-  a:nth-child(2){
+  a:nth-child(2) {
     margin: 0 20px;
   }
 }

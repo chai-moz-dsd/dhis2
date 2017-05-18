@@ -13,6 +13,7 @@ var _ = {
 class ReportingBody extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             isLoading: {},
             showChildren: {MoH: true},
@@ -22,7 +23,7 @@ class ReportingBody extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.showChildren !== this.state.showChildren) {
-            this.setState({ showChildren: nextProps.showChildren });
+            this.setState({showChildren: nextProps.showChildren});
         }
     }
 
@@ -39,7 +40,8 @@ class ReportingBody extends React.Component {
                                          onClick={this.handleClick}
                                          highlightRows={this.state.highlightRows}
                                          highlightClick={this.handleHighlightClick}
-                                         showChildren={this.state.showChildren}/>;
+                                         showChildren={this.state.showChildren}
+                                         leftDistance={this.props.leftDistance}/>;
                 }.bind(this))
             }
             </tbody>
