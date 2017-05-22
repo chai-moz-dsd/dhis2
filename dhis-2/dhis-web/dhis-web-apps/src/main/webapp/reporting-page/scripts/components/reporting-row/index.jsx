@@ -27,13 +27,13 @@ class ReportingRow extends React.Component {
             position: 'absolute',
             left: this.props.leftDistance,
             height: '23px',
-            width: '200px',
+            width: '215px',
             overflow: 'hidden'
         };
 
         return (
             <tr className={(css[rowStyle] || css['default']) + ' ReportingRow'}>
-                <td className={ (`${(css[rowStyle + 'Title'] || '')} ${css[rowStyle + 'Color']} ${(isHighlightRow ? css.highlightRow : '')} ${css.rowName} `)}
+                <td className={ (`${(css[rowStyle + 'Title'] || css['defaultTd'])} ${css[rowStyle + 'Color']} ${(isHighlightRow ? css.highlightRow : '')} ${css.rowName}`)}
                     style={ style }
                     onClick={this.handleClick.bind(this, id, name)}>
                     { !!rowStyle &&
