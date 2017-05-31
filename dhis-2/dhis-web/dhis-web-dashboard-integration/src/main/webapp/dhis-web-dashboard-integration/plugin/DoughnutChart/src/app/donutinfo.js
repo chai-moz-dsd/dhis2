@@ -1,12 +1,6 @@
 import React, {Component} from 'react';
 import css from './donutinfo.css';
 
-// const i18n_hf_total_num = 'total num';
-// const i18n_hf_using_num = 'using num';
-// const i18n_hf_completed = 'i18n_hf_completed';
-// const i18n_hf_incomplete = 'i18n_hf_incomplete';
-// const i18n_hf_not_summited = 'i18n_hf_not_summited';
-
 export default class DoughnutInfo extends Component {
 
   static getAllMBesFacilities(subData) {
@@ -48,7 +42,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.total}>{this.getAmount('total')}</span>
           </td>
           <td>
-            {`${i18n_hf_total_num}`}
+            {`Total number of Health Facilities existent`}
           </td>
         </tr>
 
@@ -57,7 +51,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.mBes}><b>{this.getAmount('mBes')}</b></span>
           </td>
           <td>
-            {`${i18n_hf_using_num}`}
+            {`Health facilities are using the mBES system`}
           </td>
         </tr>
 
@@ -66,7 +60,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.completed}><b>{this.getAmount('completed')}</b></span>
           </td>
           <td>
-            {`${i18n_hf_completed}`}
+            {`Health facilities have submitted their completed mBES`}
           </td>
         </tr>
 
@@ -75,7 +69,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.incomplete}><b>{this.getAmount('incomplete')}</b></span>
           </td>
           <td>
-            {`${i18n_hf_incomplete}`}
+            {`Health facilities have submitted an incomplete mBES`}
           </td>
         </tr>
 
@@ -84,7 +78,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.missing}><b>{this.getAmount('missing')}</b></span>
           </td>
           <td>
-            {`${i18n_hf_not_summited}`}
+            {`Health facilities have not submitted their mBES`}
           </td>
         </tr>
         </tbody>

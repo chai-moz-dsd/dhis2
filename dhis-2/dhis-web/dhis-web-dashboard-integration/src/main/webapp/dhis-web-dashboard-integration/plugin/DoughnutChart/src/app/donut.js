@@ -11,7 +11,6 @@ import Location from './location/index.jsx';
 import {Button} from 'react-toolbox/lib/button';
 import moment from 'moment';
 
-// const i18n_donut_title = 'i18n_donut_title';
 const LAST_WEEK_OFFSET = -7;
 
 const data = {
@@ -84,7 +83,7 @@ export default class Donut extends React.Component {
     const lastWeek = epi(getTimeFormat(this.state.valueDate));
 
     return (
-      <div>
+      <div className={css.donutDiv}>
         <div className={css.searchContainer}>
           <div className={css.datepickerDiv}>
             <DatePickerBar
@@ -113,7 +112,7 @@ export default class Donut extends React.Component {
 
         <div className={css.titleContainer}>
           <h3 className={css.lastWeek}>
-            {`${i18n_donut_title} ${lastWeek.week} ${lastWeek.year}`}
+            {`National mBES submission data for week ${lastWeek.week} ${lastWeek.year}`}
           </h3>
         </div>
 

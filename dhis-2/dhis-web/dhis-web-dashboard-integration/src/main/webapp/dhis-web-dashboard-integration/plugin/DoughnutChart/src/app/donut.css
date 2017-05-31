@@ -45,5 +45,9 @@
   background: #1b5184;
   font-size: 14px;
   color: white;
-  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
+.donutDiv {
+  padding-top: 130px;
 }

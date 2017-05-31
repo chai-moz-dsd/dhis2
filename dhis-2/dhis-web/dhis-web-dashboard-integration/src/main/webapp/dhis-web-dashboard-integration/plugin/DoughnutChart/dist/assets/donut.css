@@ -72,19 +72,16 @@ body {
 
 .donut__searchContainer___3z8H8 {
   width: 60%;
-  height: 150px;
-  border: 1px solid red; }
+  height: 150px; }
 
 .donut__datepickerDiv___1nEir {
   width: 48%;
-  border: 1px solid black;
   float: left;
   height: 55%; }
 
 .donut__locationDiv___UVcq2 {
   width: 48%;
   float: right;
-  border: 1px solid;
   height: 55%; }
 
 .donut__buttonDiv___2nWMq {
@@ -99,6 +96,9 @@ body {
   font-size: 14px;
   color: white;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24); }
+
+.donut__donutDiv___3xlwl {
+  padding-top: 130px; }
 html {
   font-size: 100%; }
 
