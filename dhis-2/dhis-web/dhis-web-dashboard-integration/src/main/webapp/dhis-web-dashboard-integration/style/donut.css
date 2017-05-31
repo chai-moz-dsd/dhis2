@@ -71,27 +71,27 @@ body {
   padding-left: 100px; }
 
 .donut__searchContainer___3z8H8 {
-  width: 60%;
-  height: 150px; }
+  width: 85%;
+  height: 100px; }
 
 .donut__datepickerDiv___1nEir {
-  width: 48%;
+  width: 25%;
   float: left;
-  height: 55%; }
+  margin: 10px; }
 
 .donut__locationDiv___UVcq2 {
-  width: 48%;
-  float: right;
-  height: 55%; }
+  width: 25%;
+  float: left;
+  margin: 10px; }
 
 .donut__buttonDiv___2nWMq {
-  width: 30%;
-  float: right;
-  padding-top: 15px; }
+  width: 20%;
+  float: left;
+  margin: 2% 0%; }
 
 .donut__buttonDiv___2nWMq .donut__reportBtn___2KUxJ {
-  width: 100%;
-  height: 40px;
+  width: 60%;
+  height: 35px;
   background: #1b5184;
   font-size: 14px;
   color: white;
@@ -1003,7 +1003,6 @@ body {
   padding: 0.625rem;
   text-align: center;
   font-weight: lighter;
-  height: 3.75rem;
   z-index: 500;
   position: fixed; }
 
@@ -1071,7 +1070,7 @@ body {
 
 .index__location___1yz9R {
   margin-left: 3rem;
-  height: 38px;
+  height: 17px;
   line-height: 21px;
   cursor: pointer;
   width: calc(100% - 4.8rem);
