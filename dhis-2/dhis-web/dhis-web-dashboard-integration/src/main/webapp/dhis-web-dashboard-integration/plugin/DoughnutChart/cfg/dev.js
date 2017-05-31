@@ -5,6 +5,7 @@ let webpack = require('webpack');
 let baseConfig = require('./base');
 let defaultSettings = require('./defaults');
 let autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
@@ -22,9 +23,14 @@ let config = Object.assign({}, baseConfig, {
     new webpack.NoErrorsPlugin(),
     new BowerWebpackPlugin({
       searchResolveModulesDirectories: false
-    })
+    }),
+    new ExtractTextPlugin('donut.css', {allChunks: true})
   ],
   postcss: [autoprefixer],
+  sassLoader: {
+    data: '@import "theme/_config.scss";',
+    includePaths: [path.resolve(__dirname, '/')]
+  },
   module: defaultSettings.getDefaultModules()
 });
 
@@ -36,10 +42,6 @@ config.module.loaders.push({
       config.additionalPaths,
       [path.join(__dirname, '/../src')]
     )
-  },
-  {
-    test: /\.css$/,
-    loader: 'style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]'
   });
 
 module.exports = config;

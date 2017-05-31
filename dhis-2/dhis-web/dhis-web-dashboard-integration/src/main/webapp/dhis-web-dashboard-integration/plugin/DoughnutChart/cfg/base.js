@@ -15,7 +15,7 @@ module.exports = {
   debug: true,
   devtool: 'eval',
   output: {
-    path: path.join(__dirname, '/../dist/assets'),
+    path: path.join(__dirname, '../dist/assets'),
     filename: 'donut.js',
     publicPath: defaultSettings.publicPath
   },

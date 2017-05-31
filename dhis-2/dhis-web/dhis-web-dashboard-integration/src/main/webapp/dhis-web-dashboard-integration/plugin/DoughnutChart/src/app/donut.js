@@ -28,11 +28,14 @@ export default class Donut extends React.Component {
   constructor(props) {
     super(props);
 
+    let date = new Date();
+    let day = date.getDay() + 1;
+
     this.state = {
       data,
       location: null,
-      valueDate: new Date(moment().subtract((1), 'weeks').valueOf()),
-      maxDate: new Date(moment().subtract((1), 'weeks').valueOf())
+      valueDate: new Date(moment().subtract((day), 'days').valueOf()),
+      maxDate: new Date(moment().subtract((day), 'days').valueOf())
     };
   }
 
@@ -78,7 +81,7 @@ export default class Donut extends React.Component {
   };
 
   render() {
-    const lastWeek = epi(getToday(LAST_WEEK_OFFSET));
+    const lastWeek = epi(getTimeFormat(this.state.valueDate));
 
     return (
       <div>
