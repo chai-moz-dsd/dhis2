@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import css from './donutinfo.css';
 
+// const i18n_hf_total_num = 'total num';
+// const i18n_hf_using_num = 'using num';
+// const i18n_hf_completed = 'i18n_hf_completed';
+// const i18n_hf_incomplete = 'i18n_hf_incomplete';
+// const i18n_hf_not_summited = 'i18n_hf_not_summited';
 
 export default class DoughnutInfo extends Component {
 

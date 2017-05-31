@@ -16,6 +16,15 @@ export function getToday(offset=0) {
   return `${year}-${month}-${day}`;
 }
 
+export function getTimeFormat(time) {
+  time.setDate(time.getDate());
+  let month = time.getMonth() + 1;
+  let year = time.getFullYear();
+  let day = time.getDate();
+
+  return `${year}-${month}-${day}`;
+}
+
 export function getRelatedOuList() {
   return `${getBaseUrl()}api/me?fields=organisationUnits`;
 }

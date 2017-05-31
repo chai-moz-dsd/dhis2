@@ -30,7 +30,7 @@ function getDefaultModules() {
       },
       {
         test: /\.scss/,
-        loader: 'style-loader!css-loader!sass-loader?outputStyle=expanded'
+        loader: 'style-loader!css-loader?modules=true&outputStyle=expanded!sass-loader'
       },
       {
         test: /\.less/,

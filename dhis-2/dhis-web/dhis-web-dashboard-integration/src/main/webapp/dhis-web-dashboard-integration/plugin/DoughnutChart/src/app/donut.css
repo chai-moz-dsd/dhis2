@@ -13,11 +13,40 @@
 }
 
 .lastWeek {
-  padding-top: 130px;
   padding-left: 100px
 }
 
-.theWeekBeforeLastWeek {
-  padding-top: 148px;
-  padding-left: 100px
+.searchContainer {
+  width: 60%;
+  height: 150px;
+  border: 1px solid red;
+}
+
+.datepickerDiv {
+  width: 48%;
+  border: 1px solid black;
+  float: left;
+  height: 55%;
+}
+
+.locationDiv {
+  width: 48%;
+  float: right;
+  border: 1px solid;
+  height: 55%;
+}
+
+.buttonDiv {
+  width: 30%;
+  float: right;
+  padding-top: 15px;
+}
+
+.reportBtn {
+  width: 100%;
+  height: 40px;
+  background: #1b5184;
+  font-size: 14px;
+  color: white;
+  box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
 }

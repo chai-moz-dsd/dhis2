@@ -4,6 +4,7 @@ let path = require('path');
 let webpack = require('webpack');
 let baseConfig = require('./base');
 let defaultSettings = require('./defaults');
+let autoprefixer = require('autoprefixer');
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
@@ -23,6 +24,7 @@ let config = Object.assign({}, baseConfig, {
       searchResolveModulesDirectories: false
     })
   ],
+  postcss: [autoprefixer],
   module: defaultSettings.getDefaultModules()
 });
 
