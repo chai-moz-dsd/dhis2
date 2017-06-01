@@ -42,7 +42,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.total}>{this.getAmount('total')}</span>
           </td>
           <td>
-            {`Total number of Health Facilities existent`}
+            {'Total number of Health Facilities existent'}
           </td>
         </tr>
 
@@ -51,7 +51,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.mBes}><b>{this.getAmount('mBes')}</b></span>
           </td>
           <td>
-            {`Health facilities are using the mBES system`}
+            {'Health facilities are using the mBES system'}
           </td>
         </tr>
 
@@ -60,7 +60,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.completed}><b>{this.getAmount('completed')}</b></span>
           </td>
           <td>
-            {`Health facilities have submitted their completed mBES`}
+            {'Health facilities have submitted their completed mBES'}
           </td>
         </tr>
 
@@ -69,7 +69,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.incomplete}><b>{this.getAmount('incomplete')}</b></span>
           </td>
           <td>
-            {`Health facilities have submitted an incomplete mBES`}
+            {'Health facilities have submitted an incomplete mBES'}
           </td>
         </tr>
 
@@ -78,7 +78,7 @@ export default class DoughnutInfo extends Component {
             <span className={css.missing}><b>{this.getAmount('missing')}</b></span>
           </td>
           <td>
-            {`Health facilities have not submitted their mBES`}
+            {'Health facilities have not submitted their mBES'}
           </td>
         </tr>
         </tbody>
