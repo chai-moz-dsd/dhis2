@@ -52,11 +52,6 @@ body {
   font-size: 1rem; }
 
 .donut__titleContainer___3NX78 {
-  -webkit-column-count: 2;
-  /* Chrome, Safari, Opera */
-  -moz-column-count: 2;
-  /* Firefox */
-  column-count: 2;
   width: 120em; }
 
 .donut__contentContainer___3PyW0 {
@@ -1075,7 +1070,6 @@ body {
   cursor: pointer;
   width: calc(100% - 4.8rem);
   padding: .5rem 0;
-  font-size: 1rem;
   color: #212121;
   background-color: transparent;
   border: 0;
