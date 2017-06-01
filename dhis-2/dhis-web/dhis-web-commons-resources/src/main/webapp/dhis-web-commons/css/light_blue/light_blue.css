@@ -42,7 +42,7 @@ a:hover
   text-decoration: underline;
 }
 
-input[type=text],input[type=password],input[type=email],textarea
+input[type=password],input[type=email],textarea
 {
   border: 1px solid #aaa;
   padding: 5px;
