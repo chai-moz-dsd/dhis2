@@ -112,7 +112,7 @@ export default class Donut extends React.Component {
 
         <div className={css.titleContainer}>
           <h3 className={css.lastWeek}>
-            {`National mBES submission data for week ${lastWeek.week} ${lastWeek.year}`}
+            {`mBES submission data for week ${lastWeek.week} ${lastWeek.year}`}
           </h3>
         </div>
 

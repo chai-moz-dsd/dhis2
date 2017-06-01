@@ -1057,7 +1057,8 @@ body {
   top: 1.25rem;
   line-height: 38px;
   color: rgba(0, 0, 0, 0.26);
-  cursor: pointer; }
+  cursor: pointer;
+  margin-right: 25px; }
 
 .index__locationContainer___3e_bP {
   padding: 1.25rem 0;

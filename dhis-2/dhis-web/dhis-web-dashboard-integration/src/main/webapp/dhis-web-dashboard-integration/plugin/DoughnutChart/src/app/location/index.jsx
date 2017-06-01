@@ -174,7 +174,7 @@ export default class Location extends Component {
         <div className={ css.locationContainer }>
           <div className={ css.location } onClick={ ::this.handleToggle }>
             <label
-              className={ `${css.locationLabel} ${currentSelected ? css.hasLocation : ''}` }>{ 'location'}</label>
+              className={ `${css.locationLabel} ${currentSelected ? css.hasLocation : ''}` }>{ 'Location'}</label>
             <div>{currentSelected === null ? '' : currentSelected.name}</div>
             { currentSelected !== null &&
             <FontIcon className={ css.clear } onClick={ ::this.onClean } name='clear'>clear</FontIcon> }
