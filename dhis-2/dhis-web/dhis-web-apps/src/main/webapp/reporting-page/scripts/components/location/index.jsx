@@ -128,6 +128,8 @@ export default class Location extends Component {
     }
 
     onClean(evt) {
+        this.props.onClean();
+
         this.setState({ currentSelected: null });
         evt.stopPropagation();
     }

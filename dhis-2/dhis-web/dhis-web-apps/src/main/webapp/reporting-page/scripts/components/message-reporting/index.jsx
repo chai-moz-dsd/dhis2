@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import moment from "moment";
 import axios from "axios";
 import _ from "lodash";
 import {Button} from "react-toolbox/lib/button";
@@ -9,16 +8,11 @@ import withStateFrom from "d2-ui/lib/component-helpers/withStateFrom";
 import ToolBoxLink from "react-toolbox/lib/link";
 import {Link} from "react-router";
 import DatePickerBar from "../date-picker-bar/index.jsx";
-import corsRequest from "../../utils/cors-request.js";
 import calUrl from "../../utils/cal-url.js";
 import calRow from "../../utils/cal-row";
-import {DEFAULT_OPS_COLUMN, syncStatusMap, syncTimeStatusMap} from "../../configs";
 import css from "./index.scss";
 import AppTheme from "../../../theme/theme.js";
 import Location from '../location/index.jsx';
-
-const HIDE_ICON_CLASS = "glyphicon glyphicon-triangle-right";
-const SHOW_ICON_CLASS = "glyphicon glyphicon-triangle-bottom";
 
 const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
@@ -92,7 +86,13 @@ export default class MessageReporting extends Component {
     }
 
     generateReport = () => {
-        console.log('generate report...')
+        let startDay, endDay, location;
+
+        if (!(this.state.startDate && this.state.endDate && this.state.location)) {
+            console.log(this.state.startDate)
+            console.log(this.state.endDate)
+            console.log(this.state.location)
+        }
     };
 
     onClean(key) {
@@ -126,7 +126,9 @@ export default class MessageReporting extends Component {
 
                 <Location cancelLabel={this.props.routes[0].d2.i18n.getTranslation('cancel')}
                           okLabel={this.props.routes[0].d2.i18n.getTranslation('ok')}
-                          onSelect={::this.handleSelectedLocation}/>
+                          onSelect={::this.handleSelectedLocation}
+                          onClean={this.onClean.bind(this, 'location')}
+                />
             </div>
         )
     }
@@ -143,6 +145,172 @@ export default class MessageReporting extends Component {
                     onClick={this.generateReport}
                 />
             </div>
+        )
+    }
+
+    renderTableHead() {
+        return (
+            <thead>
+            <tr>
+                <th>Province</th>
+                <th>District</th>
+                <th>Facility</th>
+                <th>Message</th>
+                <th>Create On</th>
+                <th>Submitted On</th>
+            </tr>
+            </thead>
+        )
+    }
+
+    renderTableBody() {
+        return (
+            <tbody>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            <tr>
+                <td>province1</td>
+                <td>district1</td>
+                <td>facility1</td>
+                <td>message1</td>
+                <td>create on1</td>
+                <td>submitted on1</td>
+            </tr>
+            </tbody>
         )
     }
 
@@ -168,6 +336,15 @@ export default class MessageReporting extends Component {
                     </Link>
                 </div>
 
+                <div className={ css.divTable }>
+                    <div className={ css.tableContainer } onScroll={this.handleScroll}>
+                        <table className={ css.reportingTable }>
+                            { this.renderTableHead() }
+                            { this.renderTableBody() }
+                        </table>
+                    </div>
+                </div>
+
             </div>
         )
     }
@@ -182,13 +359,4 @@ export default class MessageReporting extends Component {
         )
     }
 
-    handleHilightClick(rowIdx) {
-        const rows = this.state.highlightRows;
-        if (rows.indexOf(rowIdx) === -1) {
-            rows.push(rowIdx);
-        } else {
-            rows.splice(rows.indexOf(rowIdx), 1);
-        }
-        this.setState({highlightRows: rows});
-    }
 }

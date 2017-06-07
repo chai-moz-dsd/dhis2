@@ -17,38 +17,6 @@
 
 .content {
   padding-top: 3rem;
-  height: 100vh;
-  background: white;
-  overflow-y: auto;
-
-  table {
-    margin: 0;
-
-    thead {
-      tr:nth-child(1) {
-        th {
-          background-color: #7CA1CC;
-        }
-
-        th:nth-child(1) {
-          background-color: white;
-          min-width: 12.5rem;
-        }
-      }
-
-      tr:nth-child(2) {
-        background-color: #B6C5D4;
-
-        th {
-          min-width: 6.25rem;
-        }
-      }
-    }
-
-    tbody {
-      text-align: left;
-    }
-  }
 }
 
 .reportBtn {
@@ -58,22 +26,6 @@
   font-size: 14px;
   color: white;
   box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24);
-}
-
-.ReportingRow {
-}
-
-.rowStyle {
-  white-space: nowrap;
-}
-
-.rowName {
-  text-align: left;
-  position: relative;
-  font-size: 0.75rem;
-  padding-left: 3px;
-  padding-right: 3px;
-  table-layout: fixed;
 }
 
 @-moz-keyframes spin {
@@ -108,51 +60,6 @@
   animation: spin 2s linear infinite;
 }
 
-.sick {
-  background-color: #DEA8A7;
-  color: #D1827F;
-}
-
-.normal {
-  background-color: #DDDDDD;
-  color: #ACA9A9;
-}
-
-.ok {
-  background-color: #CDDCAE;
-  color: #A0BC6B;
-}
-
-.syncStatus {
-  min-width: 15.625rem;
-  text-align: left;
-}
-
-.syncTimeStatus {
-  padding: 0 .18rem;
-  float: left;
-}
-
-.syncTime {
-  padding: 0 .18rem 0 0.625rem;
-  min-width: 21.875rem;
-  text-align: right;
-}
-
-.ODKVersion {
-  padding: 0 .18rem;
-  min-width: 6.25rem;
-  text-align: left;
-}
-
-.comments {
-  padding: 0 .18rem;
-  min-width: 15.625rem;
-  max-width: 21.875rem;
-  white-space: normal;
-  text-align: left;
-}
-
 .mark {
   font-weight: bold;
 }
@@ -180,5 +87,37 @@
 
   a:nth-child(2) {
     margin: 0 20px;
+  }
+}
+
+.divTable {
+  overflow: hidden;
+  .tableContainer {
+    height: 650px;
+    width: 1090px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    table-layout: fixed;
+
+    .reportingTable {
+      margin: 0;
+
+      thead {
+        tr th:nth-child(4) {
+          width: 40%;
+        }
+
+        tr th {
+          background-color: #b4c5d4;
+          width: 10%;
+          height: 35px;
+        }
+      }
+
+      tbody {
+        text-align: left;
+      }
+    }
   }
 }
