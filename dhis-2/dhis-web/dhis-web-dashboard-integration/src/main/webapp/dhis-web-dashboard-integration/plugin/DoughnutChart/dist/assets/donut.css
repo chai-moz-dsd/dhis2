@@ -834,7 +834,6 @@ body {
 .index__dateLabel___3oOi5 {
   position: absolute;
   top: 2rem;
-  left: 3rem;
   font-size: 1rem;
   line-height: 1rem;
   color: rgba(0, 0, 0, 0.26);
@@ -845,7 +844,8 @@ body {
 
 .index__hasDate___2ckgt {
   top: .375rem;
-  font-size: 9pt; }
+  font-size: 9pt;
+  left: .1rem; }
 html {
   font-size: 100%; }
 
