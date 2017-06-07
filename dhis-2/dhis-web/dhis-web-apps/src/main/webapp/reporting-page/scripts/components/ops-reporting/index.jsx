@@ -426,6 +426,10 @@ export default class OpsReporting extends Component {
                         <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('ops_indicator')} active={true}
                                      icon='assignment'/>
                     </Link>
+                    <Link to='/message'>
+                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('message')}
+                                     icon='assignment'/>
+                    </Link>
                 </div>
 
                 <div className={ css.divTable }>

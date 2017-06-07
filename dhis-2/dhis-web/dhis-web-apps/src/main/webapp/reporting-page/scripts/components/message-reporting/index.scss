@@ -1,5 +1,5 @@
 .sidebar {
-  padding-top: 3rem;
+  padding-top: 6rem;
   background: #F2F2F1;
   min-width: 330px;
   height: 100vh;
@@ -164,26 +164,6 @@
   font-size: 12px;
 }
 
-.primaryTitle {
-  background: #535353;
-  color: white;
-}
-
-.secondaryTitle {
-  background: #A7A7A7;
-}
-
-.tertiaryTitle {
-  background: #DDDDDD;
-}
-
-.primaryTitle, .secondaryTitle, .tertiaryTitle {
-  font-size: 1rem;
-  font-weight: bold;
-  border: 1px solid #000;
-  cursor: pointer;
-}
-
 .changeScreenLabel {
   text-align: right;
   height: 25px;
@@ -200,57 +180,5 @@
 
   a:nth-child(2) {
     margin: 0 20px;
-  }
-}
-
-.highlightRow {
-  background: #ADD8E6;
-}
-
-.divTable {
-  overflow: hidden;
-  .tableContainer {
-    height: 735px;
-    width: 1080px;
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-    table-layout: fixed;
-
-    .divLeft {
-      width: 200px;
-      position: absolute;
-      z-index: 100;
-
-      .divLeftThead {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 111;
-      }
-    }
-
-    .divRight {
-      width: 1080px;
-      height: 735px;
-      overflow-y: hidden;
-      position: absolute;
-
-      .divRightThead {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 99;
-      }
-
-      .divRightTbody {
-        position: absolute;
-        height: 735px;
-        overflow-y: scroll;
-        overflow-x: hidden;
-        top: 0;
-        left: 0;
-      }
-    }
   }
 }

@@ -45,3 +45,7 @@ export function getDonutChartData(year, week, ou) {
 export function getIndicatorUrl() {
   return `${getBaseUrl()}reporting-page/index.html#/ops`;
 }
+
+export function getMessageUrl() {
+  return `${getBaseUrl()}reporting-page/index.html#/message`;
+}

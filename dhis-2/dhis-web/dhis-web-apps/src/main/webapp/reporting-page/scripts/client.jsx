@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import D2Library from 'd2/lib/d2';
 import calUrl from "./utils/cal-url.js";
 import OpsReporting from './components/ops-reporting/index.jsx'
+import MessageReporting from './components/message-reporting/index.jsx'
 import { Router, Route, hashHistory } from 'react-router'
 
 import LoadingMask from 'd2-ui/lib/loading-mask/LoadingMask.component';
@@ -26,6 +27,7 @@ D2Library.getManifest('manifest.webapp')
                 <Router history={hashHistory}>
                     <Route path="/" component={ReportingPage} d2={d2}/>
                     <Route path="/ops" component={OpsReporting} d2={d2}/>
+                    <Route path="/message" component={MessageReporting} d2={d2}/>
                 </Router>
             ), document.getElementById('app'));
     })

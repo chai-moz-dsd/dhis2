@@ -192,6 +192,9 @@ class ReportingTable extends React.Component {
                     <Link to='/ops'>
                         <ToolBoxLink label={this.props.d2.i18n.getTranslation('ops_indicator')} icon='assignment'/>
                     </Link>
+                    <Link to='/message'>
+                        <ToolBoxLink label={this.props.d2.i18n.getTranslation('message')} icon='assignment'/>
+                    </Link>
                 </div>
 
                 <div className={ css.divTable }>
