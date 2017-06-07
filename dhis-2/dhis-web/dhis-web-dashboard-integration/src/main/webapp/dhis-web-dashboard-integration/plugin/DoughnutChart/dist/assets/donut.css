@@ -830,6 +830,22 @@ body {
   line-height: 38px;
   color: rgba(0, 0, 0, 0.26);
   cursor: pointer; }
+
+.index__dateLabel___3oOi5 {
+  position: absolute;
+  top: 2rem;
+  left: 3rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: rgba(0, 0, 0, 0.26);
+  pointer-events: none;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: .35s;
+  transition-property: top,font-size,color; }
+
+.index__hasDate___2ckgt {
+  top: .375rem;
+  font-size: 9pt; }
 html {
   font-size: 100%; }
 
@@ -1063,6 +1079,20 @@ body {
 .index__locationContainer___3e_bP {
   padding: 1.25rem 0;
   position: relative; }
+  .index__locationContainer___3e_bP .index__locationLabel___3X-MM {
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    font-size: 1rem;
+    line-height: 1rem;
+    color: rgba(0, 0, 0, 0.26);
+    pointer-events: none;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: .35s;
+    transition-property: top,font-size,color; }
+  .index__locationContainer___3e_bP .index__hasLocation___9mQis {
+    top: .375rem;
+    font-size: 9pt; }
 
 .index__location___1yz9R {
   margin-left: 3rem;
@@ -1077,19 +1107,3 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
   .index__location___1yz9R > div {
     white-space: nowrap; }
-
-.index__locationLabel___3X-MM {
-  position: absolute;
-  top: 2rem;
-  left: 3rem;
-  font-size: 1rem;
-  line-height: 1rem;
-  color: rgba(0, 0, 0, 0.26);
-  pointer-events: none;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: .35s;
-  transition-property: top,font-size,color; }
-
-.index__hasLocation___9mQis {
-  top: .375rem;
-  font-size: 0.75rem; }
