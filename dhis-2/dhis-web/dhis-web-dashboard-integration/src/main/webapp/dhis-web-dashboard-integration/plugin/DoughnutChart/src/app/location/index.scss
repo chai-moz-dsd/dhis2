@@ -94,6 +94,27 @@
 .locationContainer {
   padding: 1.25rem 0;
   position: relative;
+
+  .locationLabel {
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    font-size: 1rem;
+    line-height: 1rem;
+    color: rgba(0,0,0,.26);
+    pointer-events: none;
+    -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    -webkit-transition-duration: .35s;
+    transition-duration: .35s;
+    -webkit-transition-property: top,font-size,color;
+    transition-property: top,font-size,color;
+  }
+
+  .hasLocation {
+    top: .375rem;
+    font-size: 9pt;
+  }
 }
 
 .location {
@@ -111,25 +132,4 @@
   & > div{
     white-space: nowrap;
   }
-}
-
-.locationLabel {
-  position: absolute;
-  top: 2rem;
-  left: 3rem;
-  font-size: 1rem;
-  line-height: 1rem;
-  color: rgba(0,0,0,.26);
-  pointer-events: none;
-  -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);
-  transition-timing-function: cubic-bezier(.4,0,.2,1);
-  -webkit-transition-duration: .35s;
-  transition-duration: .35s;
-  -webkit-transition-property: top,font-size,color;
-  transition-property: top,font-size,color;
-}
-
-.hasLocation {
-  top: .375rem;
-  font-size: 0.75rem;
 }

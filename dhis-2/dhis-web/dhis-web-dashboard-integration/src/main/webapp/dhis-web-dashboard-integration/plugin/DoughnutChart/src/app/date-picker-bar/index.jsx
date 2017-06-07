@@ -37,13 +37,15 @@ export default class DatePickerBar extends React.Component {
                   inputFormat={i18nForDate}
                   sundayFirstDayOfWeek
                   autoOk
-                  label={label}
                   value={value}
                   minDate={minDate}
                   maxDate={maxDate}
                   onChange={onChange}
                   locale={ 'locale' }
+                  calssName={css.datePicker}
       >
+        <label
+          className={ `${css.dateLabel} ${value ? css.hasDate : ''}` }>{label}</label>
         { this.props.value !== null &&
         <FontIcon className={ css.clear } onClick={ onClean }>clear</FontIcon> }
       </DatePicker>
