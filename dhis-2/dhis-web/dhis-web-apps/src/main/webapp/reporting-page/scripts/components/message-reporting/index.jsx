@@ -33,7 +33,7 @@ export default class MessageReporting extends Component {
             tableEndDate: null,
             namesMapping: [],
             regionalList: [],
-            rootLocation: [],
+            showedData: [{province: 'province1', district: 'district1', facility: 'facility1', message: '1111111', created: '1233123', submitted: '342423423'}],
             rows: [],
             highlightRows: [],
             leftDistance: 0,
@@ -163,155 +163,53 @@ export default class MessageReporting extends Component {
         )
     }
 
+    renderTableRows(items, rows) {
+        items.forEach((item) => {
+            const rowIdx = rows.length;
+
+            rows.push((
+                <tr>
+                    <td>
+                        {item.province}
+                    </td>
+                    <td>
+                        {item.district}
+                    </td>
+                    <td>
+                        {item.facility}
+                    </td>
+                    <td>
+                        {item.message}
+                    </td>
+                    <td>
+                        {item.created}
+                    </td>
+                    <td>
+                        {item.submitted}
+                    </td>
+                </tr>
+            ))
+        });
+    }
+
     renderTableBody() {
-        return (
-            <tbody>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            <tr>
-                <td>province1</td>
-                <td>district1</td>
-                <td>facility1</td>
-                <td>message1</td>
-                <td>create on1</td>
-                <td>submitted on1</td>
-            </tr>
-            </tbody>
-        )
+        const showedData = this.state.showedData;
+
+        return !!showedData.length && (
+                <tbody>
+                {
+                    showedData.map((items) => {
+                        let list = [];
+
+                        this.renderTableRows([items], list);
+
+                        return list.map((item) => {
+                            return item;
+                        });
+                    })
+                }
+                </tbody>
+            )
     }
 
     renderTable() {

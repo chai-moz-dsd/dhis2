@@ -112,11 +112,14 @@
           background-color: #b4c5d4;
           width: 10%;
           height: 35px;
+          text-align: center;
         }
       }
 
       tbody {
-        text-align: left;
+        td {
+          text-align: left;
+        }
       }
     }
   }
