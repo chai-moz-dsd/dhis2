@@ -87,5 +87,22 @@ module.exports = {
         const st = 'startDate=' + startDate;
         const ed = 'endDate=' + endDate;
         return protocol + '//' + hostname + ':50000' + '/api/indicator?' + ou + '&' + st + '&' + ed;
+    },
+    getMessageInfo: function(location, startDay, endDay, selectedPage) {
+        var protocol = window.location.protocol;
+        var hostname = window.location.hostname;
+        const ou = 'location=' + location;
+        const st = 'startDay=' + startDay;
+        const ed = 'endDay=' + endDay;
+        const pc = 'pageCount=' + selectedPage;
+        return protocol + '//' + hostname + ':50000' + '/api/indicator/message?' + ou + '&' + st + '&' + ed + '&' + pc;
+    },
+    getMessageCount: function(location, startDay, endDay) {
+        var protocol = window.location.protocol;
+        var hostname = window.location.hostname;
+        const ou = 'location=' + location;
+        const st = 'startDay=' + startDay;
+        const ed = 'endDay=' + endDay;
+        return protocol + '//' + hostname + ':50000' + '/api/indicator/messageCount?' + ou + '&' + st + '&' + ed;
     }
 };

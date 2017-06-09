@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import moment from "moment";
 import axios from "axios";
 import _ from "lodash";
 import {Button} from "react-toolbox/lib/button";
@@ -13,6 +14,8 @@ import calRow from "../../utils/cal-row";
 import css from "./index.scss";
 import AppTheme from "../../../theme/theme.js";
 import Location from '../location/index.jsx';
+import corsRequest from "../../utils/cors-request.js";
+import ReactPaginate from 'react-paginate';
 
 const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
@@ -33,11 +36,290 @@ export default class MessageReporting extends Component {
             tableEndDate: null,
             namesMapping: [],
             regionalList: [],
-            showedData: [{province: 'province1', district: 'district1', facility: 'facility1', message: '1111111', created: '1233123', submitted: '342423423'}],
+            showedData: [{
+                province: 'province1',
+                district: 'district1',
+                facility: 'facility1',
+                message: '1111111',
+                created: '1233123',
+                submitted: '342423423'
+            },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: 'province1',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                }],
             rows: [],
-            highlightRows: [],
-            leftDistance: 0,
-            location: null
+            location: null,
+            offset: 0,
+            pageCount: 1
         };
 
         this.generateRows = ::calRow.generateRows
@@ -50,48 +332,55 @@ export default class MessageReporting extends Component {
         };
     }
 
+    loadCommentsFromServer() {
+        console.log('------------');
+    }
+
     componentDidMount() {
-        axios.get(calUrl.getLocationMapping(), calUrl.getConfig())
-            .then((mapResult) => {
-                const namesMapping = _.get(mapResult, 'data.organisationUnits', []);
-                const date = new Date();
-                date.setDate(1);
-                this.setState({
-                    startDate: date,
-                    endDate: new Date(),
-                    namesMapping
-                }, () => {
-                    this.generateReport();
-                })
-            });
+        const date = new Date();
+        date.setDate(1);
+        this.setState({
+            startDate: date,
+            endDate: new Date(),
+        });
+
+        this.setState({
+            tableStartDate: startDay,
+            tableEndDate: endDay
+        });
+
+        corsRequest.sendCORSRequest('GET', calUrl.getMessageCount('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf()), (res) => {
+            let pageCount = res / 20;
+            this.setState({pageCount: pageCount});
+        });
+
+        corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf(), 1), (res) => {
+            this.setState({showedData: res})
+        });
+
+        this.loadCommentsFromServer();
     }
 
     onChange = (item, value) => {
         this.setState({[item]: value});
     };
 
-    initRootLocation(data) {
-        let rootLocation = [];
-
-        for (let item of this.state.regionalList) {
-            rootLocation.push({
-                name: item.displayName,
-                id: item.id,
-                level: item.level,
-                value: data[item.displayName]
-            })
-        }
-
-        this.setState({rootLocation})
-    }
-
     generateReport = () => {
-        let startDay, endDay, location;
-
         if (!(this.state.startDate && this.state.endDate && this.state.location)) {
-            console.log(this.state.startDate)
-            console.log(this.state.endDate)
-            console.log(this.state.location)
+            alert('Please check the start date, the end date and the location.');
+        } else {
+            let startDay = moment(this.state.startDate);
+            let endDay = moment(this.state.endDate);
+            let location = this.state.location.id;
+
+            this.setState({
+                tableStartDate: startDay,
+                tableEndDate: endDay
+            });
+
+            corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo(location, startDay.valueOf(), endDay.valueOf(), 1), (res) => {
+                this.setState({showedData: res})
+            });
         }
     };
 
@@ -131,6 +420,45 @@ export default class MessageReporting extends Component {
                 />
             </div>
         )
+    }
+
+    handlePageClick = (data) => {
+        let selected = data.selected + 1;
+
+        if (!(this.state.startDate && this.state.endDate && this.state.location)) {
+            alert('Please check the start date, the end date and the location.');
+        } else {
+            let startDay = moment(this.state.startDate);
+            let endDay = moment(this.state.endDate);
+            let location = this.state.location.id;
+
+            this.setState({
+                tableStartDate: startDay,
+                tableEndDate: endDay
+            });
+
+            corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo(location, startDay.valueOf(), endDay.valueOf(), selected), (res) => {
+                this.setState({showedData: res})
+            });
+        }
+    };
+
+    renderPagination() {
+        return (
+            <div className={css.commentBox}>
+                <ReactPaginate previousLabel={"previous"}
+                               nextLabel={"next"}
+                               breakLabel={<a href="">...</a>}
+                               breakClassName={"break-me"}
+                               pageCount={this.state.pageCount}
+                               marginPagesDisplayed={4}
+                               pageRangeDisplayed={2}
+                               onPageChange={this.handlePageClick}
+                               containerClassName={"pagination"}
+                               subContainerClassName={"pages pagination"}
+                               activeClassName={"active"}/>
+            </div>
+        );
     }
 
     renderSidebar() {
@@ -240,6 +568,7 @@ export default class MessageReporting extends Component {
                             { this.renderTableHead() }
                             { this.renderTableBody() }
                         </table>
+                        { this.renderPagination() }
                     </div>
                 </div>
 

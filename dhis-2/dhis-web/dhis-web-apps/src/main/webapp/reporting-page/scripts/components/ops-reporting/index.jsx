@@ -94,7 +94,6 @@ export default class OpsReporting extends Component {
 
     generateReport = () => {
         let startWeek, endWeek;
-
         if (this.state.startDate && this.state.endDate) {
             startWeek = moment(this.state.startDate);
             endWeek = moment(this.state.endDate);
