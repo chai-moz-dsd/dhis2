@@ -68,7 +68,6 @@ module.exports = {
     getChildrenUrl: function(ouId) {
         return this.getBaseUrl() + '24/organisationUnits/' + ouId + '?paging=false&fields=children';
     },
-
     getRelatedOuList: function () {
         return this.getBaseUrl() + 'me?fields=organisationUnits'
     },
@@ -88,21 +87,12 @@ module.exports = {
         const ed = 'endDate=' + endDate;
         return protocol + '//' + hostname + ':50000' + '/api/indicator?' + ou + '&' + st + '&' + ed;
     },
-    getMessageInfo: function(location, startDay, endDay, selectedPage) {
+    getMessageInfo: function(location, startDay, endDay) {
         var protocol = window.location.protocol;
         var hostname = window.location.hostname;
         const ou = 'location=' + location;
         const st = 'startDay=' + startDay;
         const ed = 'endDay=' + endDay;
-        const pc = 'pageCount=' + selectedPage;
-        return protocol + '//' + hostname + ':50000' + '/api/indicator/message?' + ou + '&' + st + '&' + ed + '&' + pc;
-    },
-    getMessageCount: function(location, startDay, endDay) {
-        var protocol = window.location.protocol;
-        var hostname = window.location.hostname;
-        const ou = 'location=' + location;
-        const st = 'startDay=' + startDay;
-        const ed = 'endDay=' + endDay;
-        return protocol + '//' + hostname + ':50000' + '/api/indicator/messageCount?' + ou + '&' + st + '&' + ed;
+        return this.getBaseUrl() + 'message/analytics.json?' + ou + '&' + st + '&' + ed;
     }
 };

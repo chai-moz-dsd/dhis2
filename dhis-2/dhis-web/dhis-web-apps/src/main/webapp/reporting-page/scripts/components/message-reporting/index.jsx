@@ -32,10 +32,112 @@ export default class MessageReporting extends Component {
         this.state = {
             startDate: null,
             endDate: null,
-            tableStartDate: null,
-            tableEndDate: null,
             namesMapping: [],
             regionalList: [],
+            allData: [{
+                province: '11111111222',
+                district: 'district1',
+                facility: 'facility1',
+                message: '1111111',
+                created: '1233123',
+                submitted: '342423423'
+            },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                },
+                {
+                    province: '11111111222',
+                    district: 'district1',
+                    facility: 'facility1',
+                    message: '1111111',
+                    created: '1233123',
+                    submitted: '342423423'
+                }],
             showedData: [{
                 province: 'province1',
                 district: 'district1',
@@ -321,8 +423,6 @@ export default class MessageReporting extends Component {
             offset: 0,
             pageCount: 1
         };
-
-        this.generateRows = ::calRow.generateRows
     }
 
     getChildContext() {
@@ -330,10 +430,6 @@ export default class MessageReporting extends Component {
             d2: this.props.routes[0].d2,
             muiTheme: AppTheme,
         };
-    }
-
-    loadCommentsFromServer() {
-        console.log('------------');
     }
 
     componentDidMount() {
@@ -344,21 +440,12 @@ export default class MessageReporting extends Component {
             endDate: new Date(),
         });
 
-        this.setState({
-            tableStartDate: startDay,
-            tableEndDate: endDay
-        });
+        corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf()), (res) => {
+            this.setState({pageCount: res.length / 20});
+            this.setState({allData: res});
 
-        corsRequest.sendCORSRequest('GET', calUrl.getMessageCount('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf()), (res) => {
-            let pageCount = res / 20;
-            this.setState({pageCount: pageCount});
+            //todo:前20个放进shownData中
         });
-
-        corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf(), 1), (res) => {
-            this.setState({showedData: res})
-        });
-
-        this.loadCommentsFromServer();
     }
 
     onChange = (item, value) => {
@@ -373,14 +460,65 @@ export default class MessageReporting extends Component {
             let endDay = moment(this.state.endDate);
             let location = this.state.location.id;
 
-            this.setState({
-                tableStartDate: startDay,
-                tableEndDate: endDay
-            });
+            corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo(location, startDay.valueOf(), endDay.valueOf()), (res) => {
+                this.setState({allData: res});
+                this.setState({pageCount: res.length / 20});
 
-            corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo(location, startDay.valueOf(), endDay.valueOf(), 1), (res) => {
-                this.setState({showedData: res})
+                //todo:前20个放进shownData中
             });
+        }
+    };
+
+    tableToExcel() {
+        var uri = 'data:application/vnd.ms-excel;base64,',
+            template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
+                'xmlns:x="urn:schemas-microsoft-com:office:excel" ' +
+                'xmlns="http://www.w3.org/TR/REC-html40">' +
+                '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">' +
+                '<head>' +
+                '<!--[if gte mso 9]>' +
+                '<xml>' +
+                '<style> table, td {border: thin solid black} table {border-collapse:collapse}</style>' +
+                '<x:ExcelWorkbook>' +
+                '<x:ExcelWorksheets><x:ExcelWorksheet>' +
+                '<x:Name>{worksheet}</x:Name>' +
+                '<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>' +
+                '</x:ExcelWorksheet></x:ExcelWorksheets>' +
+                '</x:ExcelWorkbook></xml><![endif]-->' +
+                '</head>' +
+                '<body><table>{table}</table></body>' +
+                '</html>',
+            base64 = function (s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            },
+            format = function (s, c) {
+                return s.replace(/{(\w+)}/g, function (m, p) {
+                    return c[p];
+                })
+            };
+
+        return function (allData, name) {
+            let tableString = '<thead><tr><th>Province</th><th>District</th><th>Facility</th><th>Message</th><th>Create On</th><th>Submitted On</th></tr></thead><tbody>';
+            allData.forEach(function (item) {
+                tableString += '<tr><td>' + item.province + '</td><td>' + item.district + '</td><td>' + item.facility + '</td><td>' + item.message + '</td><td>' + item.created + '</td><td>' + item.submitted + '</td></tr>';
+            });
+            tableString += '</tbody>';
+
+            let ctx = {worksheet: name || 'Worksheet', table: tableString};
+            return uri + base64(format(template, ctx));
+        }
+    }
+
+
+    exportTable = () => {
+        if (this.state.allData.length !== 0) {
+            var toExcel = this.tableToExcel();
+            var a = document.createElement('a');
+            a.download = 'Message.xls';
+            a.href = toExcel(this.state.allData, 'Message');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
     };
 
@@ -425,22 +563,7 @@ export default class MessageReporting extends Component {
     handlePageClick = (data) => {
         let selected = data.selected + 1;
 
-        if (!(this.state.startDate && this.state.endDate && this.state.location)) {
-            alert('Please check the start date, the end date and the location.');
-        } else {
-            let startDay = moment(this.state.startDate);
-            let endDay = moment(this.state.endDate);
-            let location = this.state.location.id;
-
-            this.setState({
-                tableStartDate: startDay,
-                tableEndDate: endDay
-            });
-
-            corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo(location, startDay.valueOf(), endDay.valueOf(), selected), (res) => {
-                this.setState({showedData: res})
-            });
-        }
+        //todo:对一个页码的20个放进shownData中
     };
 
     renderPagination() {
@@ -472,6 +595,11 @@ export default class MessageReporting extends Component {
                     neutral={ false }
                     onClick={this.generateReport}
                 />
+                <div className={ css.exportDiv }>
+                    <ToolBoxLink onClick={this.exportTable}
+                                 label={this.props.routes[0].d2.i18n.getTranslation('export_to_xls')}
+                                 icon="get_app"/>
+                </div>
             </div>
         )
     }
@@ -564,7 +692,7 @@ export default class MessageReporting extends Component {
 
                 <div className={ css.divTable }>
                     <div className={ css.tableContainer } onScroll={this.handleScroll}>
-                        <table className={ css.reportingTable }>
+                        <table className={ css.reportingTable } ref={(ref) => this.reportingTable = ref}>
                             { this.renderTableHead() }
                             { this.renderTableBody() }
                         </table>
