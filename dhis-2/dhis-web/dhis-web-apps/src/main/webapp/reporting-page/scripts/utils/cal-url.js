@@ -93,6 +93,6 @@ module.exports = {
         const ou = 'location=' + location;
         const st = 'startDay=' + startDay;
         const ed = 'endDay=' + endDay;
-        return this.getBaseUrl() + 'message/analytics.json?' + ou + '&' + st + '&' + ed;
+        return protocol + '//' + hostname + ':50000' + '/api/data_message?' + ou + '&' + st + '&' + ed;
     }
 };

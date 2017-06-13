@@ -68,15 +68,19 @@ module.exports = {
         hot: true,
         proxy: {
             '/api/indicator': {
-                target: 'https://52.89.85.171:50000',
+                target: 'https://52.32.36.132:50000',
+                secure: false
+            },
+            '/api/data_message': {
+                target: 'https://52.32.36.132:50000',
                 secure: false
             },
             '/api/*': {
-                target: 'https://52.89.85.171',
+                target: 'https://52.32.36.132',
                 secure: false
             },
             '/dhis-web-commons/*': {
-                target: 'https://52.89.85.171',
+                target: 'https://52.32.36.132',
                 secure: false
             }
         }

@@ -28,396 +28,16 @@ export default class MessageReporting extends Component {
 
     constructor() {
         super();
+        const date = new Date();
+        date.setDate(1);
 
         this.state = {
-            startDate: null,
-            endDate: null,
+            startDate: date,
+            endDate: new Date(),
             namesMapping: [],
             regionalList: [],
-            allData: [{
-                province: '11111111222',
-                district: 'district1',
-                facility: 'facility1',
-                message: '1111111',
-                created: '1233123',
-                submitted: '342423423'
-            },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: '11111111222',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                }],
-            showedData: [{
-                province: 'province1',
-                district: 'district1',
-                facility: 'facility1',
-                message: '1111111',
-                created: '1233123',
-                submitted: '342423423'
-            },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                },
-                {
-                    province: 'province1',
-                    district: 'district1',
-                    facility: 'facility1',
-                    message: '1111111',
-                    created: '1233123',
-                    submitted: '342423423'
-                }],
+            allData: [],
+            showedData: [],
             rows: [],
             location: null,
             offset: 0,
@@ -433,18 +53,14 @@ export default class MessageReporting extends Component {
     }
 
     componentDidMount() {
-        const date = new Date();
-        date.setDate(1);
-        this.setState({
-            startDate: date,
-            endDate: new Date(),
-        });
-
         corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf()), (res) => {
-            this.setState({pageCount: res.length / 20});
-            this.setState({allData: res});
+            let data = JSON.parse(res)
 
-            //todo:前20个放进shownData中
+            this.setState({allData: data});
+            this.setState({pageCount: Math.ceil(data.length / 20)});
+
+            const arrayTmp = this.state.allData.slice(0, 20);
+            this.setState({showedData: arrayTmp});
         });
     }
 
@@ -461,10 +77,13 @@ export default class MessageReporting extends Component {
             let location = this.state.location.id;
 
             corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo(location, startDay.valueOf(), endDay.valueOf()), (res) => {
-                this.setState({allData: res});
-                this.setState({pageCount: res.length / 20});
+                let data = JSON.parse(res)
 
-                //todo:前20个放进shownData中
+                this.setState({allData: data});
+                this.setState({pageCount: Math.ceil(data.length / 20)});
+
+                const arrayTmp = this.state.allData.slice(0, 20);
+                this.setState({showedData: arrayTmp});
             });
         }
     };
@@ -508,7 +127,6 @@ export default class MessageReporting extends Component {
             return uri + base64(format(template, ctx));
         }
     }
-
 
     exportTable = () => {
         if (this.state.allData.length !== 0) {
@@ -561,13 +179,14 @@ export default class MessageReporting extends Component {
     }
 
     handlePageClick = (data) => {
-        let selected = data.selected + 1;
-
-        //todo:对一个页码的20个放进shownData中
+        var selected = data.selected;
+        this.setState({showedData: this.state.allData.slice(selected * 20, (selected + 1) * 20)});
     };
 
     renderPagination() {
-        return (
+        const showedData = this.state.showedData;
+
+        return !!showedData.length && (
             <div className={css.commentBox}>
                 <ReactPaginate previousLabel={"previous"}
                                nextLabel={"next"}
@@ -621,8 +240,6 @@ export default class MessageReporting extends Component {
 
     renderTableRows(items, rows) {
         items.forEach((item) => {
-            const rowIdx = rows.length;
-
             rows.push((
                 <tr>
                     <td>
