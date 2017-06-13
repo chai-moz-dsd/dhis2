@@ -231,7 +231,7 @@ export default class MessageReporting extends Component {
                 <th>District</th>
                 <th>Facility</th>
                 <th>Message</th>
-                <th>Create On</th>
+                <th>Created On</th>
                 <th>Submitted On</th>
             </tr>
             </thead>
