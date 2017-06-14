@@ -119,6 +119,10 @@
       tbody {
         font-size: 0.8rem;
 
+        tr:nth-child(even) {
+          background: #dfe6ec;
+        }
+
         td {
           text-align: left;
         }
