@@ -70,7 +70,7 @@ export default class MessageReporting extends Component {
 
     generateReport = () => {
         if (!(this.state.startDate && this.state.endDate && this.state.location)) {
-            alert('Please check the start date, the end date and the location.');
+            alert('Please provide start date, end date and location.');
         } else {
             let startDay = moment(this.state.startDate);
             let endDay = moment(this.state.endDate);
@@ -117,9 +117,9 @@ export default class MessageReporting extends Component {
             };
 
         return function (allData, name) {
-            let tableString = '<thead><tr><th>Province</th><th>District</th><th>Facility</th><th>Message</th><th>Create On</th><th>Submitted On</th></tr></thead><tbody>';
+            let tableString = '<thead><tr><th>Province</th><th>District</th><th>Facility</th><th>Message</th><th>Submitted Date</th><th>Received Date</th></tr></thead><tbody>';
             allData.forEach(function (item) {
-                tableString += '<tr><td>' + item.province + '</td><td>' + item.district + '</td><td>' + item.facility + '</td><td>' + item.message + '</td><td>' + item.created + '</td><td>' + item.submitted + '</td></tr>';
+                tableString += '<tr><td>' + item.province + '</td><td>' + item.district + '</td><td>' + item.facility + '</td><td>' + item.message + '</td><td>' + item.submitted + '</td><td>' + item.created + '</td></tr>';
             });
             tableString += '</tbody>';
 
