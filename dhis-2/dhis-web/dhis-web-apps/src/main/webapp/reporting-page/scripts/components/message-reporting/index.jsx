@@ -231,8 +231,8 @@ export default class MessageReporting extends Component {
                 <th>District</th>
                 <th>Facility</th>
                 <th>Message</th>
-                <th>Created On</th>
-                <th>Submitted On</th>
+                <th>Submitted Date</th>
+                <th>Received Date</th>
             </tr>
             </thead>
         )
@@ -255,10 +255,10 @@ export default class MessageReporting extends Component {
                         {item.message}
                     </td>
                     <td>
-                        {item.created}
+                        {item.submitted}
                     </td>
                     <td>
-                        {item.submitted}
+                        {item.created}
                     </td>
                 </tr>
             ))
