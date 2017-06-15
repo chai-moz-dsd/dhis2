@@ -72,7 +72,7 @@ export default class CommentsReporting extends Component {
 
     generateReport = () => {
         if (!(this.state.startDate && this.state.endDate && this.state.location)) {
-            alert('Please check the start epidemiological week, the end epidemiological week and the location.');
+            alert('Please provide start week, end week and location.');
         } else {
             let startWeek = epi(getTimeFormat(this.state.startDate));
             let endWeek = epi(getTimeFormat(this.state.endDate));
