@@ -186,6 +186,9 @@ class ReportingTable extends React.Component {
                     <ToolBoxLink active={this.props.currentCategory == 'location'}
                                  label={this.props.d2.i18n.getTranslation('location')} icon='location_city'
                                  onClick={() => this.props.changeCategory('location')}/>
+                    <Link to='/comments'>
+                        <ToolBoxLink label={this.props.d2.i18n.getTranslation('comments')} icon='comment'/>
+                    </Link>
                     <ToolBoxLink active={this.props.currentCategory == 'week'}
                                  label={this.props.d2.i18n.getTranslation('time_series')} icon='date_range'
                                  onClick={() => this.props.changeCategory('week')}/>
@@ -193,7 +196,7 @@ class ReportingTable extends React.Component {
                         <ToolBoxLink label={this.props.d2.i18n.getTranslation('ops_indicator')} icon='assignment'/>
                     </Link>
                     <Link to='/message'>
-                        <ToolBoxLink label={this.props.d2.i18n.getTranslation('message')} icon='assignment'/>
+                        <ToolBoxLink label={this.props.d2.i18n.getTranslation('message')} icon='note'/>
                     </Link>
                 </div>
 

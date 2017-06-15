@@ -14,7 +14,11 @@ export const DEFAULT_TEXT_LEVEL = 3;
 
 export const DEFAULT_WEEK_ROWS = 24;
 
+export const COMMENTS_WEEK_ROWS = 8;
+
 export const DEFAULT_OPS_COLUMN = 3;
+
+export const COUNT_PER_PAGE = 20;
 
 export const syncStatusMap = {
     '-1': 'mBes_not_submitted',

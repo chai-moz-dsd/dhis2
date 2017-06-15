@@ -417,6 +417,10 @@ export default class OpsReporting extends Component {
                         <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('location')}
                                      icon='location_city'/>
                     </Link>
+                    <Link to='/comments'>
+                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('comments')}
+                                     icon='comment'/>
+                    </Link>
                     <Link to='/?category=week'>
                         <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('time_series')}
                                      icon='date_range'/>
@@ -427,7 +431,7 @@ export default class OpsReporting extends Component {
                     </Link>
                     <Link to='/message'>
                         <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('message')}
-                                     icon='assignment'/>
+                                     icon='note'/>
                     </Link>
                 </div>
 

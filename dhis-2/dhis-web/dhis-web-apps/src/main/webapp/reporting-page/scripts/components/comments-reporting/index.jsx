@@ -13,11 +13,13 @@ import AppTheme from "../../../theme/theme.js";
 import Location from '../location/index.jsx';
 import corsRequest from "../../utils/cors-request.js";
 import ReactPaginate from 'react-paginate';
-import {COUNT_PER_PAGE} from "../../configs";
+import {COMMENTS_WEEK_ROWS, COUNT_PER_PAGE} from "../../configs";
+import epi from "../../utils/cal-epi";
+import {getTimeFormat} from '../../utils/cal-time.js';
 
 const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 
-export default class MessageReporting extends Component {
+export default class CommentsReporting extends Component {
 
     static childContextTypes = {
         d2: React.PropTypes.object,
@@ -26,11 +28,10 @@ export default class MessageReporting extends Component {
 
     constructor() {
         super();
-        const date = new Date();
-        date.setDate(1);
+        let day = new Date().getDay();
 
         this.state = {
-            startDate: date,
+            startDate: new Date(moment().subtract(((COMMENTS_WEEK_ROWS - 1 ) * 7 + day), 'days').valueOf()),
             endDate: new Date(),
             namesMapping: [],
             regionalList: [],
@@ -51,8 +52,11 @@ export default class MessageReporting extends Component {
     }
 
     componentDidMount() {
-        corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf()), (res) => {
-            let data = JSON.parse(res)
+        const startWeek = epi(getTimeFormat(this.state.startDate));
+        const endWeek = epi(getTimeFormat(this.state.endDate));
+
+        corsRequest.sendCORSRequest('GET', calUrl.getCommentsInfo('MOH12345678', startWeek.year, startWeek.week, endWeek.year, endWeek.week), (res) => {
+            let data = JSON.parse(res);
 
             this.setState({allData: data});
             this.setState({pageCount: Math.ceil(data.length / COUNT_PER_PAGE)});
@@ -68,14 +72,14 @@ export default class MessageReporting extends Component {
 
     generateReport = () => {
         if (!(this.state.startDate && this.state.endDate && this.state.location)) {
-            alert('Please provide start date, end date and location.');
+            alert('Please check the start epidemiological week, the end epidemiological week and the location.');
         } else {
-            let startDay = moment(this.state.startDate);
-            let endDay = moment(this.state.endDate);
+            let startWeek = epi(getTimeFormat(this.state.startDate));
+            let endWeek = epi(getTimeFormat(this.state.endDate));
             let location = this.state.location.id;
 
-            corsRequest.sendCORSRequest('GET', calUrl.getMessageInfo(location, startDay.valueOf(), endDay.valueOf()), (res) => {
-                let data = JSON.parse(res)
+            corsRequest.sendCORSRequest('GET', calUrl.getCommentsInfo(location, startWeek.year, startWeek.week, endWeek.year, endWeek.week), (res) => {
+                let data = JSON.parse(res);
 
                 this.setState({allData: data});
                 this.setState({pageCount: Math.ceil(data.length / COUNT_PER_PAGE)});
@@ -115,9 +119,9 @@ export default class MessageReporting extends Component {
             };
 
         return function (allData, name) {
-            let tableString = '<thead><tr><th>Province</th><th>District</th><th>Facility</th><th>Message</th><th>Submitted Date</th><th>Received Date</th></tr></thead><tbody>';
+            let tableString = '<thead><tr><th>Province</th><th>District</th><th>Facility</th><th>Comment</th><th>Epidemiological Wee</th></tr></thead><tbody>';
             allData.forEach(function (item) {
-                tableString += '<tr><td>' + item.province + '</td><td>' + item.district + '</td><td>' + item.facility + '</td><td>' + item.message + '</td><td>' + item.submitted + '</td><td>' + item.created + '</td></tr>';
+                tableString += '<tr><td>' + item.province + '</td><td>' + item.district + '</td><td>' + item.facility + '</td><td>' + item.comment + '</td><td>' + item.week + '</td></tr>';
             });
             tableString += '</tbody>';
 
@@ -130,8 +134,8 @@ export default class MessageReporting extends Component {
         if (this.state.allData.length !== 0) {
             var toExcel = this.tableToExcel();
             var a = document.createElement('a');
-            a.download = 'Message.xls';
-            a.href = toExcel(this.state.allData, 'Message');
+            a.download = 'Comments.xls';
+            a.href = toExcel(this.state.allData, 'Comments');
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -152,7 +156,7 @@ export default class MessageReporting extends Component {
         return (
             <div>
                 <DatePickerBar
-                    label={this.props.routes[0].d2.i18n.getTranslation('start_date')}
+                    label={this.props.routes[0].d2.i18n.getTranslation('start_epi_week')}
                     value={startDate}
                     maxDate={this.state.endDate}
                     onClean={this.onClean.bind(this, 'startDate')}
@@ -160,7 +164,7 @@ export default class MessageReporting extends Component {
                 />
 
                 <DatePickerBar
-                    label={this.props.routes[0].d2.i18n.getTranslation('end_date')}
+                    label={this.props.routes[0].d2.i18n.getTranslation('end_epi_week')}
                     value={endDate}
                     minDate={this.state.startDate}
                     onClean={this.onClean.bind(this, 'endDate')}
@@ -204,7 +208,7 @@ export default class MessageReporting extends Component {
     renderSidebar() {
         return (
             <div className={ css.sidebar + ' col-sm-4 col-md-2' }>
-                <div className={ css.head }>{this.props.routes[0].d2.i18n.getTranslation('message_head')}</div>
+                <div className={ css.head }>{this.props.routes[0].d2.i18n.getTranslation('comments_head')}</div>
                 { this.renderTimePicker() }
                 <Button
                     className={ css.reportBtn }
@@ -228,9 +232,8 @@ export default class MessageReporting extends Component {
                 <th>Province</th>
                 <th>District</th>
                 <th>Facility</th>
-                <th>Message</th>
-                <th>Submitted Date</th>
-                <th>Received Date</th>
+                <th>Comment</th>
+                <th>Epidemiological Week</th>
             </tr>
             </thead>
         )
@@ -250,13 +253,10 @@ export default class MessageReporting extends Component {
                         {item.facility}
                     </td>
                     <td>
-                        {item.message}
+                        {item.comment}
                     </td>
                     <td>
-                        {item.submitted}
-                    </td>
-                    <td>
-                        {item.created}
+                        { item.week }
                     </td>
                 </tr>
             ))
@@ -292,7 +292,7 @@ export default class MessageReporting extends Component {
                                      icon='location_city'/>
                     </Link>
                     <Link to='/comments'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('comments')}
+                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('comments')} active={true}
                                      icon='comment'/>
                     </Link>
                     <Link to='/?category=week'>
@@ -304,7 +304,7 @@ export default class MessageReporting extends Component {
                                      icon='assignment'/>
                     </Link>
                     <Link to='/message'>
-                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('message')} active={true}
+                        <ToolBoxLink label={this.props.routes[0].d2.i18n.getTranslation('message')}
                                      icon='note'/>
                     </Link>
                 </div>

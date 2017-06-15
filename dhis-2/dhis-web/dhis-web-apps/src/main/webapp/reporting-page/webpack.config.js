@@ -75,6 +75,10 @@ module.exports = {
                 target: 'https://52.32.36.132:50000',
                 secure: false
             },
+            '/api/data_comments': {
+                target: 'https://52.32.36.132:50000',
+                secure: false
+            },
             '/api/*': {
                 target: 'https://52.32.36.132',
                 secure: false

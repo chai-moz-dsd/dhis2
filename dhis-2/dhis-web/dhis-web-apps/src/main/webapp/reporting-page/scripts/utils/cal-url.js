@@ -94,5 +94,11 @@ module.exports = {
         const st = 'startDay=' + startDay;
         const ed = 'endDay=' + endDay;
         return protocol + '//' + hostname + ':50000' + '/api/data_message?' + ou + '&' + st + '&' + ed;
+    },
+    getCommentsInfo: function(location, startYear, startWeek, endYear, endWeek) {
+        var protocol = window.location.protocol;
+        var hostname = window.location.hostname;
+        const ou = 'location=' + location;
+        return protocol + '//' + hostname + ':50000' + `/api/data_comments?location=${location}&start=${startYear}W${startWeek}&end=${endYear}W${endWeek}`;
     }
 };
