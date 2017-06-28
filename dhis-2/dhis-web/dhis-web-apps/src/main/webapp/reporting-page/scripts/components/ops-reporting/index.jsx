@@ -92,6 +92,52 @@ export default class OpsReporting extends Component {
         this.forceUpdate();
     };
 
+    tableToExcel() {
+        var uri = 'data:application/vnd.ms-excel;base64,',
+            template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
+                'xmlns:x="urn:schemas-microsoft-com:office:excel" ' +
+                'xmlns="http://www.w3.org/TR/REC-html40">' +
+                '<meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">' +
+                '<head>' +
+                '<!--[if gte mso 9]>' +
+                '<xml>' +
+                '<style> table, td {border: thin solid black} table {border-collapse:collapse}</style>' +
+                '<x:ExcelWorkbook>' +
+                '<x:ExcelWorksheets><x:ExcelWorksheet>' +
+                '<x:Name>{worksheet}</x:Name>' +
+                '<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>' +
+                '</x:ExcelWorksheet></x:ExcelWorksheets>' +
+                '</x:ExcelWorkbook></xml><![endif]-->' +
+                '</head>' +
+                '<body><table>{table}</table></body>' +
+                '</html>',
+            base64 = function (s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            },
+            format = function (s, c) {
+                return s.replace(/{(\w+)}/g, function (m, p) {
+                    return c[p];
+                })
+            };
+
+        return function (table, name) {
+            var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
+            return uri + base64(format(template, ctx));
+        }
+    }
+
+    exportTable = () => {
+        if (this.reportingTable) {
+            var toExcel = this.tableToExcel();
+            var a = document.createElement('a');
+            a.download = 'Ops Indicator.xls';
+            a.href = toExcel(this.reportingTable, 'Ops Indicator.xls');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    };
+
     generateReport = () => {
         let startWeek, endWeek;
         if (this.state.startDate && this.state.endDate) {
@@ -183,6 +229,11 @@ export default class OpsReporting extends Component {
                     neutral={ false }
                     onClick={this.generateReport}
                 />
+                <div className={ css.exportDiv }>
+                    <ToolBoxLink onClick={this.exportTable}
+                                 label={this.props.routes[0].d2.i18n.getTranslation('export_to_xls')}
+                                 icon="get_app"/>
+                </div>
             </div>
         )
     }
@@ -453,7 +504,7 @@ export default class OpsReporting extends Component {
                             </div>
 
                             <div className={ css.divRightTbody }>
-                                <table className={ css.ReportingTable }>
+                                <table className={ css.ReportingTable } ref={(ref) => this.reportingTable = ref}>
                                     { this.renderTableHead() }
                                     { this.renderTableBody() }
                                 </table>
