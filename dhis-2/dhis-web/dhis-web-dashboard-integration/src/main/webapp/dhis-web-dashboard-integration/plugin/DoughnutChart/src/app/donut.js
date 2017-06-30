@@ -108,7 +108,7 @@ export default class Donut extends React.Component {
               endDate: this.state.valueDate
             });
 
-            axios.get(calUrl.getRowUrl(format.oriHead(), ous, calPeriod.generatePeriod(periods)), calUrl.getConfig())
+            axios.get(calUrl.getRowUrl(this.state.oriHead, ous, calPeriod.generatePeriod(periods)), calUrl.getConfig())
               .then(function (response) {
                 let totalReocrd = format.formatResponse(response.data.rows, record);
                 this.setState({totalReocrd});
