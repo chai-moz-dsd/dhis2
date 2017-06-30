@@ -70,7 +70,6 @@ class ReportingTable extends React.Component {
             _.each(response.data['organisationUnits'], function (ou) {
                 ous.push(ou.id);
             });
-
             axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(props.periods)), calUrl.getConfig())
                 .then(function (response) {
                     var rows = calRow.getRows(response.data, props.oriHead);

@@ -1,6 +1,7 @@
 .doughnutInfoStyle {
   padding-top: 80px;
   padding-left: 10px;
+  float: left;
 }
 
 .total {

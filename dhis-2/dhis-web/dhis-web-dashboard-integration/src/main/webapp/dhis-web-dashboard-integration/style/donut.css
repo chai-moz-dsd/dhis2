@@ -6,7 +6,8 @@ body {
 
 .donutpie__donutPie___3iEER {
   cursor: pointer;
-  cursor: hand; }
+  float: left;
+  width: 400px; }
 html {
   font-size: 100%; }
 
@@ -15,7 +16,8 @@ body {
 
 .donutinfo__doughnutInfoStyle___1iuv2 {
   padding-top: 80px;
-  padding-left: 10px; }
+  padding-left: 10px;
+  float: left; }
 
 .donutinfo__total___2eYsP {
   color: black; }
@@ -51,15 +53,37 @@ html {
 body {
   font-size: 1rem; }
 
+.information__information___jQwWo {
+  width: 400px;
+  float: left;
+  margin-left: 12px; }
+
+.information__describeWord___3LXZk {
+  font-size: 9pt; }
+
+.information__number___1S_-9 {
+  font-size: 14pt; }
+
+.information__information___jQwWo td:first-child {
+  background-color: orange; }
+
+.information__information___jQwWo td:nth-child(2) {
+  background-color: orangered; }
+
+.information__information___jQwWo td {
+  text-align: center;
+  padding: 3px 30px 2px 2px;
+  margin-right: 5px; }
+html {
+  font-size: 100%; }
+
+body {
+  font-size: 1rem; }
+
 .donut__titleContainer___3NX78 {
   width: 120em; }
 
 .donut__contentContainer___3PyW0 {
-  -webkit-column-count: 4;
-  /* Chrome, Safari, Opera */
-  -moz-column-count: 4;
-  /* Firefox */
-  column-count: 4;
   width: 120em; }
 
 .donut__lastWeek___1Cg4V {

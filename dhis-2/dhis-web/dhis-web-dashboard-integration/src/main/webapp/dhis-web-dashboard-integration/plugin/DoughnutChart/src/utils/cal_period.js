@@ -2,15 +2,7 @@ import epi from './cal-epi';
 import moment from 'moment';
 moment.locale('moz');
 
-var _ = {
-    each: require('lodash/each')
-};
-
 const FORMAT = 'YYYY-MM-DD';
-
-function generateWeek(tempDate) {
-    return tempDate.weekYear() + 'W' + tempDate.week()
-}
 
 module.exports = {
     getWeekRange: function (dateRange) {

@@ -1,4 +1,5 @@
 .donutPie {
   cursor:pointer;
-  cursor:hand;
+  float: left;
+  width: 400px;
 }
