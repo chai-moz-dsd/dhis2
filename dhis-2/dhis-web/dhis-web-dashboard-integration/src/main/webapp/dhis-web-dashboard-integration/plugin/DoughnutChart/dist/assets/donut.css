@@ -53,9 +53,9 @@ body {
 .information__information___jQwWo {
   width: 400px;
   float: left;
-  margin-left: 150px;
+  margin-left: 30px;
   position: relative;
-  top: -40px; }
+  top: 20px; }
   .information__information___jQwWo table {
     border-collapse: collapse; }
     .information__information___jQwWo table th, .information__information___jQwWo table td:first-child {
@@ -87,7 +87,7 @@ body {
   width: 120em; }
 
 .donut__lastWeek___1Cg4V {
-  padding-left: 40px; }
+  padding-left: 200px; }
 
 .donut__searchContainer___3z8H8 {
   width: 85%;
@@ -120,7 +120,8 @@ body {
   padding-top: 130px; }
 
 .donut__doughnut___1oVlh {
-  float: left; }
+  float: left;
+  padding-top: 12px; }
 html {
   font-size: 100%; }
 
