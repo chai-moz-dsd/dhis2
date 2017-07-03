@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 
 import {VictoryPie} from 'victory-pie';
-import {VictoryContainer} from 'victory-core';
 import {DonutColor} from './config';
 import {getIndicatorUrl} from './utils';
 import css from './donutpie.css'
-
 
 export default class DoughnutPie extends Component {
   static getY(datum) {
@@ -25,7 +23,6 @@ export default class DoughnutPie extends Component {
   }
 
   render() {
-
     return (
       <div onClick={DoughnutPie.redirectToIndex} className={css.donutPie}>
         <VictoryPie
@@ -35,8 +32,7 @@ export default class DoughnutPie extends Component {
         style={{data: {fill: DoughnutPie.getColor}}}
         labels={DoughnutPie.getLabel}
         width={400}
-        height={350}
-        containerComponent={<VictoryContainer responsive={false} title="Chart of submitting status"/>}
+        height={200}
         innerRadius={80}
       />
       </div>

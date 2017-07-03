@@ -41,7 +41,7 @@ body {
   .donutinfo__doughnutInfoStyle___2_gov table {
     font-size: 18px; }
     .donutinfo__doughnutInfoStyle___2_gov table th, .donutinfo__doughnutInfoStyle___2_gov table td {
-      padding: 10px; }
+      padding: 5px; }
 html {
   font-size: 100%; }
 
@@ -52,16 +52,24 @@ body {
   width: 400px;
   float: left;
   margin-left: 150px; }
-  .information__information___jQwWo th, .information__information___jQwWo td:first-child {
-    background: #EBEBEB;
-    padding: 5px;
-    border: 1px solid #ABABAB; }
-  .information__information___jQwWo td {
-    padding: 2px;
-    border: 1px solid #ABABAB; }
-  .information__information___jQwWo th:nth-child(2), .information__information___jQwWo td:nth-child(2), .information__information___jQwWo th:nth-child(3), .information__information___jQwWo td:nth-child(3) {
-    padding: 0 15px;
-    text-align: center; }
+  .information__information___jQwWo table {
+    border-collapse: collapse; }
+    .information__information___jQwWo table th, .information__information___jQwWo table td:first-child {
+      background: #EBEBEB;
+      padding: 8px;
+      border: 1px solid #ABABAB; }
+    .information__information___jQwWo table td {
+      padding: 2px;
+      border: 1px solid #ABABAB; }
+    .information__information___jQwWo table th:nth-child(2), .information__information___jQwWo table td:nth-child(2), .information__information___jQwWo table th:nth-child(3), .information__information___jQwWo table td:nth-child(3) {
+      padding: 0 15px;
+      text-align: center; }
+
+.information__describeWord___3LXZk {
+  font-size: 9pt; }
+
+.information__number___1S_-9 {
+  font-size: 1.2em; }
 html {
   font-size: 100%; }
 
@@ -75,7 +83,7 @@ body {
   width: 120em; }
 
 .donut__lastWeek___1Cg4V {
-  padding-left: 100px; }
+  padding-left: 40px; }
 
 .donut__searchContainer___3z8H8 {
   width: 85%;
@@ -94,7 +102,7 @@ body {
 .donut__buttonDiv___2nWMq {
   width: 20%;
   float: left;
-  margin: 2% 0%; }
+  margin: 2% 0; }
 
 .donut__buttonDiv___2nWMq .donut__reportBtn___2KUxJ {
   width: 60%;

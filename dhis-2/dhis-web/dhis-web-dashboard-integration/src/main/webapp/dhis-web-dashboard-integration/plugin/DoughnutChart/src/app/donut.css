@@ -7,7 +7,7 @@
 }
 
 .lastWeek {
-  padding-left: 100px
+  padding-left: 40px;
 }
 
 .searchContainer {
@@ -30,7 +30,7 @@
 .buttonDiv {
   width: 20%;
   float: left;
-  margin: 2% 0%;
+  margin: 2% 0;
 }
 
 .buttonDiv .reportBtn {

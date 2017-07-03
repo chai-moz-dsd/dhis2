@@ -3,19 +3,31 @@
   float: left;
   margin-left: 150px;
 
-  th, td:first-child {
-    background: #EBEBEB;
-    padding: 5px;
-    border: 1px solid #ABABAB;
-  }
+  table {
+    border-collapse: collapse;
 
-  td {
-    padding: 2px;
-    border: 1px solid #ABABAB;
-  }
+    th, td:first-child {
+      background: #EBEBEB;
+      padding: 8px;
+      border: 1px solid #ABABAB;
+    }
 
-  th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
-    padding: 0 15px;
-    text-align: center;
+    td {
+      padding: 2px;
+      border: 1px solid #ABABAB;
+    }
+
+    th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+      padding: 0 15px;
+      text-align: center;
+    }
   }
+}
+
+.describeWord {
+  font-size: 9pt;
+}
+
+.number {
+  font-size: 1.2em;
 }
