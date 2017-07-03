@@ -1,29 +1,21 @@
 .information {
   width: 400px;
   float: left;
-  margin-left: 12px;
-}
+  margin-left: 150px;
 
-.describeWord {
-  font-size: 9pt;
-}
-
-.number {
-  font-size: 14pt;
-}
-
-.information {
-  td:first-child{
-    background-color: orange;
+  th, td:first-child {
+    background: #EBEBEB;
+    padding: 5px;
+    border: 1px solid #ABABAB;
   }
 
-  td:nth-child(2){
-    background-color: orangered;
+  td {
+    padding: 2px;
+    border: 1px solid #ABABAB;
   }
 
-  td{
+  th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
+    padding: 0 15px;
     text-align: center;
-    padding: 3px 30px 2px 2px;
-    margin-right: 5px;
   }
 }

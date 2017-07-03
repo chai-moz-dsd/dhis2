@@ -199,8 +199,11 @@ export default class Donut extends React.Component {
         </div>
 
         <div className={css.contentContainer}>
-          <DoughnutPie data={this.state.data.data1}/>
-          <DoughnutInfo data={this.state.data.data1}/>
+          <div className={css.doughnut}>
+            <DoughnutPie data={this.state.data.data1}/>
+            <DoughnutInfo data={this.state.data.data1}/>
+          </div>
+
           <Information data={this.state.record}/>
         </div>
       </div>

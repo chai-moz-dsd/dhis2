@@ -1,9 +1,3 @@
-.doughnutInfoStyle {
-  padding-top: 80px;
-  padding-left: 10px;
-  float: left;
-}
-
 .total {
   color: black;
 }
@@ -34,10 +28,14 @@
   padding-left: 60px;
 }
 
-table {
-  font-size: 18px;
-}
+.doughnutInfoStyle{
+  padding-left: 30px;
 
-th, td {
-  padding: 10px;
+  table {
+    font-size: 18px;
+
+    th, td {
+      padding: 10px;
+    }
+  }
 }

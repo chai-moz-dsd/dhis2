@@ -12,135 +12,155 @@ export default class Information extends Component {
     return (
       <div className={css.information}>
         <table>
+          <thead>
+          <tr>
+              <th className={css.describeWord}>Disease</th>
+              <th className={css.describeWord}>Casos</th>
+              <th className={css.describeWord}>Obitos</th>
+          </tr>
+          </thead>
           <tbody>
           <tr>
-            <td>
-              <i className="material-icons">add_alert</i>
-              <div className={css.describeWord}>Casos</div>
+            <td className={css.describeWord}>
+              CÓLERA
             </td>
-            <td>
-              <i className="material-icons">warning</i>
-              <div className={css.describeWord}>Obitos</div>
+            <td className={css.number}>
+              {record.Ccolera}
             </td>
-          </tr>
-          <tr>
-            <td>
-              <div className={css.number}> {record.Ccolera} </div>
-              <div className={css.describeWord}>CÓLERA</div>
-            </td>
-            <td>
-              <div className={css.number}> {record.Ocolera} </div>
-              <div className={css.describeWord}>CÓLERA</div>
+            <td className={css.number}>
+              {record.Ocolera}
             </td>
           </tr>
 
           <tr>
-            <td>
-              <div className={css.bumber}> {record.Cdisenteria} </div>
-              <div className={css.describeWord}>DISENTERIA</div>
+            <td className={css.describeWord}>
+              DISENTERIA
             </td>
-            <td>
-              <div className={css.bumber}> {record.Odisenteria} </div>
-              <div className={css.describeWord}>DISENTERIA</div>
+            <td className={css.number}>
+              {record.Cdisenteria}
             </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div className={css.number}> {record.Cpeste} </div>
-              <div className={css.describeWord}>PESTE</div>
-            </td>
-            <td>
-              <div className={css.number}> {record.Opeste} </div>
-              <div className={css.describeWord}>PESTE</div>
+            <td className={css.number}>
+              {record.Odisenteria}
             </td>
           </tr>
 
           <tr>
-            <td>
-              <div className={css.number}> {record.CtetanoRecemNascidos} </div>
-              <div className={css.describeWord}>TÉTANO RECÉM NASCIDOS</div>
+            <td className={css.describeWord}>
+              PESTE
             </td>
-            <td>
-              <div className={css.number}> {record.OtetanoRecemNascidos} </div>
-              <div className={css.describeWord}>TÉTANO RECÉM NASCIDOS</div>
+            <td className={css.number}>
+              {record.Cpeste}
             </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div className={css.number}> {record.CparalisiaFlacidaAguda} </div>
-              <div className={css.describeWord}>PARALISIA FLÁCIDA AGUDA</div>
-            </td>
-            <td>
-              <div className={css.number}> {record.OparalisiaFlacidaAguda} </div>
-              <div className={css.describeWord}>PARALISIA FLÁCIDA AGUDA</div>
+            <td className={css.number}>
+              {record.Opeste}
             </td>
           </tr>
 
           <tr>
-            <td>
-              <div className={css.number}> {record.Craiva} </div>
-              <div className={css.describeWord}>RAIVA</div>
+            <td className={css.describeWord}>
+              TÉTANO RECÉM NASCIDOS
             </td>
-            <td>
-              <div className={css.number}> {record.Oraiva} </div>
-              <div className={css.describeWord}>RAIVA</div>
+            <td className={css.number}>
+              {record.CtetanoRecemNascidos}
             </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div className={css.number}> {record.Cdiarreia} </div>
-              <div className={css.describeWord}>DIARREIA</div>
-            </td>
-            <td>
-              <div className={css.number}> {record.Odiarreia} </div>
-              <div className={css.describeWord}>DIARREIA</div>
+            <td className={css.number}>
+              {record.OtetanoRecemNascidos}
             </td>
           </tr>
 
           <tr>
-            <td>
-              <div className={css.number}> {record.CmalariaClinica} </div>
-              <div className={css.describeWord}>MALARIA CLINICA</div>
+            <td className={css.describeWord}>
+              PARALISIA FLÁCIDA AGUDA
             </td>
-            <td>
-              <div className={css.number}> {record.OmalariaClinica} </div>
-              <div className={css.describeWord}>MALARIA CLINICA</div>
+            <td className={css.number}>
+              {record.CparalisiaFlacidaAguda}
             </td>
-          </tr>
-
-          <tr>
-            <td>
-              <div className={css.number}> {record.CmalariaConfirmada} </div>
-              <div className={css.describeWord}>MALARIA CONFIRMADA</div>
-            </td>
-            <td>
-              <div className={css.number}> {record.OmalariaConfirmada} </div>
-              <div className={css.describeWord}>MALARIA CONFIRMADA</div>
+            <td className={css.number}>
+              {record.OparalisiaFlacidaAguda}
             </td>
           </tr>
 
           <tr>
-            <td>
-              <div className={css.number}> {record.Cmeningite} </div>
-              <div className={css.describeWord}>MENINGITE</div>
+            <td className={css.describeWord}>
+              RAIVA
             </td>
-            <td>
-              <div className={css.number}> {record.Omeningite} </div>
-              <div className={css.describeWord}>MENINGITE</div>
+            <td className={css.number}>
+              {record.Craiva}
+            </td>
+            <td className={css.number}>
+              {record.Oraiva}
             </td>
           </tr>
 
           <tr>
-            <td>
-              <div className={css.number}> {record.Csarampo} </div>
-              <div className={css.describeWord}>SARAMPO</div>
+            <td className={css.describeWord}>
+              DIARREIA
             </td>
-            <td>
-              <div className={css.number}> {record.Osarampo} </div>
-              <div className={css.describeWord}>SARAMPO</div>
+            <td className={css.number}>
+              {record.Cdiarreia}
+            </td>
+            <td className={css.number}>
+              {record.Odiarreia}
+            </td>
+          </tr>
+
+          <tr>
+            <td className={css.describeWord}>
+              MALARIA CLINICA
+            </td>
+            <td className={css.number}>
+              {record.CmalariaClinica}
+            </td>
+            <td className={css.number}>
+              {record.CmalariaClinica}
+            </td>
+          </tr>
+
+          <tr>
+            <td className={css.describeWord}>
+              MALARIA CONFIRMADA
+            </td>
+            <td className={css.number}>
+              {record.CmalariaConfirmada}
+            </td>
+            <td className={css.number}>
+              {record.OmalariaConfirmada}
+            </td>
+          </tr>
+
+          <tr>
+            <td className={css.describeWord}>
+              MENINGITE
+            </td>
+            <td className={css.number}>
+              {record.Cmeningite}
+            </td>
+            <td className={css.number}>
+              {record.Omeningite}
+            </td>
+          </tr>
+
+          <tr>
+            <td className={css.describeWord}>
+              MENINGITE
+            </td>
+            <td className={css.number}>
+              {record.Cmeningite}
+            </td>
+            <td className={css.number}>
+              {record.Omeningite}
+            </td>
+          </tr>
+
+          <tr>
+            <td className={css.describeWord}>
+              SARAMPO
+            </td>
+            <td className={css.number}>
+              {record.Csarampo}
+            </td>
+            <td className={css.number}>
+              {record.Osarampo}
             </td>
           </tr>
           </tbody>

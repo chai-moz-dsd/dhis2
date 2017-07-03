@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import css from './donutinfo.css';
+import css from './donutinfo.scss';
 
 export default class DoughnutInfo extends Component {
 

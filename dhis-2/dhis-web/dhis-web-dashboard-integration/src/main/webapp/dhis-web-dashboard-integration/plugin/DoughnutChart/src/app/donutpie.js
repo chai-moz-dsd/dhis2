@@ -35,9 +35,9 @@ export default class DoughnutPie extends Component {
         style={{data: {fill: DoughnutPie.getColor}}}
         labels={DoughnutPie.getLabel}
         width={400}
-        height={500}
+        height={350}
         containerComponent={<VictoryContainer responsive={false} title="Chart of submitting status"/>}
-        innerRadius={100}
+        innerRadius={80}
       />
       </div>
     );
