@@ -110,7 +110,7 @@ export default class Donut extends React.Component {
 
             axios.get(calUrl.getRowUrl(this.state.oriHead, ous, calPeriod.generatePeriod(periods)), calUrl.getConfig())
               .then(function (response) {
-                let totalReocrd = format.formatResponse(response.data.rows, record);
+                let totalReocrd = format.formatResponse(response.data.rows, record, this.state.oriHead);
                 this.setState({totalReocrd});
               }.bind(this))
 
@@ -155,7 +155,7 @@ export default class Donut extends React.Component {
 
       axios.get(calUrl.getRowUrl(this.state.oriHead, ous, calPeriod.generatePeriod(periods)), calUrl.getConfig())
         .then(function (response) {
-          let totalRecord = format.formatResponse(response.data.rows, record);
+          let totalRecord = format.formatResponse(response.data.rows, record, this.state.oriHead);
           this.setState({totalRecord});
         }.bind(this))
     }
