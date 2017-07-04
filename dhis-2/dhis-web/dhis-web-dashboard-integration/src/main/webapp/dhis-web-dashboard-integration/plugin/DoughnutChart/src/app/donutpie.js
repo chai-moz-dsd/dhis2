@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {VictoryPie} from 'victory-pie';
 import {DonutColor} from './config';
 import {getIndicatorUrl} from './utils';
-import css from './donutpie.css'
+import css from './donutpie.scss'
 
 export default class DoughnutPie extends Component {
   static getY(datum) {
