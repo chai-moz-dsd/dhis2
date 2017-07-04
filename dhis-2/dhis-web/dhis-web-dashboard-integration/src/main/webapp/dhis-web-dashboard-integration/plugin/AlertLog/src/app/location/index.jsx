@@ -172,6 +172,8 @@ export default class Location extends Component {
     return (
       <div>
         <div className={ css.locationContainer }>
+          <FontIcon className={ css.gps_fixed } name='gps_fixed'>gps_fixed</FontIcon>
+
           <div className={ css.location } onClick={ ::this.handleToggle }>
             <label
               className={ `${css.locationLabel} ${currentSelected ? css.hasLocation : ''}` }>{ 'Location'}</label>

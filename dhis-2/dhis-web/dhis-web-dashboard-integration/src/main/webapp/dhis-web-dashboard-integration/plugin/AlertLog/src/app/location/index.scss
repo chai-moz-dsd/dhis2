@@ -115,10 +115,17 @@
     top: .375rem;
     font-size: 9pt;
   }
+
+  .gps_fixed{
+    width: 10%;
+    height: 100%;
+    float: left;
+    color: rgba(0, 0, 0, 0.26);
+  }
 }
 
 .location {
-  margin-left: 3rem;
+  float: left;
   height: 17px;
   line-height: 21px;
   cursor: pointer;
