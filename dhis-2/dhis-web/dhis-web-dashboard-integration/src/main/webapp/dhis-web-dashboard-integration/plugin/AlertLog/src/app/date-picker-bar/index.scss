@@ -1,0 +1,30 @@
+.clear {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 1.25rem;
+  line-height: 38px;
+  color: rgba(0, 0, 0, .26);
+  cursor: pointer;
+}
+
+.dateLabel {
+  position: absolute;
+  top: 2rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  color: rgba(0,0,0,.26);
+  pointer-events: none;
+  -webkit-transition-timing-function: cubic-bezier(.4,0,.2,1);
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+  -webkit-transition-duration: .35s;
+  transition-duration: .35s;
+  -webkit-transition-property: top,font-size,color;
+  transition-property: top,font-size,color;
+}
+
+.hasDate {
+  top: .375rem;
+  font-size: 9pt;
+  left: .1rem;
+}
