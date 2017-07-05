@@ -1,25 +1,194 @@
 import React from 'react';
-import moment from 'moment';
 import Location from './location/index.jsx';
 import {Button} from 'react-toolbox/lib/button';
 import DatePickerBar from './date-picker-bar/index.jsx'
+import ReactPaginate from 'react-paginate';
+import {COUNT_PER_PAGE} from "../configs";
+import AlertLogTable from './table/index.jsx';
 import css from './alertLog.scss';
 
 export default class Donut extends React.Component {
   constructor(props) {
     super(props);
-
-    let date = new Date();
-    let day = date.getDay() + 1;
+    const date = new Date();
+    date.setDate(1);
 
     this.state = {
       location: null,
-      valueDate: new Date(moment().subtract((day), 'days').valueOf()),
-      maxDate: new Date(moment().subtract((day), 'days').valueOf())
+      startDate: date,
+      endDate: new Date(),
+      pageCount: 1,
+      showData: [],
+      alertData: [
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdffhaskfhadskjfbaskjdfhsakfnskjd,fndsm,fnawekefjnsakdfnwejkbfasmndf ajehfbakjsfbadsjfbashjdfbwkjefbwejaf asdj',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '12334',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+        {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        }, {
+          province: '21312313123',
+          district: 'xfasf',
+          facility: 'fadsfaf',
+          alerttext: 'ihfkajsdf',
+          datesend: '2017-08-87',
+          time: '2019W19'
+        },
+      ]
     }
   }
 
   updateDoughnutState() {
+
+    this.setState({pageCount: Math.ceil(this.state.alertData.length / COUNT_PER_PAGE)});
+
+    const arrayTmp = this.state.alertData.slice(0, COUNT_PER_PAGE);
+    this.setState({showData: arrayTmp});
+
     console.log('updateDoughnutState function test');
   }
 
@@ -32,8 +201,12 @@ export default class Donut extends React.Component {
   };
 
   onClean(key) {
-    this.setState({[key]: null});
+    this.setState({[key]: null})
   }
+
+  onChange = (item, value) => {
+    this.setState({[item]: value});
+  };
 
   handleSelectedLocation(location) {
     this.setState({location})
@@ -43,18 +216,57 @@ export default class Donut extends React.Component {
     console.log('filter data function test');
   };
 
+  handlePageClick = (data) => {
+    let selected = data.selected;
+    this.setState({showData: this.state.alertData.slice(selected * COUNT_PER_PAGE, (selected + 1) * COUNT_PER_PAGE)});
+  };
+
+  renderPagination() {
+    const showData = this.state.alertData;
+
+    return !!showData.length && (
+        <div className={css.commentBox}>
+          <ReactPaginate previousLabel={"previous"}
+                         nextLabel={"next"}
+                         breakLabel={<a href="">...</a>}
+                         breakClassName={"break-me"}
+                         pageCount={this.state.pageCount}
+                         marginPagesDisplayed={4}
+                         pageRangeDisplayed={2}
+                         onPageChange={this.handlePageClick}
+                         containerClassName={"pagination"}
+                         subContainerClassName={"pages pagination"}
+                         activeClassName={"active"}/>
+        </div>
+      );
+  }
+
   render() {
+    const {startDate, endDate} = this.state;
+
     return (
       <div className={css.alertLogDiv}>
         <div className={css.searchContainer}>
           <div className={css.datepickerDiv}>
-            <DatePickerBar
-              label={ 'Epidemiological Week' }
-              value={this.state.valueDate}
-              maxDate={this.state.maxDate}
-              onChange={this.handleChange.bind(this, 'valueDate')}
-              onClean={this.onClean.bind(this, 'valueDate')}
-            />
+            <div className={css.datePickerBar}>
+              <DatePickerBar
+                label={'Start Date'}
+                value={startDate}
+                maxDate={this.state.endDate}
+                onClean={this.onClean.bind(this, 'startDate')}
+                onChange={this.onChange.bind(this, 'startDate')}
+              />
+            </div>
+
+            <div className={css.datePickerBar}>
+              <DatePickerBar
+                label={'End Date'}
+                value={endDate}
+                minDate={this.state.startDate}
+                onClean={this.onClean.bind(this, 'endDate')}
+                onChange={this.onChange.bind(this, 'endDate')}
+              />
+            </div>
           </div>
 
           <div className={css.locationDiv}>
@@ -72,6 +284,14 @@ export default class Donut extends React.Component {
           </div>
         </div>
 
+        <div className={css.tableContainer}>
+          <AlertLogTable showData={this.state.showData}/>
+
+          <div className={css.pagination}>
+            {this.renderPagination()}
+          </div>
+        </div>
       </div>
-    )}
+    )
+  }
 }
