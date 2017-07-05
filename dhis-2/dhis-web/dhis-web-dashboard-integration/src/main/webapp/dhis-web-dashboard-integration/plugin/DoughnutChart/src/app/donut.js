@@ -5,7 +5,7 @@ import epi from './epi';
 import DoughnutPie from './donutpie';
 import DoughnutInfo from './donutinfo';
 import Information from './information';
-import css from './donut.scss';
+import css from './donut.css';
 import corsRequest from './cors-request';
 import DatePickerBar from './date-picker-bar/index.jsx'
 import Location from './location/index.jsx';
