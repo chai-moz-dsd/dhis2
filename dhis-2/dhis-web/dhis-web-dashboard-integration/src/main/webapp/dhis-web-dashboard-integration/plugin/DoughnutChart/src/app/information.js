@@ -112,7 +112,7 @@ export default class Information extends Component {
               {record.CmalariaClinica}
             </td>
             <td className={css.number}>
-              {record.CmalariaClinica}
+              {record.OmalariaClinica}
             </td>
           </tr>
 
@@ -125,18 +125,6 @@ export default class Information extends Component {
             </td>
             <td className={css.number}>
               {record.OmalariaConfirmada}
-            </td>
-          </tr>
-
-          <tr>
-            <td className={css.describeWord}>
-              MENINGITE
-            </td>
-            <td className={css.number}>
-              {record.Cmeningite}
-            </td>
-            <td className={css.number}>
-              {record.Omeningite}
             </td>
           </tr>
 

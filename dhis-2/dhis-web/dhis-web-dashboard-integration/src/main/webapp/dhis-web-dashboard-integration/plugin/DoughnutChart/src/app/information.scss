@@ -8,15 +8,18 @@
   table {
     border-collapse: collapse;
 
-    th, td:first-child {
+    th {
       background: #EBEBEB;
       padding: 8px;
-      border: 1px solid #ABABAB;
+    }
+
+    td:first-child {
+      padding: 8px;
+      font-weight: 600;
     }
 
     td {
       padding: 2px;
-      border: 1px solid #ABABAB;
     }
 
     th:nth-child(2), td:nth-child(2), th:nth-child(3), td:nth-child(3) {
