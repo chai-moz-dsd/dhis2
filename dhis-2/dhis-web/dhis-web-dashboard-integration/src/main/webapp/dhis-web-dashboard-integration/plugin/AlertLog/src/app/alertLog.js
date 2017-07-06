@@ -1,10 +1,13 @@
 import React from 'react';
+import moment from 'moment';
 import Location from './location/index.jsx';
 import {Button} from 'react-toolbox/lib/button';
 import DatePickerBar from './date-picker-bar/index.jsx'
 import ReactPaginate from 'react-paginate';
 import {COUNT_PER_PAGE} from "../configs";
 import AlertLogTable from './table/index.jsx';
+import corsRequest from '../utils/cors-request.js';
+import calUrl from '../utils/cal-url.js';
 import css from './alertLog.scss';
 
 export default class Donut extends React.Component {
@@ -183,13 +186,15 @@ export default class Donut extends React.Component {
   }
 
   updateDoughnutState() {
+    corsRequest.sendCORSRequest('GET', calUrl.getAlertLog('MOH12345678', this.state.startDate.valueOf(), this.state.endDate.valueOf()), (res) => {
+      let data = JSON.parse(res);
 
-    this.setState({pageCount: Math.ceil(this.state.alertData.length / COUNT_PER_PAGE)});
+      this.setState({alertData: data});
+      this.setState({pageCount: Math.ceil(data.length / COUNT_PER_PAGE)});
 
-    const arrayTmp = this.state.alertData.slice(0, COUNT_PER_PAGE);
-    this.setState({showData: arrayTmp});
-
-    console.log('updateDoughnutState function test');
+      const arrayTmp = this.state.alertData.slice(0, COUNT_PER_PAGE);
+      this.setState({showData: arrayTmp});
+    });
   }
 
   componentDidMount() {
@@ -213,7 +218,23 @@ export default class Donut extends React.Component {
   }
 
   filterData = () => {
-    console.log('filter data function test');
+    if (!(this.state.startDate && this.state.endDate && this.state.location)) {
+      alert('Please provide start date, end date and location.');
+    } else {
+      let startDay = moment(this.state.startDate);
+      let endDay = moment(this.state.endDate);
+      let location = this.state.location.id;
+
+      corsRequest.sendCORSRequest('GET', calUrl.getAlertLog(location, startDay.valueOf(), endDay.valueOf()), (res) => {
+        let data = JSON.parse(res);
+
+        this.setState({alertData: data});
+        this.setState({pageCount: Math.ceil(data.length / COUNT_PER_PAGE)});
+
+        const arrayTmp = this.state.alertData.slice(0, COUNT_PER_PAGE);
+        this.setState({showData: arrayTmp});
+      });
+    }
   };
 
   handlePageClick = (data) => {
@@ -226,17 +247,17 @@ export default class Donut extends React.Component {
 
     return !!showData.length && (
         <div className={css.commentBox}>
-          <ReactPaginate previousLabel={"previous"}
-                         nextLabel={"next"}
+          <ReactPaginate previousLabel={'previous'}
+                         nextLabel={'next'}
                          breakLabel={<a href="">...</a>}
-                         breakClassName={"break-me"}
+                         breakClassName={'break-me'}
                          pageCount={this.state.pageCount}
                          marginPagesDisplayed={4}
                          pageRangeDisplayed={2}
                          onPageChange={this.handlePageClick}
-                         containerClassName={"pagination"}
-                         subContainerClassName={"pages pagination"}
-                         activeClassName={"active"}/>
+                         containerClassName={'pagination'}
+                         subContainerClassName={'pages pagination'}
+                         activeClassName={'active'}/>
         </div>
       );
   }

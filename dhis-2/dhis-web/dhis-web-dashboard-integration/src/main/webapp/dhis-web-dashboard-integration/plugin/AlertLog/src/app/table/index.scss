@@ -1,0 +1,22 @@
+.shortInfo {
+  width: 9%;
+  height: 50px;
+  background: #EBEBEB;
+}
+
+.longInfo {
+  width: 50px;
+  background: #EBEBEB;
+}
+
+td, th {
+  text-align: center;
+  border: 1px solid #F8F8F8;
+}
+
+.alertText {
+  border: 1px solid;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
