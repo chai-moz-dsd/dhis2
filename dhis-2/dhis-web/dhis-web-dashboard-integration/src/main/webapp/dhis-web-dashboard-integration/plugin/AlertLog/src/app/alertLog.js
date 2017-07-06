@@ -4,13 +4,13 @@ import Location from './location/index.jsx';
 import {Button} from 'react-toolbox/lib/button';
 import DatePickerBar from './date-picker-bar/index.jsx'
 import ReactPaginate from 'react-paginate';
-import {COUNT_PER_PAGE} from "../configs";
+import {COUNT_PER_PAGE} from '../configs';
 import AlertLogTable from './table/index.jsx';
 import corsRequest from '../utils/cors-request.js';
 import calUrl from '../utils/cal-url.js';
 import css from './alertLog.scss';
 
-export default class Donut extends React.Component {
+export default class AlertLog extends React.Component {
   constructor(props) {
     super(props);
     const date = new Date();
@@ -22,166 +22,7 @@ export default class Donut extends React.Component {
       endDate: new Date(),
       pageCount: 1,
       showData: [],
-      alertData: [
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdffhaskfhadskjfbaskjdfhsakfnskjd,fndsm,fnawekefjnsakdfnwejkbfasmndf ajehfbakjsfbadsjfbashjdfbwkjefbwejaf asdj',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '12334',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-        {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        }, {
-          province: '21312313123',
-          district: 'xfasf',
-          facility: 'fadsfaf',
-          alerttext: 'ihfkajsdf',
-          datesend: '2017-08-87',
-          time: '2019W19'
-        },
-      ]
+      alertData: []
     }
   }
 

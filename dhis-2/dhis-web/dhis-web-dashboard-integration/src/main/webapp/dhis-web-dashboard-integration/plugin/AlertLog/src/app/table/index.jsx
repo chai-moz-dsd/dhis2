@@ -45,24 +45,24 @@ export default class AlertLogTable extends Component {
     items.forEach((item) => {
       rows.push((
         <tr>
-          <td>
+          <td className={css.shortInfo}>
             {item.province}
           </td>
-          <td>
+          <td className={css.shortInfo}>
             {item.district}
           </td>
-          <td>
+          <td className={css.longInfo}>
             {item.facility}
           </td>
-          <td>
+          <td className={css.longInfo}>
             <div className={css.alertText} title={item.alerttext}>
               {item.alerttext}
             </div>
           </td>
-          <td>
+          <td className={css.shortInfo}>
             {item.datesend}
           </td>
-          <td>
+          <td className={css.shortInfo}>
             {item.time}
           </td>
         </tr>

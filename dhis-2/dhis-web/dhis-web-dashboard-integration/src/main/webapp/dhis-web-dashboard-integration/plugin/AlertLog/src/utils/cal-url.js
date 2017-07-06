@@ -1,8 +1,3 @@
-let _ = {
-  each: require('lodash/each'),
-  trimEnd: require('lodash/trimEnd')
-};
-
 module.exports = {
   getConfig: function () {
     return {};

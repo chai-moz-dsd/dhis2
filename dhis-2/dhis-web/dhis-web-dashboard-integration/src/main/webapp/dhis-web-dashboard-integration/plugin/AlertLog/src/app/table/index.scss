@@ -1,11 +1,14 @@
 .shortInfo {
   width: 9%;
   height: 50px;
-  background: #EBEBEB;
 }
 
 .longInfo {
-  width: 50px;
+  width: 20%;
+  height: 50px;
+}
+
+th {
   background: #EBEBEB;
 }
 
@@ -15,8 +18,9 @@ td, th {
 }
 
 .alertText {
-  border: 1px solid;
+  width: 27em;
   white-space: nowrap;
   text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
   overflow: hidden;
 }
