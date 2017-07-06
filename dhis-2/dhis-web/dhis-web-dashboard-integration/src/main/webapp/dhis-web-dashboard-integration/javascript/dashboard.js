@@ -70,6 +70,7 @@ $(document).ready(function () {
     });
 
     $("#app-doughnut").hide();
+    $("#app-alertLog").hide();
 });
 
 //------------------------------------------------------------------------------
@@ -428,6 +429,7 @@ dhis2.db.renderDashboardListLoadFirst = function () {
     });
 
     $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "doughnut", "name": i18n_donut_name}));
+    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "alertLog", "name": i18n_alert_log}));
 
 }
 
@@ -552,17 +554,23 @@ dhis2.db.renderDashboard = function (id) {
 
     $("#dashboard-" + dhis2.db.current()).addClass("currentDashboard");
 
-    $dou = $("#app-doughnut");
-
     if (id === 'doughnut') {
         $d = $("#contentList").empty();
 
-        $dou.show();
+        $("#app-doughnut").show();
         console.log('doughnut clear!!!!', $d);
         dhis2.db.dashboardReady();
         return;
+    } else if (id === 'alertLog') {
+        $d = $("#contentList").empty();
+
+        $("#app-alertLog").show();
+        console.log('app-alertLog clear!!!!', $d);
+        dhis2.db.dashboardReady();
+        return;
     } else {
-        $dou.hide();
+        $("#app-alertLog").hide();
+        $("#app-doughnut").hide();
     }
 
 
