@@ -182,6 +182,10 @@ public class DefaultObjectBundleValidationService implements ObjectBundleValidat
             }
 
             validation.addTypeReport( typeReport );
+
+            for (ErrorReport report : typeReport.getErrorReports()) {
+                log.info("validation result is: class " + typeReport.getKlass().getName() +
+                        " errorCode " + report.getErrorCode());
         }
 
         validateAtomicity( bundle, validation );
