@@ -15,7 +15,7 @@
       <result name="success" type="velocity">/main.vm</result>
       <param name="page">/dhis-web-dashboard-integration/dashboard.vm</param>
       <param name="hideMenu">true</param>
-      <param name="stylesheets">style/dashboard.css,style/donut.css,style/alertLog.css,../dhis-web-commons/material-design-icons/material-icons.css</param>
+      <param name="stylesheets">style/dashboard.css,style/donut.css,style/alertLog.css,../dhis-web-commons/material-design-icons/material-icons.css,../dhis-web-commons/bootstrap/css/bootstrap.min.css</param>
     </action>
 
     <!-- Message -->

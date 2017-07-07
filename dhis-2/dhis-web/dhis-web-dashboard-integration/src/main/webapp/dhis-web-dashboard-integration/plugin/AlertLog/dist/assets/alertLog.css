@@ -588,7 +588,6 @@ body {
     color: rgba(0, 0, 0, 0.26); }
 
 .index__location___1yz9R {
-  float: left;
   height: 17px;
   line-height: 21px;
   cursor: pointer;
@@ -1024,11 +1023,13 @@ body {
 
 .index__shortInfo___3u5II {
   width: 9%;
-  height: 50px; }
+  height: 50px;
+  text-align: center; }
 
 .index__longInfo___3WnRf {
   width: 20%;
-  height: 50px; }
+  height: 50px;
+  text-align: center; }
 
 th {
   background: #EBEBEB; }
@@ -1043,6 +1044,9 @@ td, th {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   overflow: hidden; }
+
+table {
+  border-collapse: collapse; }
 html {
   font-size: 100%; }
 

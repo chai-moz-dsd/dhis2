@@ -1,11 +1,13 @@
 .shortInfo {
   width: 9%;
   height: 50px;
+  text-align: center;
 }
 
 .longInfo {
   width: 20%;
   height: 50px;
+  text-align: center;
 }
 
 th {
@@ -23,4 +25,8 @@ td, th {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   overflow: hidden;
+}
+
+table {
+  border-collapse: collapse;
 }
