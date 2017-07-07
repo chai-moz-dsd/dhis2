@@ -557,15 +557,19 @@ dhis2.db.renderDashboard = function (id) {
         $d = $("#contentList").empty();
 
         $("#app-doughnut").show();
-        console.log('doughnut clear!!!!', $d);
+        $("#app-alertLog").hide();
         dhis2.db.dashboardReady();
+
+        console.log('doughnut clear!!!!', $d);
         return;
     } else if (id === 'alertLog') {
         $d = $("#contentList").empty();
 
         $("#app-alertLog").show();
-        console.log('app-alertLog clear!!!!', $d);
+        $("#app-doughnut").hide();
         dhis2.db.dashboardReady();
+
+        console.log('app-alertLog clear!!!!', $d);
         return;
     } else {
         $("#app-alertLog").hide();
