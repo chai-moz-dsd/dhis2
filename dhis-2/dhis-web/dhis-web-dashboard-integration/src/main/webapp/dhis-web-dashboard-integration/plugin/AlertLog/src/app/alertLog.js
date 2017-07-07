@@ -8,7 +8,7 @@ import {COUNT_PER_PAGE} from '../configs';
 import AlertLogTable from './table/index.jsx';
 import corsRequest from '../utils/cors-request.js';
 import calUrl from '../utils/cal-url.js';
-import css from './alertLog.scss';
+import css from './alertLog.css';
 
 export default class AlertLog extends React.Component {
   constructor(props) {
