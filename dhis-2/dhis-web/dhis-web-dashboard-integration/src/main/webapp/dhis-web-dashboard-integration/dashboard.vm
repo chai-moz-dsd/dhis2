@@ -56,13 +56,13 @@ jQuery( document ).ready( function() {
 &nbsp;&#8226;&nbsp; <span id="dashboardTitle"></span>
 </h3></div>-->
 
-<div id="dashboardMenu" class="horizontalMenu">
-    <ul>
-        <li><a class="greyButtonLink" href="profile.action?id=${currentUser.uid}">$i18n.getString( "profile" )</a></li>
-        <li><a class="greyButtonLink" href="message.action">$i18n.getString( "messages" )</a></li>
-        <li><a class="greyButtonLink" href="interpretation.action">$i18n.getString( "interpretations" )</a></li>
-    </ul>
-</div>
+##<div id="dashboardMenu" class="horizontalMenu">
+##    <ul>
+##        <li><a class="greyButtonLink" href="profile.action?id=${currentUser.uid}">$i18n.getString( "profile" )</a></li>
+##        <li><a class="greyButtonLink" href="message.action">$i18n.getString( "messages" )</a></li>
+##        <li><a class="greyButtonLink" href="interpretation.action">$i18n.getString( "interpretations" )</a></li>
+##    </ul>
+##</div>
 
 <div id="searchDiv"><input type="text" id="searchField" autocomplete="off" placeholder="$i18n.getString( 'search_for_users_charts_maps_reports' )"></div>
 <div id="hitDiv"></div>
