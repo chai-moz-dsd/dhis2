@@ -317,7 +317,6 @@ input[type=text],input[type=password],input[type=email],textarea
 {
   background-color: #cbddeb;
   background-repeat: repeat-x;
-  text-align: left;
   color: #39547d;
   padding:3px 0px 2px 6px;
   border-style: solid;
