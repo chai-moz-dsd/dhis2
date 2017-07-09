@@ -84,7 +84,7 @@ export default class AlertLog extends React.Component {
   };
 
   renderPagination() {
-    const showData = this.state.alertData;
+    const showData = this.state.showData;
 
     return !!showData.length && (
         <div className={css.commentBox}>
