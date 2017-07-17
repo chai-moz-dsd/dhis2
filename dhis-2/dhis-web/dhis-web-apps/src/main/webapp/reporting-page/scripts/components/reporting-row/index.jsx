@@ -44,7 +44,7 @@ class ReportingRow extends React.Component {
                 {
                     this.props.row.values.map(function (column, index) {
                         return <td key={index}
-                                   className={`${(isHighlightRow ? css.highlightRow : (column.highlight ? css.highlight : ''))}`}
+                                   className={`${(isHighlightRow ? css.highlightRow : '')}`}
                                    onClick={this.handleClickNormalCell.bind(this, id)}>
                             {column.value}
                         </td>;
