@@ -63,7 +63,8 @@ body {
       padding: 8px; }
     .information__information___jQwWo table td:first-child {
       padding: 8px;
-      font-weight: 600; }
+      font-weight: 600;
+      text-align: left; }
     .information__information___jQwWo table td {
       padding: 2px; }
     .information__information___jQwWo table th:nth-child(2), .information__information___jQwWo table td:nth-child(2), .information__information___jQwWo table th:nth-child(3), .information__information___jQwWo table td:nth-child(3) {
