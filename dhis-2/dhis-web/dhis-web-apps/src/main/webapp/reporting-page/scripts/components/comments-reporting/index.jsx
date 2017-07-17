@@ -229,11 +229,11 @@ export default class CommentsReporting extends Component {
         return (
             <thead>
             <tr>
-                <th>Province</th>
-                <th>District</th>
-                <th>Facility</th>
-                <th>Comment</th>
-                <th>Epidemiological Week</th>
+                <th>Província</th>
+                <th>Distrito</th>
+                <th>Instalação</th>
+                <th>Comente</th>
+                <th>Semana Epidemiológica</th>
             </tr>
             </thead>
         )

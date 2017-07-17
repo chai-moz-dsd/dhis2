@@ -225,12 +225,12 @@ export default class MessageReporting extends Component {
         return (
             <thead>
             <tr>
-                <th>Province</th>
-                <th>District</th>
-                <th>Facility</th>
-                <th>Message</th>
-                <th>Submitted Date</th>
-                <th>Received Date</th>
+                <th>Província</th>
+                <th>Distrito</th>
+                <th>Instalação</th>
+                <th>Mensagem</th>
+                <th>Data enviada</th>
+                <th>Data Recebida</th>
             </tr>
             </thead>
         )
