@@ -229,7 +229,7 @@ export default class MessageReporting extends Component {
                 <th>Distrito</th>
                 <th>Instalação</th>
                 <th>Mensagem</th>
-                <th>Data enviada</th>
+                <th>Data Enviada</th>
                 <th>Data Recebida</th>
             </tr>
             </thead>
