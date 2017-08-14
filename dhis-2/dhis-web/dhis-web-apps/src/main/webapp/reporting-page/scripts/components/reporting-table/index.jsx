@@ -62,19 +62,18 @@ class ReportingTable extends React.Component {
     }
 
     fetchRows(props) {
-        var mohId = 'MOH12345678';
+        let mohId = 'MOH12345678';
 
         axios.get(calUrl.getRelatedOuList(), calUrl.getConfig()).then(function (response) {
-            var ous = [];
+            let ous = [];
 
             _.each(response.data['organisationUnits'], function (ou) {
                 ous.push(ou.id);
             });
             axios.get(calUrl.getRowUrl(props.oriHead, ous, calPeriod.generatePeriod(props.periods)), calUrl.getConfig())
                 .then(function (response) {
-                    var rows = calRow.getRows(response.data, props.oriHead);
-
-                    var promises = [];
+                    let rows = calRow.getRows(response.data, props.oriHead);
+                    let promises = [];
                     _.each(rows, function (row) {
                         promises.push(axios.get(calUrl.getOuLevel(row.id)).then(function (response) {
                             row.level = response.data.level - 1;
@@ -101,10 +100,10 @@ class ReportingTable extends React.Component {
     }
 
     changeToEpiWeek(week) {
-        var CALENDAR_FORMAT = 'DD/MM/YYYY';
-        var WEEK_FORMAT = 'YYYYW';
-        var week_start = moment(week, WEEK_FORMAT).add(-1, 'day').format(CALENDAR_FORMAT);
-        var week_end = moment(week, WEEK_FORMAT).add(5, 'day').format(CALENDAR_FORMAT);
+        let CALENDAR_FORMAT = 'DD/MM/YYYY';
+        let WEEK_FORMAT = 'YYYYW';
+        let week_start = moment(week, WEEK_FORMAT).add(-1, 'day').format(CALENDAR_FORMAT);
+        let week_end = moment(week, WEEK_FORMAT).add(5, 'day').format(CALENDAR_FORMAT);
 
         return ' (' + week_start + ' to ' + week_end + ')';
     }
@@ -122,7 +121,7 @@ class ReportingTable extends React.Component {
     }
 
     addChildren = (id, children) => {
-        var rows = _.cloneDeep(this.state.rows);
+        let rows = _.cloneDeep(this.state.rows);
         calRow.appendChildren(rows, id, children);
         this.setState({rows: rows});
     };
@@ -132,7 +131,7 @@ class ReportingTable extends React.Component {
     };
 
     tableToExcel() {
-        var uri = 'data:application/vnd.ms-excel;base64,',
+        let uri = 'data:application/vnd.ms-excel;base64,',
             template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" ' +
                 'xmlns:x="urn:schemas-microsoft-com:office:excel" ' +
                 'xmlns="http://www.w3.org/TR/REC-html40">' +
@@ -159,17 +158,17 @@ class ReportingTable extends React.Component {
                 })
             };
         return function (table, name) {
-            var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
+            let ctx = {worksheet: name || 'Worksheet', table: table.innerHTML};
             return uri + base64(format(template, ctx));
         }
     }
 
     exportTable = () => {
         if (this.reportingTable) {
-            var toExcel = this.tableToExcel();
-            var periods = this.props.periods;
-            var title = periods.length > 1 ? periods[0] + "-" + periods[periods.length - 1] + "-" + this.props.currentCategory : periods[0] + "-" + this.props.currentCategory;
-            var a = document.createElement('a');
+            let toExcel = this.tableToExcel();
+            let periods = this.props.periods;
+            let title = periods.length > 1 ? periods[0] + "-" + periods[periods.length - 1] + "-" + this.props.currentCategory : periods[0] + "-" + this.props.currentCategory;
+            let a = document.createElement('a');
             a.download = title + '.xls';
             a.href = toExcel(this.reportingTable, title);
             document.body.appendChild(a);

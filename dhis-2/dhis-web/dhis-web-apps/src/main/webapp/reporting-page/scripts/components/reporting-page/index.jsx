@@ -50,12 +50,12 @@ class ReportingPage extends React.Component {
     fetchHead() {
         axios.get(calUrl.getIdUrl(), calUrl.getConfig())
             .then(function (response) {
-                var mappings = response.data['dataElements'];
+                let mappings = response.data['dataElements'];
                 axios.get(calUrl.getHeadUrl(), calUrl.getConfig())
                     .then(function (response) {
-                        var oriHead = response.data['dataElementOperands'];
-                        var filter = calHead.getFilter(oriHead, mappings);
-                        var head = calHead.getHead(oriHead, mappings);
+                        let oriHead = response.data['dataElementOperands'];
+                        let filter = calHead.getFilter(oriHead, mappings);
+                        let head = calHead.getHead(oriHead, mappings);
                         this.setState({
                             head: head,
                             oriHead: oriHead,
@@ -72,12 +72,12 @@ class ReportingPage extends React.Component {
     }
 
     onChangeCategory(currentCategory) {
-        this.setState({currentCategory})
+        this.setState({currentCategory});
     }
 
     updateTable = (data, state) => {
-        var status = {};
-        var weekRange = calPeriod.getWeekRange(state);
+        let status = {};
+        let weekRange = calPeriod.getWeekRange(state);
         _.each(data, function (element) {
             if (element.nodes.length > 0) {
                 _.each(element.nodes, function (node) {
@@ -87,7 +87,8 @@ class ReportingPage extends React.Component {
                 status[element.text] = element.state.selected;
             }
         });
-        var filteredHead = calHead.updateHead(this.state.oriHead, status);
+
+        let filteredHead = calHead.updateHead(this.state.oriHead, status);
         this.setState({
             head: calHead.getHead(filteredHead, this.state.mappings),
             updatedOriHead: filteredHead,
