@@ -120,6 +120,20 @@ class ReportingTable extends React.Component {
             })
     }
 
+    fetchWeekRowsProps(props) {
+        let mohId = 'MOH12345678';
+
+        axios.get(calUrl.getWeekRowUrl(props.oriHead, calPeriod.generatePeriod(props.periods), mohId), calUrl.getConfig())
+            .then((res) => {
+                let rows = calRow.getRows(res.data, props.oriHead, 'pe').map((row) => {
+                    row.name += this.changeToEpiWeek(row.name);
+                    return {...row, level: DEFAULT_TEXT_LEVEL}
+                });
+
+                this.setState({rows})
+            })
+    }
+
     addChildren = (id, children) => {
         let rows = _.cloneDeep(this.state.rows);
         calRow.appendChildren(rows, id, children);
@@ -254,8 +268,13 @@ class ReportingTable extends React.Component {
     };
 
     componentWillReceiveProps(props) {
+        // this.setState({rows: []});
         if (props.currentCategory == 'location') {
             this.fetchRows(props);
+        }
+
+        if (props.currentCategory == 'week') {
+            this.fetchWeekRowsProps(props);
         }
     }
 }
