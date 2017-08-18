@@ -242,7 +242,7 @@ public class JdbcAnalyticsManager
         }
         else if ( params.isAggregationType( AVERAGE_INT ) || params.isAggregationType( AVERAGE_INT_DISAGGREGATION ) )
         {
-            sql = "avg(case when value > 0 then value else 0 end)";
+            sql = "avg(case when value > 0 then value end)";
         }
         else if ( params.isAggregationType( AVERAGE_BOOL ) )
         {
@@ -250,27 +250,27 @@ public class JdbcAnalyticsManager
         }
         else if ( params.isAggregationType( COUNT ) )
         {
-            sql = "count(case when value > 0 then value else 0 end)";
+            sql = "count(case when value > 0 then value end)";
         }
         else if ( params.isAggregationType( STDDEV ) )
         {
-            sql = "stddev(case when value > 0 then value else 0 end)";
+            sql = "stddev(case when value > 0 then value end)";
         }
         else if ( params.isAggregationType( VARIANCE ) )
         {
-            sql = "variance(case when value > 0 then value else 0 end)";
+            sql = "variance(case when value > 0 then value end)";
         }
         else if ( params.isAggregationType( MIN ) )
         {
-            sql = "min(case when value > 0 then value else 0 end)";
+            sql = "min(case when value > 0 then value end)";
         }
         else if ( params.isAggregationType( MAX ) )
         {
-            sql = "max(case when value > 0 then value else 0 end)";
+            sql = "max(case when value > 0 then value end)";
         }
         else // SUM, AVERAGE_SUM_INT_DISAGGREGATION and undefined //TODO
         {
-            sql = "sum(case when value > 0 then value else 0 end)";
+            sql = "sum(case when value > 0 then value end)";
         }
 
         return sql;
