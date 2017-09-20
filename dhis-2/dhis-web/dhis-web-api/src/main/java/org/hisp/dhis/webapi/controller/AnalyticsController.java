@@ -151,7 +151,7 @@ public class AnalyticsController {
         contextUtils.configureResponse(response, ContextUtils.CONTENT_TYPE_JSON, CacheStrategy.RESPECT_SYSTEM_SETTING);
         Grid grid = analyticsService.getAggregatedDataValues(params, getItemsFromParam(columns), getItemsFromParam(rows));
 
-        highLightForDataValues(params, grid);
+//        highLightForDataValues(params, grid);
 
         model.addAttribute("model", grid);
         model.addAttribute("viewClass", "detailed");
