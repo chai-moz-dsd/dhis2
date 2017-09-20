@@ -12,7 +12,7 @@ var getRow = function (rows, head, ouId) {
         _.each(rows, function (row) {
             if (row[0] === id && row[1] === ouId) {
                 hasValue = true;
-                values.push({value: row[2].replace('.0', ''), highlight: row[3].indexOf('true') != -1});
+                values.push({value: row[2].replace('.0', '')});
             }
         });
 

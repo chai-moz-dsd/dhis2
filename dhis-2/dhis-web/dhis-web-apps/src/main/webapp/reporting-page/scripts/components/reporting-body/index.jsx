@@ -28,7 +28,7 @@ class ReportingBody extends React.Component {
     }
 
     render() {
-        var rows = this.generateRows(this.props.data, this.state);
+        let rows = this.generateRows(this.props.data, this.state);
 
         return (
             <tbody className="ReportingBody">
