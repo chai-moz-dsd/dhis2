@@ -3,7 +3,6 @@
   background: #F2F2F1;
   min-width: 330px;
   height: 100vh;
-  overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -74,6 +73,7 @@
   padding-left: 3px;
   padding-right: 3px;
   table-layout: fixed;
+  background-color: white;
 }
 
 @-moz-keyframes spin {
@@ -251,7 +251,6 @@
       .divRightTbody {
         position: absolute;
         height: 100%;
-        overflow-y: scroll;
         overflow-x: hidden;
         top: 0;
         left: 0;
