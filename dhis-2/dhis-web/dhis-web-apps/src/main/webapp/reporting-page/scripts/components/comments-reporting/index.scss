@@ -96,9 +96,10 @@
 
 .divTable {
   overflow: hidden;
+  height: 100%;
   .tableContainer {
-    height: 650px;
-    width: 1090px;
+    height: 100%;
+    width: 100%;
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;

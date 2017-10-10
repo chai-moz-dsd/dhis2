@@ -1,11 +1,11 @@
 .content {
-  height: 100vh;
+  height: 1000px;
   background: white;
 }
 
 .tableContainer {
-  height: 745px;
-  width: 1080px;
+  height: 100%;
+  width: 100%;
   position: relative;
   overflow-x: hidden;
   overflow-y: auto;
@@ -24,11 +24,12 @@
 
 .divTable {
   overflow: hidden;
+  height: 100%;
 }
 
 .divRight {
-  width: 1080px;
-  height: 754px;
+  width: 100%;
+  height: 100%;
   overflow-y: hidden;
   position: absolute;
 }
@@ -42,7 +43,7 @@
 
 .divRightTbody {
   position: absolute;
-  height: 745px;
+  height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
   top: 0;
