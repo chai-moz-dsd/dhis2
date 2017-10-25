@@ -542,8 +542,7 @@ dhis2.db.renderDashboard = function (id) {
         return;
     }
 
-
-
+    console.log(id)
 
     dhis2.db.reportTableItems = [];
 
@@ -560,9 +559,9 @@ dhis2.db.renderDashboard = function (id) {
 
         $("#app-doughnut").show();
         $("#app-alertLog").hide();
+        $("#app-submission").hide();
         dhis2.db.dashboardReady();
 
-        console.log('doughnut clear!!!!', $d);
         return;
     } else if (id === 'alertLog') {
         $d = $("#contentList").empty();
