@@ -13,7 +13,7 @@ module.exports = {
   getDSDBaseUrl: function () {
     let protocol = window.location.protocol;
     let hostname = window.location.hostname;
-    return protocol + '//' + hostname + ':8000/api/';
+    return protocol + '//' + hostname + ':50000/api/';
   },
 
   getIdUrl: function () {
@@ -45,20 +45,20 @@ module.exports = {
     let st = 'startDay=' + startDay;
     let ed = 'endDay=' + endDay;
     let page_index = 'page_index=' + index;
-    return this.getBaseUrl() + 'data_submission?' + ou + '&' + st + '&' + ed +'&' + page_index;
+    return this.getDSDBaseUrl() + 'data_submission?' + ou + '&' + st + '&' + ed +'&' + page_index;
   },
 
   getSubmissionNumber: function (location, startDay, endDay) {
     let ou = 'location=' + location;
     let st = 'startDay=' + startDay;
     let ed = 'endDay=' + endDay;
-    return this.getBaseUrl() + 'data_submission?' + ou + '&' + st + '&' + ed;
+    return this.getDSDBaseUrl() + 'data_submission?' + ou + '&' + st + '&' + ed;
   },
 
   getSubmissionExcel: function (location, startDay, endDay) {
     let ou = 'location=' + location;
     let st = 'startDay=' + startDay;
     let ed = 'endDay=' + endDay;
-    return this.getBaseUrl() + 'data_excel?' + ou + '&' + st + '&' + ed;
+    return this.getDSDBaseUrl() + 'data_excel?' + ou + '&' + st + '&' + ed;
   }
 };
