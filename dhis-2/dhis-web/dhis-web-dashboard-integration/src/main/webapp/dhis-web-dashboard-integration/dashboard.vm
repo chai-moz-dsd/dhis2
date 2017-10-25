@@ -94,6 +94,7 @@ jQuery( document ).ready( function() {
 
 <div id="app-doughnut" ></div>
 <div id="app-alertLog" ></div>
+<div id="app-submission" ></div>
 
 <div id="chartView" class="page">
     <div id="chartViewHeader">
@@ -145,4 +146,5 @@ jQuery( document ).ready( function() {
 
 <script type="text/javascript" src="javascript/donut.js"></script>
 <script type="text/javascript" src="javascript/alertLog.js"></script>
+<script type="text/javascript" src="javascript/submission.js"></script>
 
