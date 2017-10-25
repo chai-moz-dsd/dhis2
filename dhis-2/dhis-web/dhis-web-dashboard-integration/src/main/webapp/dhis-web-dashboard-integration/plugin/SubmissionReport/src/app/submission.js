@@ -57,10 +57,7 @@ export default class Submission extends React.Component {
   }
 
   exportTable = () => {
-    console.log('test');
-    corsRequest.sendCORSRequest('GET', calUrl.getSubmissionExcel(this.state.location.id, this.state.startDate.valueOf(), this.state.endDate.valueOf()), (res) => {
-      console.log(res);
-    });
+    window.open(calUrl.getSubmissionExcel(this.state.location.id, this.state.startDate.valueOf(), this.state.endDate.valueOf()),'_blank');
   };
 
   filterData = () => {
@@ -146,7 +143,7 @@ export default class Submission extends React.Component {
                     onClick={this.filterData}/>
           </div>
 
-          <div className={ css.exportDiv }>
+          <div className={css.exportDiv}>
             <Link onClick={this.exportTable} label={'export_to_xls'}
                   icon="get_app"/>
           </div>
