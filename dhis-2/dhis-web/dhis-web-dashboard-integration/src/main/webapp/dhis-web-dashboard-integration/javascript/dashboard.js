@@ -71,6 +71,7 @@ $(document).ready(function () {
 
     $("#app-doughnut").hide();
     $("#app-alertLog").hide();
+    $("#app-submission").hide();
 });
 
 //------------------------------------------------------------------------------
@@ -430,6 +431,7 @@ dhis2.db.renderDashboardListLoadFirst = function () {
 
     $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "doughnut", "name": i18n_donut_name}));
     $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "alertLog", "name": i18n_alert_log}));
+    $l.append($.tmpl(dhis2.db.tmpl.dashboardLink, {"id": "submission", "name": i18n_submission}));
 }
 
 dhis2.db.clearDashboard = function () {
@@ -533,7 +535,7 @@ dhis2.db.drawWideItems = function () {
 dhis2.db.renderDashboardWithEvent = function (id) {
 	dhis2.db.renderDashboard(id);
     dhis2.db.registerDashboardViewEvent();
-}	
+}
 
 dhis2.db.renderDashboard = function (id) {
     if (!id) {
@@ -567,13 +569,23 @@ dhis2.db.renderDashboard = function (id) {
 
         $("#app-alertLog").show();
         $("#app-doughnut").hide();
+        $("#app-submission").hide();
         dhis2.db.dashboardReady();
 
-        console.log('app-alertLog clear!!!!', $d);
+        return;
+    } else if(id === 'submission'){
+        $d = $("#contentList").empty();
+
+        $("#app-submission").show();
+        $("#app-doughnut").hide();
+        $("#app-alertLog").hide();
+        dhis2.db.dashboardReady();
+
         return;
     } else {
         $("#app-alertLog").hide();
         $("#app-doughnut").hide();
+        $("#app-submission").hide();
     }
 
 
