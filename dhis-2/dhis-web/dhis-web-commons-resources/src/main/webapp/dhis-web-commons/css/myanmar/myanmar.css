@@ -318,7 +318,7 @@ input[type=text],input[type=password],input[type=email],textarea
 {
   text-align: left;
   color: #39547d;
-  padding: 3px 0 3px 1px;
+  padding: 4px 6px 4px 6px;
   font-size: 13px;
   font-weight: bold;
   border-collapse: collapse;
