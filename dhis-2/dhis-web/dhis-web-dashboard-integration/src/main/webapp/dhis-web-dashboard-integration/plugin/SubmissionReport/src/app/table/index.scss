@@ -7,14 +7,21 @@ td, th {
   border: 1px solid #F8F8F8;
   white-space: nowrap;
   text-overflow: ellipsis;
+  padding: 1px 5px;
 }
 
 table {
   border-collapse: collapse;
   table-layout: fixed;
+
+  tr {
+    th{
+      text-align: center;
+    }
+  }
 }
 
-tbody tr td:nth-child(1), td:nth-child(2), td:nth-child(3).td:last-child {
+tbody tr td:nth-child(1), td:nth-child(2), td:nth-child(3), td:last-child {
   text-align: left;
 }
 
