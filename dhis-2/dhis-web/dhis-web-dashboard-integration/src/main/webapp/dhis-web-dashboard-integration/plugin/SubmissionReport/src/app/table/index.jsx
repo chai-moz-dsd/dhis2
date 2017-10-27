@@ -166,7 +166,7 @@ export default class SubmissionTable extends Component {
     return (
       <thead>
       <tr>
-        <th rowSpan={7}>Facility</th>
+        <th rowSpan={7} className={css.leftTableTh}>Facility</th>
       </tr>
       </thead>
     )
