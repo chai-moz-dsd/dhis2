@@ -91,17 +91,18 @@ export default class SubmissionTable extends Component {
     )
   }
 
-  renderTableBody(showData) {
+  renderTableBody(showData, isFixed) {
 
     return !!showData.length && (
       <tbody>
       {showData.map((items) => {
-        let list = [];
-        this.renderTableRows([items], list);
+          let list = [];
+          isFixed ? this.renderLeftTableRows([items], list)
+            : this.renderTableRows([items], list);
 
-        return list.map((item) => {
-          return item;
-        });
+          return list.map((item) => {
+            return item;
+          });
         }
       )}
       </tbody>
@@ -112,9 +113,9 @@ export default class SubmissionTable extends Component {
     items.forEach((item) => {
       rows.push((
         <tr>
-          <td>{item.facility}</td>
-          <td>{item.district}</td>
-          <td>{item.province}</td>
+          <td title={item.facility}>{item.facility}</td>
+          <td title={item.district}>{item.district}</td>
+          <td title={item.province}>{item.province}</td>
           <td>{item.week_end_date}</td>
           <td>{item.week}</td>
           <td>{item.cases_colera}</td>
@@ -155,7 +156,27 @@ export default class SubmissionTable extends Component {
           <td>{item.deaths_measles_v_9_23}</td>
           <td>{item.cases_measles_24}</td>
           <td>{item.deaths_measles_24}</td>
-          <td>{item.skippable_open_field}</td>
+          <td title={item.skippable_open_field}>{item.skippable_open_field}</td>
+        </tr>
+      ))
+    });
+  }
+
+  renderLeftTableHead() {
+    return (
+      <thead>
+      <tr>
+        <th rowSpan={7}>Facility</th>
+      </tr>
+      </thead>
+    )
+  }
+
+  renderLeftTableRows(items, rows) {
+    items.forEach((item) => {
+      rows.push((
+        <tr>
+          <td title={item.facility}>{item.facility}</td>
         </tr>
       ))
     });
@@ -163,10 +184,17 @@ export default class SubmissionTable extends Component {
 
   render() {
     return (
-      <table>
-        {this.renderTableHead()}
-        {this.renderTableBody(this.props.showData)}
-      </table>
+      <div className={css.tableScroll}>
+        <table className={css.leftTable}>
+          {this.renderLeftTableHead()}
+          {this.renderTableBody(this.props.showData, true)}
+        </table>
+
+        <table className={css.rightTable}>
+          {this.renderTableHead()}
+          {this.renderTableBody(this.props.showData, false)}
+        </table>
+      </div>
     )
   }
 }

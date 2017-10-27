@@ -5,8 +5,29 @@ th {
 td, th {
   text-align: center;
   border: 1px solid #F8F8F8;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 table {
   border-collapse: collapse;
+  table-layout: fixed;
+}
+
+tbody tr td:nth-child(1), td:nth-child(2), td:nth-child(3).td:last-child {
+  text-align: left;
+}
+
+.tableScroll {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.leftTable {
+  float: left;
+  position: absolute;
+  z-index: 999;
+  background-color: white;
 }

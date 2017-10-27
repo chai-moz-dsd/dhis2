@@ -25,13 +25,13 @@
 }
 
 .buttonDiv {
-  width: 20%;
+  width: 10%;
   float: left;
   margin: 2% 0;
 }
 
 .buttonDiv .reportBtn {
-  width: 60%;
+  width: 100%;
   height: 35px;
   background: #1b5184;
   font-size: 14px;
@@ -45,11 +45,17 @@
 }
 
 .tableContainer {
-  width: 90%;
-  margin: 0 5%;
-  height: 500px;
+  width: 60%;
+  height: 620px;
+  margin: auto;
 }
 
 .commentBox {
   text-align: center;
+}
+
+.exportDiv {
+  width: 10%;
+  float: left;
+  margin: 2.5% 0.5%;
 }

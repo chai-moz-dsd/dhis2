@@ -144,7 +144,7 @@ export default class Submission extends React.Component {
           </div>
 
           <div className={css.exportDiv}>
-            <Link onClick={this.exportTable} label={'export_to_xls'}
+            <Link onClick={this.exportTable} label={'export to xls'}
                   icon="get_app"/>
           </div>
         </div>
