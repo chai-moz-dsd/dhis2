@@ -1,28 +1,29 @@
-th {
-  background: #EBEBEB;
-}
-
-td, th {
-  text-align: center;
-  border: 1px solid #F8F8F8;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding: 1px 5px;
-}
-
 table {
   border-collapse: collapse;
   table-layout: fixed;
 
   tr {
-    th{
+    th {
       text-align: center;
+      padding: 0 7px;
     }
   }
-}
 
-tbody tr td:nth-child(1), td:nth-child(2), td:nth-child(3), td:last-child {
-  text-align: left;
+  th {
+    background: #EBEBEB;
+  }
+
+  td, th {
+    text-align: center;
+    border: 1px solid #F8F8F8;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 1px 5px;
+  }
+
+  tbody tr td:nth-child(1), td:nth-child(2), td:nth-child(3), td:last-child {
+    text-align: left;
+  }
 }
 
 .tableScroll {

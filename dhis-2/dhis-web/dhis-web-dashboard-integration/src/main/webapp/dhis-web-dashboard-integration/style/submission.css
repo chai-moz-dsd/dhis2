@@ -1063,24 +1063,22 @@ html {
 body {
   font-size: 1rem; }
 
-th {
-  background: #EBEBEB; }
-
-td, th {
-  text-align: center;
-  border: 1px solid #F8F8F8;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  padding: 1px 5px; }
-
 table {
   border-collapse: collapse;
   table-layout: fixed; }
   table tr th {
-    text-align: center; }
-
-tbody tr td:nth-child(1), td:nth-child(2), td:nth-child(3), td:last-child {
-  text-align: left; }
+    text-align: center;
+    padding: 0 7px; }
+  table th {
+    background: #EBEBEB; }
+  table td, table th {
+    text-align: center;
+    border: 1px solid #F8F8F8;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 1px 5px; }
+  table tbody tr td:nth-child(1), table td:nth-child(2), table td:nth-child(3), table td:last-child {
+    text-align: left; }
 
 .index__tableScroll___3eg5y {
   width: 100%;
@@ -1142,7 +1140,7 @@ body {
 
 .submission__tableContainer___3MQy6 {
   width: 70%;
-  height: 520px;
+  height: 570px;
   margin: auto 8%; }
 
 .submission__commentBox___1m8kB {
