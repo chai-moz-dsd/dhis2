@@ -13,37 +13,37 @@ export default class SubmissionTable extends Component {
         <th rowSpan={3}>Facility</th>
         <th rowSpan={3}>District</th>
         <th rowSpan={3}>Province</th>
-        <th rowSpan={3} className={css.headerTh}>Week End Date</th>
-        <th rowSpan={3} className={css.headerTh}>Week</th>
+        <th rowSpan={3}>Week End Date</th>
+        <th rowSpan={3}>Week</th>
 
-        <th colSpan={2} rowSpan={2} className={css.headerTh}>001 CÓLERA</th>
-        <th colSpan={2} rowSpan={2} className={css.headerTh}>009.2 DISENTERIA</th>
-        <th colSpan={2} rowSpan={2} className={css.headerTh}>020 PESTE</th>
-        <th colSpan={2} rowSpan={2} className={css.headerTh}>037 TÉTANO RECÉM NASCIDOS</th>
-        <th colSpan={2} rowSpan={2} className={css.headerTh}>045 PARALISIA FLÁCIDA AGUDA</th>
-        <th colSpan={2} rowSpan={2} className={css.headerTh}>071 RAIVA</th>
-        <th colSpan={6} rowSpan={1} className={css.headerTh}>DIARREIA 009</th>
-        <th colSpan={4} rowSpan={1} className={css.headerTh}>MALARIA CLINICA</th>
-        <th colSpan={4} rowSpan={1} className={css.headerTh}>MALARIA CONFIRMADA</th>
-        <th colSpan={4} rowSpan={1} className={css.headerTh}>MENINGITE 036</th>
+        <th colSpan={2} rowSpan={2}>001 CÓLERA</th>
+        <th colSpan={2} rowSpan={2}>009.2 DISENTERIA</th>
+        <th colSpan={2} rowSpan={2}>020 PESTE</th>
+        <th colSpan={2} rowSpan={2}>037 TÉTANO RECÉM NASCIDOS</th>
+        <th colSpan={2} rowSpan={2}>045 PARALISIA FLÁCIDA AGUDA</th>
+        <th colSpan={2} rowSpan={2}>071 RAIVA</th>
+        <th colSpan={6} rowSpan={1}>DIARREIA 009</th>
+        <th colSpan={4} rowSpan={1}>MALARIA CLINICA</th>
+        <th colSpan={4} rowSpan={1}>MALARIA CONFIRMADA</th>
+        <th colSpan={4} rowSpan={1}>MENINGITE 036</th>
         <th colSpan={8} rowSpan={1}>SARAMPO 055</th>
         <th colSpan={2} rowSpan={3}>Comments</th>
       </tr>
 
       <tr>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>0-4 anos</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>5-14 anos</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>15 anos+</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>0-4 anos</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>5 anos+</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>0-4 anos</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>5 anos+</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>0-4 anos</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>5 anos+</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>Menos de 9 meses</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>9-23 meses(Não Vacinados)</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>9-23 meses(Vacinados)</th>
-        <th colSpan={2} rowSpan={1} className={css.headerTh}>24 meses e mais</th>
+        <th colSpan={2} rowSpan={1}>0-4 anos</th>
+        <th colSpan={2} rowSpan={1}>5-14 anos</th>
+        <th colSpan={2} rowSpan={1}>15 anos+</th>
+        <th colSpan={2} rowSpan={1}>0-4 anos</th>
+        <th colSpan={2} rowSpan={1}>5 anos+</th>
+        <th colSpan={2} rowSpan={1}>0-4 anos</th>
+        <th colSpan={2} rowSpan={1}>5 anos+</th>
+        <th colSpan={2} rowSpan={1}>0-4 anos</th>
+        <th colSpan={2} rowSpan={1}>5 anos+</th>
+        <th colSpan={2} rowSpan={1}>Menos de 9 meses</th>
+        <th colSpan={2} rowSpan={1}>9-23 meses(Não Vacinados)</th>
+        <th colSpan={2} rowSpan={1}>9-23 meses(Vacinados)</th>
+        <th colSpan={2} rowSpan={1}>24 meses e mais</th>
       </tr>
 
       <tr>
