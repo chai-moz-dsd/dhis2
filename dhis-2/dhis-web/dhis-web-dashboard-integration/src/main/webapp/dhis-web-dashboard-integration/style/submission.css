@@ -1066,11 +1066,10 @@ body {
 table {
   border-collapse: collapse;
   table-layout: fixed; }
-  table tr th {
+  table th {
+    background: #EBEBEB;
     text-align: center;
     padding: 0 7px; }
-  table th {
-    background: #EBEBEB; }
   table td, table th {
     text-align: center;
     border: 1px solid #F8F8F8;
@@ -1094,6 +1093,9 @@ table {
 
 .index__leftTableTh___23j69 {
   height: 75px; }
+
+.index__headerTh___1Rh_d {
+  padding: 0 7px; }
 html {
   font-size: 100%; }
 

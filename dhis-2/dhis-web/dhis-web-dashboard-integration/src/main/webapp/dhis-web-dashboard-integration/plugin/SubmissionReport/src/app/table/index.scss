@@ -2,15 +2,10 @@ table {
   border-collapse: collapse;
   table-layout: fixed;
 
-  tr {
-    th {
-      text-align: center;
-      padding: 0 7px;
-    }
-  }
-
   th {
     background: #EBEBEB;
+    text-align: center;
+    padding: 0 7px;
   }
 
   td, th {
@@ -42,4 +37,8 @@ table {
 
 .leftTableTh {
   height: 75px;
+}
+
+.headerTh {
+  padding: 0 7px;
 }
